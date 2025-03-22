@@ -165,8 +165,8 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
                   <Slider
                     id="search-temperature"
                     min={0}
-                    max={1}
-                    step={0.1}
+                    max={2}
+                    step={0.01}
                     value={temperature}
                     onValueChange={setTemperature}
                     disabled={isLoading}
