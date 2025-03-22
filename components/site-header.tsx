@@ -41,7 +41,7 @@ export function SiteHeader({ lang, dictionary, isAdmin = false }: SiteHeaderProp
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <div className="flex gap-6 md:gap-10">
           <Link href={`/${lang}`} className="flex items-center space-x-2">
-            <span className="inline-block font-bold">Multilingual Blog</span>
+            <span className="inline-block font-bold">{dictionary.site.title}</span>
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link

@@ -73,4 +73,7 @@ export default {
   footer: {
     copyright: "© 2023 多语言博客。保留所有权利。",
   },
+  site: {
+    title: "多语言博客",
+  },
 };

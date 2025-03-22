@@ -60,4 +60,7 @@ export default {
   footer: {
     copyright: "© 2023 Blog Multilingüe. Todos los derechos reservados.",
   },
+  site: {
+    title: "Blog Multilingüe",
+  },
 };

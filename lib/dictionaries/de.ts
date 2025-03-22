@@ -61,4 +61,7 @@ export default {
   footer: {
     copyright: "© 2023 Mehrsprachiger Blog. Alle Rechte vorbehalten.",
   },
+  site: {
+    title: "Mehrsprachiger Blog",
+  },
 };

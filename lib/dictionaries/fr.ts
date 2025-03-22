@@ -61,4 +61,7 @@ export default {
   footer: {
     copyright: "© 2023 Blog Multilingue. Tous droits réservés.",
   },
+  site: {
+    title: "Blog Multilingue",
+  },
 };
