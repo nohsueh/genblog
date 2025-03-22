@@ -15,7 +15,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { analyzeLink, analyzeSearch } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { error } from "console";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -46,7 +45,7 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
             <>
               {dictionary.admin.create.error}
               <br />
-              {err instanceof Error ? err.message : String(error)}
+              {err instanceof Error ? err.message : String(err)}
             </>
           );
         },
@@ -75,7 +74,7 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
             <>
               {dictionary.admin.create.error}
               <br />
-              {err instanceof Error ? err.message : String(error)}
+              {err instanceof Error ? err.message : String(err)}
             </>
           );
         },
