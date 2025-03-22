@@ -213,6 +213,8 @@ async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
     url += `&metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
   }
 
+  console.log({ url, metadata, headers });
+
   const response = await fetch(url, {
     headers,
   });
