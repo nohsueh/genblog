@@ -27,7 +27,11 @@ export default async function Home({
           </div>
         </section>
 
-        <BlogList lang={lang} dictionary={dictionary} />
+        <BlogList
+          lang={lang}
+          dictionary={dictionary}
+          group={process.env.SEARCHLYSIS_GROUP_NAME}
+        />
       </main>
       <SiteFooter lang={lang} dictionary={dictionary} />
     </div>
