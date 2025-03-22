@@ -21,7 +21,7 @@ export default async function EditBlogPage(
   // This will redirect if not authenticated
   await requireAdmin(lang)
 
-  const dictionary = await getDictionary(lang)
+  const dictionary = getDictionary(lang)
 
   try {
     const post = await getAnalysis(id)

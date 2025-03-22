@@ -19,7 +19,7 @@ export default async function CreateBlogPage(
   // This will redirect if not authenticated
   await requireAdmin(lang)
 
-  const dictionary = await getDictionary(lang)
+  const dictionary = getDictionary(lang)
 
   return (
     <div className="flex min-h-screen flex-col">
