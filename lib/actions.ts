@@ -220,6 +220,7 @@ async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
   });
 
   if (!response.ok) {
+    console.error(response.statusText);
     throw new Error("Failed to fetch total blogs");
   }
 
