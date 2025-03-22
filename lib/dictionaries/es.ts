@@ -63,9 +63,9 @@ export default {
     logout: "Cerrar Sesión",
   },
   footer: {
-    copyright: "© 2025 Blog Multilingüe. Todos los derechos reservados.",
+    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
   },
   site: {
-    title: "Blog Multilingüe",
+    title: "Demostración de Searchlysis Blog Builder",
   },
 };

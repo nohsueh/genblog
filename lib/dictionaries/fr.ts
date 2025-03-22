@@ -64,9 +64,9 @@ export default {
     logout: "Déconnexion",
   },
   footer: {
-    copyright: "© 2025 Blog Multilingue. Tous droits réservés.",
+    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
   },
   site: {
-    title: "Blog Multilingue",
+    title: "Démo du constructeur de blogs Searchlysis",
   },
 };

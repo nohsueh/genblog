@@ -74,9 +74,9 @@ export default {
     logout: "Logout",
   },
   footer: {
-    copyright: "© 2025 Multilingual Blog. All rights reserved.",
+    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
   },
   site: {
-    title: "Multilingual Blog",
+    title: "Searchlysis Blog Builder Demo",
   },
 };

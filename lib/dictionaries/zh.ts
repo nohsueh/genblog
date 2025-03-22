@@ -72,9 +72,9 @@ export default {
     logout: "退出登录",
   },
   footer: {
-    copyright: "© 2025 多语言博客。保留所有权利。",
+    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
   },
   site: {
-    title: "多语言博客",
+    title: "Searchlysis 博客生成器演示",
   },
 };
