@@ -26,13 +26,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getPublishedBlogs } from "@/lib/actions";
+import { getPublishedBlogs, updateAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface AdminDashboardProps {
   lang: Locale;
@@ -73,6 +74,31 @@ export function AdminDashboard({
   const filteredPosts = posts.filter((post) =>
     post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleToggleVisibility = async (post: AnalysisResult) => {
+    try {
+      const formData = new FormData();
+      formData.append("analysisId", post.analysisId);
+      formData.append("content", post.analysis.content);
+      formData.append(
+        "group",
+        post.metadata?.group === groupName ? "" : groupName
+      );
+
+      const updatedPost = await updateAnalysis(formData);
+
+      // Update local state
+      setPosts(
+        posts.map((p) =>
+          p.analysisId === updatedPost.analysisId ? updatedPost : p
+        )
+      );
+
+    } catch (error) {
+      toast.error(dictionary.admin.edit.error);
+      console.error("Failed to update post visibility:", error);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -154,15 +180,19 @@ export function AdminDashboard({
                     )}
                   </TableCell>
                   <TableCell>
-                    {post.metadata?.group === groupName ? (
-                      <Badge variant="outline">
-                        {dictionary.admin.dashboard.visible}
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary">
-                        {dictionary.admin.dashboard.hidden}
-                      </Badge>
-                    )}
+                    <Button
+                      variant={
+                        post.metadata?.group === groupName
+                          ? "outline"
+                          : "secondary"
+                      }
+                      size="sm"
+                      onClick={() => handleToggleVisibility(post)}
+                    >
+                      {post.metadata?.group === groupName
+                        ? dictionary.admin.dashboard.visible
+                        : dictionary.admin.dashboard.hidden}
+                    </Button>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
