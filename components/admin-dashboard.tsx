@@ -56,12 +56,7 @@ export function AdminDashboard({
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const group =
-          selectedGroup === "all"
-            ? undefined
-            : selectedGroup === "none"
-            ? ""
-            : selectedGroup;
+        const group = selectedGroup === groupName ? selectedGroup : undefined;
         const result = await getPublishedBlogs(currentPage, 20, group);
         setPosts(result.blogs);
         setTotal(result.total);
@@ -113,9 +108,6 @@ export function AdminDashboard({
                 {dictionary.admin.dashboard.allGroups}
               </SelectItem>
               <SelectItem value={groupName}>{groupName}</SelectItem>
-              <SelectItem value="none">
-                {dictionary.admin.dashboard.hidden}
-              </SelectItem>
             </SelectContent>
           </Select>
         </div>
