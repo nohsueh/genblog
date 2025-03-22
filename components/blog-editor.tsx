@@ -1,0 +1,131 @@
+"use client";
+
+import { Markdown } from "@/components/markdown";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { updateAnalysis } from "@/lib/actions";
+import type { Locale } from "@/lib/i18n-config";
+import type { AnalysisResult } from "@/types/api";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+
+interface BlogEditorProps {
+  post: AnalysisResult;
+  lang: Locale;
+  dictionary: any;
+}
+
+export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
+  const [content, setContent] = useState(post.analysis.content);
+  const [group, setGroup] = useState(post.metadata?.group || "");
+  const [isLoading, setIsLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("edit");
+  const router = useRouter();
+
+  async function handleSubmit(formData: FormData) {
+    setIsLoading(true);
+
+    try {
+      // Update the form data with the current state values
+      formData.set("content", content);
+      formData.set("group", group);
+
+      await updateAnalysis(formData);
+
+      toast.success(dictionary.admin.edit.success);
+
+      router.push(`/${lang}/admin/dashboard`);
+      router.refresh();
+    } catch (error) {
+      toast.error(dictionary.admin.edit.error, {
+        description: error instanceof Error ? error.message : String(error),
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6">{dictionary.admin.edit.title}</h1>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>{post.analysis.title}</CardTitle>
+          <CardDescription>{post.analysis.url}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form action={handleSubmit} className="space-y-6">
+            <input type="hidden" name="analysisId" value={post.analysisId} />
+
+            <div className="space-y-2">
+              <Label htmlFor="group">{dictionary.admin.edit.group}</Label>
+              <Input
+                id="group"
+                name="group"
+                value={group}
+                onChange={(e) => setGroup(e.target.value)}
+                placeholder="e.g., technology, health, etc."
+                disabled={isLoading}
+              />
+              <p className="text-sm text-muted-foreground">
+                {dictionary.admin.edit.groupHelp}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="content">{dictionary.admin.edit.content}</Label>
+              <Tabs
+                defaultValue="edit"
+                value={activeTab}
+                onValueChange={setActiveTab}
+              >
+                <TabsList className="grid w-full grid-cols-2">
+                  <TabsTrigger value="edit">
+                    {dictionary.admin.edit.editTab}
+                  </TabsTrigger>
+                  <TabsTrigger value="preview">
+                    {dictionary.admin.edit.previewTab}
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="edit" className="pt-4">
+                  <Textarea
+                    id="content"
+                    name="content"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    rows={20}
+                    disabled={isLoading}
+                    className="font-mono text-sm"
+                  />
+                </TabsContent>
+                <TabsContent value="preview" className="pt-4">
+                  <div className="border rounded-md p-4 min-h-[400px] prose prose-gray dark:prose-invert max-w-none">
+                    <Markdown content={content} />
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading
+                ? dictionary.admin.edit.saving
+                : dictionary.admin.edit.save}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
