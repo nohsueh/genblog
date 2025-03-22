@@ -72,7 +72,7 @@ export default {
     logout: "退出登录",
   },
   footer: {
-    copyright: "© 2023 多语言博客。保留所有权利。",
+    copyright: "© 2025 多语言博客。保留所有权利。",
   },
   site: {
     title: "多语言博客",

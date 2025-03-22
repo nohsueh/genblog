@@ -38,13 +38,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getPublishedBlogs, logoutAdmin, updateAnalysis } from "@/lib/actions";
+import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface AdminDashboardProps {
@@ -60,7 +59,6 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
   const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -85,32 +83,9 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
     fetchPosts();
   }, [selectedGroup, currentPage]);
 
-  const handleGroupChange = async (newGroup: string) => {
-    try {
-      await Promise.all(
-        selectedPosts.map((postId) => {
-          const formData = new FormData();
-          formData.append("analysisId", postId);
-          formData.append("group", newGroup === "none" ? "" : newGroup);
-          return updateAnalysis(formData);
-        })
-      );
-      setSelectedPosts([]);
-      router.refresh();
-    } catch (error) {
-      console.error("Failed to update posts:", error);
-    }
-  };
-
   const filteredPosts = posts.filter((post) =>
     post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const handleLogout = async () => {
-    await logoutAdmin();
-    router.push(`/${lang}/admin`);
-    router.refresh();
-  };
 
   return (
     <div className="space-y-6">
@@ -157,31 +132,6 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
           </Select>
         </div>
       </div>
-
-      {selectedPosts.length > 0 && (
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">
-            {selectedPosts.length} {dictionary.admin.dashboard.selected}
-          </span>
-          <Select onValueChange={handleGroupChange}>
-            <SelectTrigger className="w-[200px]">
-              <SelectValue
-                placeholder={dictionary.admin.dashboard.changeGroup}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem
-                value={process.env.SEARCHLYSIS_GROUP_NAME || "default"}
-              >
-                {process.env.SEARCHLYSIS_GROUP_NAME || "NAME"}
-              </SelectItem>
-              <SelectItem value="none">
-                {dictionary.admin.dashboard.hidden}
-              </SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      )}
 
       {loading ? (
         <div className="text-center py-10">

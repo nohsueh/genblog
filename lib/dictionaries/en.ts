@@ -74,9 +74,9 @@ export default {
     logout: "Logout",
   },
   footer: {
-    copyright: "© 2023 Multilingual Blog. All rights reserved.",
+    copyright: "© 2025 Multilingual Blog. All rights reserved.",
   },
   site: {
     title: "Multilingual Blog",
-  }
+  },
 };

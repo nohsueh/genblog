@@ -64,7 +64,7 @@ export default {
     logout: "Abmelden",
   },
   footer: {
-    copyright: "© 2023 Mehrsprachiger Blog. Alle Rechte vorbehalten.",
+    copyright: "© 2025 Mehrsprachiger Blog. Alle Rechte vorbehalten.",
   },
   site: {
     title: "Mehrsprachiger Blog",

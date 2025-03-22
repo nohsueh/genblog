@@ -64,7 +64,7 @@ export default {
     logout: "Déconnexion",
   },
   footer: {
-    copyright: "© 2023 Blog Multilingue. Tous droits réservés.",
+    copyright: "© 2025 Blog Multilingue. Tous droits réservés.",
   },
   site: {
     title: "Blog Multilingue",

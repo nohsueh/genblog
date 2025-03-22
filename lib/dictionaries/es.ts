@@ -63,7 +63,7 @@ export default {
     logout: "Cerrar Sesión",
   },
   footer: {
-    copyright: "© 2023 Blog Multilingüe. Todos los derechos reservados.",
+    copyright: "© 2025 Blog Multilingüe. Todos los derechos reservados.",
   },
   site: {
     title: "Blog Multilingüe",
