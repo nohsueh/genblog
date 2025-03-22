@@ -1,7 +1,3 @@
-import { Suspense } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import type { Locale } from "@/lib/i18n-config";
 import {
   Card,
   CardContent,
@@ -9,18 +5,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { formatDate } from "@/lib/utils";
-import { getPublishedBlogs } from "@/lib/actions";
-import { Badge } from "@/components/ui/badge";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationLink,
-  PaginationPrevious,
   PaginationNext,
+  PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getPublishedBlogs } from "@/lib/actions";
+import type { Locale } from "@/lib/i18n-config";
+import { formatDate } from "@/lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
 
 interface BlogListProps {
   lang: Locale;
@@ -69,11 +68,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   {post.analysis.title}
                 </Link>
               </CardTitle>
-              <div className="flex items-center gap-2 mb-2">
-                {post.metadata?.group && (
-                  <Badge variant="outline">{post.metadata.group}</Badge>
-                )}
-              </div>
               <div className="line-clamp-3 text-sm text-muted-foreground mb-2">
                 {post.analysis.content.substring(0, 150)}...
               </div>

@@ -76,7 +76,7 @@ export function AdminDashboard({
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-wrap justify-between items-center gap-2">
         <h1 className="text-3xl font-bold">
           {dictionary.admin.dashboard.title}
         </h1>
