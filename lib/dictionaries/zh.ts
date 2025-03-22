@@ -25,6 +25,7 @@ export default {
       search: "搜索博客...",
       filter: "按组筛选",
       allGroups: "所有组",
+      otherGroups: "其他组",
       noBlogs: "没有找到博客",
       edit: "编辑",
       delete: "删除",

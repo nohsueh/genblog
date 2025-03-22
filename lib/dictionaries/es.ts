@@ -23,6 +23,7 @@ export default {
       search: "Buscar blogs...",
       filter: "Filtrar por grupo",
       allGroups: "Todos los Grupos",
+      otherGroups: "Otros Grupos",
       noBlogs: "No se encontraron blogs",
       edit: "Editar",
       delete: "Eliminar",

@@ -24,6 +24,7 @@ export default {
       search: "Rechercher des blogs...",
       filter: "Filtrer par groupe",
       allGroups: "Tous les Groupes",
+      otherGroups: "Autres Groupes",
       noBlogs: "Aucun blog trouvé",
       edit: "Modifier",
       delete: "Supprimer",

@@ -193,12 +193,33 @@ export async function listAnalyses(
 
 export async function getPublishedBlogs(
   pageNum = 1,
-  pageSize = 10,
+  pageSize = 20,
   group?: string
-): Promise<AnalysisResult[]> {
+): Promise<{ blogs: AnalysisResult[]; total: number }> {
   // If no group is specified, use the NAME from env
-  const metadata = group ? { group } : { group: process.env.SEARCHLYSIS_GROUP_NAME };
+  const metadata = group
+    ? { group }
+    : { group: process.env.SEARCHLYSIS_GROUP_NAME };
 
   const allBlogs = await listAnalyses(pageNum, pageSize, metadata);
-  return allBlogs;
+  const total = await getTotalBlogs(metadata);
+  return { blogs: allBlogs, total };
+}
+
+async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
+  const response = await fetch(
+    `${API_URL}/v1/analyses/count?${new URLSearchParams(
+      metadata as Record<string, string>
+    )}`,
+    {
+      headers,
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch total blogs");
+  }
+
+  const data = await response.json();
+  return data.count;
 }

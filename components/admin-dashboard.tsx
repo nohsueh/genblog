@@ -29,7 +29,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { listAnalyses, logoutAdmin } from "@/lib/actions";
+import {
+  listAnalyses,
+  logoutAdmin,
+  updateAnalysis,
+  getPublishedBlogs,
+} from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
@@ -37,6 +42,15 @@ import { Pencil, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface AdminDashboardProps {
   lang: Locale;
@@ -48,16 +62,24 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<string>("all");
+  const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const metadata =
-          selectedGroup === "all" ? undefined : { group: selectedGroup };
-        const data = await listAnalyses(1, 100, metadata);
-        setPosts(data);
+        const group =
+          selectedGroup === "all"
+            ? undefined
+            : selectedGroup === "none"
+            ? ""
+            : selectedGroup;
+        const result = await getPublishedBlogs(currentPage, 20, group);
+        setPosts(result.blogs);
+        setTotal(result.total);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
@@ -66,7 +88,24 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
     };
 
     fetchPosts();
-  }, [selectedGroup]);
+  }, [selectedGroup, currentPage]);
+
+  const handleGroupChange = async (newGroup: string) => {
+    try {
+      await Promise.all(
+        selectedPosts.map((postId) => {
+          const formData = new FormData();
+          formData.append("analysisId", postId);
+          formData.append("group", newGroup === "none" ? "" : newGroup);
+          return updateAnalysis(formData);
+        })
+      );
+      setSelectedPosts([]);
+      router.refresh();
+    } catch (error) {
+      console.error("Failed to update posts:", error);
+    }
+  };
 
   const filteredPosts = posts.filter((post) =>
     post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -111,16 +150,43 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
               <SelectItem value="all">
                 {dictionary.admin.dashboard.allGroups}
               </SelectItem>
-              <SelectItem value={process.env.SEARCHLYSIS_GROUP_NAME || ""}>
+              <SelectItem
+                value={process.env.SEARCHLYSIS_GROUP_NAME || "default"}
+              >
                 {process.env.SEARCHLYSIS_GROUP_NAME || "NAME"}
               </SelectItem>
-              <SelectItem value="null">
-                {dictionary.admin.dashboard.SEARCHLYSIS_GROUP_NAME}
+              <SelectItem value="none">
+                {dictionary.admin.dashboard.hidden}
               </SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
+
+      {selectedPosts.length > 0 && (
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">
+            {selectedPosts.length} {dictionary.admin.dashboard.selected}
+          </span>
+          <Select onValueChange={handleGroupChange}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue
+                placeholder={dictionary.admin.dashboard.changeGroup}
+              />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem
+                value={process.env.SEARCHLYSIS_GROUP_NAME || "default"}
+              >
+                {process.env.SEARCHLYSIS_GROUP_NAME || "NAME"}
+              </SelectItem>
+              <SelectItem value="none">
+                {dictionary.admin.dashboard.hidden}
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      )}
 
       {loading ? (
         <div className="text-center py-10">
@@ -137,6 +203,20 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead className="w-[50px]">
+                  <Checkbox
+                    checked={selectedPosts.length === filteredPosts.length}
+                    onCheckedChange={(checked) => {
+                      if (checked) {
+                        setSelectedPosts(
+                          filteredPosts.map((post) => post.analysisId)
+                        );
+                      } else {
+                        setSelectedPosts([]);
+                      }
+                    }}
+                  />
+                </TableHead>
                 <TableHead>Title</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>{dictionary.admin.dashboard.group}</TableHead>
@@ -147,6 +227,20 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
             <TableBody>
               {filteredPosts.map((post) => (
                 <TableRow key={post.analysisId}>
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedPosts.includes(post.analysisId)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setSelectedPosts([...selectedPosts, post.analysisId]);
+                        } else {
+                          setSelectedPosts(
+                            selectedPosts.filter((id) => id !== post.analysisId)
+                          );
+                        }
+                      }}
+                    />
+                  </TableCell>
                   <TableCell className="font-medium">
                     {post.analysis.title}
                   </TableCell>
@@ -163,7 +257,8 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
                     )}
                   </TableCell>
                   <TableCell>
-                    {post.metadata?.group ? (
+                    {post.metadata?.group ===
+                    process.env.SEARCHLYSIS_GROUP_NAME ? (
                       <Badge variant="outline">
                         {dictionary.admin.dashboard.visible}
                       </Badge>
@@ -217,6 +312,44 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
               ))}
             </TableBody>
           </Table>
+          {total > 20 && (
+            <div className="p-4 flex justify-center">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      href="#"
+                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                    />
+                  </PaginationItem>
+                  {Array.from(
+                    { length: Math.ceil(total / 20) },
+                    (_, i) => i + 1
+                  ).map((page) => (
+                    <PaginationItem key={page}>
+                      <PaginationLink
+                        href="#"
+                        onClick={() => setCurrentPage(page)}
+                        isActive={currentPage === page}
+                      >
+                        {page}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      onClick={() =>
+                        setCurrentPage((p) =>
+                          Math.min(Math.ceil(total / 20), p + 1)
+                        )
+                      }
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
         </div>
       )}
     </div>
