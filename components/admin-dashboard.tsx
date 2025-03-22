@@ -49,9 +49,14 @@ import { useEffect, useState } from "react";
 interface AdminDashboardProps {
   lang: Locale;
   dictionary: any;
+  groupName: string;
 }
 
-export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
+export function AdminDashboard({
+  lang,
+  dictionary,
+  groupName,
+}: AdminDashboardProps) {
   const [posts, setPosts] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -120,11 +125,7 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
               <SelectItem value="all">
                 {dictionary.admin.dashboard.allGroups}
               </SelectItem>
-              <SelectItem
-                value={process.env.SEARCHLYSIS_GROUP_NAME || "default"}
-              >
-                {process.env.SEARCHLYSIS_GROUP_NAME || "NAME"}
-              </SelectItem>
+              <SelectItem value={groupName}>{groupName}</SelectItem>
               <SelectItem value="none">
                 {dictionary.admin.dashboard.hidden}
               </SelectItem>
@@ -202,8 +203,7 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
                     )}
                   </TableCell>
                   <TableCell>
-                    {post.metadata?.group ===
-                    process.env.SEARCHLYSIS_GROUP_NAME ? (
+                    {post.metadata?.group === groupName ? (
                       <Badge variant="outline">
                         {dictionary.admin.dashboard.visible}
                       </Badge>
