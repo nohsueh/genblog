@@ -1,19 +1,7 @@
 "use client";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import {
   Pagination,
@@ -42,7 +30,7 @@ import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -61,7 +49,6 @@ export function AdminDashboard({
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<string>("all");
-  const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
 
@@ -149,20 +136,6 @@ export function AdminDashboard({
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[50px]">
-                  <Checkbox
-                    checked={selectedPosts.length === filteredPosts.length}
-                    onCheckedChange={(checked) => {
-                      if (checked) {
-                        setSelectedPosts(
-                          filteredPosts.map((post) => post.analysisId)
-                        );
-                      } else {
-                        setSelectedPosts([]);
-                      }
-                    }}
-                  />
-                </TableHead>
                 <TableHead>Title</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>{dictionary.admin.dashboard.group}</TableHead>
@@ -173,20 +146,6 @@ export function AdminDashboard({
             <TableBody>
               {filteredPosts.map((post) => (
                 <TableRow key={post.analysisId}>
-                  <TableCell>
-                    <Checkbox
-                      checked={selectedPosts.includes(post.analysisId)}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
-                          setSelectedPosts([...selectedPosts, post.analysisId]);
-                        } else {
-                          setSelectedPosts(
-                            selectedPosts.filter((id) => id !== post.analysisId)
-                          );
-                        }
-                      }}
-                    />
-                  </TableCell>
                   <TableCell className="font-medium">
                     {post.analysis.title}
                   </TableCell>
@@ -223,34 +182,6 @@ export function AdminDashboard({
                           </span>
                         </Button>
                       </Link>
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button size="icon" variant="ghost">
-                            <Trash2 className="h-4 w-4" />
-                            <span className="sr-only">
-                              {dictionary.admin.dashboard.delete}
-                            </span>
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              {dictionary.admin.dashboard.confirmDelete}
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              {post.analysis.title}
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogCancel>
-                              {dictionary.admin.dashboard.cancel}
-                            </AlertDialogCancel>
-                            <AlertDialogAction>
-                              {dictionary.admin.dashboard.delete}
-                            </AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
                     </div>
                   </TableCell>
                 </TableRow>
