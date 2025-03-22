@@ -34,6 +34,8 @@ import { Pencil, Plus } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
 
 interface AdminDashboardProps {
   lang: Locale;
@@ -93,7 +95,6 @@ export function AdminDashboard({
           p.analysisId === updatedPost.analysisId ? updatedPost : p
         )
       );
-
     } catch (error) {
       toast.error(dictionary.admin.edit.error);
       console.error("Failed to update post visibility:", error);
@@ -180,19 +181,17 @@ export function AdminDashboard({
                     )}
                   </TableCell>
                   <TableCell>
-                    <Button
-                      variant={
-                        post.metadata?.group === groupName
-                          ? "outline"
-                          : "secondary"
-                      }
-                      size="sm"
-                      onClick={() => handleToggleVisibility(post)}
-                    >
-                      {post.metadata?.group === groupName
-                        ? dictionary.admin.dashboard.visible
-                        : dictionary.admin.dashboard.hidden}
-                    </Button>
+                    <div className="flex items-center gap-2">
+                      <Switch
+                        checked={post.metadata?.group === groupName}
+                        onCheckedChange={() => handleToggleVisibility(post)}
+                      />
+                      <Label>
+                        {post.metadata?.group === groupName
+                          ? dictionary.admin.dashboard.visible
+                          : dictionary.admin.dashboard.hidden}
+                      </Label>
+                    </div>
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
