@@ -111,11 +111,11 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
               <SelectItem value="all">
                 {dictionary.admin.dashboard.allGroups}
               </SelectItem>
-              <SelectItem value={process.env.NAME || ""}>
-                {process.env.NAME || "NAME"}
+              <SelectItem value={process.env.SEARCHLYSIS_GROUP_NAME || ""}>
+                {process.env.SEARCHLYSIS_GROUP_NAME || "NAME"}
               </SelectItem>
               <SelectItem value="null">
-                {dictionary.admin.dashboard.hidden}
+                {dictionary.admin.dashboard.SEARCHLYSIS_GROUP_NAME}
               </SelectItem>
             </SelectContent>
           </Select>

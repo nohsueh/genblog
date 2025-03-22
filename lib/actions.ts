@@ -197,7 +197,7 @@ export async function getPublishedBlogs(
   group?: string
 ): Promise<AnalysisResult[]> {
   // If no group is specified, use the NAME from env
-  const metadata = group ? { group } : { group: process.env.NAME };
+  const metadata = group ? { group } : { group: process.env.SEARCHLYSIS_GROUP_NAME };
 
   const allBlogs = await listAnalyses(pageNum, pageSize, metadata);
   return allBlogs;
