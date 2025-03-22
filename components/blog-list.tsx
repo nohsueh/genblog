@@ -21,14 +21,22 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+const PAGE_SIZE = 12;
+
 interface BlogListProps {
   lang: Locale;
   dictionary: any;
   group?: string;
+  page?: number;
 }
 
-async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
-  const { blogs, total } = await getPublishedBlogs(1, 20, group);
+async function BlogListContent({
+  lang,
+  dictionary,
+  group,
+  page = 1,
+}: BlogListProps) {
+  const { blogs, total } = await getPublishedBlogs(page, PAGE_SIZE, group);
 
   if (blogs.length === 0) {
     return (
@@ -104,7 +112,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
               <PaginationItem>
                 <PaginationPrevious href="#" />
               </PaginationItem>
-              {Array.from({ length: Math.ceil(total / 20) }, (_, i) => (
+              {Array.from({ length: Math.ceil(total / PAGE_SIZE) }, (_, i) => (
                 <PaginationItem key={i + 1}>
                   <PaginationLink href={`?page=${i + 1}`}>
                     {i + 1}

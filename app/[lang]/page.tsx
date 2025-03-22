@@ -6,10 +6,13 @@ import type { Locale } from "@/lib/i18n-config";
 
 export default async function Home({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ page?: string }>;
 }) {
   const { lang } = await params;
+  const { page } = await searchParams;
   const dictionary = getDictionary(lang);
 
   return (
@@ -31,6 +34,7 @@ export default async function Home({
           lang={lang}
           dictionary={dictionary}
           group={process.env.SEARCHLYSIS_GROUP_NAME}
+          page={Number(page || 1)}
         />
       </main>
       <SiteFooter lang={lang} dictionary={dictionary} />
