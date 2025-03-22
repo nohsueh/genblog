@@ -196,8 +196,7 @@ export async function getPublishedBlogs(
   pageSize = 20,
   group?: string
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
-  // If no group is specified, use the NAME from env
-  const metadata = { group };
+  const metadata = group ? { group } : undefined;
 
   const allBlogs = await listAnalyses(pageNum, pageSize, metadata);
   const total = await getTotalBlogs(metadata);
