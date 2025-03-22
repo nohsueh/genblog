@@ -15,7 +15,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { analyzeLink, analyzeSearch } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -28,7 +27,6 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
   const [activeTab, setActiveTab] = useState("search");
   const [temperature, setTemperature] = useState([0.7]);
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
 
   async function handleSearchSubmit(formData: FormData) {
     setIsLoading(true);
