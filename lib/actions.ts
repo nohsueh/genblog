@@ -26,7 +26,7 @@ const headers = {
 export async function validateAdmin(formData: FormData) {
   const password = formData.get("password") as string;
 
-  if (password === process.env.ADMIN_TOKEN) {
+  if (password === process.env.SEARCHLYSIS_BLOG_ADMIN_TOKEN) {
     // Set a secure, HTTP-only cookie for the admin session
     (
       await // Set a secure, HTTP-only cookie for the admin session
