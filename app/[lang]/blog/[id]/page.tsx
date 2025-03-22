@@ -8,6 +8,33 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
+export default async function BlogPage(props: {
+  params: Promise<{ lang: Locale; id: string }>;
+}) {
+  const params = await props.params;
+
+  const { lang, id } = params;
+
+  const dictionary = getDictionary(lang);
+
+  try {
+    const post = await getCachedAnalysis(id);
+
+    return (
+      <div className="flex min-h-screen flex-col">
+        <SiteHeader lang={lang} dictionary={dictionary} />
+        <main className="flex-1 container mx-auto px-4 py-6">
+          <BlogPost post={post} lang={lang} dictionary={dictionary} />
+        </main>
+        <SiteFooter lang={lang} dictionary={dictionary} />
+      </div>
+    );
+  } catch (error) {
+    return notFound();
+  }
+}
+
+
 const getCachedAnalysis = cache(getAnalysis);
 
 export async function generateMetadata({
@@ -40,30 +67,4 @@ export async function generateMetadata({
       images,
     },
   };
-}
-
-export default async function BlogPage(props: {
-  params: Promise<{ lang: Locale; id: string }>;
-}) {
-  const params = await props.params;
-
-  const { lang, id } = params;
-
-  const dictionary = getDictionary(lang);
-
-  try {
-    const post = await getCachedAnalysis(id);
-
-    return (
-      <div className="flex min-h-screen flex-col">
-        <SiteHeader lang={lang} dictionary={dictionary} />
-        <main className="flex-1 container mx-auto px-4 py-6">
-          <BlogPost post={post} lang={lang} dictionary={dictionary} />
-        </main>
-        <SiteFooter lang={lang} dictionary={dictionary} />
-      </div>
-    );
-  } catch (error) {
-    return notFound();
-  }
 }
