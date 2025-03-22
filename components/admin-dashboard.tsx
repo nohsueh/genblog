@@ -47,27 +47,17 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
   const [posts, setPosts] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [groups, setGroups] = useState<string[]>([]);
-  const [selectedGroup, setSelectedGroup] = useState<string>("");
+  const [selectedGroup, setSelectedGroup] = useState<string>("all");
   const router = useRouter();
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const metadata = selectedGroup ? { group: selectedGroup } : undefined;
+        const metadata =
+          selectedGroup === "all" ? undefined : { group: selectedGroup };
         const data = await listAnalyses(1, 100, metadata);
         setPosts(data);
-
-        // Extract unique groups
-        const uniqueGroups = Array.from(
-          new Set(
-            data
-              .filter((post) => post.metadata?.group)
-              .map((post) => post.metadata?.group as string)
-          )
-        );
-        setGroups(uniqueGroups);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
@@ -121,11 +111,12 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
               <SelectItem value="all">
                 {dictionary.admin.dashboard.allGroups}
               </SelectItem>
-              {groups.map((group) => (
-                <SelectItem key={group} value={group}>
-                  {group}
-                </SelectItem>
-              ))}
+              <SelectItem value={process.env.NAME || ""}>
+                {process.env.NAME || "NAME"}
+              </SelectItem>
+              <SelectItem value="null">
+                {dictionary.admin.dashboard.hidden}
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>

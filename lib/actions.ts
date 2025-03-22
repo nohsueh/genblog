@@ -196,15 +196,9 @@ export async function getPublishedBlogs(
   pageSize = 10,
   group?: string
 ): Promise<AnalysisResult[]> {
-  // Only fetch blogs that have a group specified if no specific group is requested
-  const metadata = group ? { group } : { hasGroup: true }; // This is a custom filter we'll handle below
+  // If no group is specified, use the NAME from env
+  const metadata = group ? { group } : { group: process.env.NAME };
 
   const allBlogs = await listAnalyses(pageNum, pageSize, metadata);
-
-  // If we're using the hasGroup filter, we need to filter the results manually
-  if (metadata.hasGroup) {
-    return allBlogs.filter((blog) => blog.metadata?.group);
-  }
-
   return allBlogs;
 }

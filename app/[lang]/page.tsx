@@ -1,39 +1,16 @@
 import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { listAnalyses } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 
 export default async function Home({
   params,
-  searchParams,
 }: {
   params: Promise<{ lang: Locale }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { lang } = await params;
   const dictionary = getDictionary(lang);
-
-  // Get all unique groups for the tabs
-  const allBlogs = await listAnalyses(1, 100);
-  const uniqueGroups = Array.from(
-    new Set(
-      allBlogs
-        .filter((blog) => blog.metadata?.group)
-        .map((blog) => blog.metadata?.group as string)
-    )
-  );
-
-  // Get the selected group from query params or use the first available group
-  const { group } = await searchParams;
-  const selectedGroup =
-    typeof group === "string"
-      ? group
-      : uniqueGroups.length > 0
-      ? uniqueGroups[0]
-      : undefined;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -50,32 +27,7 @@ export default async function Home({
           </div>
         </section>
 
-        {uniqueGroups.length > 0 ? (
-          <Tabs defaultValue={selectedGroup} className="mb-8">
-            <TabsList className="mb-4 flex flex-wrap h-auto">
-              {uniqueGroups.map((group) => (
-                <TabsTrigger
-                  key={group}
-                  value={group}
-                  className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                  asChild
-                >
-                  <a href={`/${lang}?group=${group}`}>{group}</a>
-                </TabsTrigger>
-              ))}
-            </TabsList>
-
-            {uniqueGroups.map((group) => (
-              <TabsContent key={group} value={group}>
-                <BlogList lang={lang} dictionary={dictionary} group={group} />
-              </TabsContent>
-            ))}
-          </Tabs>
-        ) : (
-          <div className="text-center py-10">
-            <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
-          </div>
-        )}
+        <BlogList lang={lang} dictionary={dictionary} />
       </main>
       <SiteFooter lang={lang} dictionary={dictionary} />
     </div>
