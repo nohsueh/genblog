@@ -3,7 +3,7 @@ import { getDictionary } from "@/lib/dictionaries"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogPost } from "@/components/blog-post"
-import { getAnalysis } from "@/lib/api"
+import { getAnalysis } from "@/lib/actions"
 import { notFound } from "next/navigation"
 
 export default async function BlogPage(

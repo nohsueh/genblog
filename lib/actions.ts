@@ -207,14 +207,15 @@ export async function getPublishedBlogs(
 }
 
 async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
-  const response = await fetch(
-    `${API_URL}/v1/analyses/count?${new URLSearchParams(
-      metadata as Record<string, string>
-    )}`,
-    {
-      headers,
-    }
-  );
+  let url = `${API_URL}/v1/analyses/count`;
+
+  if (metadata) {
+    url += `&metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
+  }
+
+  const response = await fetch(url, {
+    headers,
+  });
 
   if (!response.ok) {
     throw new Error("Failed to fetch total blogs");
