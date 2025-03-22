@@ -105,22 +105,35 @@ async function BlogListContent({
           </Card>
         ))}
       </div>
-      {total > 20 && (
+      {total > PAGE_SIZE && (
         <div className="mt-8 flex justify-center">
           <Pagination>
             <PaginationContent>
               <PaginationItem>
-                <PaginationPrevious href="#" />
+                <PaginationPrevious
+                  href={page > 1 ? `/${lang}?page=${page - 1}` : undefined}
+                  aria-disabled={page <= 1}
+                />
               </PaginationItem>
               {Array.from({ length: Math.ceil(total / PAGE_SIZE) }, (_, i) => (
                 <PaginationItem key={i + 1}>
-                  <PaginationLink href={`?page=${i + 1}`}>
+                  <PaginationLink
+                    href={`/${lang}?page=${i + 1}`}
+                    isActive={page === i + 1}
+                  >
                     {i + 1}
                   </PaginationLink>
                 </PaginationItem>
               ))}
               <PaginationItem>
-                <PaginationNext href="#" />
+                <PaginationNext
+                  href={
+                    page < Math.ceil(total / PAGE_SIZE)
+                      ? `/${lang}?page=${page + 1}`
+                      : undefined
+                  }
+                  aria-disabled={page >= Math.ceil(total / PAGE_SIZE)}
+                />
               </PaginationItem>
             </PaginationContent>
           </Pagination>

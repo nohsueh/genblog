@@ -12,8 +12,8 @@ export default async function Home({
   searchParams: Promise<{ page?: string }>;
 }) {
   const { lang } = await params;
-  const { page } = await searchParams;
   const dictionary = getDictionary(lang);
+  const { page } = await searchParams;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -34,7 +34,7 @@ export default async function Home({
           lang={lang}
           dictionary={dictionary}
           group={process.env.SEARCHLYSIS_GROUP_NAME}
-          page={Number(page || 1)}
+          page={page ? Number(page) : undefined}
         />
       </main>
       <SiteFooter lang={lang} dictionary={dictionary} />
