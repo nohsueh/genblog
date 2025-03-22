@@ -147,7 +147,7 @@ export function AdminDashboard({ lang, dictionary }: AdminDashboardProps) {
                   </TableCell>
                   <TableCell>
                     {post.metadata?.group ? (
-                      <Badge variant="success">{dictionary.admin.dashboard.visible}</Badge>
+                      <Badge variant="outline">{dictionary.admin.dashboard.visible}</Badge>
                     ) : (
                       <Badge variant="secondary">{dictionary.admin.dashboard.hidden}</Badge>
                     )}
