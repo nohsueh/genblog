@@ -1,47 +1,58 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
-import type { Locale } from "@/lib/i18n-config"
-import { Button } from "@/components/ui/button"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { ModeToggle } from "@/components/mode-toggle"
-import { Globe, Menu, LogOut } from "lucide-react"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { i18n } from "@/lib/i18n-config"
-import { logoutAdmin } from "@/lib/actions"
+import { ModeToggle } from "@/components/mode-toggle";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { logoutAdmin } from "@/lib/actions";
+import type { Locale } from "@/lib/i18n-config";
+import { i18n } from "@/lib/i18n-config";
+import { Globe, LogOut, Menu } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 interface SiteHeaderProps {
-  lang: Locale
-  dictionary: any
-  isAdmin?: boolean
+  lang: Locale;
+  dictionary: any;
+  isAdmin?: boolean;
 }
 
-export function SiteHeader({ lang, dictionary, isAdmin = false }: SiteHeaderProps) {
-  const pathname = usePathname()
-  const segments = pathname.split("/")
-  const currentPath = segments.slice(2).join("/") || ""
-  const router = useRouter()
+export function SiteHeader({
+  lang,
+  dictionary,
+  isAdmin = false,
+}: SiteHeaderProps) {
+  const pathname = usePathname();
+  const segments = pathname.split("/");
+  const currentPath = segments.slice(2).join("/") || "";
+  const router = useRouter();
 
   const switchLocale = (locale: string) => {
     if (typeof window !== "undefined") {
-      const newPathname = `/${locale}/${currentPath}`
-      window.location.href = newPathname
+      const newPathname = `/${locale}/${currentPath}`;
+      window.location.href = newPathname;
     }
-  }
+  };
 
   const handleLogout = async () => {
-    await logoutAdmin()
-    router.push(`/${lang}/admin`)
-    router.refresh()
-  }
+    await logoutAdmin();
+    router.push(`/${lang}/admin`);
+    router.refresh();
+  };
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <div className="flex gap-6 md:gap-10">
           <Link href={`/${lang}`} className="flex items-center space-x-2">
-            <span className="inline-block font-bold">{dictionary.site.title}</span>
+            <span className="inline-block font-bold">
+              {dictionary.site.title}
+            </span>
           </Link>
           <nav className="hidden md:flex gap-6">
             <Link
@@ -78,8 +89,24 @@ export function SiteHeader({ lang, dictionary, isAdmin = false }: SiteHeaderProp
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {i18n.locales.map((locale) => (
-                  <DropdownMenuItem key={locale} onClick={() => switchLocale(locale)}>
-                    {locale.toUpperCase()}
+                  <DropdownMenuItem
+                    key={locale}
+                    onClick={() => switchLocale(locale)}
+                  >
+                    {(() => {
+                      switch (locale) {
+                        case "en":
+                          return "English";
+                        case "zh":
+                          return "中文";
+                        case "es":
+                          return "Español";
+                        case "fr":
+                          return "Français";
+                        case "de":
+                          return "Deutsch";
+                      }
+                    })()}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -100,7 +127,10 @@ export function SiteHeader({ lang, dictionary, isAdmin = false }: SiteHeaderProp
               </SheetTrigger>
               <SheetContent side="right">
                 <nav className="flex flex-col gap-4 mt-4">
-                  <Link href={`/${lang}`} className="text-sm font-medium transition-colors hover:text-primary">
+                  <Link
+                    href={`/${lang}`}
+                    className="text-sm font-medium transition-colors hover:text-primary"
+                  >
                     {dictionary.header.home}
                   </Link>
                   {isAdmin ? (
@@ -111,12 +141,19 @@ export function SiteHeader({ lang, dictionary, isAdmin = false }: SiteHeaderProp
                       {dictionary.header.dashboard}
                     </Link>
                   ) : (
-                    <Link href={`/${lang}/admin`} className="text-sm font-medium transition-colors hover:text-primary">
+                    <Link
+                      href={`/${lang}/admin`}
+                      className="text-sm font-medium transition-colors hover:text-primary"
+                    >
                       {dictionary.header.admin}
                     </Link>
                   )}
                   {isAdmin && (
-                    <Button variant="ghost" className="justify-start p-0" onClick={handleLogout}>
+                    <Button
+                      variant="ghost"
+                      className="justify-start p-0"
+                      onClick={handleLogout}
+                    >
                       <span className="text-sm font-medium transition-colors hover:text-primary">
                         {dictionary.header.logout}
                       </span>
@@ -129,6 +166,5 @@ export function SiteHeader({ lang, dictionary, isAdmin = false }: SiteHeaderProp
         </div>
       </div>
     </header>
-  )
+  );
 }
-
