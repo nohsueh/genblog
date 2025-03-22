@@ -29,6 +29,10 @@ export default {
       delete: "Eliminar",
       confirmDelete: "¿Estás seguro de que quieres eliminar este blog?",
       group: "Grupo",
+      visibility: "Visibilidad",
+      visible: "Visible",
+      hidden: "Oculto",
+      cancel: "Cancelar",
     },
     create: {
       title: "Crear Nuevo Blog",

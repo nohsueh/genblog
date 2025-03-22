@@ -38,11 +38,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  getPublishedBlogs,
-  logoutAdmin,
-  updateAnalysis
-} from "@/lib/actions";
+import { getPublishedBlogs, logoutAdmin, updateAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
