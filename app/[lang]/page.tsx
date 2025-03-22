@@ -1,29 +1,39 @@
-import type { Locale } from "@/lib/i18n-config"
-import { getDictionary } from "@/lib/dictionaries"
-import { BlogList } from "@/components/blog-list"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { listAnalyses } from "@/lib/actions"
+import { BlogList } from "@/components/blog-list";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { listAnalyses } from "@/lib/actions";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n-config";
 
 export default async function Home({
-  params: { lang },
+  params,
   searchParams,
 }: {
-  params: { lang: Locale }
-  searchParams: { [key: string]: string | string[] | undefined }
+  params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const dictionary = await getDictionary(lang)
+  const { lang } = await params;
+  const dictionary = getDictionary(lang);
 
   // Get all unique groups for the tabs
-  const allBlogs = await listAnalyses(1, 100)
+  const allBlogs = await listAnalyses(1, 100);
   const uniqueGroups = Array.from(
-    new Set(allBlogs.filter((blog) => blog.metadata?.group).map((blog) => blog.metadata?.group as string)),
-  )
+    new Set(
+      allBlogs
+        .filter((blog) => blog.metadata?.group)
+        .map((blog) => blog.metadata?.group as string)
+    )
+  );
 
   // Get the selected group from query params or use the first available group
+  const { group } = await searchParams;
   const selectedGroup =
-    typeof searchParams.group === "string" ? searchParams.group : uniqueGroups.length > 0 ? uniqueGroups[0] : undefined
+    typeof group === "string"
+      ? group
+      : uniqueGroups.length > 0
+      ? uniqueGroups[0]
+      : undefined;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -34,7 +44,9 @@ export default async function Home({
             <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
               {dictionary.home.title}
             </h1>
-            <p className="max-w-[700px] text-lg text-muted-foreground">{dictionary.home.description}</p>
+            <p className="max-w-[700px] text-lg text-muted-foreground">
+              {dictionary.home.description}
+            </p>
           </div>
         </section>
 
@@ -67,6 +79,5 @@ export default async function Home({
       </main>
       <SiteFooter lang={lang} dictionary={dictionary} />
     </div>
-  )
+  );
 }
-

@@ -6,11 +6,17 @@ import { AdminLogin } from "@/components/admin-login"
 import { checkAdminSession } from "@/lib/actions"
 import { redirect } from "next/navigation"
 
-export default async function AdminPage({
-  params: { lang },
-}: {
-  params: { lang: Locale }
-}) {
+export default async function AdminPage(
+  props: {
+    params: Promise<{ lang: Locale }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
   const dictionary = await getDictionary(lang)
   const isLoggedIn = await checkAdminSession()
 

@@ -14,13 +14,13 @@ export async function generateStaticParams() {
 // Define the type for the props explicitly
 type RootLayoutProps = {
   children: React.ReactNode;
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 };
 
-export default function RootLayout(props: RootLayoutProps) {
+export default async function RootLayout(props: RootLayoutProps) {
   // Safely access properties with fallbacks
   const children = props?.children || null;
-  const lang = props?.params?.lang || i18n.defaultLocale;
+  const lang = (await props?.params)?.lang || i18n.defaultLocale;
 
   return (
     <html lang={lang} suppressHydrationWarning>

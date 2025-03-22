@@ -5,11 +5,17 @@ import { SiteFooter } from "@/components/site-footer"
 import { BlogCreator } from "@/components/blog-creator"
 import { requireAdmin } from "@/lib/actions"
 
-export default async function CreateBlogPage({
-  params: { lang },
-}: {
-  params: { lang: Locale }
-}) {
+export default async function CreateBlogPage(
+  props: {
+    params: Promise<{ lang: Locale }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
   // This will redirect if not authenticated
   await requireAdmin(lang)
 

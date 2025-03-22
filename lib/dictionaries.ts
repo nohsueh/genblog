@@ -1,15 +1,16 @@
-import "server-only"
-import type { Locale } from "./i18n-config"
+import { Locale } from "./i18n-config";
+import en from "./dictionaries/en";
+import fr from "./dictionaries/fr";
+import es from "./dictionaries/es";
+import de from "./dictionaries/de";
+import zh from "./dictionaries/zh";
 
 const dictionaries = {
-  en: () => import("./dictionaries/en.json").then((module) => module.default),
-  fr: () => import("./dictionaries/fr.json").then((module) => module.default),
-  es: () => import("./dictionaries/es.json").then((module) => module.default),
-  de: () => import("./dictionaries/de.json").then((module) => module.default),
-  zh: () => import("./dictionaries/zh.json").then((module) => module.default),
-}
+  en: en,
+  fr: fr,
+  es: es,
+  de: de,
+  zh: zh,
+} as const;
 
-export const getDictionary = async (locale: Locale) => {
-  return dictionaries[locale]()
-}
-
+export const getDictionary = (locale: Locale) => dictionaries[locale];

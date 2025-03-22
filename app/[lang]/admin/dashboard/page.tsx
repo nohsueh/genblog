@@ -5,11 +5,17 @@ import { SiteFooter } from "@/components/site-footer"
 import { AdminDashboard } from "@/components/admin-dashboard"
 import { requireAdmin } from "@/lib/actions"
 
-export default async function AdminDashboardPage({
-  params: { lang },
-}: {
-  params: { lang: Locale }
-}) {
+export default async function AdminDashboardPage(
+  props: {
+    params: Promise<{ lang: Locale }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang
+  } = params;
+
   // This will redirect if not authenticated
   await requireAdmin(lang)
 

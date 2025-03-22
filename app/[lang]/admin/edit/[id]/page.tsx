@@ -6,11 +6,18 @@ import { BlogEditor } from "@/components/blog-editor"
 import { getAnalysis, requireAdmin } from "@/lib/actions"
 import { notFound } from "next/navigation"
 
-export default async function EditBlogPage({
-  params: { lang, id },
-}: {
-  params: { lang: Locale; id: string }
-}) {
+export default async function EditBlogPage(
+  props: {
+    params: Promise<{ lang: Locale; id: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang,
+    id
+  } = params;
+
   // This will redirect if not authenticated
   await requireAdmin(lang)
 

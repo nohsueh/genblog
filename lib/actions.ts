@@ -4,7 +4,7 @@ import type {
   AnalysisResult,
   AnalyzeLinkParams,
   AnalyzeResults,
-  AnalyzeSearchParams
+  AnalyzeSearchParams,
 } from "@/types/api";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -28,9 +28,10 @@ export async function validateAdmin(formData: FormData) {
 
   if (password === process.env.ADMIN_TOKEN) {
     // Set a secure, HTTP-only cookie for the admin session
-    (await
-      // Set a secure, HTTP-only cookie for the admin session
-      cookies()).set({
+    (
+      await // Set a secure, HTTP-only cookie for the admin session
+      cookies()
+    ).set({
       name: SESSION_COOKIE_NAME,
       value: "authenticated",
       httpOnly: true,

@@ -6,11 +6,18 @@ import { BlogPost } from "@/components/blog-post"
 import { getAnalysis } from "@/lib/api"
 import { notFound } from "next/navigation"
 
-export default async function BlogPage({
-  params: { lang, id },
-}: {
-  params: { lang: Locale; id: string }
-}) {
+export default async function BlogPage(
+  props: {
+    params: Promise<{ lang: Locale; id: string }>
+  }
+) {
+  const params = await props.params;
+
+  const {
+    lang,
+    id
+  } = params;
+
   const dictionary = await getDictionary(lang)
 
   try {
