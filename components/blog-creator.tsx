@@ -157,7 +157,7 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
                       {dictionary.admin.create.temperature}
                     </Label>
                     <span className="text-sm text-muted-foreground">
-                      {temperature[0].toFixed(1)}
+                      {temperature[0].toFixed(2)}
                     </span>
                   </div>
                   <Slider
