@@ -36,6 +36,7 @@ export default {
     },
     create: {
       title: "Crear Nuevo Blog",
+      description: "Crea un nuevo blog a partir de una consulta de búsqueda o un enlace específico.",
       searchQuery: "Consulta de Búsqueda",
       link: "URL del Enlace",
       prompt: "Prompt de Análisis",
@@ -44,6 +45,8 @@ export default {
       submit: "Generar Blog",
       generating: "Generando...",
       error: "Error al generar el blog",
+      precise: "Preciso",
+      creative: "Creativo",
       success: "Blog generado con éxito",
     },
     edit: {
@@ -54,6 +57,8 @@ export default {
       saving: "Guardando...",
       success: "Blog actualizado con éxito",
       error: "Error al actualizar el blog",
+      editTab: "Editar",
+      previewTab: "Vista Previa",
     },
   },
   header: {

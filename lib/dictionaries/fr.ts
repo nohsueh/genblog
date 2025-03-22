@@ -37,6 +37,7 @@ export default {
     },
     create: {
       title: "Créer un Nouveau Blog",
+      description: "Créez un nouveau blog à partir d'une requête de recherche ou d'un lien spécifique.",
       searchQuery: "Requête de Recherche",
       link: "URL du Lien",
       prompt: "Invite d'Analyse",
@@ -45,7 +46,9 @@ export default {
       submit: "Générer le Blog",
       generating: "Génération en cours...",
       error: "Erreur lors de la génération du blog",
-      success: "Blog generado con éxito",
+      precise: "Précis",
+      creative: "Créatif",
+      success: "Blog généré avec succès",
     },
     edit: {
       title: "Modifier le Blog",
@@ -55,6 +58,8 @@ export default {
       saving: "Enregistrement...",
       success: "Blog mis à jour avec succès",
       error: "Erreur lors de la mise à jour du blog",
+      editTab: "Modifier",
+      previewTab: "Aperçu",
     },
   },
   header: {
