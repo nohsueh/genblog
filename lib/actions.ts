@@ -210,7 +210,7 @@ async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
   let url = `${API_URL}/v1/analyses/count`;
 
   if (metadata) {
-    url += `&metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
+    url += `?metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
   }
 
   console.log({ url, metadata, headers });
