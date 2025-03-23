@@ -204,13 +204,13 @@ export function BlogCreator({ lang, dictionary, groupName }: BlogCreatorProps) {
                   <Textarea
                     id="link-url"
                     name="link"
-                    placeholder="https://example.com/article1&#10;https://example.com/article2&#10;https://example.com/article3"
+                    placeholder={"https://example.com/article1\nhttps://example.com/article2\nhttps://example.com/article3"}
                     rows={4}
                     disabled={isLoading}
                     required
                   />
                   <p className="text-sm text-muted-foreground">
-                    每行输入一个URL
+                    {dictionary.admin.create.linkHelp}
                   </p>
                 </div>
 

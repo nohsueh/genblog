@@ -52,6 +52,7 @@ export default {
       precise: "Precise",
       creative: "Creative",
       success: "Blog generated successfully",
+      linkHelp: "Enter each URL on a new line",
     },
     edit: {
       title: "Edit Blog",

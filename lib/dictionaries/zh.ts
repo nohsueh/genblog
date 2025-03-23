@@ -50,6 +50,7 @@ export default {
       precise: "精确",
       creative: "创意",
       success: "博客生成成功",
+      linkHelp: "每行输入一个URL",
     },
     edit: {
       title: "编辑博客",

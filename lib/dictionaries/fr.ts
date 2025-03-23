@@ -49,6 +49,7 @@ export default {
       precise: "Précis",
       creative: "Créatif",
       success: "Blog généré avec succès",
+      linkHelp: "Entrez chaque URL sur une nouvelle ligne",
     },
     edit: {
       title: "Modifier le Blog",
