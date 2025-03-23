@@ -93,7 +93,7 @@ export async function analyzeSearch(formData: FormData) {
 }
 
 export async function analyzeLinks(formData: FormData) {
-  const links = JSON.parse(formData.get("links") as string) as string[];
+  const link = JSON.parse(formData.get("link") as string) as string[];
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
   const temperatureStr = formData.get("temperature") as string;
@@ -102,7 +102,7 @@ export async function analyzeLinks(formData: FormData) {
   const metadata = group ? { group } : undefined;
 
   const params: AnalyzeLinksParams = {
-    link: links,
+    link,
     prompt,
     temperature,
     metadata,

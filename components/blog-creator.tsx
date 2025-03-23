@@ -66,15 +66,15 @@ export function BlogCreator({ lang, dictionary, groupName }: BlogCreatorProps) {
       formData.append("temperature", temperature[0].toString());
 
       // Split the links by newlines and filter out empty lines
-      const linksText = formData.get("links") as string;
+      const linksText = formData.get("link") as string;
       const links = linksText
         .split("\n")
         .map((link) => link.trim())
         .filter(Boolean);
 
       // Replace the single link with array of links
-      formData.delete("links");
-      formData.append("links", JSON.stringify(links));
+      formData.delete("link");
+      formData.append("link", JSON.stringify(links));
 
       toast.promise(analyzeLinks(formData), {
         loading: dictionary.admin.create.generating,
