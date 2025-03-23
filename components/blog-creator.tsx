@@ -13,7 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { analyzeLink, analyzeSearch } from "@/lib/actions";
+import { analyzeLinks, analyzeSearch } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -21,9 +21,10 @@ import { toast } from "sonner";
 interface BlogCreatorProps {
   lang: Locale;
   dictionary: any;
+  groupName: string;
 }
 
-export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
+export function BlogCreator({ lang, dictionary, groupName }: BlogCreatorProps) {
   const [activeTab, setActiveTab] = useState("search");
   const [temperature, setTemperature] = useState([0.7]);
   const [isLoading, setIsLoading] = useState(false);
@@ -64,7 +65,18 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
       // Add temperature to the form data
       formData.append("temperature", temperature[0].toString());
 
-      toast.promise(analyzeLink(formData), {
+      // Split the links by newlines and filter out empty lines
+      const linksText = formData.get("links") as string;
+      const links = linksText
+        .split("\n")
+        .map((link) => link.trim())
+        .filter(Boolean);
+
+      // Replace the single link with array of links
+      formData.delete("links");
+      formData.append("links", JSON.stringify(links));
+
+      toast.promise(analyzeLinks(formData), {
         loading: dictionary.admin.create.generating,
         success: dictionary.admin.create.success,
         error: (err) => {
@@ -146,7 +158,7 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
                   <Input
                     id="search-group"
                     name="group"
-                    placeholder="e.g., technology, health, etc."
+                    defaultValue={groupName}
                     disabled={isLoading}
                   />
                 </div>
@@ -189,13 +201,17 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
                   <Label htmlFor="link-url">
                     {dictionary.admin.create.link}
                   </Label>
-                  <Input
+                  <Textarea
                     id="link-url"
                     name="link"
-                    placeholder="https://example.com/article"
+                    placeholder="https://example.com/article1&#10;https://example.com/article2&#10;https://example.com/article3"
+                    rows={4}
                     disabled={isLoading}
                     required
                   />
+                  <p className="text-sm text-muted-foreground">
+                    每行输入一个URL
+                  </p>
                 </div>
 
                 <div className="space-y-2">
@@ -219,7 +235,7 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
                   <Input
                     id="link-group"
                     name="group"
-                    placeholder="e.g., technology, health, etc."
+                    defaultValue={groupName}
                     disabled={isLoading}
                   />
                 </div>
@@ -230,14 +246,14 @@ export function BlogCreator({ lang, dictionary }: BlogCreatorProps) {
                       {dictionary.admin.create.temperature}
                     </Label>
                     <span className="text-sm text-muted-foreground">
-                      {temperature[0].toFixed(1)}
+                      {temperature[0].toFixed(2)}
                     </span>
                   </div>
                   <Slider
                     id="link-temperature"
                     min={0}
-                    max={1}
-                    step={0.1}
+                    max={2}
+                    step={0.01}
                     value={temperature}
                     onValueChange={setTemperature}
                     disabled={isLoading}

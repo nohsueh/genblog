@@ -15,7 +15,7 @@ export default async function AdminDashboardPage(props: {
   // This will redirect if not authenticated
   await requireAdmin(lang);
 
-  const dictionary = await getDictionary(lang);
+  const dictionary = getDictionary(lang);
 
   return (
     <div className="flex min-h-screen flex-col">

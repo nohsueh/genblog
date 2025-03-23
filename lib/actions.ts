@@ -2,7 +2,7 @@
 
 import type {
   AnalysisResult,
-  AnalyzeLinkParams,
+  AnalyzeLinksParams,
   AnalyzeResults,
   AnalyzeSearchParams,
 } from "@/types/api";
@@ -92,8 +92,8 @@ export async function analyzeSearch(formData: FormData) {
   return data;
 }
 
-export async function analyzeLink(formData: FormData) {
-  const link = formData.get("link") as string;
+export async function analyzeLinks(formData: FormData) {
+  const links = JSON.parse(formData.get("links") as string) as string[];
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
   const temperatureStr = formData.get("temperature") as string;
@@ -101,8 +101,8 @@ export async function analyzeLink(formData: FormData) {
 
   const metadata = group ? { group } : undefined;
 
-  const params: AnalyzeLinkParams = {
-    link,
+  const params: AnalyzeLinksParams = {
+    link: links,
     prompt,
     temperature,
     metadata,
