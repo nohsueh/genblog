@@ -12,7 +12,7 @@ const nextConfig = {
     return [
       {
         source: "/blog/:path*",
-        destination: "/:path*",
+        destination: "/en/:path*",
       },
     ];
   },
