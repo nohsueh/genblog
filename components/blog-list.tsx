@@ -80,10 +80,10 @@ async function BlogListContent({
                 {post.analysis.content.substring(0, 150)}...
               </div>
               <div className="text-xs text-muted-foreground">
-                {post.analysis.publishedDate && (
+                {post.createdAt && (
                   <>
                     {dictionary.blog.publishedOn}{" "}
-                    {formatDate(post.analysis.publishedDate, lang)}
+                    {formatDate(post.createdAt, lang)}
                   </>
                 )}
                 {post.analysis.author && (
