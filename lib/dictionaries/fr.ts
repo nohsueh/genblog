@@ -68,10 +68,4 @@ export default {
     dashboard: "Tableau de Bord",
     logout: "Déconnexion",
   },
-  footer: {
-    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
-  },
-  site: {
-    title: "Démo du constructeur de blogs Searchlysis",
-  },
 };

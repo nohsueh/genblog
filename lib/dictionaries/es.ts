@@ -67,10 +67,4 @@ export default {
     dashboard: "Panel",
     logout: "Cerrar Sesión",
   },
-  footer: {
-    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
-  },
-  site: {
-    title: "Demostración de Searchlysis Blog Builder",
-  },
 };

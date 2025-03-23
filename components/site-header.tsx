@@ -51,7 +51,7 @@ export function SiteHeader({
         <div className="flex gap-6 md:gap-10">
           <Link href={`/${lang}`} className="flex items-center space-x-2">
             <span className="inline-block font-bold">
-              {dictionary.site.title}
+              Searchlysis Blog Builder Demo
             </span>
           </Link>
           <nav className="hidden md:flex gap-6">

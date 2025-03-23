@@ -71,10 +71,4 @@ export default {
     dashboard: "仪表板",
     logout: "退出登录",
   },
-  footer: {
-    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
-  },
-  site: {
-    title: "Searchlysis 博客生成器演示",
-  },
 };

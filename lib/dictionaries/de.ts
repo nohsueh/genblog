@@ -37,7 +37,8 @@ export default {
     },
     create: {
       title: "Neuen Blog erstellen",
-      description: "Erstellen Sie einen Blogbeitrag, indem Sie Suchanfragen oder einen bestimmten Link analysieren.",
+      description:
+        "Erstellen Sie einen Blogbeitrag, indem Sie Suchanfragen oder einen bestimmten Link analysieren.",
       searchQuery: "Suchanfrage",
       link: "Link-URL",
       prompt: "Analyse-Prompt",
@@ -54,7 +55,8 @@ export default {
       title: "Blog bearbeiten",
       content: "Inhalt",
       group: "Gruppe",
-      groupHelp: "Setzen Sie eine Gruppe, um den Blog auf der Startseite sichtbar zu machen. Wenn keine Gruppe festgelegt ist, wird der Blog nicht auf der Startseite angezeigt.",
+      groupHelp:
+        "Setzen Sie eine Gruppe, um den Blog auf der Startseite sichtbar zu machen. Wenn keine Gruppe festgelegt ist, wird der Blog nicht auf der Startseite angezeigt.",
       save: "Änderungen speichern",
       saving: "Speichern...",
       success: "Blog erfolgreich aktualisiert",
@@ -68,11 +70,5 @@ export default {
     admin: "Admin",
     dashboard: "Dashboard",
     logout: "Abmelden",
-  },
-  footer: {
-    copyright: "© 2025 Searchlysis Blog Builder. All rights reserved.",
-  },
-  site: {
-    title: "Searchlysis Blog Builder Demo",
   },
 };
