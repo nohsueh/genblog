@@ -17,7 +17,7 @@ export default async function AdminPage(
     lang
   } = params;
 
-  const dictionary = await getDictionary(lang)
+  const dictionary = getDictionary(lang)
   const isLoggedIn = await checkAdminSession()
 
   if (isLoggedIn) {
