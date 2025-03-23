@@ -8,11 +8,11 @@ const nextConfig = {
       },
     ],
   },
-  async rewrites() {
+  async redirects() {
     return [
       {
         source: "/blog/:path*",
-        destination: "/en/:path*",
+        destination: "/:path*",
       },
     ];
   },
