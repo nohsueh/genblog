@@ -21,7 +21,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 6;
 
 interface BlogListProps {
   lang: Locale;
