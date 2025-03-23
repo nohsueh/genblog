@@ -18,6 +18,7 @@ export default {
       submit: "登录",
       loading: "加载中...",
       error: "密码无效",
+      success: "登录成功",
     },
     dashboard: {
       title: "博客管理",

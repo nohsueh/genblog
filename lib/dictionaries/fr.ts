@@ -17,6 +17,10 @@ export default {
       password: "Mot de passe",
       submit: "Connexion",
       error: "Mot de passe invalide",
+      description:
+        "Entrez votre mot de passe administrateur pour accéder au tableau de bord de gestion de blogs.",
+      loading: "Chargement...",
+      success: "Connexion réussie",
     },
     dashboard: {
       title: "Gestion du Blog",

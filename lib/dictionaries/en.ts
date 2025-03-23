@@ -19,6 +19,7 @@ export default {
       submit: "Login",
       loading: "Loading...",
       error: "Invalid password",
+      success: "Login successful",
     },
     dashboard: {
       title: "Blog Management",

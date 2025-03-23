@@ -27,20 +27,25 @@ export function AdminLogin({ lang, dictionary }: AdminLoginProps) {
   async function handleSubmit(formData: FormData) {
     setIsLoading(true);
 
-    try {
-      const result = await validateAdmin(formData);
-
-      if (result.success) {
-        router.push(`/${lang}/admin/dashboard`);
-        router.refresh();
-      } else {
-        toast.error(dictionary.admin.login.error);
-      }
-    } catch (error) {
-      toast.error(dictionary.admin.login.error);
-    } finally {
-      setIsLoading(false);
-    }
+    toast.promise(validateAdmin(formData), {
+      loading: dictionary.admin.login.loading,
+      success: (result) => {
+        if (result.success) {
+          router.push(`/${lang}/admin/dashboard`);
+          router.refresh();
+        } else {
+          toast.error(dictionary.admin.login.error);
+        }
+        return dictionary.admin.login.success;
+      },
+      error: (error) => {
+        console.error(error);
+        return dictionary.admin.login.error;
+      },
+      finally: () => {
+        setIsLoading(false);
+      },
+    });
   }
 
   return (

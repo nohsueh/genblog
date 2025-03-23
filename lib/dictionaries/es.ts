@@ -13,9 +13,13 @@ export default {
   admin: {
     login: {
       title: "Inicio de Sesión de Administrador",
+      description:
+        "Ingrese su contraseña de administrador para acceder al dashboard de gestión de blogs.",
       password: "Contraseña",
       submit: "Iniciar Sesión",
       error: "Contraseña inválida",
+      success: "Inicio de sesión exitoso",
+      loading: "Cargando...",
     },
     dashboard: {
       title: "Gestión del Blog",

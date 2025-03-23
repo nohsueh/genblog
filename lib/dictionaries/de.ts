@@ -14,9 +14,13 @@ export default {
   admin: {
     login: {
       title: "Admin-Login",
+      description:
+        "Geben Sie Ihr Admin-Passwort ein, um den Blog-Verwaltungsdashboard zuzugreifen.",
       password: "Passwort",
       submit: "Anmelden",
       error: "Ungültiges Passwort",
+      success: "Anmeldung erfolgreich",
+      loading: "Lade...",
     },
     dashboard: {
       title: "Blog-Verwaltung",
