@@ -1,3 +1,4 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -10,12 +11,11 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '/blog/:path*',
-        destination: '/:path*',
+        source: "/blog/:path*",
+        destination: "/:path*",
       },
-    ]
+    ];
   },
-}
+};
 
-export default nextConfig
-
+export default nextConfig;
