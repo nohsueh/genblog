@@ -9,6 +9,11 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverActions: {
+      allowedOrigins: ["nextjs-boilerplate-eta-five-67.vercel.app"],
+    },
+  },
 };
 
 export default nextConfig;
