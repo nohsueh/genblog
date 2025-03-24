@@ -70,7 +70,7 @@ async function BlogListContent({
             <CardContent className="p-4">
               <CardTitle className="line-clamp-2 mb-2">
                 <Link
-                  href={`/${lang}/blog/${post.analysisId}`}
+                  href={`/${lang}/${post.analysisId}`}
                   className="hover:underline"
                 >
                   {post.analysis.title}
@@ -96,7 +96,7 @@ async function BlogListContent({
             </CardContent>
             <CardFooter className="p-4 pt-0">
               <Link
-                href={`/${lang}/blog/${post.analysisId}`}
+                href={`/${lang}/${post.analysisId}`}
                 className="text-sm font-medium text-primary hover:underline"
               >
                 {dictionary.blog.readMore}
