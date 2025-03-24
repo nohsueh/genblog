@@ -6,13 +6,13 @@ export default async function Home() {
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") || "";
 
-  // 检查路径是否已经包含语言参数
+  // Check if the pathname already contains a language parameter
   const hasLocale = i18n.locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   );
 
   if (!hasLocale) {
-    // 只有在没有语言参数时才重定向
+    // Only redirect if there is no language parameter
     redirect(`/${i18n.defaultLocale}`);
   }
 
