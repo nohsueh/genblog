@@ -33,10 +33,9 @@ export function SiteHeader({
   const router = useRouter();
 
   const switchLocale = (locale: string) => {
-    if (typeof window !== "undefined") {
-      const newPathname = `/${locale}/${currentPath}`;
-      window.location.href = newPathname;
-    }
+    const newPathname = `/${locale}/${currentPath}`;
+    router.push(newPathname);
+    router.refresh();
   };
 
   const handleLogout = async () => {
