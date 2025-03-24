@@ -3,7 +3,6 @@ import { i18n } from "./lib/i18n-config";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: "/blog",
-  assetPrefix: "/blog/",
   i18n,
   images: {
     remotePatterns: [
