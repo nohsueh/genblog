@@ -1,4 +1,7 @@
-import i18n from "./lib/i18n-config";
+export const i18n = {
+  defaultLocale: "en",
+  locales: ["en", "fr", "es", "de", "zh"],
+};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
