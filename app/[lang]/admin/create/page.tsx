@@ -22,12 +22,11 @@ export default async function CreateBlogPage(props: {
       <SiteHeader lang={lang} dictionary={dictionary} isAdmin={true} />
       <main className="flex-1 container mx-auto px-4 py-6">
         <BlogCreator
-          lang={lang}
           dictionary={dictionary}
           groupName={process.env.SEARCHLYSIS_GROUP_NAME || "searchlysis"}
         />
       </main>
-      <SiteFooter lang={lang} dictionary={dictionary} />
+      <SiteFooter />
     </div>
   );
 }

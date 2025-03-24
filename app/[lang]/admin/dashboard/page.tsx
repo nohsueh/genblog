@@ -1,9 +1,9 @@
-import type { Locale } from "@/lib/i18n-config";
-import { getDictionary } from "@/lib/dictionaries";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
 import { AdminDashboard } from "@/components/admin-dashboard";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { requireAdmin } from "@/lib/actions";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n-config";
 
 export default async function AdminDashboardPage(props: {
   params: Promise<{ lang: Locale }>;
@@ -27,7 +27,7 @@ export default async function AdminDashboardPage(props: {
           groupName={process.env.SEARCHLYSIS_GROUP_NAME || "searchlysis"}
         />
       </main>
-      <SiteFooter lang={lang} dictionary={dictionary} />
+      <SiteFooter />
     </div>
   );
 }

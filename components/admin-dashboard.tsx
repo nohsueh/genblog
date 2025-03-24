@@ -71,7 +71,7 @@ export function AdminDashboard({
     };
 
     fetchPosts();
-  }, [selectedGroup, currentPage]);
+  }, [groupName, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
     post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase())

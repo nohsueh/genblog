@@ -37,7 +37,7 @@ export default async function Home({
           page={page ? Number(page) : undefined}
         />
       </main>
-      <SiteFooter lang={lang} dictionary={dictionary} />
+      <SiteFooter />
     </div>
   );
 }

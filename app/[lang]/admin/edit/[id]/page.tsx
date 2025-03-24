@@ -32,11 +32,12 @@ export default async function EditBlogPage(
         <main className="flex-1 container mx-auto px-4 py-6">
           <BlogEditor post={post} lang={lang} dictionary={dictionary} />
         </main>
-        <SiteFooter lang={lang} dictionary={dictionary} />
+        <SiteFooter />
       </div>
-    )
+    );
   } catch (error) {
-    return notFound()
+    console.error(error);
+    return notFound();
   }
 }
 

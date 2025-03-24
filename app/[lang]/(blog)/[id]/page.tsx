@@ -26,14 +26,14 @@ export default async function BlogPage(props: {
         <main className="flex-1 container mx-auto px-4 py-6">
           <BlogPost post={post} lang={lang} dictionary={dictionary} />
         </main>
-        <SiteFooter lang={lang} dictionary={dictionary} />
+        <SiteFooter />
       </div>
     );
   } catch (error) {
+    console.error(error);
     return notFound();
   }
 }
-
 
 const getCachedAnalysis = cache(getAnalysis);
 

@@ -1,27 +1,23 @@
-import type { Locale } from "@/lib/i18n-config"
-import { getDictionary } from "@/lib/dictionaries"
-import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
-import { AdminLogin } from "@/components/admin-login"
-import { checkAdminSession } from "@/lib/actions"
-import { redirect } from "next/navigation"
+import { AdminLogin } from "@/components/admin-login";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { checkAdminSession } from "@/lib/actions";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n-config";
+import { redirect } from "next/navigation";
 
-export default async function AdminPage(
-  props: {
-    params: Promise<{ lang: Locale }>
-  }
-) {
+export default async function AdminPage(props: {
+  params: Promise<{ lang: Locale }>;
+}) {
   const params = await props.params;
 
-  const {
-    lang
-  } = params;
+  const { lang } = params;
 
-  const dictionary = getDictionary(lang)
-  const isLoggedIn = await checkAdminSession()
+  const dictionary = getDictionary(lang);
+  const isLoggedIn = await checkAdminSession();
 
   if (isLoggedIn) {
-    redirect(`/${lang}/admin/dashboard`)
+    redirect(`/${lang}/admin/dashboard`);
   }
 
   return (
@@ -30,8 +26,7 @@ export default async function AdminPage(
       <main className="flex-1 container mx-auto px-4 py-6">
         <AdminLogin lang={lang} dictionary={dictionary} />
       </main>
-      <SiteFooter lang={lang} dictionary={dictionary} />
+      <SiteFooter />
     </div>
-  )
+  );
 }
-

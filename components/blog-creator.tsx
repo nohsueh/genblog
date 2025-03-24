@@ -14,17 +14,15 @@ import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { analyzeLinks, analyzeSearch } from "@/lib/actions";
-import type { Locale } from "@/lib/i18n-config";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface BlogCreatorProps {
-  lang: Locale;
   dictionary: any;
   groupName: string;
 }
 
-export function BlogCreator({ lang, dictionary, groupName }: BlogCreatorProps) {
+export function BlogCreator({dictionary, groupName }: BlogCreatorProps) {
   const [activeTab, setActiveTab] = useState("search");
   const [temperature, setTemperature] = useState([0.7]);
   const [isLoading, setIsLoading] = useState(false);
