@@ -13,7 +13,7 @@ const nextConfig = {
     return [
       {
         source: "/",
-        destination: "/blog/*",
+        destination: "/blog",
       },
       {
         source: "/:path*",
