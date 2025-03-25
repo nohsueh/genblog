@@ -1,12 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: "/blog",
-  rewrites: async () => {
+  async redirects() {
     return [
       {
-        source: '/',
-        destination: '/blog'
-      }
+        source: "/",
+        destination: "/blog",
+        permanent: true,
+      },
     ];
   },
   images: {
