@@ -37,6 +37,8 @@ import { toast } from "sonner";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 
+const PAGE_SIZE = 20;
+
 interface AdminDashboardProps {
   lang: Locale;
   dictionary: any;
@@ -60,7 +62,7 @@ export function AdminDashboard({
       try {
         setLoading(true);
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const result = await getPublishedBlogs(currentPage, 20, group);
+        const result = await getPublishedBlogs(currentPage, PAGE_SIZE, group);
         setPosts(result.blogs);
         setTotal(result.total);
       } catch (error) {
@@ -209,7 +211,7 @@ export function AdminDashboard({
               ))}
             </TableBody>
           </Table>
-          {total > 20 && (
+          {total > PAGE_SIZE && (
             <div className="p-4 flex justify-center">
               <Pagination>
                 <PaginationContent>
@@ -217,10 +219,11 @@ export function AdminDashboard({
                     <PaginationPrevious
                       href="#"
                       onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                      aria-disabled={currentPage <= 1}
                     />
                   </PaginationItem>
                   {Array.from(
-                    { length: Math.ceil(total / 20) },
+                    { length: Math.ceil(total / PAGE_SIZE) },
                     (_, i) => i + 1
                   ).map((page) => (
                     <PaginationItem key={page}>
@@ -238,9 +241,10 @@ export function AdminDashboard({
                       href="#"
                       onClick={() =>
                         setCurrentPage((p) =>
-                          Math.min(Math.ceil(total / 20), p + 1)
+                          Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
                         )
                       }
+                      aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
                     />
                   </PaginationItem>
                 </PaginationContent>

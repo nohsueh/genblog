@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -17,9 +19,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
+import { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 const PAGE_SIZE = 6;
 
@@ -27,18 +30,32 @@ interface BlogListProps {
   lang: Locale;
   dictionary: any;
   group?: string;
-  page?: number;
 }
 
-async function BlogListContent({
-  lang,
-  dictionary,
-  group,
-  page = 1,
-}: BlogListProps) {
-  const { blogs, total } = await getPublishedBlogs(page, PAGE_SIZE, group);
+async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
+  const [posts, setPosts] = useState<AnalysisResult[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
-  if (blogs.length === 0) {
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const { blogs, total } = await getPublishedBlogs(
+          currentPage,
+          PAGE_SIZE,
+          group
+        );
+        setPosts(blogs);
+        setTotal(total);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, [group, currentPage, setPosts, setTotal]);
+
+  if (posts.length === 0) {
     return (
       <div className="text-center py-10">
         <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
@@ -49,7 +66,7 @@ async function BlogListContent({
   return (
     <div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {blogs.map((post) => (
+        {posts.map((post) => (
           <Card key={post.analysisId} className="overflow-hidden">
             <CardHeader className="p-0">
               {post.analysis.image ? (
@@ -111,28 +128,34 @@ async function BlogListContent({
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
-                  href={page > 1 ? `/${lang}?page=${page - 1}` : undefined}
-                  aria-disabled={page <= 1}
+                  href="#"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  aria-disabled={currentPage <= 1}
                 />
               </PaginationItem>
-              {Array.from({ length: Math.ceil(total / PAGE_SIZE) }, (_, i) => (
-                <PaginationItem key={i + 1}>
+              {Array.from(
+                { length: Math.ceil(total / PAGE_SIZE) },
+                (_, i) => i + 1
+              ).map((page) => (
+                <PaginationItem key={page}>
                   <PaginationLink
-                    href={`/${lang}?page=${i + 1}`}
-                    isActive={page === i + 1}
+                    href="#"
+                    isActive={currentPage === page}
+                    onClick={() => setCurrentPage(page)}
                   >
-                    {i + 1}
+                    {page}
                   </PaginationLink>
                 </PaginationItem>
               ))}
               <PaginationItem>
                 <PaginationNext
-                  href={
-                    page < Math.ceil(total / PAGE_SIZE)
-                      ? `/${lang}?page=${page + 1}`
-                      : undefined
+                  href="#"
+                  onClick={() =>
+                    setCurrentPage((p) =>
+                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
+                    )
                   }
-                  aria-disabled={page >= Math.ceil(total / PAGE_SIZE)}
+                  aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
                 />
               </PaginationItem>
             </PaginationContent>
