@@ -1,6 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: "/blog",
+  rewrites: async () => {
+    return [
+      {
+        source: '/',
+        destination: '/blog'
+      }
+    ];
+  },
   images: {
     remotePatterns: [
       {
@@ -8,18 +16,6 @@ const nextConfig = {
         hostname: "**",
       },
     ],
-  },
-  async rewrites() {
-    return [
-      {
-        source: "/",
-        destination: "/blog",
-      },
-      {
-        source: "/:path*",
-        destination: "/blog/:path*",
-      },
-    ];
   },
   experimental: {
     serverActions: {
