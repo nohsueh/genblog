@@ -34,12 +34,14 @@ interface BlogListProps {
 
 async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const [posts, setPosts] = useState<AnalysisResult[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
+        setLoading(true);
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
@@ -49,21 +51,23 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         setTotal(total);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchBlogs();
-  }, [group, currentPage, setPosts, setTotal]);
+  }, [group, currentPage, setPosts, setTotal, setLoading]);
 
-  if (posts.length === 0) {
-    return (
-      <div className="text-center py-10">
-        <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
-      </div>
-    );
-  }
-
-  return (
+  return loading ? (
+    <div className="text-center py-10">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+    </div>
+  ) : posts.length === 0 ? (
+    <div className="text-center py-10">
+      <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
+    </div>
+  ) : (
     <div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
