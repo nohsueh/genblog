@@ -40,19 +40,19 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   }, [post.analysis.content]);
 
   return (
-    <article className="max-w-3xl mx-auto">
-      <Link href={`/${lang}`} className="inline-flex mb-6">
+    <article className="mx-auto max-w-3xl">
+      <Link href={`/${lang}`} className="mb-6 inline-flex">
         <Button variant="ghost" className="gap-1">
           <ArrowLeft className="h-4 w-4" />
           {dictionary.blog.backToHome}
         </Button>
       </Link>
 
-      <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl mb-4">
+      <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
         {post.analysis.title}
       </h1>
 
-      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+      <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
         {post.analysis.publishedDate && (
           <span>
             {dictionary.blog.publishedOn}{" "}
@@ -67,7 +67,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
       </div>
 
       {post.analysis.image && (
-        <div className="relative aspect-video mb-6 overflow-hidden rounded-lg">
+        <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
           <Image
             src={post.analysis.image || "/placeholder.svg"}
             alt={post.analysis.title}
@@ -77,15 +77,13 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_250px] gap-8">
-        <div className="prose prose-gray dark:prose-invert max-w-none">
-          <Markdown content={post.analysis.content} />
-        </div>
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
+        <Markdown content={post.analysis.content} />
 
         {toc.length > 0 && (
           <div className="hidden lg:block">
             <div className="sticky top-8">
-              <h2 className="text-lg font-semibold mb-4">
+              <h2 className="mb-4 text-lg font-semibold">
                 {dictionary.blog.tableOfContents}
               </h2>
               <nav className="space-y-2">
@@ -93,7 +91,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                    className="block text-sm text-muted-foreground transition-colors hover:text-foreground"
                     style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
                   >
                     {item.text}

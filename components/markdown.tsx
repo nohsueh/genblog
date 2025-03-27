@@ -26,7 +26,7 @@ export const Markdown = memo(function Markdown({ content }: MarkdownProps) {
 
   return (
     <div
-      className="prose-sm prose-zinc w-full sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
+      className="prose prose-sm prose-gray w-full max-w-none dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
       dangerouslySetInnerHTML={{ __html: markdown }}
     />
   );
