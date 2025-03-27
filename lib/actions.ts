@@ -61,11 +61,9 @@ export async function validateAdmin(formData: FormData) {
       maxAge: SESSION_EXPIRY,
       path: "/",
     });
-
-    return { success: true };
+  } else {
+    throw new Error("Invalid password");
   }
-
-  return { success: false };
 }
 
 export async function checkAdminSession() {

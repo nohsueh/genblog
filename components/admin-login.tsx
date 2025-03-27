@@ -26,17 +26,12 @@ export function AdminLogin({ lang, dictionary }: AdminLoginProps) {
 
   async function handleSubmit(formData: FormData) {
     setIsLoading(true);
-
     toast.promise(validateAdmin(formData), {
       loading: dictionary.admin.login.loading,
-      success: (result) => {
-        if (result.success) {
-          router.push(`/${lang}/admin/dashboard`);
-          router.refresh();
-          return dictionary.admin.login.success;
-        } else {
-          toast.error(dictionary.admin.login.error);
-        }
+      success: () => {
+        router.push(`/${lang}/admin/dashboard`);
+        router.refresh();
+        return dictionary.admin.login.success;
       },
       error: (error) => {
         console.error(error);
