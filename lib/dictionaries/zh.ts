@@ -9,6 +9,9 @@ export default {
     by: "作者",
     backToHome: "返回首页",
     noBlogs: "没有找到博客文章",
+    tableOfContents: "目录",
+    previousPost: "上一篇",
+    nextPost: "下一篇",
   },
   admin: {
     login: {

@@ -10,6 +10,9 @@ export default {
     by: "par",
     backToHome: "Retour à l'Accueil",
     noBlogs: "Aucun blog trouvé",
+    tableOfContents: "Table des Matières",
+    previousPost: "Article Précédent",
+    nextPost: "Article Suivant",
   },
   admin: {
     login: {
@@ -41,7 +44,8 @@ export default {
     },
     create: {
       title: "Créer un Nouveau Blog",
-      description: "Créez un nouveau blog à partir d'une requête de recherche ou d'un lien spécifique.",
+      description:
+        "Créez un nouveau blog à partir d'une requête de recherche ou d'un lien spécifique.",
       searchQuery: "Requête de Recherche",
       link: "URL du Lien",
       prompt: "Invite d'Analyse",

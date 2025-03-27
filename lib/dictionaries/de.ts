@@ -10,6 +10,9 @@ export default {
     by: "von",
     backToHome: "Zurück zur Startseite",
     noBlogs: "Keine Blogs gefunden",
+    tableOfContents: "Inhaltsverzeichnis",
+    previousPost: "Vorheriger Artikel",
+    nextPost: "Nächster Artikel",
   },
   admin: {
     login: {

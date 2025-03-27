@@ -9,6 +9,9 @@ export default {
     by: "by",
     backToHome: "Back to Home",
     noBlogs: "No blogs found",
+    tableOfContents: "Table of Contents",
+    previousPost: "Previous Post",
+    nextPost: "Next Post",
   },
   admin: {
     login: {
