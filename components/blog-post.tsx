@@ -1,3 +1,5 @@
+"use client";
+
 import type { Locale } from "@/lib/i18n-config";
 import type { AnalysisResult } from "@/types/api";
 import { formatDate } from "@/lib/utils";
