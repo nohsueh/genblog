@@ -33,10 +33,10 @@ export function AdminLogin({ lang, dictionary }: AdminLoginProps) {
         if (result.success) {
           router.push(`/${lang}/admin/dashboard`);
           router.refresh();
+          return dictionary.admin.login.success;
         } else {
           toast.error(dictionary.admin.login.error);
         }
-        return dictionary.admin.login.success;
       },
       error: (error) => {
         console.error(error);
