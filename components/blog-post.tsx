@@ -8,7 +8,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Menu } from "lucide-react";
 import { Markdown } from "@/components/markdown";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface BlogPostProps {
@@ -21,6 +21,27 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   const [headings, setHeadings] = useState<
     Array<{ id: string; text: string; level: number }>
   >([]);
+  const [activeId, setActiveId] = useState<string>("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -80% 0px" },
+    );
+
+    headings.forEach((heading) => {
+      const element = document.getElementById(heading.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [headings]);
 
   const TableOfContents = () => (
     <div className="sticky top-8">
@@ -32,7 +53,11 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           <a
             key={item.id}
             href={`#${item.id}`}
-            className="block text-sm text-muted-foreground transition-colors hover:text-foreground"
+            className={`block text-sm transition-colors ${
+              activeId === item.id
+                ? "font-medium text-primary"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
             style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
           >
             {item.text}
@@ -43,31 +68,31 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   );
 
   return (
-    <article className="mx-auto max-w-3xl">
-      <div className="mb-6 flex items-center justify-between">
-        <Link href={`/${lang}`}>
-          <Button variant="ghost" className="gap-1">
-            <ArrowLeft className="h-4 w-4" />
-            {dictionary.blog.backToHome}
-          </Button>
-        </Link>
-        {headings.length > 0 && (
-          <div className="lg:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="h-4 w-4" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px]">
-                <TableOfContents />
-              </SheetContent>
-            </Sheet>
-          </div>
-        )}
-      </div>
+    <div className="relative">
+      <article className="mx-auto max-w-4xl">
+        <div className="mb-6 flex items-center justify-between">
+          <Link href={`/${lang}`}>
+            <Button variant="ghost" className="gap-1">
+              <ArrowLeft className="h-4 w-4" />
+              {dictionary.blog.backToHome}
+            </Button>
+          </Link>
+          {headings.length > 0 && (
+            <div className="lg:hidden">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="h-4 w-4" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-[300px]">
+                  <TableOfContents />
+                </SheetContent>
+              </Sheet>
+            </div>
+          )}
+        </div>
 
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
         <div>
           <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
             {post.analysis.title}
@@ -105,13 +130,13 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             />
           </div>
         </div>
+      </article>
 
-        {headings.length > 0 && (
-          <div className="hidden lg:block">
-            <TableOfContents />
-          </div>
-        )}
-      </div>
-    </article>
+      {headings.length > 0 && (
+        <div className="fixed right-8 top-24 hidden w-64 lg:block">
+          <TableOfContents />
+        </div>
+      )}
+    </div>
   );
 }
