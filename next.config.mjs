@@ -11,7 +11,7 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: ["nextjs-boilerplate-eta-five-67.vercel.app"],
+      allowedOrigins: [process.env.SEARCHLYSIS_ROOT_DOMAIN],
     },
   },
 };
