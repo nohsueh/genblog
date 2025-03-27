@@ -67,41 +67,43 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
         )}
       </div>
 
-      <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
-        {post.analysis.title}
-      </h1>
-
-      <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-        {post.analysis.publishedDate && (
-          <span>
-            {dictionary.blog.publishedOn}{" "}
-            {formatDate(post.analysis.publishedDate, lang)}
-          </span>
-        )}
-        {post.analysis.author && (
-          <span>
-            {dictionary.blog.by} {post.analysis.author}
-          </span>
-        )}
-      </div>
-
-      {post.analysis.image && (
-        <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
-          <Image
-            src={post.analysis.image || "/placeholder.svg"}
-            alt={post.analysis.title}
-            fill
-            className="object-cover"
-          />
-        </div>
-      )}
-
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_250px]">
-        <div className="prose prose-gray max-w-none dark:prose-invert">
-          <Markdown
-            content={post.analysis.content}
-            onHeadingsExtracted={setHeadings}
-          />
+        <div>
+          <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
+            {post.analysis.title}
+          </h1>
+
+          <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
+            {post.analysis.publishedDate && (
+              <span>
+                {dictionary.blog.publishedOn}{" "}
+                {formatDate(post.analysis.publishedDate, lang)}
+              </span>
+            )}
+            {post.analysis.author && (
+              <span>
+                {dictionary.blog.by} {post.analysis.author}
+              </span>
+            )}
+          </div>
+
+          {post.analysis.image && (
+            <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
+              <Image
+                src={post.analysis.image || "/placeholder.svg"}
+                alt={post.analysis.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
+
+          <div className="prose prose-gray max-w-none dark:prose-invert">
+            <Markdown
+              content={post.analysis.content}
+              onHeadingsExtracted={setHeadings}
+            />
+          </div>
         </div>
 
         {headings.length > 0 && (
