@@ -129,7 +129,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                   <Input
                     id="search-query"
                     name="query"
-                    placeholder={`e.g., site:${process.env.SEARCHLYSIS_ROOT_DOMAIN} topic`}
+                    placeholder={`e.g., site:${process.env.SEARCHLYSIS_BLOG_ROOT_DOMAIN} topic`}
                     disabled={isLoading}
                     required
                   />
@@ -202,7 +202,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                   <Textarea
                     id="link-url"
                     name="link"
-                    placeholder={`https://${process.env.SEARCHLYSIS_ROOT_DOMAIN}/article1\nhttps://${process.env.SEARCHLYSIS_ROOT_DOMAIN}/article2\nhttps://${process.env.SEARCHLYSIS_ROOT_DOMAIN}/article3`}
+                    placeholder={`https://${process.env.SEARCHLYSIS_BLOG_ROOT_DOMAIN}/article1\nhttps://${process.env.SEARCHLYSIS_BLOG_ROOT_DOMAIN}/article2\nhttps://${process.env.SEARCHLYSIS_BLOG_ROOT_DOMAIN}/article3`}
                     rows={4}
                     disabled={isLoading}
                     required
