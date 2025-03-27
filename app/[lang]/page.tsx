@@ -30,7 +30,7 @@ export default async function Home({
         <BlogList
           lang={lang}
           dictionary={dictionary}
-          group={process.env.SEARCHLYSIS_BLOG_ROOT_DOMAIN}
+          group={process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN}
         />
       </main>
       <SiteFooter />
