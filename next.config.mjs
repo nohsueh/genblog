@@ -11,7 +11,11 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      allowedOrigins: [process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN, "*.searchlysis.com"],
+      allowedOrigins: [
+        "searchlysis.com",
+        "*.searchlysis.com",
+        process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN,
+      ],
     },
   },
 };
