@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 
 const API_URL = "https://searchlysis.com/api";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
-const ADMIN_TOKEN = process.env.SEARCHLYSIS_BLOG_ADMIN_TOKEN;
+const ADMIN_TOKEN = process.env.SEARCHLYSIS_BLOG_ADMIN_PASSWORD;
 const SESSION_COOKIE_NAME = "blog_admin_session";
 const SESSION_EXPIRY = 60 * 60 * 24; // 24 hours
 
@@ -21,7 +21,7 @@ if (!API_KEY) {
 }
 
 if (!ADMIN_TOKEN) {
-  throw new Error("SEARCHLYSIS_BLOG_ADMIN_TOKEN is not defined");
+  throw new Error("SEARCHLYSIS_BLOG_ADMIN_PASSWORD is not defined");
 }
 const JWT_SECRET = ADMIN_TOKEN;
 
