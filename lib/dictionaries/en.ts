@@ -9,7 +9,7 @@ export default {
     by: "by",
     backToHome: "Back to Home",
     noBlogs: "No blogs found",
-    tableOfContents: "Table of Contents",
+    tableOfContents: "On this page",
     previousPost: "Previous Post",
     nextPost: "Next Post",
   },
