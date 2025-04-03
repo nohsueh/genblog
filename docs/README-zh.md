@@ -2,7 +2,7 @@
 
 [English](../README.md)
 
-一个现代化的博客构建平台，使用 Next.js 15+ 构建，通过 Searchlysis API 提供强大的 AI 博客创作和管理功能。
+一个现代化的博客构建平台，使用 Next.js 15+ 构建，通过 [Searchlysis API](https://searchlysis.com) 提供强大的 AI 博客创作和管理功能。
 
 ## 特点
 
@@ -45,7 +45,7 @@ pnpm dev
 
 ## 使用方法
 
-1. 访问 `http://localhost:3000` 启动开发服务器
+1. 访问 `localhost:3000` 启动开发服务器
 2. 使用提供的 UI 组件进行博客创作
 3. 通过管理界面进行博客内容的编辑和发布
 
