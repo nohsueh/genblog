@@ -9,7 +9,7 @@ export default {
     by: "por",
     backToHome: "Volver al Inicio",
     noBlogs: "No se encontraron blogs",
-    tableOfContents: "Índice",
+    tableOfContents: "En esta página",
     previousPost: "Artículo Anterior",
     nextPost: "Artículo Siguiente",
   },

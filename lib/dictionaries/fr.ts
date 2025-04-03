@@ -10,7 +10,7 @@ export default {
     by: "par",
     backToHome: "Retour à l'Accueil",
     noBlogs: "Aucun blog trouvé",
-    tableOfContents: "Table des Matières",
+    tableOfContents: "Dans cette page",
     previousPost: "Article Précédent",
     nextPost: "Article Suivant",
   },
