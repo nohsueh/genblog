@@ -1,6 +1,6 @@
 # Blog Builder
 
-[English](README.md)
+[English](../README.md)
 
 一个现代化的博客构建平台，使用 Next.js 15+ 构建，通过 Searchlysis API 提供强大的 AI 博客创作和管理功能。
 
