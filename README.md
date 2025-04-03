@@ -2,13 +2,13 @@
 
 [Chinese](README-zh.md)
 
-A modern blog building platform built with Next.js, providing powerful blog creation and management features.
+A modern blog building platform built with Next.js 15+, providing powerful blog creation and management features.
 
 ## Features
 
-- 🚀 Modern architecture based on Next.js 14+
+- 🚀 Modern architecture based on Next.js 15+
 - 🎨 Responsive design with Tailwind CSS
-- 🛠️ Rich UI component library (Radix UI)
+- 🛠️ Rich UI component library (Shadcn UI)
 - 📝 Markdown editing support
 - 🌐 Internationalization support
 - 📱 Mobile optimization
