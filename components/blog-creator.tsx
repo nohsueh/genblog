@@ -97,8 +97,8 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">
+    <div className="mx-auto max-w-3xl">
+      <h1 className="mb-6 text-3xl font-bold">
         {dictionary.admin.create.title}
       </h1>
 
@@ -129,7 +129,8 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                   <Input
                     id="search-query"
                     name="query"
-                    placeholder={`e.g., site:${process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN} topic`}
+                    placeholder={`e.g., ai news`}
+                    defaultValue={`site:${process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN}`}
                     disabled={isLoading}
                     required
                   />
