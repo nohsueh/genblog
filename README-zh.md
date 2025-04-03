@@ -1,25 +1,23 @@
 # Blog Builder
 
-[English Document](README.md)
+[English](README.md)
 
-一个现代化的博客构建平台，使用 Next.js 构建，提供强大的博客创作和管理功能。
+一个现代化的博客构建平台，使用 Next.js 15+ 构建，通过 Searchlysis API 提供强大的 AI 博客创作和管理功能。
 
 ## 特点
 
-- 🚀 基于 Next.js 14+ 的现代化架构
+- 🚀 基于 Next.js 15+ 的现代化架构
 - 🎨 使用 Tailwind CSS 实现响应式设计
-- 🛠️ 丰富的 UI 组件库（Radix UI）
+- 🛠️ 丰富的 UI 组件库（Shadcn UI）
 - 📝 支持 Markdown 编辑
 - 🌐 国际化支持
 - 📱 移动端优化
 
 ## 技术栈
 
-- **框架**: Next.js 14+
+- **框架**: Next.js 15+
 - **样式**: Tailwind CSS
-- **UI 组件**: Radix UI
-- **状态管理**: React Hook Form
-- **日期处理**: date-fns
+- **UI 组件**: Shadcn UI
 - **认证**: JSON Web Token
 
 ## 安装步骤
