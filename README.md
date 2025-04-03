@@ -1,79 +1,81 @@
 # Blog Builder
 
-一个现代化的博客构建平台，使用 Next.js 构建，提供强大的博客创作和管理功能。
+[中文文档](README-zh.md)
 
-## 特点
+A modern blog building platform built with Next.js, providing powerful blog creation and management features.
 
-- 🚀 基于 Next.js 14+ 的现代化架构
-- 🎨 使用 Tailwind CSS 实现响应式设计
-- 🛠️ 丰富的 UI 组件库（Radix UI）
-- 📝 支持 Markdown 编辑
-- 🌐 国际化支持
-- 📱 移动端优化
+## Features
 
-## 技术栈
+- 🚀 Modern architecture based on Next.js 14+
+- 🎨 Responsive design with Tailwind CSS
+- 🛠️ Rich UI component library (Radix UI)
+- 📝 Markdown editing support
+- 🌐 Internationalization support
+- 📱 Mobile optimization
 
-- **框架**: Next.js 14+
-- **样式**: Tailwind CSS
-- **UI 组件**: Radix UI
-- **状态管理**: React Hook Form
-- **日期处理**: date-fns
-- **认证**: JSON Web Token
+## Tech Stack
 
-## 安装步骤
+- **Framework**: Next.js 14+
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI
+- **State Management**: React Hook Form
+- **Date Handling**: date-fns
+- **Authentication**: JSON Web Token
 
-1. 克隆仓库
+## Installation Steps
+
+1. Clone the repository
 ```bash
-git clone [你的仓库地址]
+git clone [your repository URL]
 cd blog-builder
 ```
 
-2. 安装依赖
+2. Install dependencies
 ```bash
 pnpm install
 ```
 
-3. 复制环境变量
+3. Copy environment variables
 ```bash
 cp .env.example .env
 ```
 
-4. 启动开发服务器
+4. Start development server
 ```bash
 pnpm dev
 ```
 
-## 使用方法
+## Usage
 
-1. 访问 `http://localhost:3000` 启动开发服务器
-2. 使用提供的 UI 组件进行博客创作
-3. 通过管理界面进行博客内容的编辑和发布
+1. Access `http://localhost:3000` to start the development server
+2. Use the provided UI components for blog creation
+3. Edit and publish blog content through the management interface
 
-## 项目结构
+## Project Structure
 
 ```
 blog-builder/
-├── app/                 # Next.js 应用路由
-├── components/         # React 组件
-├── hooks/             # 自定义 React Hooks
-├── lib/               # 工具函数和配置
-├── public/            # 静态资源
-└── styles/            # 全局样式
+├── app/                 # Next.js application routes
+├── components/         # React components
+├── hooks/             # Custom React Hooks
+├── lib/               # Utility functions and configurations
+├── public/            # Static resources
+└── styles/            # Global styles
 ```
 
-## 开发规范
+## Development Standards
 
-- 使用 TypeScript 进行类型检查
-- 遵循 ESLint 规范
-- 使用 Prettier 进行代码格式化
+- Use TypeScript for type checking
+- Follow ESLint standards
+- Use Prettier for code formatting
 
-## 贡献指南
+## Contribution Guidelines
 
-1. Fork 仓库
-2. 创建新功能分支
-3. 提交更改
-4. 提交 Pull Request
+1. Fork the repository
+2. Create a new feature branch
+3. Submit changes
+4. Submit a Pull Request
 
-## 许可证
+## License
 
 MIT License
