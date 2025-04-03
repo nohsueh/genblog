@@ -144,6 +144,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="search-prompt"
                     name="prompt"
                     placeholder="Write a comprehensive blog post about..."
+                    defaultValue="You are a professional content writer and SEO specialist skilled at transforming raw webpage content into unique, engaging, and SEO-optimized articles. Create a high-quality human-style article from the provided content that covers a specific, niche topic in depth. The content should be original, well-researched, and provide significant value to readers. Structure the article clearly with engaging subheadings, bullet points, and short paragraphs to improve readability. Include relevant keywords naturally, but avoid keyword stuffing. Add internal links to related articles on the same website, and external links to authoritative sources to increase the page's credibility."
                     rows={4}
                     disabled={isLoading}
                     required
@@ -221,6 +222,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="link-prompt"
                     name="prompt"
                     placeholder="Write a comprehensive blog post about..."
+                    defaultValue="You are a professional content writer and SEO specialist skilled at transforming raw webpage content into unique, engaging, and SEO-optimized articles. Create a high-quality human-style article from the provided content that covers a specific, niche topic in depth. The content should be original, well-researched, and provide significant value to readers. Structure the article clearly with engaging subheadings, bullet points, and short paragraphs to improve readability. Include relevant keywords naturally, but avoid keyword stuffing. Add internal links to related articles on the same website, and external links to authoritative sources to increase the page's credibility."
                     rows={4}
                     disabled={isLoading}
                     required
