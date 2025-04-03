@@ -1,6 +1,6 @@
 # Blog Builder
 
-[Chinese](README-zh.md)
+[中文](README-zh.md)
 
 A modern blog building platform built with Next.js 15+, providing powerful blog creation and management features.
 
