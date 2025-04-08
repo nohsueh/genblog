@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Searchlysis Blog Builder Demo",
-  description: "Created with Searchlysis Blog Builder",
+  title: process.env.NEXT_PUBLIC_APP_TITLE,
+  description:
+    "Welcome to our Blog - Discover the latest insights and articles on various topics.",
 };
 
 export default function RootLayout({
