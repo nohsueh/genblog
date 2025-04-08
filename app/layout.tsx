@@ -1,10 +1,25 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const title = process.env.NEXT_PUBLIC_APP_TITLE;
+const description =
+  "Welcome to our Blog - Discover the latest insights and articles on various topics.";
+const images =
+  "https://searchlysis.com/logo.svg";
+
 export const metadata: Metadata = {
-  title: process.env.NEXT_PUBLIC_APP_TITLE,
-  description:
-    "Welcome to our Blog - Discover the latest insights and articles on various topics.",
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    images,
+  },
+  twitter: {
+    title,
+    description,
+    images,
+  },
 };
 
 export default function RootLayout({
