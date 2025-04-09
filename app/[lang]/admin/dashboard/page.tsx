@@ -24,7 +24,7 @@ export default async function AdminDashboardPage(props: {
         <AdminDashboard
           lang={lang}
           dictionary={dictionary}
-          groupName={process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN || "searchlysis.com"}
+          groupName={process.env.NEXT_PUBLIC_ROOT_DOMAIN || "searchlysis.com"}
         />
       </main>
       <SiteFooter />

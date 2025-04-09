@@ -23,7 +23,7 @@ export default async function CreateBlogPage(props: {
       <main className="flex-1 container mx-auto px-4 py-6">
         <BlogCreator
           dictionary={dictionary}
-          groupName={process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN || "searchlysis.com"}
+          groupName={process.env.NEXT_PUBLIC_ROOT_DOMAIN || "searchlysis.com"}
         />
       </main>
       <SiteFooter />

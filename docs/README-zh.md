@@ -37,8 +37,8 @@ pnpm install
 
 ```properties
 SEARCHLYSIS_API_KEY="你的 Searchlysis API Key，可以在 https://searchlysis.com/key 获取，新用户前 100 篇免费"
-SEARCHLYSIS_BLOG_ADMIN_PASSWORD="你的博客管理密码，自定义"
-NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN="网站域名，如果你想为 example.com 的所有页面生成博客，这里填 example.com"
+PASSWORD="你的博客管理密码，自定义"
+NEXT_PUBLIC_ROOT_DOMAIN="网站域名，如果你想为 example.com 的所有页面生成博客，这里填 example.com"
 ```
 
 4. 启动开发服务器
