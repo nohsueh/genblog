@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const title = process.env.NEXT_PUBLIC_APP_TITLE;
+const title = process.env.NEXT_PUBLIC_APP_NAME;
 const description =
   "Welcome to our Blog - Discover the latest insights and articles on various topics.";
 const images =
