@@ -20,9 +20,10 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // Check if there is any supported locale in the pathname
-  const pathnameIsMissingLocale = i18n.locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
-  )
+  const pathnameIsMissingLocale =
+    i18n.locales.every((locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`) &&
+    !pathname.endsWith("/sitemap.xml") &&
+    !pathname.endsWith("/robots.txt")
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
@@ -30,7 +31,9 @@ export function middleware(request: NextRequest) {
 
     // e.g. incoming request is /blog
     // The new URL is now /en/blog
-    return NextResponse.redirect(new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url))
+    return NextResponse.redirect(
+      new URL(`/${locale}${pathname.startsWith("/") ? "" : "/"}${pathname}`, request.url),
+    )
   }
 }
 
