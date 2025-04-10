@@ -5,9 +5,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     {
-      url: "/",
+      url: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/blog`,
       lastModified: now,
       priority: 1,
-    }
+    },
   ];
 }
