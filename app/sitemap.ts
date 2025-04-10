@@ -7,12 +7,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     await listAnalyses(1, 10000, { group: process.env.NEXT_PUBLIC_ROOT_DOMAIN })
   ).map((analysis) => analysis.analysisId);
 
-  return [i18n.defaultLocale].flatMap((locale) => [
-    {
-      url: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/blog/${locale}`,
-    },
-    ...analysesIds.map((analysisId) => ({
-      url: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/blog/${locale}/${analysisId}`,
-    })),
-  ]);
+  return i18n.locales
+    .filter((locale) => locale === i18n.defaultLocale)
+    .flatMap((locale) => [
+      {
+        url: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/blog/${locale}`,
+      },
+      ...analysesIds.map((analysisId) => ({
+        url: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/blog/${locale}/${analysisId}`,
+      })),
+    ]);
 }
