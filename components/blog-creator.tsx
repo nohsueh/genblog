@@ -133,7 +133,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="search-query"
                     name="query"
                     placeholder={`e.g., ai news`}
-                    defaultValue={`site:${process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN}`}
+                    defaultValue={`site:${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`}
                     disabled={isLoading}
                     required
                   />
@@ -207,7 +207,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                   <Textarea
                     id="link-url"
                     name="link"
-                    placeholder={`https://${process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN}/article1\nhttps://${process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN}/article2\nhttps://${process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN}/article3`}
+                    placeholder={`https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/article1\nhttps://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/article2\nhttps://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/article3`}
                     rows={4}
                     disabled={isLoading}
                     required

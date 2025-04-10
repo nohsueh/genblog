@@ -14,8 +14,8 @@ const nextConfig = {
       allowedOrigins: [
         "searchlysis.com",
         "*.searchlysis.com",
-        process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN,
-        `*.${process.env.NEXT_PUBLIC_SEARCHLYSIS_BLOG_ROOT_DOMAIN}`,
+        process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+        `*.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
       ],
     },
   },
