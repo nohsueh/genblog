@@ -32,3 +32,6 @@ next-env.d.ts
 
 # prettier
 .prettierrc
+
+# editor
+.vscode
