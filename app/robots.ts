@@ -8,7 +8,7 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
     },
     sitemap: [
       `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/sitemap.xml`,
-      `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/blog/sitemap.xml`,
+      `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH === "/" ? "" : process.env.NEXT_PUBLIC_BASE_PATH}/sitemap.xml`,
     ],
   };
 }
