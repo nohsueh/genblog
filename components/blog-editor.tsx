@@ -57,8 +57,8 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">{dictionary.admin.edit.title}</h1>
+    <div className="mx-auto max-w-4xl">
+      <h1 className="mb-6 text-3xl font-bold">{dictionary.admin.edit.title}</h1>
 
       <Card>
         <CardHeader>
@@ -111,7 +111,7 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
                   />
                 </TabsContent>
                 <TabsContent value="preview" className="pt-4">
-                  <div className="border rounded-md p-4 min-h-[400px] prose prose-gray dark:prose-invert max-w-none">
+                  <div className="prose prose-gray min-h-[400px] max-w-none rounded-md border p-4 dark:prose-invert">
                     <Markdown content={content} />
                   </div>
                 </TabsContent>

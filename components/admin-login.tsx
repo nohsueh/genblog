@@ -44,7 +44,7 @@ export function AdminLogin({ lang, dictionary }: AdminLoginProps) {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-[calc(100vh-200px)]">
+    <div className="flex min-h-[calc(100vh-200px)] items-center justify-center">
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle>{dictionary.admin.login.title}</CardTitle>

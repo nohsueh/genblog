@@ -45,7 +45,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group
+          group,
         );
         setPosts(blogs);
         setTotal(total);
@@ -60,11 +60,11 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   }, [group, currentPage, setPosts, setTotal, setLoading]);
 
   return loading ? (
-    <div className="text-center py-10">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+    <div className="py-10 text-center">
+      <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
     </div>
   ) : posts.length === 0 ? (
-    <div className="text-center py-10">
+    <div className="py-10 text-center">
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
   ) : (
@@ -74,7 +74,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           <Card key={post.analysisId} className="overflow-hidden">
             <CardHeader className="p-0">
               {post.analysis.image ? (
-                <div className="aspect-video relative overflow-hidden">
+                <div className="relative aspect-video overflow-hidden">
                   <Image
                     src={post.analysis.image || "/placeholder.svg"}
                     alt={post.analysis.title}
@@ -83,13 +83,13 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   />
                 </div>
               ) : (
-                <div className="aspect-video bg-muted flex items-center justify-center">
+                <div className="flex aspect-video items-center justify-center bg-muted">
                   <span className="text-muted-foreground">No image</span>
                 </div>
               )}
             </CardHeader>
             <CardContent className="p-4">
-              <CardTitle className="line-clamp-2 mb-2">
+              <CardTitle className="mb-2 line-clamp-2">
                 <Link
                   href={`/${lang}/${post.analysisId}`}
                   className="hover:underline"
@@ -97,7 +97,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   {post.analysis.title}
                 </Link>
               </CardTitle>
-              <div className="line-clamp-3 text-sm text-muted-foreground mb-2">
+              <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
                 {post.analysis.content.substring(0, 150)}...
               </div>
               <div className="text-xs text-muted-foreground">
@@ -139,7 +139,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
               </PaginationItem>
               {Array.from(
                 { length: Math.ceil(total / PAGE_SIZE) },
-                (_, i) => i + 1
+                (_, i) => i + 1,
               ).map((page) => (
                 <PaginationItem key={page}>
                   <PaginationLink
@@ -156,7 +156,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   href="#"
                   onClick={() =>
                     setCurrentPage((p) =>
-                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
+                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1),
                     )
                   }
                   aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
@@ -181,10 +181,10 @@ export function BlogList(props: BlogListProps) {
                 <Skeleton className="aspect-video" />
               </CardHeader>
               <CardContent className="p-4">
-                <Skeleton className="h-6 w-full mb-2" />
-                <Skeleton className="h-4 w-full mb-1" />
-                <Skeleton className="h-4 w-full mb-1" />
-                <Skeleton className="h-4 w-3/4 mb-2" />
+                <Skeleton className="mb-2 h-6 w-full" />
+                <Skeleton className="mb-1 h-4 w-full" />
+                <Skeleton className="mb-1 h-4 w-full" />
+                <Skeleton className="mb-2 h-4 w-3/4" />
                 <Skeleton className="h-3 w-1/2" />
               </CardContent>
               <CardFooter className="p-4 pt-0">

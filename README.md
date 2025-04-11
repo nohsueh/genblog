@@ -25,22 +25,26 @@ A modern blog building platform built with Next.js 15+, providing powerful blog 
 ## Installation Steps
 
 1. Clone the repository
+
 ```bash
 git clone [your repository URL]
 cd blog-builder
 ```
 
 2. Install dependencies
+
 ```bash
 pnpm install
 ```
 
 3. Copy environment variables
+
 ```bash
 cp .env.example .env
 ```
 
 4. Start development server
+
 ```bash
 pnpm dev
 ```

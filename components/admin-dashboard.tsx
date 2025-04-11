@@ -76,7 +76,7 @@ export function AdminDashboard({
   }, [groupName, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
-    post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase())
+    post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleToggleVisibility = async (post: AnalysisResult) => {
@@ -86,7 +86,7 @@ export function AdminDashboard({
       formData.append("content", post.analysis.content);
       formData.append(
         "group",
-        post.metadata?.group === groupName ? "" : groupName
+        post.metadata?.group === groupName ? "" : groupName,
       );
 
       const updatedPost = await updateAnalysis(formData);
@@ -94,8 +94,8 @@ export function AdminDashboard({
       // Update local state
       setPosts(
         posts.map((p) =>
-          p.analysisId === updatedPost.analysisId ? updatedPost : p
-        )
+          p.analysisId === updatedPost.analysisId ? updatedPost : p,
+        ),
       );
     } catch (error) {
       toast.error(dictionary.admin.edit.error);
@@ -105,7 +105,7 @@ export function AdminDashboard({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap justify-between items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-3xl font-bold">
           {dictionary.admin.dashboard.title}
         </h1>
@@ -119,7 +119,7 @@ export function AdminDashboard({
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex-1">
           <Input
             placeholder={dictionary.admin.dashboard.search}
@@ -143,17 +143,17 @@ export function AdminDashboard({
       </div>
 
       {loading ? (
-        <div className="text-center py-10">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+        <div className="py-10 text-center">
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
         </div>
       ) : filteredPosts.length === 0 ? (
-        <div className="text-center py-10">
+        <div className="py-10 text-center">
           <p className="text-muted-foreground">
             {dictionary.admin.dashboard.noBlogs}
           </p>
         </div>
       ) : (
-        <div className="border rounded-md">
+        <div className="rounded-md border">
           <Table>
             <TableHeader>
               <TableRow>
@@ -179,7 +179,7 @@ export function AdminDashboard({
                     {post.metadata?.group ? (
                       <Badge variant="outline">{post.metadata.group}</Badge>
                     ) : (
-                      <span className="text-muted-foreground text-sm">-</span>
+                      <span className="text-sm text-muted-foreground">-</span>
                     )}
                   </TableCell>
                   <TableCell>
@@ -212,7 +212,7 @@ export function AdminDashboard({
             </TableBody>
           </Table>
           {total > PAGE_SIZE && (
-            <div className="p-4 flex justify-center">
+            <div className="flex justify-center p-4">
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
@@ -224,7 +224,7 @@ export function AdminDashboard({
                   </PaginationItem>
                   {Array.from(
                     { length: Math.ceil(total / PAGE_SIZE) },
-                    (_, i) => i + 1
+                    (_, i) => i + 1,
                   ).map((page) => (
                     <PaginationItem key={page}>
                       <PaginationLink
@@ -241,7 +241,7 @@ export function AdminDashboard({
                       href="#"
                       onClick={() =>
                         setCurrentPage((p) =>
-                          Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
+                          Math.min(Math.ceil(total / PAGE_SIZE), p + 1),
                         )
                       }
                       aria-disabled={
