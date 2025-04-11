@@ -101,14 +101,14 @@ export function SiteHeader({
                       switch (locale) {
                         case "en":
                           return "English";
-                        case "zh":
-                          return "中文";
                         case "es":
                           return "Español";
                         case "fr":
                           return "Français";
                         case "de":
                           return "Deutsch";
+                        case "zh":
+                          return "中文";
                       }
                     })()}
                   </DropdownMenuItem>
