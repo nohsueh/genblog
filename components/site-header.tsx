@@ -48,12 +48,15 @@ export function SiteHeader({
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <div className="flex gap-6 md:gap-10">
-          <Link href={`/${lang}`} className="flex items-center space-x-2">
+          <Link
+            href={process.env.NEXT_PUBLIC_ROOT_DOMAIN || `/${lang}`}
+            className="flex items-center space-x-2"
+          >
             <span className="inline-block font-bold">
               {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
           </Link>
-          <nav className="hidden md:flex gap-6">
+          <nav className="hidden gap-6 md:flex">
             <Link
               href={`/${lang}`}
               className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
@@ -125,7 +128,7 @@ export function SiteHeader({
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
-                <nav className="flex flex-col gap-4 mt-4">
+                <nav className="mt-4 flex flex-col gap-4">
                   <Link
                     href={`/${lang}`}
                     className="text-sm font-medium transition-colors hover:text-primary"
