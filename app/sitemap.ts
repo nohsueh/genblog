@@ -3,6 +3,8 @@ import { i18n } from "@/lib/i18n-config";
 import type { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const BASE_URL = `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH || ""}`;
+
   const analysesIds = (
     await listAnalyses(1, 10000, { group: process.env.NEXT_PUBLIC_ROOT_DOMAIN })
   ).map((analysis) => analysis.analysisId);
@@ -11,10 +13,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((locale) => locale === i18n.defaultLocale)
     .flatMap((locale) => [
       {
-        url: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH || ""}/${locale}`,
+        url: `${BASE_URL}/${locale}`,
       },
       ...analysesIds.map((analysisId) => ({
-        url: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${process.env.NEXT_PUBLIC_BASE_PATH || ""}/${locale}/${analysisId}`,
+        url: `${BASE_URL}/${locale}/${analysisId}`,
       })),
     ]);
 }
