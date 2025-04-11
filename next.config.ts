@@ -1,5 +1,6 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
   basePath: "/blog",
   images: {
     remotePatterns: [
@@ -14,8 +15,8 @@ const nextConfig = {
       allowedOrigins: [
         "searchlysis.com",
         "*.searchlysis.com",
-        process.env.NEXT_PUBLIC_ROOT_DOMAIN,
-        `*.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`,
+        process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost",
+        `*.${process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost"}`,
       ],
     },
   },
