@@ -15,11 +15,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .flatMap((locale) => [
       {
         url: `${BASE_URL}/${locale}`,
-        lastmod: CURRENT_DATE,
+        lastModified: CURRENT_DATE,
       },
       ...analysesIds.map((analysisId) => ({
         url: `${BASE_URL}/${locale}/${analysisId}`,
-        lastmod: CURRENT_DATE,
+        lastModified: CURRENT_DATE,
       })),
     ]);
 }
