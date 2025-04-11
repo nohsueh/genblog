@@ -30,7 +30,7 @@ import { getPublishedBlogs, updateAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
-import { Pencil, Plus } from "lucide-react";
+import { Pencil, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -112,7 +112,7 @@ export function AdminDashboard({
         <div className="flex gap-2">
           <Link href={`/${lang}/admin/create`}>
             <Button>
-              <Plus className="mr-2 h-4 w-4" />
+              <Sparkles className="mr-2 h-4 w-4" />
               {dictionary.admin.dashboard.createNew}
             </Button>
           </Link>
@@ -244,7 +244,9 @@ export function AdminDashboard({
                           Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
                         )
                       }
-                      aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
+                      aria-disabled={
+                        currentPage >= Math.ceil(total / PAGE_SIZE)
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>

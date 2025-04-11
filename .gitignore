@@ -18,7 +18,7 @@ yarn-error.log*
 
 # env files
 .env
-.env.local
+.env*.local
 
 # vercel
 .vercel
@@ -35,3 +35,4 @@ next-env.d.ts
 
 # editor
 .vscode
+.idea
