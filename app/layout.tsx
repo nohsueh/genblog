@@ -29,10 +29,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta
-          name="google-site-verification"
-          content="V4VvYgtG2YjSMkrElHJvSAJL1UUjfw9EH-oHLlAby8w"
-        />
+        {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
+          <meta
+            name="google-site-verification"
+            content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION}
+          />
+        )}
       </head>
       <body>{children}</body>
     </html>
