@@ -49,7 +49,9 @@ export function SiteHeader({
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <div className="flex gap-6 md:gap-10">
           <Link
-            href={`https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`}
+            href={
+              `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
+            }
             className="flex items-center space-x-2"
           >
             <span className="inline-block font-bold">
