@@ -23,7 +23,7 @@ export default async function BlogPage(props: {
     return (
       <div className="flex min-h-screen flex-col">
         <SiteHeader lang={lang} dictionary={dictionary} />
-        <main className="flex-1 container mx-auto px-4 py-6">
+        <main className="container mx-auto mb-96 flex-1 px-4 py-6">
           <BlogPost post={post} lang={lang} dictionary={dictionary} />
         </main>
         <SiteFooter />
