@@ -14,9 +14,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .flatMap((locale) => [
       {
         url: `${BASE_URL}/${locale}`,
+        priority: 1,
       },
       ...analysesIds.map((analysisId) => ({
         url: `${BASE_URL}/${locale}/${analysisId}`,
+        priority: 0.8,
       })),
     ]);
 }
