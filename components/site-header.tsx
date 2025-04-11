@@ -48,14 +48,14 @@ export function SiteHeader({
     <header className="sticky top-0 z-40 w-full border-b bg-background">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <div className="flex gap-6 md:gap-10">
-          <a
-            href={process.env.NEXT_PUBLIC_ROOT_DOMAIN || `/${lang}`}
+          <Link
+            href={`https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`}
             className="flex items-center space-x-2"
           >
             <span className="inline-block font-bold">
               {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
-          </a>
+          </Link>
           <nav className="hidden gap-6 md:flex">
             <Link
               href={`/${lang}`}
