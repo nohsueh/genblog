@@ -196,22 +196,20 @@ export function AdminDashboard({
                     </div>
                   </TableCell>
                   <TableCell className="text-right">
-                    <div className="flex justify-end gap-2">
-                      <Link href={`/${lang}/console/edit/${post.analysisId}`}>
-                        <Button size="icon" variant="ghost">
-                          <Pencil className="h-4 w-4" />
-                          <span className="sr-only">
-                            {dictionary.admin.dashboard.edit}
-                          </span>
-                        </Button>
-                      </Link>
+                    <Link href={`/${lang}/console/edit/${post.analysisId}`}>
                       <Button size="icon" variant="ghost">
-                        <Trash className="h-4 w-4" />
+                        <Pencil className="h-4 w-4" />
                         <span className="sr-only">
-                          {dictionary.admin.dashboard.delete}
+                          {dictionary.admin.dashboard.edit}
                         </span>
                       </Button>
-                    </div>
+                    </Link>
+                    <Button size="icon" variant="ghost">
+                      <Trash className="h-4 w-4" />
+                      <span className="sr-only">
+                        {dictionary.admin.dashboard.delete}
+                      </span>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
