@@ -206,7 +206,7 @@ export function AdminDashboard({
                       </Label>
                     </div>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell>
                     <Link href={`/${lang}/console/edit/${post.analysisId}`}>
                       <Button size="icon" variant="ghost">
                         <Pencil className="h-4 w-4" />
@@ -216,11 +216,13 @@ export function AdminDashboard({
                       </Button>
                     </Link>
                     <AlertDialog>
-                      <AlertDialogTrigger>
-                        <Trash className="h-4 w-4" />
-                        <span className="sr-only">
-                          {dictionary.admin.dashboard.delete}
-                        </span>
+                      <AlertDialogTrigger asChild>
+                        <Button size="icon" variant="ghost">
+                          <Trash className="h-4 w-4" />
+                          <span className="sr-only">
+                            {dictionary.admin.dashboard.delete}
+                          </span>
+                        </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
