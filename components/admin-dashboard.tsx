@@ -37,7 +37,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getPublishedBlogs, updateAnalysis } from "@/lib/actions";
+import {
+  deleteAnalysis,
+  getPublishedBlogs,
+  updateAnalysis,
+} from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
@@ -104,13 +108,23 @@ export function AdminDashboard({
 
       // Update local state
       setPosts(
-        posts.map((p) =>
-          p.analysisId === updatedPost.analysisId ? updatedPost : p,
+        posts.map((post) =>
+          post.analysisId === updatedPost.analysisId ? updatedPost : post,
         ),
       );
     } catch (error) {
       toast.error(dictionary.admin.edit.error);
       console.error("Failed to update post visibility:", error);
+    }
+  };
+
+  const handleDelete = async (post: AnalysisResult) => {
+    try {
+      await deleteAnalysis(post.analysisId);
+      setPosts(posts.filter((p) => p.analysisId !== post.analysisId));
+    } catch (error) {
+      toast.error(dictionary.admin.edit.error);
+      console.error("Failed to delete post:", error);
     }
   };
 
@@ -235,7 +249,9 @@ export function AdminDashboard({
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Cancel</AlertDialogCancel>
-                          <AlertDialogAction>Confirm</AlertDialogAction>
+                          <AlertDialogAction onClick={() => handleDelete(post)}>
+                            Confirm
+                          </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>

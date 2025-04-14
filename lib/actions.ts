@@ -165,6 +165,21 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
   return response.json();
 }
 
+export async function deleteAnalysis(analysisId: string) {
+  const response = await fetch(
+    `${API_URL}/v1/analyses/delete`,
+    {
+      method: "POST",
+      headers,
+      body: JSON.stringify({ analysisId }),
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete analysis: ${response.statusText}`);
+  }
+}
+
 export async function updateAnalysis(formData: FormData) {
   const analysisId = formData.get("analysisId") as string;
   const content = formData.get("content") as string;
