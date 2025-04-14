@@ -161,7 +161,7 @@ export function AdminDashboard({
                 <TableHead>Date</TableHead>
                 <TableHead>{dictionary.admin.dashboard.group}</TableHead>
                 <TableHead>{dictionary.admin.dashboard.visibility}</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
