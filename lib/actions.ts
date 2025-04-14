@@ -86,7 +86,7 @@ export async function logoutAdmin() {
 export async function requireAdmin(lang: string) {
   const isAdmin = await checkAdminSession();
   if (!isAdmin) {
-    redirect(`/${lang}/admin`);
+    redirect(`/${lang}/console`);
   }
 }
 

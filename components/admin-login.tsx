@@ -29,7 +29,7 @@ export function AdminLogin({ lang, dictionary }: AdminLoginProps) {
     toast.promise(validateAdmin(formData), {
       loading: dictionary.admin.login.loading,
       success: () => {
-        router.push(`/${lang}/admin/dashboard`);
+        router.push(`/${lang}/console/dashboard`);
         router.refresh();
         return dictionary.admin.login.success;
       },

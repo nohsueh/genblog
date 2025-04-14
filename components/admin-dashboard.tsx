@@ -110,7 +110,7 @@ export function AdminDashboard({
           {dictionary.admin.dashboard.title}
         </h1>
         <div className="flex gap-2">
-          <Link href={`/${lang}/admin/create`}>
+          <Link href={`/${lang}/console/create`}>
             <Button>
               <Sparkles className="mr-2 h-4 w-4" />
               {dictionary.admin.dashboard.createNew}
@@ -197,7 +197,7 @@ export function AdminDashboard({
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Link href={`/${lang}/admin/edit/${post.analysisId}`}>
+                      <Link href={`/${lang}/console/edit/${post.analysisId}`}>
                         <Button size="icon" variant="ghost">
                           <Pencil className="h-4 w-4" />
                           <span className="sr-only">

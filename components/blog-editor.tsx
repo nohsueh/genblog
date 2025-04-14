@@ -45,7 +45,7 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
 
       toast.success(dictionary.admin.edit.success);
 
-      router.push(`/${lang}/admin/dashboard`);
+      router.push(`/${lang}/console/dashboard`);
       router.refresh();
     } catch (error) {
       toast.error(dictionary.admin.edit.error, {

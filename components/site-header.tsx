@@ -40,7 +40,7 @@ export function SiteHeader({
 
   const handleLogout = async () => {
     await logoutAdmin();
-    router.push(`/${lang}/admin`);
+    router.push(`/${lang}/console`);
     router.refresh();
   };
 
@@ -67,14 +67,14 @@ export function SiteHeader({
             </Link>
             {isAdmin ? (
               <Link
-                href={`/${lang}/admin/dashboard`}
+                href={`/${lang}/console/dashboard`}
                 className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               >
                 {dictionary.header.dashboard}
               </Link>
             ) : (
               <Link
-                href={`/${lang}/admin`}
+                href={`/${lang}/console`}
                 className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               >
                 {dictionary.header.admin}
@@ -139,14 +139,14 @@ export function SiteHeader({
                   </Link>
                   {isAdmin ? (
                     <Link
-                      href={`/${lang}/admin/dashboard`}
+                      href={`/${lang}/console/dashboard`}
                       className="text-sm font-medium transition-colors hover:text-primary"
                     >
                       {dictionary.header.dashboard}
                     </Link>
                   ) : (
                     <Link
-                      href={`/${lang}/admin`}
+                      href={`/${lang}/console`}
                       className="text-sm font-medium transition-colors hover:text-primary"
                     >
                       {dictionary.header.admin}

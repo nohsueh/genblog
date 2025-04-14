@@ -17,7 +17,7 @@ export default async function AdminPage(props: {
   const isLoggedIn = await checkAdminSession();
 
   if (isLoggedIn) {
-    redirect(`/${lang}/admin/dashboard`);
+    redirect(`/${lang}/console/dashboard`);
   }
 
   return (
