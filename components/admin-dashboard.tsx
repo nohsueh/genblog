@@ -30,7 +30,7 @@ import { getPublishedBlogs, updateAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
-import { Pencil, Sparkles } from "lucide-react";
+import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -205,6 +205,12 @@ export function AdminDashboard({
                           </span>
                         </Button>
                       </Link>
+                      <Button size="icon" variant="ghost">
+                        <Trash className="h-4 w-4" />
+                        <span className="sr-only">
+                          {dictionary.admin.dashboard.delete}
+                        </span>
+                      </Button>
                     </div>
                   </TableCell>
                 </TableRow>
