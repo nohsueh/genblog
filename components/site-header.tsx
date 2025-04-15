@@ -65,21 +65,6 @@ export function SiteHeader({
             >
               {dictionary.header.home}
             </Link>
-            {isAdmin ? (
-              <Link
-                href={`/${lang}/console/dashboard`}
-                className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-              >
-                {dictionary.header.dashboard}
-              </Link>
-            ) : (
-              <Link
-                href={`/${lang}/console`}
-                className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-              >
-                {dictionary.header.admin}
-              </Link>
-            )}
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
