@@ -13,7 +13,20 @@ export function SiteFooter() {
             href={"https://github.com/nohsueh/blog-builder"}
             target="_blank"
           >
-            <Image src="/github.svg" alt="GitHub" width={24} height={24} />
+            <Image
+              src="/github-mark.svg"
+              alt="GitHub"
+              width={24}
+              height={24}
+              className="block dark:hidden"
+            />
+            <Image
+              src="/github-mark-white.svg"
+              alt="GitHub"
+              width={24}
+              height={24}
+              className="hidden dark:block"
+            />
           </Link>
         </div>
         <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
