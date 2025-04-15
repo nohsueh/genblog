@@ -8,7 +8,10 @@ export function SiteFooter() {
           © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_APP_NAME}
         </p>
         <div className="flex items-center space-x-2">
-          <Link href={"https://github.com/nohsueh/blog-builder"}>
+          <Link
+            href={"https://github.com/nohsueh/blog-builder"}
+            target="_blank"
+          >
             <svg
               role="img"
               viewBox="0 0 24 24"
