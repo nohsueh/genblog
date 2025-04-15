@@ -38,7 +38,7 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
           <script
             async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION}`}
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
             crossOrigin="anonymous"
           ></script>
         )}
