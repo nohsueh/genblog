@@ -36,6 +36,9 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
     try {
       // Add temperature to the form data
       formData.append("temperature", temperature[0].toString());
+      // Add num to the form data (default 1 if not set)
+      const num = formData.get("num") || 10;
+      formData.set("num", num.toString());
 
       toast.promise(analyzeSearch(formData), {
         loading: dictionary.admin.create.generating,
@@ -162,6 +165,21 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="search-group"
                     name="group"
                     defaultValue={groupName}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="search-num">
+                    {dictionary.admin.create.num || '数量'}
+                  </Label>
+                  <Input
+                    id="search-num"
+                    name="num"
+                    type="number"
+                    min={1}
+                    max={200}
+                    defaultValue={10}
                     disabled={isLoading}
                   />
                 </div>
