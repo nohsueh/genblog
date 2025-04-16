@@ -49,6 +49,7 @@ export default {
       searchQuery: "Suchanfrage",
       link: "Link-URL",
       prompt: "Analyse-Prompt",
+      num: "Anzahl",
       group: "Gruppe",
       temperature: "Temperatur",
       submit: "Blog generieren",

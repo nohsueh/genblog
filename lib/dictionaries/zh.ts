@@ -46,6 +46,7 @@ export default {
       searchQuery: "搜索查询",
       link: "链接URL",
       prompt: "分析提示",
+      num: "数量",
       group: "组",
       temperature: "温度",
       submit: "生成博客",

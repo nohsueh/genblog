@@ -171,7 +171,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
 
                 <div className="space-y-2">
                   <Label htmlFor="search-num">
-                    {dictionary.admin.create.num || '数量'}
+                    {dictionary.admin.create.num}
                   </Label>
                   <Input
                     id="search-num"

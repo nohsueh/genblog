@@ -49,6 +49,7 @@ export default {
       searchQuery: "Requête de Recherche",
       link: "URL du Lien",
       prompt: "Invite d'Analyse",
+      num: "Nombre",
       group: "Groupe",
       temperature: "Température",
       submit: "Générer le Blog",
