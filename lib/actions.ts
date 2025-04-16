@@ -94,6 +94,7 @@ export async function analyzeSearch(formData: FormData) {
   const query = formData.get("query") as string;
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
+  const num = Number.parseInt(formData.get("num") as string) || 10;
   const temperatureStr = formData.get("temperature") as string;
   const temperature = Number.parseFloat(temperatureStr);
 
@@ -102,7 +103,7 @@ export async function analyzeSearch(formData: FormData) {
   const params: AnalyzeSearchParams = {
     query,
     prompt,
-    num: 100,
+    num,
     temperature,
     metadata,
   };
