@@ -15,14 +15,14 @@ export function SiteFooter() {
               target="_blank"
             >
               <Image
-                src="/github-mark.svg"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}
                 alt="GitHub"
                 width={24}
                 height={24}
                 className="block dark:hidden"
               />
               <Image
-                src="/github-mark-white.svg"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
                 alt="GitHub"
                 width={24}
                 height={24}

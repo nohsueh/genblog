@@ -32,7 +32,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" },
+      { rootMargin: "-20% 0px -80% 0px" }
     );
 
     headings.forEach((heading) => {
@@ -115,7 +115,10 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           {post.analysis.image && (
             <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
               <Image
-                src={post.analysis.image || "/placeholder.svg"}
+                src={
+                  post.analysis.image ||
+                  `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+                }
                 alt={post.analysis.title}
                 fill
                 className="object-cover"
