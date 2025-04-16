@@ -37,11 +37,16 @@ export default function RootLayout({
         )}
         {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
           <script
-            dangerouslySetInnerHTML={{
-              __html: `console.log('GOOGLE_ADSENSE:', '${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}')`,
-            }}
-          />
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
+            crossOrigin="anonymous"
+          ></script>
         )}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `console.log('GOOGLE_ADSENSE:', '${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}')`,
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>
