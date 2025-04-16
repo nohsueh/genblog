@@ -178,7 +178,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     name="num"
                     type="number"
                     min={1}
-                    max={200}
+                    max={25}
                     defaultValue={10}
                     disabled={isLoading}
                   />
