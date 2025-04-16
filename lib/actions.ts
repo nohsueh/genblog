@@ -49,7 +49,7 @@ export async function validateAdmin(formData: FormData) {
       JWT_SECRET,
       {
         expiresIn: SESSION_EXPIRY,
-      },
+      }
     );
 
     // Set the JWT token in the cookie
@@ -102,6 +102,7 @@ export async function analyzeSearch(formData: FormData) {
   const params: AnalyzeSearchParams = {
     query,
     prompt,
+    num: 100,
     temperature,
     metadata,
   };
@@ -155,7 +156,7 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
     `${API_URL}/v1/analyses?analysisId=${analysisId}`,
     {
       headers,
-    },
+    }
   );
 
   if (!response.ok) {
@@ -166,14 +167,11 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
 }
 
 export async function deleteAnalysis(analysisId: string) {
-  const response = await fetch(
-    `${API_URL}/v1/analyses/delete`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({ analysisId }),
-    },
-  );
+  const response = await fetch(`${API_URL}/v1/analyses/delete`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ analysisId }),
+  });
 
   if (!response.ok) {
     throw new Error(`Failed to delete analysis: ${response.statusText}`);
@@ -214,7 +212,7 @@ export async function updateAnalysis(formData: FormData) {
 export async function listAnalyses(
   pageNum = 1,
   pageSize = 10,
-  metadata?: Record<string, any>,
+  metadata?: Record<string, any>
 ): Promise<AnalysisResult[]> {
   let url = `${API_URL}/v1/analyses/list?pageNum=${pageNum}&pageSize=${pageSize}`;
 
@@ -237,7 +235,7 @@ export async function listAnalyses(
 export async function getPublishedBlogs(
   pageNum = 1,
   pageSize = 20,
-  group?: string,
+  group?: string
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
   const metadata = group ? { group } : undefined;
 
