@@ -15,7 +15,7 @@ export default async function Home({
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader lang={lang} dictionary={dictionary} />
-      <main className="container mx-auto flex-1 px-4 py-6">
+      <main className="container flex-1 px-4 py-6">
         <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16">
           <div className="flex max-w-[980px] flex-col items-start gap-2">
             <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">

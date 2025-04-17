@@ -45,7 +45,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group
+          group,
         );
         setPosts(blogs);
         setTotal(total);
@@ -68,67 +68,65 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
   ) : (
-    <div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <Card key={post.analysisId} className="overflow-hidden">
-            <CardHeader className="p-0">
-              {post.analysis.image ? (
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={
-                      post.analysis.image ||
-                      `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-                    }
-                    alt={post.analysis.title}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-              ) : (
-                <div className="flex aspect-video items-center justify-center bg-muted">
-                  <span className="text-muted-foreground">No image</span>
-                </div>
-              )}
-            </CardHeader>
-            <CardContent className="p-4">
-              <CardTitle className="mb-2 line-clamp-2">
-                <Link
-                  href={`/${lang}/${post.analysisId}`}
-                  className="hover:underline"
-                >
-                  {post.analysis.title}
-                </Link>
-              </CardTitle>
-              <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
-                {post.analysis.content.substring(0, 150)}...
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <Card key={post.analysisId} className="overflow-hidden">
+          <CardHeader className="p-0">
+            {post.analysis.image ? (
+              <div className="relative aspect-video overflow-hidden">
+                <Image
+                  src={
+                    post.analysis.image ||
+                    `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+                  }
+                  alt={post.analysis.title}
+                  fill
+                  className="object-cover"
+                />
               </div>
-              <div className="text-xs text-muted-foreground">
-                {post.createdAt && (
-                  <>
-                    {dictionary.blog.publishedOn}{" "}
-                    {formatDate(post.createdAt, lang)}
-                  </>
-                )}
-                {post.analysis.author && (
-                  <>
-                    {" "}
-                    {dictionary.blog.by} {post.analysis.author}
-                  </>
-                )}
+            ) : (
+              <div className="flex aspect-video items-center justify-center bg-muted">
+                <span className="text-muted-foreground">No image</span>
               </div>
-            </CardContent>
-            <CardFooter className="p-4 pt-0">
+            )}
+          </CardHeader>
+          <CardContent className="p-4">
+            <CardTitle className="mb-2 line-clamp-2">
               <Link
                 href={`/${lang}/${post.analysisId}`}
-                className="text-sm font-medium text-primary hover:underline"
+                className="hover:underline"
               >
-                {dictionary.blog.readMore}
+                {post.analysis.title}
               </Link>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+            </CardTitle>
+            <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
+              {post.analysis.content.substring(0, 150)}...
+            </div>
+            <div className="text-xs text-muted-foreground">
+              {post.createdAt && (
+                <>
+                  {dictionary.blog.publishedOn}{" "}
+                  {formatDate(post.createdAt, lang)}
+                </>
+              )}
+              {post.analysis.author && (
+                <>
+                  {" "}
+                  {dictionary.blog.by} {post.analysis.author}
+                </>
+              )}
+            </div>
+          </CardContent>
+          <CardFooter className="p-4 pt-0">
+            <Link
+              href={`/${lang}/${post.analysisId}`}
+              className="text-sm font-medium text-primary hover:underline"
+            >
+              {dictionary.blog.readMore}
+            </Link>
+          </CardFooter>
+        </Card>
+      ))}
       {total > PAGE_SIZE && (
         <div className="mt-8 flex justify-center">
           <Pagination>
@@ -142,7 +140,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
               </PaginationItem>
               {Array.from(
                 { length: Math.ceil(total / PAGE_SIZE) },
-                (_, i) => i + 1
+                (_, i) => i + 1,
               ).map((page) => (
                 <PaginationItem key={page}>
                   <PaginationLink
@@ -159,7 +157,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   href="#"
                   onClick={() =>
                     setCurrentPage((p) =>
-                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
+                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1),
                     )
                   }
                   aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
