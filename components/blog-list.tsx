@@ -45,7 +45,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group,
+          group
         );
         setPosts(blogs);
         setTotal(total);
@@ -128,47 +128,47 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
             </CardFooter>
           </Card>
         ))}
-        {total > PAGE_SIZE && (
-          <div className="mt-8 flex justify-center">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    href="#"
-                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                    aria-disabled={currentPage <= 1}
-                  />
-                </PaginationItem>
-                {Array.from(
-                  { length: Math.ceil(total / PAGE_SIZE) },
-                  (_, i) => i + 1,
-                ).map((page) => (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      href="#"
-                      isActive={currentPage === page}
-                      onClick={() => setCurrentPage(page)}
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                ))}
-                <PaginationItem>
-                  <PaginationNext
-                    href="#"
-                    onClick={() =>
-                      setCurrentPage((p) =>
-                        Math.min(Math.ceil(total / PAGE_SIZE), p + 1),
-                      )
-                    }
-                    aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </div>
-        )}
       </div>
+      {total > PAGE_SIZE && (
+        <div className="mt-8 flex justify-center">
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  href="#"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  aria-disabled={currentPage <= 1}
+                />
+              </PaginationItem>
+              {Array.from(
+                { length: Math.ceil(total / PAGE_SIZE) },
+                (_, i) => i + 1
+              ).map((page) => (
+                <PaginationItem key={page}>
+                  <PaginationLink
+                    href="#"
+                    isActive={currentPage === page}
+                    onClick={() => setCurrentPage(page)}
+                  >
+                    {page}
+                  </PaginationLink>
+                </PaginationItem>
+              ))}
+              <PaginationItem>
+                <PaginationNext
+                  href="#"
+                  onClick={() =>
+                    setCurrentPage((p) =>
+                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
+                    )
+                  }
+                  aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
+      )}
     </div>
   );
 }
