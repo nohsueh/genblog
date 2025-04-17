@@ -1,5 +1,6 @@
 "use client";
 
+import Prism from "prismjs";
 import loadLanguages from "prismjs/components/index";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
@@ -15,6 +16,7 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { Plugin, unified } from "unified";
 
+Prism;
 loadLanguages([
   "python",
   "ruby",
