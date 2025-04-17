@@ -1,6 +1,6 @@
 "use client";
 
-import loadLanguages from 'prismjs/components/index.js';
+import loadLanguages from "prismjs/components/index";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
@@ -15,7 +15,16 @@ import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { Plugin, unified } from "unified";
 
-loadLanguages(["all"]);  
+loadLanguages([
+  "python",
+  "ruby",
+  "rust",
+  "sql",
+  "typescript",
+  "java",
+  "csharp",
+  "bash",
+]);
 
 export interface Heading {
   id: string;
