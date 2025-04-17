@@ -1,5 +1,6 @@
 "use client";
 
+import "prismjs/components/prism-ruby";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
@@ -12,7 +13,7 @@ import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import { unified, Plugin } from "unified";
+import { Plugin, unified } from "unified";
 
 export interface Heading {
   id: string;
