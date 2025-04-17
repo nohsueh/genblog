@@ -1,6 +1,6 @@
 "use client";
 
-import "prismjs/components/prism-go";
+import Prism from "prismjs";
 import "prismjs/components/prism-java";
 import "prismjs/components/prism-python";
 import "prismjs/components/prism-ruby";
@@ -36,6 +36,8 @@ export const Markdown = memo(function Markdown({
   content,
   onHeadingsExtracted,
 }: MarkdownProps) {
+  Prism;
+
   const [markdown, setMarkdown] = useState("");
 
   useEffect(() => {
