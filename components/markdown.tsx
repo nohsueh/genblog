@@ -1,12 +1,6 @@
 "use client";
 
-import Prism from "prismjs";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-ruby";
-import "prismjs/components/prism-rust";
-import "prismjs/components/prism-sql";
-import "prismjs/components/prism-typescript";
+import loadLanguages from 'prismjs/components/index.js';
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
@@ -20,6 +14,8 @@ import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { Plugin, unified } from "unified";
+
+loadLanguages(["all"]);  
 
 export interface Heading {
   id: string;
@@ -36,8 +32,6 @@ export const Markdown = memo(function Markdown({
   content,
   onHeadingsExtracted,
 }: MarkdownProps) {
-  Prism;
-
   const [markdown, setMarkdown] = useState("");
 
   useEffect(() => {
