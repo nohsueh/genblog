@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Script from "next/script";
 
 const title = process.env.NEXT_PUBLIC_APP_NAME;
 const description =
@@ -36,11 +37,13 @@ export default function RootLayout({
           />
         )}
         {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-          <script
+          <Script
+            id="adsense-script"
+            strategy="afterInteractive"
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
             crossOrigin="anonymous"
-          ></script>
+          ></Script>
         )}
       </head>
       <body>{children}</body>
