@@ -24,7 +24,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 12;
 
 interface BlogListProps {
   lang: Locale;
