@@ -45,7 +45,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group
+          group,
         );
         setPosts(blogs);
         setTotal(total);
@@ -80,6 +80,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                       post.analysis.image ||
                       `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
                     }
+                    unoptimized
                     alt={post.analysis.title}
                     fill
                     className="object-cover"
@@ -142,7 +143,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
               </PaginationItem>
               {Array.from(
                 { length: Math.ceil(total / PAGE_SIZE) },
-                (_, i) => i + 1
+                (_, i) => i + 1,
               ).map((page) => (
                 <PaginationItem key={page}>
                   <PaginationLink
@@ -159,7 +160,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   href="#"
                   onClick={() =>
                     setCurrentPage((p) =>
-                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
+                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1),
                     )
                   }
                   aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}

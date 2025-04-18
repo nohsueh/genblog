@@ -119,6 +119,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
                   post.analysis.image ||
                   `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
                 }
+                unoptimized
                 alt={post.analysis.title}
                 fill
                 className="object-cover"

@@ -20,6 +20,7 @@ export function SiteFooter() {
                 width={24}
                 height={24}
                 className="block dark:hidden"
+                unoptimized
               />
               <Image
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
@@ -27,6 +28,7 @@ export function SiteFooter() {
                 width={24}
                 height={24}
                 className="hidden dark:block"
+                unoptimized
               />
             </Link>
           </div>
