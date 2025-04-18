@@ -1,5 +1,14 @@
 "use client";
 
+import Prism from "prismjs";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-csharp";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-python";
+import "prismjs/components/prism-ruby";
+import "prismjs/components/prism-rust";
+import "prismjs/components/prism-sql";
+import "prismjs/components/prism-typescript";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
@@ -12,7 +21,9 @@ import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
-import { unified, Plugin } from "unified";
+import { Plugin, unified } from "unified";
+
+Prism;
 
 export interface Heading {
   id: string;

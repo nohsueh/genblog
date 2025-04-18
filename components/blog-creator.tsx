@@ -37,7 +37,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
       // Add temperature to the form data
       formData.append("temperature", temperature[0].toString());
       // Add num to the form data (default 1 if not set)
-      const num = formData.get("num") || 10;
+      const num = formData.get("num") || 25;
       formData.set("num", num.toString());
 
       toast.promise(analyzeSearch(formData), {
@@ -178,8 +178,8 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     name="num"
                     type="number"
                     min={1}
-                    max={25}
-                    defaultValue={10}
+                    max={100}
+                    defaultValue={25}
                     disabled={isLoading}
                   />
                 </div>
