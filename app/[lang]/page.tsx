@@ -11,6 +11,8 @@ export default async function Home({
 }) {
   const { lang } = await params;
   const dictionary = getDictionary(lang);
+  const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const BASE_URL = `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${BASE_PATH}`;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -27,11 +29,7 @@ export default async function Home({
           </div>
         </section>
 
-        <BlogList
-          lang={lang}
-          dictionary={dictionary}
-          group={process.env.NEXT_PUBLIC_ROOT_DOMAIN}
-        />
+        <BlogList lang={lang} dictionary={dictionary} group={BASE_URL} />
       </main>
       <SiteFooter />
     </div>

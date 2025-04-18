@@ -17,6 +17,9 @@ export default async function AdminDashboardPage(props: {
 
   const dictionary = getDictionary(lang);
 
+  const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  const BASE_URL = `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${BASE_PATH}`;
+
   return (
     <div className="flex min-h-screen flex-col">
       <SiteHeader lang={lang} dictionary={dictionary} isAdmin={true} />
@@ -24,7 +27,7 @@ export default async function AdminDashboardPage(props: {
         <AdminDashboard
           lang={lang}
           dictionary={dictionary}
-          groupName={process.env.NEXT_PUBLIC_ROOT_DOMAIN || "searchlysis.com"}
+          groupName={BASE_URL}
         />
       </main>
       <SiteFooter />
