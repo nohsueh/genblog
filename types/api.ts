@@ -3,6 +3,8 @@ export interface AnalyzeSearchParams {
   query: string;
   num?: number;
   prompt: string;
+  startPublishedDate?: string;
+  endPublishedDate?: string;
   temperature?: number;
 }
 

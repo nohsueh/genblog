@@ -94,9 +94,10 @@ export async function analyzeSearch(formData: FormData) {
   const query = formData.get("query") as string;
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
-  const num = Number.parseInt(formData.get("num") as string) || 25;
-  const temperatureStr = formData.get("temperature") as string;
-  const temperature = Number.parseFloat(temperatureStr);
+  const num = Number.parseInt(formData.get("num") as string);
+  const startPublishedDate = formData.get("startPublishedDate") as string;
+  const endPublishedDate = formData.get("endPublishedDate") as string;
+  const temperature = Number.parseFloat(formData.get("temperature") as string);
 
   const metadata = group ? { group } : undefined;
 
@@ -104,6 +105,8 @@ export async function analyzeSearch(formData: FormData) {
     query,
     prompt,
     num,
+    startPublishedDate,
+    endPublishedDate,
     temperature,
     metadata,
   };
@@ -126,8 +129,7 @@ export async function analyzeLinks(formData: FormData) {
   const link = JSON.parse(formData.get("link") as string) as string[];
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
-  const temperatureStr = formData.get("temperature") as string;
-  const temperature = Number.parseFloat(temperatureStr);
+  const temperature = Number.parseFloat(formData.get("temperature") as string);
 
   const metadata = group ? { group } : undefined;
 

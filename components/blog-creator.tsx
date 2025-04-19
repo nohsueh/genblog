@@ -16,9 +16,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { analyzeLinks, analyzeSearch } from "@/lib/actions";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 const DEFAULT_PROMPT =
   "You are a professional content writer and SEO specialist skilled at transforming raw webpage content into unique, engaging, and SEO-optimized articles. Create a high-quality human-style article from the provided content that covers a specific, niche topic in depth. The content should be original, well-researched, and provide significant value to readers. Structure the article clearly with engaging subheadings, bullet points, and short paragraphs to improve readability. Include relevant keywords naturally, but avoid keyword stuffing. Add internal links to related articles on the same website, and external links to authoritative sources to increase the page's credibility.";
+
+const DEFAULT_NUM = 25;
 
 interface BlogCreatorProps {
   dictionary: any;
@@ -29,6 +40,10 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
   const [activeTab, setActiveTab] = useState("search");
   const [temperature, setTemperature] = useState([1]);
   const [isLoading, setIsLoading] = useState(false);
+  const [startDate, setStartDate] = useState<Date | undefined>();
+  const [endDate, setEndDate] = useState<Date | undefined>();
+
+  const isDateRangeValid = (!startDate && !endDate) || (startDate && endDate);
 
   async function handleSearchSubmit(formData: FormData) {
     setIsLoading(true);
@@ -37,8 +52,13 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
       // Add temperature to the form data
       formData.append("temperature", temperature[0].toString());
       // Add num to the form data (default 1 if not set)
-      const num = formData.get("num") || 25;
+      const num = formData.get("num") || DEFAULT_NUM;
       formData.set("num", num.toString());
+      // Add published date range if valid
+      if (startDate && endDate) {
+        formData.append("startPublishedDate", startDate.toISOString());
+        formData.append("endPublishedDate", endDate.toISOString());
+      }
 
       toast.promise(analyzeSearch(formData), {
         loading: dictionary.admin.create.generating,
@@ -179,9 +199,73 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     type="number"
                     min={1}
                     max={100}
-                    defaultValue={25}
+                    defaultValue={DEFAULT_NUM}
                     disabled={isLoading}
                   />
+                </div>
+
+                {/* Date Range Picker */}
+                <div className="space-y-2">
+                  <Label>Published date range</Label>
+                  <div className="flex gap-2">
+                    {/* Start Date Picker */}
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[160px] justify-start text-left font-normal",
+                            !startDate && "text-muted-foreground"
+                          )}
+                          disabled={isLoading}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {startDate ? (
+                            startDate.toISOString()
+                          ) : (
+                            <span>Start Date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={startDate}
+                          onSelect={setStartDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <span className="self-center">{" - "}</span>
+                    {/* End Date Picker */}
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[160px] justify-start text-left font-normal",
+                            !endDate && "text-muted-foreground"
+                          )}
+                          disabled={isLoading}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {endDate ? (
+                            endDate.toISOString()
+                          ) : (
+                            <span>End Date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={endDate}
+                          onSelect={setEndDate}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                 </div>
 
                 <div className="space-y-2">
@@ -208,7 +292,11 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full" disabled={isLoading}>
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isLoading || !isDateRangeValid}
+                >
                   {isLoading
                     ? dictionary.admin.create.generating
                     : dictionary.admin.create.submit}
