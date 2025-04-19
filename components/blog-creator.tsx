@@ -221,7 +221,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {startDate ? (
-                            startDate.toISOString()
+                            format(startDate, "yyyy-MM-dd")
                           ) : (
                             <span>Start Date</span>
                           )}
@@ -250,7 +250,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
                           {endDate ? (
-                            endDate.toISOString()
+                            format(endDate, "yyyy-MM-dd")
                           ) : (
                             <span>End Date</span>
                           )}
