@@ -1,12 +1,15 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import type { Locale } from "./i18n-config";
+import { i18n, type Locale } from "./i18n-config";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatDate(dateString: string, locale: Locale = "en") {
+export function formatDate(
+  dateString: string,
+  locale: Locale = i18n.defaultLocale
+) {
   const date = new Date(dateString);
 
   return new Intl.DateTimeFormat(locale, {
@@ -16,7 +19,11 @@ export function formatDate(dateString: string, locale: Locale = "en") {
   }).format(date);
 }
 
-export function getPaginationRange(current: number, total: number, siblingCount: number = 2) {
+export function getPaginationRange(
+  current: number,
+  total: number,
+  siblingCount: number = 2
+) {
   const totalPageNumbers = siblingCount * 2 + 5; // 首页+末页+当前+两侧+siblingCount
   if (total <= totalPageNumbers) {
     return Array.from({ length: total }, (_, i) => i + 1);
@@ -26,11 +33,15 @@ export function getPaginationRange(current: number, total: number, siblingCount:
   const rightSibling = Math.min(current + siblingCount, total - 1);
 
   pages.push(1);
-  if (leftSibling > 2) pages.push('...');
+  if (leftSibling > 2) {
+    pages.push("...");
+  }
   for (let i = leftSibling; i <= rightSibling; i++) {
     pages.push(i);
   }
-  if (rightSibling < total - 1) pages.push('...');
+  if (rightSibling < total - 1) {
+    pages.push("...");
+  }
   pages.push(total);
   return pages;
 }
