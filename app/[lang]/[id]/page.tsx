@@ -1,7 +1,7 @@
 import { BlogPost } from "@/components/blog-post";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { getAnalysis } from "@/lib/actions";
+import { checkAdminSession, getAnalysis } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { Metadata } from "next";
@@ -12,17 +12,16 @@ export default async function BlogPage(props: {
   params: Promise<{ lang: Locale; id: string }>;
 }) {
   const params = await props.params;
-
   const { lang, id } = params;
-
   const dictionary = getDictionary(lang);
+  const isLoggedIn = await checkAdminSession();
 
   try {
     const post = await getCachedAnalysis(id);
 
     return (
       <div className="flex min-h-screen flex-col">
-        <SiteHeader lang={lang} dictionary={dictionary} />
+        <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
         <main className="container mb-48 flex-1 px-4 py-6">
           <BlogPost post={post} lang={lang} dictionary={dictionary} />
         </main>

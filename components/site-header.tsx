@@ -67,7 +67,7 @@ export function SiteHeader({
             </Link>
             {isAdmin && (
               <Link
-                href={`/${lang}/console/dashboard`}
+                href={`/${lang}/console`}
                 className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               >
                 {dictionary.header.dashboard}
@@ -132,7 +132,7 @@ export function SiteHeader({
                   </Link>
                   {isAdmin && (
                     <Link
-                      href={`/${lang}/console/dashboard`}
+                      href={`/${lang}/console`}
                       className="text-sm font-medium transition-colors hover:text-primary"
                     >
                       {dictionary.header.dashboard}
