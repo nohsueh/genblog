@@ -1,5 +1,6 @@
 "use client";
 
+import { getPaginationRange } from "@/components/pagination-utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -91,7 +92,7 @@ export function AdminDashboard({
   }, [groupName, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
-    post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleToggleVisibility = async (post: AnalysisResult) => {
@@ -101,7 +102,7 @@ export function AdminDashboard({
       formData.append("content", post.analysis.content);
       formData.append(
         "group",
-        post.metadata?.group === groupName ? "" : groupName,
+        post.metadata?.group === groupName ? "" : groupName
       );
 
       const updatedPost = await updateAnalysis(formData);
@@ -109,8 +110,8 @@ export function AdminDashboard({
       // Update local state
       setPosts(
         posts.map((post) =>
-          post.analysisId === updatedPost.analysisId ? updatedPost : post,
-        ),
+          post.analysisId === updatedPost.analysisId ? updatedPost : post
+        )
       );
     } catch (error) {
       toast.error(dictionary.admin.edit.error);
@@ -271,26 +272,32 @@ export function AdminDashboard({
                       aria-disabled={currentPage <= 1}
                     />
                   </PaginationItem>
-                  {Array.from(
-                    { length: Math.ceil(total / PAGE_SIZE) },
-                    (_, i) => i + 1,
-                  ).map((page) => (
-                    <PaginationItem key={page}>
-                      <PaginationLink
-                        href="#"
-                        onClick={() => setCurrentPage(page)}
-                        isActive={currentPage === page}
-                      >
-                        {page}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
+                  {getPaginationRange(
+                    currentPage,
+                    Math.ceil(total / PAGE_SIZE)
+                  ).map((page, idx) =>
+                    page === "..." ? (
+                      <PaginationItem key={`ellipsis-${idx}`}>
+                        <span className="px-2 text-muted-foreground">...</span>
+                      </PaginationItem>
+                    ) : (
+                      <PaginationItem key={page}>
+                        <PaginationLink
+                          href="#"
+                          onClick={() => setCurrentPage(Number(page))}
+                          isActive={currentPage === page}
+                        >
+                          {page}
+                        </PaginationLink>
+                      </PaginationItem>
+                    )
+                  )}
                   <PaginationItem>
                     <PaginationNext
                       href="#"
                       onClick={() =>
                         setCurrentPage((p) =>
-                          Math.min(Math.ceil(total / PAGE_SIZE), p + 1),
+                          Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
                         )
                       }
                       aria-disabled={

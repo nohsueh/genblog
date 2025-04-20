@@ -1,5 +1,6 @@
 "use client";
 
+import { getPaginationRange } from "@/components/pagination-utils";
 import {
   Card,
   CardContent,
@@ -45,7 +46,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group,
+          group
         );
         setPosts(blogs);
         setTotal(total);
@@ -141,26 +142,32 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   aria-disabled={currentPage <= 1}
                 />
               </PaginationItem>
-              {Array.from(
-                { length: Math.ceil(total / PAGE_SIZE) },
-                (_, i) => i + 1,
-              ).map((page) => (
-                <PaginationItem key={page}>
-                  <PaginationLink
-                    href="#"
-                    isActive={currentPage === page}
-                    onClick={() => setCurrentPage(page)}
-                  >
-                    {page}
-                  </PaginationLink>
-                </PaginationItem>
-              ))}
+              {getPaginationRange(
+                currentPage,
+                Math.ceil(total / PAGE_SIZE)
+              ).map((page, idx) =>
+                page === "..." ? (
+                  <PaginationItem key={`ellipsis-${idx}`}>
+                    <span className="px-2 text-muted-foreground">...</span>
+                  </PaginationItem>
+                ) : (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      href="#"
+                      isActive={currentPage === page}
+                      onClick={() => setCurrentPage(Number(page))}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                )
+              )}
               <PaginationItem>
                 <PaginationNext
                   href="#"
                   onClick={() =>
                     setCurrentPage((p) =>
-                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1),
+                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
                     )
                   }
                   aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
