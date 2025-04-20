@@ -1,6 +1,5 @@
 "use client";
 
-import { getPaginationRange } from "@/components/pagination-utils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,9 +18,7 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
+  PaginationLink
 } from "@/components/ui/pagination";
 import {
   Select,
@@ -44,7 +41,7 @@ import {
   updateAnalysis,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getPaginationRange } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
@@ -265,13 +262,6 @@ export function AdminDashboard({
             <div className="flex justify-center p-4">
               <Pagination>
                 <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious
-                      href="#"
-                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                      aria-disabled={currentPage <= 1}
-                    />
-                  </PaginationItem>
                   {getPaginationRange(
                     currentPage,
                     Math.ceil(total / PAGE_SIZE)
@@ -292,19 +282,6 @@ export function AdminDashboard({
                       </PaginationItem>
                     )
                   )}
-                  <PaginationItem>
-                    <PaginationNext
-                      href="#"
-                      onClick={() =>
-                        setCurrentPage((p) =>
-                          Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
-                        )
-                      }
-                      aria-disabled={
-                        currentPage >= Math.ceil(total / PAGE_SIZE)
-                      }
-                    />
-                  </PaginationItem>
                 </PaginationContent>
               </Pagination>
             </div>

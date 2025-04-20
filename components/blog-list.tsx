@@ -1,6 +1,5 @@
 "use client";
 
-import { getPaginationRange } from "@/components/pagination-utils";
 import {
   Card,
   CardContent,
@@ -12,14 +11,12 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
+  PaginationLink
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getPaginationRange } from "@/lib/utils";
 import { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -135,13 +132,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         <div className="mt-8 flex justify-center">
           <Pagination>
             <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  href="#"
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  aria-disabled={currentPage <= 1}
-                />
-              </PaginationItem>
               {getPaginationRange(
                 currentPage,
                 Math.ceil(total / PAGE_SIZE)
@@ -162,17 +152,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   </PaginationItem>
                 )
               )}
-              <PaginationItem>
-                <PaginationNext
-                  href="#"
-                  onClick={() =>
-                    setCurrentPage((p) =>
-                      Math.min(Math.ceil(total / PAGE_SIZE), p + 1)
-                    )
-                  }
-                  aria-disabled={currentPage >= Math.ceil(total / PAGE_SIZE)}
-                />
-              </PaginationItem>
             </PaginationContent>
           </Pagination>
         </div>
