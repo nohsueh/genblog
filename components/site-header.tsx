@@ -65,6 +65,14 @@ export function SiteHeader({
             >
               {dictionary.header.home}
             </Link>
+            {isAdmin && (
+              <Link
+                href={`/${lang}/console/dashboard`}
+                className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                {dictionary.header.dashboard}
+              </Link>
+            )}
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
@@ -122,19 +130,12 @@ export function SiteHeader({
                   >
                     {dictionary.header.home}
                   </Link>
-                  {isAdmin ? (
+                  {isAdmin && (
                     <Link
                       href={`/${lang}/console/dashboard`}
                       className="text-sm font-medium transition-colors hover:text-primary"
                     >
                       {dictionary.header.dashboard}
-                    </Link>
-                  ) : (
-                    <Link
-                      href={`/${lang}/console`}
-                      className="text-sm font-medium transition-colors hover:text-primary"
-                    >
-                      {dictionary.header.admin}
                     </Link>
                   )}
                   {isAdmin && (
