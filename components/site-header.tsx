@@ -1,20 +1,14 @@
 "use client";
 
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { logoutAdmin } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { i18n } from "@/lib/i18n-config";
-import { Globe, LogOut, Menu } from "lucide-react";
+import { EllipsisVertical, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { LanguageToggle } from "./language-toggle";
 
 interface SiteHeaderProps {
   lang: Locale;
@@ -77,40 +71,15 @@ export function SiteHeader({
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Globe className="h-5 w-5" />
-                  <span className="sr-only">Switch language</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {i18n.locales.map((locale) => (
-                  <DropdownMenuItem
-                    key={locale}
-                    onClick={() => switchLocale(locale)}
-                  >
-                    {(() => {
-                      switch (locale) {
-                        case "en":
-                          return "English";
-                        case "es":
-                          return "Español";
-                        case "fr":
-                          return "Français";
-                        case "de":
-                          return "Deutsch";
-                        case "zh":
-                          return "中文";
-                      }
-                    })()}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <ModeToggle />
+            <LanguageToggle />
+            <ThemeToggle />
             {isAdmin && (
-              <Button variant="ghost" size="icon" onClick={handleLogout}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleLogout}
+                className="hidden md:block"
+              >
                 <LogOut className="h-5 w-5" />
                 <span className="sr-only">{dictionary.header.logout}</span>
               </Button>
@@ -118,7 +87,7 @@ export function SiteHeader({
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
-                  <Menu className="h-5 w-5" />
+                  <EllipsisVertical className="h-5 w-5" />
                   <span className="sr-only">Menu</span>
                 </Button>
               </SheetTrigger>
@@ -138,13 +107,12 @@ export function SiteHeader({
                       {dictionary.header.dashboard}
                     </Link>
                   )}
+                  <LanguageToggle />
+                  <ThemeToggle />
                   {isAdmin && (
-                    <Button
-                      variant="ghost"
-                      className="justify-start p-0"
-                      onClick={handleLogout}
-                    >
-                      <span className="text-sm font-medium transition-colors hover:text-primary">
+                    <Button variant="ghost" size="icon" onClick={handleLogout}>
+                      <LogOut className="h-5 w-5" />
+                      <span className="sr-only">
                         {dictionary.header.logout}
                       </span>
                     </Button>
