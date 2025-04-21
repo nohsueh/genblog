@@ -70,26 +70,24 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   return (
     <div className="relative">
       <article className="mx-auto max-w-4xl">
-        <div className="mb-6 flex items-center justify-end">
-          {headings.length > 0 && (
-            <div className="lg:hidden">
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="fixed top-20 right-8 z-50"
-                  >
-                    <TableOfContents className="h-4 w-4" />
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-[300px]">
-                  <OnThisPage />
-                </SheetContent>
-              </Sheet>
-            </div>
-          )}
-        </div>
+        {headings.length > 0 && (
+          <div className="lg:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="fixed right-8 top-20 z-50"
+                >
+                  <TableOfContents className="h-4 w-4" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px]">
+                <OnThisPage />
+              </SheetContent>
+            </Sheet>
+          </div>
+        )}
         <div>
           {post.analysis.image && (
             <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
