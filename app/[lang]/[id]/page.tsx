@@ -48,8 +48,8 @@ export async function generateMetadata({
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => line !== "");
-  const title = contentLines[0].replace(/^#+\s*/, "") ?? post.analysis.title;
-  const description = contentLines[1] ?? post.analysis.title;
+  const title = contentLines[0].replace(/^#+\s*/, "");
+  const description = contentLines[1];
   const images = post.analysis.image;
 
   return {

@@ -11,7 +11,7 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink
+  PaginationLink,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
@@ -43,7 +43,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group
+          group,
         );
         setPosts(blogs);
         setTotal(total);
@@ -68,65 +68,77 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   ) : (
     <div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
-          <Card key={post.analysisId} className="overflow-hidden">
-            <CardHeader className="p-0">
-              {post.analysis.image ? (
-                <div className="relative aspect-video overflow-hidden">
-                  <Image
-                    src={
-                      post.analysis.image ||
-                      `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-                    }
-                    unoptimized
-                    alt={post.analysis.title}
-                    fill
-                    className="object-cover"
-                  />
+        {posts.map((post) => {
+          const contentLines = post.analysis.content
+            .split("\n")
+            .map((line) => line.trim())
+            .filter((line) => line !== "");
+          const title = contentLines[0].replace(/^#+\s*/, "");
+          const description = contentLines[1];
+          const image = post.analysis.image;
+          const author = post.analysis.author;
+          const createdAt = post.createdAt;
+
+          return (
+            <Card key={post.analysisId} className="overflow-hidden">
+              <CardHeader className="p-0">
+                {image ? (
+                  <div className="relative aspect-video overflow-hidden">
+                    <Image
+                      src={
+                        image ||
+                        `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+                      }
+                      unoptimized
+                      alt={title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex aspect-video items-center justify-center bg-muted">
+                    <span className="text-muted-foreground">No image</span>
+                  </div>
+                )}
+              </CardHeader>
+              <CardContent className="p-4">
+                <CardTitle className="mb-2 line-clamp-2">
+                  <Link
+                    href={`/${lang}/${post.analysisId}`}
+                    className="hover:underline"
+                  >
+                    {title}
+                  </Link>
+                </CardTitle>
+                <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
+                  {description}...
                 </div>
-              ) : (
-                <div className="flex aspect-video items-center justify-center bg-muted">
-                  <span className="text-muted-foreground">No image</span>
+                <div className="text-xs text-muted-foreground">
+                  {createdAt && (
+                    <>
+                      {dictionary.blog.publishedOn}{" "}
+                      {formatDate(createdAt, lang)}
+                    </>
+                  )}
+                  {author && (
+                    <>
+                      {" "}
+                      {dictionary.blog.by} {author}
+                    </>
+                  )}
                 </div>
-              )}
-            </CardHeader>
-            <CardContent className="p-4">
-              <CardTitle className="mb-2 line-clamp-2">
+              </CardContent>
+              <CardFooter className="p-4 pt-0">
                 <Link
                   href={`/${lang}/${post.analysisId}`}
-                  className="hover:underline"
+                  className="text-sm font-medium text-primary hover:underline"
                 >
-                  {post.analysis.title}
+                  {dictionary.blog.readMore}
                 </Link>
-              </CardTitle>
-              <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
-                {post.analysis.content.substring(0, 150)}...
-              </div>
-              <div className="text-xs text-muted-foreground">
-                {post.createdAt && (
-                  <>
-                    {dictionary.blog.publishedOn}{" "}
-                    {formatDate(post.createdAt, lang)}
-                  </>
-                )}
-                {post.analysis.author && (
-                  <>
-                    {" "}
-                    {dictionary.blog.by} {post.analysis.author}
-                  </>
-                )}
-              </div>
-            </CardContent>
-            <CardFooter className="p-4 pt-0">
-              <Link
-                href={`/${lang}/${post.analysisId}`}
-                className="text-sm font-medium text-primary hover:underline"
-              >
-                {dictionary.blog.readMore}
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
+              </CardFooter>
+            </Card>
+          );
+        })}
       </div>
       {total > PAGE_SIZE && (
         <div className="mt-8 flex justify-center">
@@ -134,7 +146,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE)
+                Math.ceil(total / PAGE_SIZE),
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
@@ -150,7 +162,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                       {page}
                     </PaginationLink>
                   </PaginationItem>
-                )
+                ),
               )}
             </PaginationContent>
           </Pagination>
