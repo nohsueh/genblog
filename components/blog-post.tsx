@@ -78,7 +78,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="fixed bottom-8 right-8 z-50"
+                    className="fixed top-20 right-8 z-50"
                   >
                     <TableOfContents className="h-4 w-4" />
                   </Button>
