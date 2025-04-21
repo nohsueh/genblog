@@ -70,13 +70,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   return (
     <div className="relative">
       <article className="mx-auto max-w-4xl">
-        <div className="mb-6 flex items-center justify-between">
-          <Link href={`/${lang}`}>
-            <Button variant="ghost" className="gap-1">
-              <ArrowLeft className="h-4 w-4" />
-              {dictionary.blog.backToHome}
-            </Button>
-          </Link>
+        <div className="mb-6 flex items-center justify-end">
           {headings.length > 0 && (
             <div className="lg:hidden">
               <Sheet>
