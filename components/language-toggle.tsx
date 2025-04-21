@@ -24,7 +24,7 @@ export function LanguageToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="hidden md:block">
+        <Button variant="ghost" size="icon">
           <Globe className="h-5 w-5" />
           <span className="sr-only">Switch language</span>
         </Button>

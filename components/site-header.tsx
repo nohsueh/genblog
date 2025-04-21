@@ -71,19 +71,16 @@ export function SiteHeader({
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-            <LanguageToggle />
-            <ThemeToggle />
-            {isAdmin && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleLogout}
-                className="hidden md:block"
-              >
-                <LogOut className="h-5 w-5" />
-                <span className="sr-only">{dictionary.header.logout}</span>
-              </Button>
-            )}
+            <div className="hidden items-center space-x-2 md:flex">
+              <LanguageToggle />
+              <ThemeToggle />
+              {isAdmin && (
+                <Button variant="ghost" size="icon" onClick={handleLogout}>
+                  <LogOut className="h-5 w-5" />
+                  <span className="sr-only">{dictionary.header.logout}</span>
+                </Button>
+              )}
+            </div>
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="md:hidden">
