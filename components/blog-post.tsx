@@ -6,7 +6,7 @@ import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Menu } from "lucide-react";
+import { ArrowLeft, Menu, TableOfContents } from "lucide-react";
 import { Markdown } from "@/components/markdown";
 import { useState, useEffect } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -43,7 +43,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     return () => observer.disconnect();
   }, [headings]);
 
-  const TableOfContents = () => (
+  const OnThisPage = () => (
     <div className="sticky top-8">
       <h2 className="mb-4 text-lg font-semibold">
         {dictionary.blog.tableOfContents}
@@ -75,12 +75,16 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             <div className="lg:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="fixed bottom-8 right-8 z-50">
-                    <Menu className="h-4 w-4" />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="fixed bottom-8 right-8 z-50"
+                  >
+                    <TableOfContents className="h-4 w-4" />
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[300px]">
-                  <TableOfContents />
+                  <OnThisPage />
                 </SheetContent>
               </Sheet>
             </div>
@@ -124,7 +128,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
       {headings.length > 0 && (
         <div className="fixed right-8 top-24 hidden w-64 lg:block">
-          <TableOfContents />
+          <OnThisPage />
         </div>
       )}
     </div>
