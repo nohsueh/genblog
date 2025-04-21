@@ -32,7 +32,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     headings.forEach((heading) => {
@@ -92,23 +92,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             </div>
           )}
         </div>
-
         <div>
-          <h1 className="mb-4 text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
-            {post.analysis.title}
-          </h1>
-
-          <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-            <span>
-              {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
-            </span>
-            {post.analysis.author && (
-              <span>
-                {dictionary.blog.by} {post.analysis.author}
-              </span>
-            )}
-          </div>
-
           {post.analysis.image && (
             <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
               <Image
@@ -123,6 +107,17 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
               />
             </div>
           )}
+
+          <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
+            <span>
+              {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
+            </span>
+            {post.analysis.author && (
+              <span>
+                {dictionary.blog.by} {post.analysis.author}
+              </span>
+            )}
+          </div>
 
           <div className="prose prose-gray max-w-none dark:prose-invert">
             <Markdown
