@@ -75,7 +75,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             <div className="lg:hidden">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" className="fixed bottom-8 right-8 z-50">
                     <Menu className="h-4 w-4" />
                   </Button>
                 </SheetTrigger>
