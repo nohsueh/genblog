@@ -33,8 +33,7 @@ const DEFAULT_PROMPT = `You are an expert SEO copywriter and click‑through‑r
 - SEO Requirements:
   - Naturally weave in the primary keyword 3–5 times and 2–3 related long‑tail terms.
   - Value & Action: Provide actionable insights, real‑world examples.
-  - Tone & Style: Engaging, authoritative, and reader‑first—balance professional expertise with conversational clarity.
-`;
+  - Tone & Style: Engaging, authoritative, and reader‑first—balance professional expertise with conversational clarity.`;
 
 const DEFAULT_NUM = 25;
 
