@@ -6,9 +6,9 @@ import type {
   AnalyzeResults,
   AnalyzeSearchParams,
 } from "@/types/api";
+import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import jwt from "jsonwebtoken";
 
 const API_URL = "https://searchlysis.com/api";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
@@ -118,7 +118,9 @@ export async function analyzeSearch(formData: FormData) {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to analyze search: ${response.statusText}`);
+    throw new Error(
+      `Failed to analyze search: ${response.headers.get("x-searchlysis-error")}`
+    );
   }
 
   const data: AnalyzeResults = await response.json();
@@ -147,7 +149,9 @@ export async function analyzeLinks(formData: FormData) {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to analyze link: ${response.statusText}`);
+    throw new Error(
+      `Failed to analyze link: ${response.headers.get("x-searchlysis-error")}`
+    );
   }
 
   const data: AnalyzeResults = await response.json();
@@ -163,7 +167,9 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
   );
 
   if (!response.ok) {
-    throw new Error(`Failed to get analysis: ${response.statusText}`);
+    throw new Error(
+      `Failed to get analysis: ${response.headers.get("x-searchlysis-error")}`
+    );
   }
 
   return response.json();
@@ -177,7 +183,9 @@ export async function deleteAnalysis(analysisId: string) {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to delete analysis: ${response.statusText}`);
+    throw new Error(
+      `Failed to delete analysis: ${response.headers.get("x-searchlysis-error")}`
+    );
   }
 }
 
@@ -206,7 +214,9 @@ export async function updateAnalysis(formData: FormData) {
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to update analysis: ${response.statusText}`);
+    throw new Error(
+      `Failed to update analysis: ${response.headers.get("x-searchlysis-error")}`
+    );
   }
 
   return response.json() as Promise<AnalysisResult>;
@@ -229,7 +239,9 @@ export async function listAnalyses(
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to list analyses: ${response.statusText}`);
+    throw new Error(
+      `Failed to list analyses: ${response.headers.get("x-searchlysis-error")}`
+    );
   }
 
   return response.json();
@@ -259,8 +271,9 @@ async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
   });
 
   if (!response.ok) {
-    console.error(response.statusText);
-    throw new Error("Failed to fetch total blogs");
+    throw new Error(
+      `Failed to fetch total blogs: ${response.headers.get("x-searchlysis-error")}`
+    );
   }
 
   const data = await response.json();
