@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Card,
   CardContent,
@@ -10,30 +11,29 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { analyzeLinks, analyzeSearch } from "@/lib/actions";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Calendar } from "@/components/ui/calendar";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 
 const DEFAULT_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
 
 - Objective: Produce an in-depth, original article on the provided raw content designed to boost CTR by at least 500% and maximize reader engagement.
-- Structure & Readability: Organize with concise, benefit-oriented subheadings, bullet-point lists, and short paragraphs (2–3 sentences each).
+- Structure & Readability: Organize with lively, interesting, and easy to understand title, concise, benefit-oriented subheadings, bullet-point lists, and short paragraphs (2–3 sentences each).
 - SEO Requirements:
   - Naturally weave in the primary keyword 3–5 times and 2–3 related long‑tail terms.
   - Value & Action: Provide actionable insights, real‑world examples.
-  - Tone & Style: Engaging, authoritative, and reader‑first—balance professional expertise with conversational clarity.`;
+  - Tone & Style: Engaging, lively, interesting, and easy to understand, authoritative, and reader‑first—balance professional expertise with conversational clarity.`;
 
 const DEFAULT_NUM = 25;
 
@@ -221,7 +221,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !startDate && "text-muted-foreground",
+                            !startDate && "text-muted-foreground"
                           )}
                           disabled={isLoading}
                         >
@@ -250,7 +250,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !endDate && "text-muted-foreground",
+                            !endDate && "text-muted-foreground"
                           )}
                           disabled={isLoading}
                         >
