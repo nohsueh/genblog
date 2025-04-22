@@ -82,24 +82,18 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           return (
             <Card key={post.analysisId} className="overflow-hidden">
               <CardHeader className="p-0">
-                {image ? (
-                  <div className="relative aspect-video overflow-hidden">
-                    <Image
-                      src={
-                        image ||
-                        `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-                      }
-                      unoptimized
-                      alt={title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex aspect-video items-center justify-center bg-muted">
-                    <span className="text-muted-foreground">No image</span>
-                  </div>
-                )}
+                <div className="relative aspect-video overflow-hidden">
+                  <Image
+                    src={
+                      image ||
+                      `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+                    }
+                    unoptimized
+                    alt={title}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </CardHeader>
               <CardContent className="p-4">
                 <CardTitle className="mb-2 line-clamp-2">
