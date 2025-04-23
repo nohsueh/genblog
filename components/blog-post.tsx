@@ -43,7 +43,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   }, [headings]);
 
   const OnThisPage = () => (
-    <div className="sticky top-8 max-h-80 overflow-y-auto">
+    <div className="sticky top-8 mb-8 max-h-screen overflow-y-auto">
       <h2 className="mb-4 text-lg font-semibold">
         {dictionary.blog.tableOfContents}
       </h2>
