@@ -1,15 +1,14 @@
 "use client";
 
-import type { Locale } from "@/lib/i18n-config";
-import type { AnalysisResult } from "@/types/api";
-import { formatDate } from "@/lib/utils";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft, Menu, TableOfContents } from "lucide-react";
 import { Markdown } from "@/components/markdown";
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import type { Locale } from "@/lib/i18n-config";
+import { formatDate } from "@/lib/utils";
+import type { AnalysisResult } from "@/types/api";
+import { TableOfContents } from "lucide-react";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 interface BlogPostProps {
   post: AnalysisResult;
@@ -32,7 +31,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" },
+      { rootMargin: "-20% 0px -80% 0px" }
     );
 
     headings.forEach((heading) => {
@@ -44,7 +43,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   }, [headings]);
 
   const OnThisPage = () => (
-    <div className="sticky top-8">
+    <div className="sticky top-8 max-h-80 overflow-y-auto">
       <h2 className="mb-4 text-lg font-semibold">
         {dictionary.blog.tableOfContents}
       </h2>
