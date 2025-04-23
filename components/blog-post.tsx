@@ -8,7 +8,7 @@ import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface BlogPostProps {
   post: AnalysisResult;
@@ -42,29 +42,45 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     return () => observer.disconnect();
   }, [headings]);
 
-  const OnThisPage = () => (
-    <div className="sticky top-8 mb-8 max-h-screen overflow-y-auto">
-      <h2 className="mb-4 text-lg font-semibold">
-        {dictionary.blog.tableOfContents}
-      </h2>
-      <nav className="space-y-2">
-        {headings.map((item) => (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            className={`block text-sm transition-colors ${
-              activeId === item.id
-                ? "font-medium text-primary"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-            style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
-          >
-            {item.text}
-          </a>
-        ))}
-      </nav>
-    </div>
-  );
+  const OnThisPage = () => {
+    const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+    useEffect(() => {
+      itemRefs.current = {};
+    }, [headings]);
+
+    useEffect(() => {
+      if (activeId && itemRefs.current[activeId]) {
+        itemRefs.current[activeId]?.scrollIntoView({ block: "nearest" });
+      }
+    }, [activeId]);
+
+    return (
+      <div className="sticky top-8 max-h-[80vh] overflow-y-auto">
+        <h2 className="mb-4 text-lg font-semibold">
+          {dictionary.blog.tableOfContents}
+        </h2>
+        <nav className="space-y-2">
+          {headings.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              ref={(el) => {
+                itemRefs.current[item.id] = el;
+              }}
+              className={`block text-sm transition-colors ${
+                activeId === item.id
+                  ? "font-medium text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+              style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
+            >
+              {item.text}
+            </a>
+          ))}
+        </nav>
+      </div>
+    );
+  };
 
   return (
     <div className="relative">
