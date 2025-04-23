@@ -44,9 +44,6 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
   const OnThisPage = () => {
     const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
-    useEffect(() => {
-      itemRefs.current = {};
-    }, [headings]);
 
     useEffect(() => {
       if (activeId && itemRefs.current[activeId]) {
