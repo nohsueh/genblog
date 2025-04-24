@@ -5,6 +5,7 @@ import "prismjs/components/prism-bash";
 import "prismjs/components/prism-csharp";
 import "prismjs/components/prism-java";
 import "prismjs/components/prism-python";
+import "prismjs/components/prism-r";
 import "prismjs/components/prism-ruby";
 import "prismjs/components/prism-rust";
 import "prismjs/components/prism-sql";
