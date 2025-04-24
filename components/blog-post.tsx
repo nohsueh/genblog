@@ -118,20 +118,20 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           )}
 
           <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-            <span>
-              {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
-            </span>
-            {post.analysis.author && (
-              <Link
-                href={post.analysis.url}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
+            <Link
+              href={post.analysis.url}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
+              <span>
+                {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
+              </span>
+              {post.analysis.author && (
                 <span>
                   {dictionary.blog.by} {post.analysis.author}
                 </span>
-              </Link>
-            )}
+              )}
+            </Link>
           </div>
 
           <div className="prose prose-gray max-w-none dark:prose-invert">
