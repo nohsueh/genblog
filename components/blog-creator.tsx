@@ -222,7 +222,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !startDate && "text-muted-foreground"
+                            !startDate && "text-muted-foreground",
                           )}
                           disabled={isLoading}
                         >
@@ -251,7 +251,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !endDate && "text-muted-foreground"
+                            !endDate && "text-muted-foreground",
                           )}
                           disabled={isLoading}
                         >

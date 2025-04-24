@@ -8,6 +8,7 @@ import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 interface BlogPostProps {
@@ -31,7 +32,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     headings.forEach((heading) => {
@@ -117,14 +118,20 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           )}
 
           <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-            <span>
-              {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
-            </span>
-            {post.analysis.author && (
+            <Link
+              href={post.analysis.url}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
               <span>
-                {dictionary.blog.by} {post.analysis.author}
+                {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
               </span>
-            )}
+              {post.analysis.author && (
+                <span>
+                  {dictionary.blog.by} {post.analysis.author}
+                </span>
+              )}
+            </Link>
           </div>
 
           <div className="prose prose-gray max-w-none dark:prose-invert">
