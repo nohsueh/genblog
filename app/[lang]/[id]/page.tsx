@@ -50,7 +50,7 @@ export async function generateMetadata({
     .filter((line) => line !== "");
   const title =
     contentLines[0].replace(/^#+\s*/, "") +
-    " | " +
+    " - " +
     process.env.NEXT_PUBLIC_APP_NAME;
   const description = contentLines[1];
   const images = post.analysis.image;
