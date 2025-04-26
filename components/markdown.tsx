@@ -1,16 +1,7 @@
 "use client";
 
 import Prism from "prismjs";
-import "prismjs/components/prism-bash";
-import "prismjs/components/prism-csharp";
-import "prismjs/components/prism-go";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-markdown";
-import "prismjs/components/prism-python";
-import "prismjs/components/prism-rust";
-import "prismjs/components/prism-sql";
-import "prismjs/components/prism-typescript";
-import "prismjs/components/prism-yaml";
+// Prism 语言包将动态导入，无需静态 import
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
@@ -66,6 +57,21 @@ export const Markdown = memo(function Markdown({
   );
 });
 
+// 动态导入 Prism 语言包
+const loadedLanguages: Record<string, boolean> = {};
+async function loadPrismLanguage(lang: string) {
+  if (!lang || loadedLanguages[lang]) return;
+  try {
+    await import(
+      /* webpackChunkName: "prismjs-[request]" */
+      `prismjs/components/prism-${lang}.js`
+    );
+    loadedLanguages[lang] = true;
+  } catch (e) {
+    // 语言包不存在时忽略
+  }
+}
+
 async function markdownToHtml(markdown: string) {
   const headings: Heading[] = [];
 
@@ -100,6 +106,15 @@ async function markdownToHtml(markdown: string) {
       return tree;
     };
   };
+
+  // 提取所有代码块语言
+  const codeLangs = Array.from(
+    markdown.matchAll(/```([\w-]+)/g)
+  ).map(m => m[1].toLowerCase()).filter(Boolean);
+  // 只加载未加载过的语言
+  await Promise.all(
+    codeLangs.map(lang => loadPrismLanguage(lang))
+  );
 
   const file = await unified()
     .use(remarkParse)
