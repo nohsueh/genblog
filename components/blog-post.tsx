@@ -32,7 +32,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" },
+      { rootMargin: "-20% 0px -80% 0px" }
     );
 
     headings.forEach((heading) => {
@@ -102,7 +102,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           </div>
         )}
         <div>
-          {post.analysis.image && (
+          {post.analysis?.image && (
             <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
               <Image
                 src={
@@ -119,14 +119,14 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
           <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
             <Link
-              href={post.analysis.url}
+              href={post.analysis?.url || "#"}
               target="_blank"
               rel="noopener noreferrer nofollow"
             >
               <span>
                 {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
               </span>
-              {post.analysis.author && (
+              {post.analysis?.author && (
                 <span>
                   {dictionary.blog.by} {post.analysis.author}
                 </span>
@@ -136,7 +136,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
           <div className="prose prose-gray max-w-none dark:prose-invert">
             <Markdown
-              content={post.analysis.content}
+              content={post.analysis?.content || ""}
               onHeadingsExtracted={setHeadings}
             />
           </div>

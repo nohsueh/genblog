@@ -18,7 +18,7 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink
+  PaginationLink,
 } from "@/components/ui/pagination";
 import {
   Select,
@@ -89,14 +89,14 @@ export function AdminDashboard({
   }, [groupName, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
-    post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase())
+    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleToggleVisibility = async (post: AnalysisResult) => {
     try {
       const formData = new FormData();
       formData.append("analysisId", post.analysisId);
-      formData.append("content", post.analysis.content);
+      formData.append("content", post.analysis?.content || "");
       formData.append(
         "group",
         post.metadata?.group === groupName ? "" : groupName
@@ -191,7 +191,7 @@ export function AdminDashboard({
               {filteredPosts.map((post) => (
                 <TableRow key={post.analysisId}>
                   <TableCell className="font-medium">
-                    {post.analysis.title}
+                    {post.analysis?.title || ""}
                   </TableCell>
                   <TableCell>
                     {post.updatedAt
@@ -242,7 +242,7 @@ export function AdminDashboard({
                             {dictionary.admin.dashboard.confirmDelete}
                           </AlertDialogTitle>
                           <AlertDialogDescription>
-                            {post.analysis.title}
+                            {post.analysis?.title}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>

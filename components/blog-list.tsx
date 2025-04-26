@@ -43,7 +43,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group,
+          group
         );
         setPosts(blogs);
         setTotal(total);
@@ -69,14 +69,17 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
     <div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => {
-          const contentLines = post.analysis.content
+          const contentLines = post.analysis?.content
             .split("\n")
             .map((line) => line.trim())
             .filter((line) => line !== "");
-          const title = contentLines[0].replace(/^#+\s*/, "");
-          const description = contentLines[1];
-          const image = post.analysis.image;
-          const author = post.analysis.author;
+          const title =
+            contentLines?.[0].replace(/^#+\s*/, "") ||
+            post.analysis?.title ||
+            "";
+          const description = contentLines?.[1];
+          const image = post.analysis?.image;
+          const author = post.analysis?.author;
           const createdAt = post.createdAt;
 
           return (
@@ -140,7 +143,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE),
+                Math.ceil(total / PAGE_SIZE)
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
@@ -156,7 +159,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                       {page}
                     </PaginationLink>
                   </PaginationItem>
-                ),
+                )
               )}
             </PaginationContent>
           </Pagination>
