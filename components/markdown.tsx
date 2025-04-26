@@ -1,7 +1,6 @@
 "use client";
 
 import Prism from "prismjs";
-// Prism 语言包将动态导入，无需静态 import
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
