@@ -128,6 +128,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
               </span>
               {post.analysis.author && (
                 <span>
+                  {" "}
                   {dictionary.blog.by} {post.analysis.author}
                 </span>
               )}
