@@ -2,7 +2,7 @@
 
 import { LatestPostsSidebar } from "@/components/latest-posts-sidebar";
 import { Markdown } from "@/components/markdown";
-import { RelatedAndLatestList } from "@/components/related-posts-sidebar";
+import { RelatedBlogList } from "@/components/related-post-list";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import type { Locale } from "@/lib/i18n-config";
@@ -158,7 +158,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
       {/* 新增：相关文章与最新文章展示列表 */}
       <div>
-        <RelatedAndLatestList
+        <RelatedBlogList
           lang={lang}
           dictionary={dictionary}
           currentId={post.analysisId}

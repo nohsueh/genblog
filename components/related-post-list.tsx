@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { listAnalyses, relatedAnalyses } from "@/lib/actions";
+import { relatedAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
@@ -17,18 +17,17 @@ import { useEffect, useState } from "react";
 
 const POSTS_PER_PAGE = 12;
 
-interface RelatedAndLatestListProps {
+interface RelatedBlogListProps {
   lang: Locale;
   dictionary: any;
   currentId: string;
 }
 
-export function RelatedAndLatestList({
+export function RelatedBlogList({
   lang,
   dictionary,
   currentId,
-}: RelatedAndLatestListProps) {
-  const [latest, setLatest] = useState<AnalysisResult[]>([]);
+}: RelatedBlogListProps) {
   const [related, setRelated] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -36,14 +35,11 @@ export function RelatedAndLatestList({
     async function fetchData() {
       setLoading(true);
       try {
-        const [latestRes, relatedRes] = await Promise.all([
-          listAnalyses(1, POSTS_PER_PAGE),
+        const [relatedRes] = await Promise.all([
           relatedAnalyses(1, POSTS_PER_PAGE, currentId),
         ]);
-        setLatest(latestRes);
         setRelated(relatedRes);
       } catch (err) {
-        setLatest([]);
         setRelated([]);
       } finally {
         setLoading(false);

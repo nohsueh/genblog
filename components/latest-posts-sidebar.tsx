@@ -66,7 +66,7 @@ export function LatestPostsSidebar({
               className="rounded object-cover"
             />
           </div>
-          <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
+          <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
             <CardTitle className="line-clamp-3 text-sm font-semibold">
               {title}
             </CardTitle>
@@ -88,10 +88,10 @@ export function LatestPostsSidebar({
                 key={i}
                 className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
               >
-                <div className="relative size-16 flex-shrink-0 overflow-hidden">
+                <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
                   <Skeleton className="h-full w-full" />
                 </div>
-                <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
+                <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
                   <Skeleton className="mb-1 h-4 w-full" />
                   <Skeleton className="mb-1 h-4 w-full" />
                   <Skeleton className="mb-1 h-4 w-3/4" />
