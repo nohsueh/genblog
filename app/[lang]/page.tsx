@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminSession } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
+import { getGroupName } from "@/lib/utils";
 
 export default async function Home({
   params,
@@ -12,8 +13,6 @@ export default async function Home({
 }) {
   const { lang } = await params;
   const dictionary = getDictionary(lang);
-  const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
-  const BASE_URL = `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${BASE_PATH}`;
   const isLoggedIn = await checkAdminSession();
 
   return (
@@ -31,7 +30,7 @@ export default async function Home({
           </div>
         </section>
 
-        <BlogList lang={lang} dictionary={dictionary} group={BASE_URL} />
+        <BlogList lang={lang} dictionary={dictionary} group={getGroupName()} />
       </main>
       <SiteFooter />
     </div>

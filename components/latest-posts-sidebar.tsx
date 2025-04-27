@@ -1,12 +1,9 @@
 "use client";
-import {
-  Card,
-  CardFooter,
-  CardTitle
-} from "@/components/ui/card";
+import { Card, CardFooter, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
+import { getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -30,7 +27,9 @@ export function LatestPostsSidebar({
     async function fetchData() {
       setLoading(true);
       try {
-        const latestRes = await listAnalyses(1, POSTS_PER_PAGE);
+        const latestRes = await listAnalyses(1, POSTS_PER_PAGE, {
+          group: getGroupName(),
+        });
         setLatest(latestRes);
       } catch (err) {
         setLatest([]);

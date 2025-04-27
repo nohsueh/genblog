@@ -26,12 +26,6 @@ export function SiteHeader({
   const currentPath = segments.slice(2).join("/") || "";
   const router = useRouter();
 
-  const switchLocale = (locale: string) => {
-    const newPathname = `/${locale}/${currentPath}`;
-    router.push(newPathname);
-    router.refresh();
-  };
-
   const handleLogout = async () => {
     await logoutAdmin();
     router.push(`/${lang}/console`);
