@@ -55,7 +55,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     }, [activeId]);
 
     return (
-      <div className="sticky top-8 max-h-[40vh] overflow-y-auto">
+      <div className="sticky top-8 h-[40vh] overflow-y-auto">
         <h2 className="mb-4 text-lg font-semibold">
           {dictionary.blog.tableOfContents}
         </h2>
