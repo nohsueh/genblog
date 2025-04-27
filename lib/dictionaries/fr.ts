@@ -13,6 +13,8 @@ export default {
     tableOfContents: "Dans cette page",
     previousPost: "Article Précédent",
     nextPost: "Article Suivant",
+    latestPosts: "Articles les plus récents",
+    relatedPosts: "Articles liés",
   },
   admin: {
     login: {

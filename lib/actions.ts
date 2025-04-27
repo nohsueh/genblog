@@ -49,7 +49,7 @@ export async function validateAdmin(formData: FormData) {
       JWT_SECRET,
       {
         expiresIn: SESSION_EXPIRY,
-      }
+      },
     );
 
     // Set the JWT token in the cookie
@@ -119,7 +119,7 @@ export async function analyzeSearch(formData: FormData) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to analyze search: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to analyze search: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 
@@ -150,7 +150,7 @@ export async function analyzeLinks(formData: FormData) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to analyze link: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to analyze link: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 
@@ -163,12 +163,12 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
     `${API_URL}/v1/analyses?analysisId=${analysisId}`,
     {
       headers,
-    }
+    },
   );
 
   if (!response.ok) {
     throw new Error(
-      `Failed to get analysis: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to get analysis: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 
@@ -184,7 +184,7 @@ export async function deleteAnalysis(analysisId: string) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to delete analysis: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to delete analysis: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 }
@@ -215,7 +215,7 @@ export async function updateAnalysis(formData: FormData) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to update analysis: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to update analysis: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 
@@ -225,7 +225,7 @@ export async function updateAnalysis(formData: FormData) {
 export async function listAnalyses(
   pageNum = 1,
   pageSize = 10,
-  metadata?: Record<string, any>
+  metadata?: Record<string, any>,
 ): Promise<AnalysisResult[]> {
   let url = `${API_URL}/v1/analyses/list?pageNum=${pageNum}&pageSize=${pageSize}`;
 
@@ -240,7 +240,7 @@ export async function listAnalyses(
 
   if (!response.ok) {
     throw new Error(
-      `Failed to list analyses: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to list analyses: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 
@@ -250,7 +250,7 @@ export async function listAnalyses(
 export async function listAnalysesIds(
   pageNum = 1,
   pageSize = 10,
-  metadata?: Record<string, any>
+  metadata?: Record<string, any>,
 ): Promise<AnalysisResult[]> {
   let url = `${API_URL}/v1/analyses/listIds?pageNum=${pageNum}&pageSize=${pageSize}`;
 
@@ -265,7 +265,33 @@ export async function listAnalysesIds(
 
   if (!response.ok) {
     throw new Error(
-      `Failed to list analyses ids: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to list analyses ids: ${response.headers.get("x-searchlysis-error")}`,
+    );
+  }
+
+  return response.json();
+}
+
+export async function relatedAnalyses(
+  pageNum = 1,
+  pageSize = 10,
+  analysisId: string,
+  metadata?: Record<string, any>,
+): Promise<AnalysisResult[]> {
+  let url = `${API_URL}/v1/analyses/related?pageNum=${pageNum}&pageSize=${pageSize}&analysisId=${analysisId}`;
+
+  if (metadata) {
+    url += `&metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
+  }
+
+  const response = await fetch(url, {
+    headers,
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to list related analyses: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 
@@ -275,7 +301,7 @@ export async function listAnalysesIds(
 export async function getPublishedBlogs(
   pageNum = 1,
   pageSize = 20,
-  group?: string
+  group?: string,
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
   const metadata = group ? { group } : undefined;
 
@@ -297,7 +323,7 @@ async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch total blogs: ${response.headers.get("x-searchlysis-error")}`
+      `Failed to fetch total blogs: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 

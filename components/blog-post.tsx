@@ -1,6 +1,7 @@
 "use client";
 
 import { Markdown } from "@/components/markdown";
+import { RelatedAndLatestList } from "@/components/related-and-latest-list";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import type { Locale } from "@/lib/i18n-config";
@@ -149,6 +150,15 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           <OnThisPage />
         </div>
       )}
+
+      {/* 新增：相关文章与最新文章展示列表 */}
+      <div>
+        <RelatedAndLatestList
+          lang={lang}
+          dictionary={dictionary}
+          currentId={post.analysisId}
+        />
+      </div>
     </div>
   );
 }

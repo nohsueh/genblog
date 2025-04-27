@@ -12,6 +12,8 @@ export default {
     tableOfContents: "On this page",
     previousPost: "Previous Post",
     nextPost: "Next Post",
+    latestPosts: "Latest Posts",
+    relatedPosts: "Related Posts",
   },
   admin: {
     login: {

@@ -12,6 +12,8 @@ export default {
     tableOfContents: "本页",
     previousPost: "上一篇",
     nextPost: "下一篇",
+    latestPosts: "最新文章",
+    relatedPosts: "相关文章",
   },
   admin: {
     login: {
