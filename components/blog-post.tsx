@@ -86,7 +86,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     <div className="relative">
       <article className="mx-auto max-w-4xl">
         {headings.length > 0 && (
-          <div className="lg:hidden">
+          <div className="xl:hidden">
             <Sheet>
               <SheetTrigger asChild>
                 <Button
@@ -148,7 +148,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
       </article>
 
       {headings.length > 0 && (
-        <div className="fixed right-8 top-24 hidden w-64 lg:block">
+        <div className="fixed right-8 top-24 hidden w-64 xl:block">
           <div>
             <OnThisPage />
             <LatestPostsSidebar lang={lang} dictionary={dictionary} />

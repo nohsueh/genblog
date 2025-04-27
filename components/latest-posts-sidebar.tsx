@@ -52,9 +52,12 @@ export function LatestPostsSidebar({
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const image = post.analysis?.image;
     return (
-      <Card key={post.analysisId} className="mb-4 overflow-hidden">
+      <Card
+        key={post.analysisId}
+        className="mb-2 overflow-hidden border border-gray-100 shadow-none"
+      >
         <CardHeader className="p-0">
-          <div className="relative aspect-video overflow-hidden">
+          <div className="relative h-[72px] w-full overflow-hidden">
             <Image
               src={
                 image ||
@@ -67,8 +70,8 @@ export function LatestPostsSidebar({
             />
           </div>
         </CardHeader>
-        <CardContent className="p-4 pb-2">
-          <CardTitle className="mb-2 line-clamp-2 text-base">
+        <CardContent className="px-2 py-1 pb-1">
+          <CardTitle className="mb-1 line-clamp-2 text-sm font-semibold">
             <Link
               href={`/${lang}/${post.analysisId}`}
               className="hover:underline"
@@ -77,10 +80,10 @@ export function LatestPostsSidebar({
             </Link>
           </CardTitle>
         </CardContent>
-        <CardFooter className="p-4 pt-0">
+        <CardFooter className="px-2 pb-2 pt-0">
           <Link
             href={`/${lang}/${post.analysisId}`}
-            className="text-xs font-medium text-primary hover:underline"
+            className="text-[11px] font-medium text-primary hover:underline"
           >
             {dictionary.blog.readMore}
           </Link>
@@ -90,22 +93,25 @@ export function LatestPostsSidebar({
   }
 
   return (
-    <aside className="sticky top-[calc(8rem+40vh)] mt-8 hidden h-[40vh] w-64 overflow-y-auto lg:block">
-      <h2 className="mb-4 text-lg font-semibold">
+    <aside className="sticky top-[calc(8rem+40vh)] mt-8 h-[40vh] w-56 overflow-y-auto">
+      <h2 className="mb-2 text-base font-semibold">
         {dictionary.blog.latestPosts}
       </h2>
       <div>
         {loading
-          ? Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="mb-4 overflow-hidden">
+          ? Array.from({ length: 4 }).map((_, i) => (
+              <Card
+                key={i}
+                className="mb-2 overflow-hidden border border-gray-100 shadow-none"
+              >
                 <CardHeader className="p-0">
-                  <Skeleton className="aspect-video" />
+                  <Skeleton className="h-[72px] w-full" />
                 </CardHeader>
-                <CardContent className="p-4 pb-2">
-                  <Skeleton className="mb-2 h-6 w-full" />
+                <CardContent className="px-2 py-1 pb-1">
+                  <Skeleton className="mb-1 h-4 w-full" />
                 </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <Skeleton className="h-4 w-24" />
+                <CardFooter className="px-2 pb-2 pt-0">
+                  <Skeleton className="h-3 w-16" />
                 </CardFooter>
               </Card>
             ))
