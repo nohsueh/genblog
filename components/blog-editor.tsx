@@ -27,7 +27,7 @@ interface BlogEditorProps {
 }
 
 export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
-  const [content, setContent] = useState(post.analysis.content);
+  const [content, setContent] = useState(post.analysis?.content || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("edit");
@@ -62,8 +62,8 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>{post.analysis.title}</CardTitle>
-          <CardDescription>{post.analysis.url}</CardDescription>
+          <CardTitle>{post.analysis?.title}</CardTitle>
+          <CardDescription>{post.analysis?.url}</CardDescription>
         </CardHeader>
         <CardContent>
           <form action={handleSubmit} className="space-y-6">

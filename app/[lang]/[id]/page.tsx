@@ -44,13 +44,16 @@ export async function generateMetadata({
   const { id } = await params;
   const post = await getCachedAnalysis(id);
 
-  const contentLines = post.analysis.content
+  const contentLines = post.analysis?.content
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => line !== "");
-  const title = contentLines[0].replace(/^#+\s*/, "");
-  const description = contentLines[1];
-  const images = post.analysis.image;
+  const title =
+    contentLines?.[0].replace(/^#+\s*/, "") +
+    " - " +
+    process.env.NEXT_PUBLIC_APP_NAME;
+  const description = contentLines?.[1];
+  const images = post.analysis?.image;
 
   return {
     title,

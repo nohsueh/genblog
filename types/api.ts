@@ -46,7 +46,7 @@ export interface AnalysisResult {
   createdAt: string;
   updatedAt: string;
   analysisId: string;
-  analysis: AnalyzeAnalysisObject;
+  analysis?: AnalyzeAnalysisObject;
   metadata?: Record<string, any>;
 }
 

@@ -247,6 +247,31 @@ export async function listAnalyses(
   return response.json();
 }
 
+export async function listAnalysesIds(
+  pageNum = 1,
+  pageSize = 10,
+  metadata?: Record<string, any>
+): Promise<AnalysisResult[]> {
+  let url = `${API_URL}/v1/analyses/listIds?pageNum=${pageNum}&pageSize=${pageSize}`;
+
+  if (metadata) {
+    url += `&metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
+  }
+
+  const response = await fetch(url, {
+    headers,
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to list analyses ids: ${response.headers.get("x-searchlysis-error")}`
+    );
+  }
+
+  return response.json();
+}
+
 export async function getPublishedBlogs(
   pageNum = 1,
   pageSize = 20,
