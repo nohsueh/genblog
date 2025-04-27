@@ -1,7 +1,8 @@
 "use client";
 
 import { Markdown } from "@/components/markdown";
-import { RelatedAndLatestList } from "@/components/related-and-latest-list";
+import { RelatedAndLatestList } from "@/components/related-posts-sidebar";
+import { LatestPostsSidebar } from "@/components/latest-posts-sidebar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import type { Locale } from "@/lib/i18n-config";
@@ -54,7 +55,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     }, [activeId]);
 
     return (
-      <div className="sticky top-8 max-h-[80vh] overflow-y-auto">
+      <div className="sticky top-8 max-h-[40vh] overflow-y-auto">
         <h2 className="mb-4 text-lg font-semibold">
           {dictionary.blog.tableOfContents}
         </h2>
@@ -147,7 +148,10 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
       {headings.length > 0 && (
         <div className="fixed right-8 top-24 hidden w-64 lg:block">
-          <OnThisPage />
+          <div>
+            <OnThisPage />
+            <LatestPostsSidebar lang={lang} dictionary={dictionary} />
+          </div>
         </div>
       )}
 

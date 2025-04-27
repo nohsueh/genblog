@@ -118,33 +118,7 @@ export function RelatedAndLatestList({
   }
 
   return (
-    <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
-      <section>
-        <h2 className="mb-4 text-xl font-bold">
-          {dictionary.blog.latestPosts}
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {loading
-            ? Array.from({ length: 4 }).map((_, i) => (
-                <Card key={i} className="overflow-hidden">
-                  <CardHeader className="p-0">
-                    <Skeleton className="aspect-video" />
-                  </CardHeader>
-                  <CardContent className="p-4">
-                    <Skeleton className="mb-2 h-6 w-full" />
-                    <Skeleton className="mb-1 h-4 w-full" />
-                    <Skeleton className="mb-1 h-4 w-full" />
-                    <Skeleton className="mb-2 h-4 w-3/4" />
-                    <Skeleton className="h-3 w-1/2" />
-                  </CardContent>
-                  <CardFooter className="p-4 pt-0">
-                    <Skeleton className="h-4 w-24" />
-                  </CardFooter>
-                </Card>
-              ))
-            : latest.map(renderCard)}
-        </div>
-      </section>
+    <div className="mt-12">
       <section>
         <h2 className="mb-4 text-xl font-bold">
           {dictionary.blog.relatedPosts}
