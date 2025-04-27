@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const POSTS_PER_PAGE = 6;
+const POSTS_PER_PAGE = 12;
 
 interface RelatedAndLatestListProps {
   lang: Locale;
@@ -123,7 +123,7 @@ export function RelatedAndLatestList({
         <h2 className="mb-4 text-xl font-bold">
           {dictionary.blog.relatedPosts}
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
                 <Card key={i} className="overflow-hidden">
