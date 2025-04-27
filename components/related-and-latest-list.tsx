@@ -15,13 +15,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+const POSTS_PER_PAGE = 6;
+
 interface RelatedAndLatestListProps {
   lang: Locale;
   dictionary: any;
   currentId: string;
 }
 
-export function RelatedAndLatestList({ lang, dictionary, currentId }: RelatedAndLatestListProps) {
+export function RelatedAndLatestList({
+  lang,
+  dictionary,
+  currentId,
+}: RelatedAndLatestListProps) {
   const [latest, setLatest] = useState<AnalysisResult[]>([]);
   const [related, setRelated] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,8 +37,8 @@ export function RelatedAndLatestList({ lang, dictionary, currentId }: RelatedAnd
       setLoading(true);
       try {
         const [latestRes, relatedRes] = await Promise.all([
-          listAnalyses(1, 6),
-          relatedAnalyses(1, 6, currentId),
+          listAnalyses(1, POSTS_PER_PAGE),
+          relatedAnalyses(1, POSTS_PER_PAGE, currentId),
         ]);
         setLatest(latestRes);
         setRelated(relatedRes);
@@ -51,17 +57,21 @@ export function RelatedAndLatestList({ lang, dictionary, currentId }: RelatedAnd
       ?.split("\n")
       .map((line) => line.trim())
       .filter((line) => line !== "");
-    const title = contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
+    const title =
+      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const description = contentLines?.[1] || "";
     const image = post.analysis?.image;
     const author = post.analysis?.author;
     const createdAt = post.createdAt;
     return (
-      <Card key={post.analysisId} className="overflow-hidden flex flex-col">
+      <Card key={post.analysisId} className="flex flex-col overflow-hidden">
         <CardHeader className="p-0">
           <div className="relative aspect-video overflow-hidden">
             <Image
-              src={image || `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`}
+              src={
+                image ||
+                `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+              }
               unoptimized
               alt={title}
               fill
@@ -69,9 +79,12 @@ export function RelatedAndLatestList({ lang, dictionary, currentId }: RelatedAnd
             />
           </div>
         </CardHeader>
-        <CardContent className="p-4 flex-1">
+        <CardContent className="flex-1 p-4">
           <CardTitle className="mb-2 line-clamp-2">
-            <Link href={`/${lang}/${post.analysisId}`} className="hover:underline">
+            <Link
+              href={`/${lang}/${post.analysisId}`}
+              className="hover:underline"
+            >
               {title}
             </Link>
           </CardTitle>
@@ -86,13 +99,17 @@ export function RelatedAndLatestList({ lang, dictionary, currentId }: RelatedAnd
             )}
             {author && (
               <>
-                {" "}{dictionary.blog.by} {author}
+                {" "}
+                {dictionary.blog.by} {author}
               </>
             )}
           </div>
         </CardContent>
         <CardFooter className="p-4 pt-0">
-          <Link href={`/${lang}/${post.analysisId}`} className="text-sm font-medium text-primary hover:underline">
+          <Link
+            href={`/${lang}/${post.analysisId}`}
+            className="text-sm font-medium text-primary hover:underline"
+          >
             {dictionary.blog.readMore}
           </Link>
         </CardFooter>
@@ -101,9 +118,11 @@ export function RelatedAndLatestList({ lang, dictionary, currentId }: RelatedAnd
   }
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 mt-12">
+    <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-2">
       <section>
-        <h2 className="mb-4 text-xl font-bold">{dictionary.blog.latestPosts}</h2>
+        <h2 className="mb-4 text-xl font-bold">
+          {dictionary.blog.latestPosts}
+        </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
@@ -127,7 +146,9 @@ export function RelatedAndLatestList({ lang, dictionary, currentId }: RelatedAnd
         </div>
       </section>
       <section>
-        <h2 className="mb-4 text-xl font-bold">{dictionary.blog.relatedPosts}</h2>
+        <h2 className="mb-4 text-xl font-bold">
+          {dictionary.blog.relatedPosts}
+        </h2>
         <div className="grid gap-4 sm:grid-cols-2">
           {loading
             ? Array.from({ length: 4 }).map((_, i) => (
