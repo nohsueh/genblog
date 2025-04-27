@@ -9,7 +9,6 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -22,7 +21,10 @@ interface LatestPostsSidebarProps {
   dictionary: any;
 }
 
-export function LatestPostsSidebar({ lang, dictionary }: LatestPostsSidebarProps) {
+export function LatestPostsSidebar({
+  lang,
+  dictionary,
+}: LatestPostsSidebarProps) {
   const [latest, setLatest] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,14 +48,18 @@ export function LatestPostsSidebar({ lang, dictionary }: LatestPostsSidebarProps
       ?.split("\n")
       .map((line) => line.trim())
       .filter((line) => line !== "");
-    const title = contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
+    const title =
+      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const image = post.analysis?.image;
     return (
       <Card key={post.analysisId} className="mb-4 overflow-hidden">
         <CardHeader className="p-0">
           <div className="relative aspect-video overflow-hidden">
             <Image
-              src={image || `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`}
+              src={
+                image ||
+                `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+              }
               unoptimized
               alt={title}
               fill
@@ -63,13 +69,19 @@ export function LatestPostsSidebar({ lang, dictionary }: LatestPostsSidebarProps
         </CardHeader>
         <CardContent className="p-4 pb-2">
           <CardTitle className="mb-2 line-clamp-2 text-base">
-            <Link href={`/${lang}/${post.analysisId}`} className="hover:underline">
+            <Link
+              href={`/${lang}/${post.analysisId}`}
+              className="hover:underline"
+            >
               {title}
             </Link>
           </CardTitle>
         </CardContent>
         <CardFooter className="p-4 pt-0">
-          <Link href={`/${lang}/${post.analysisId}`} className="text-xs font-medium text-primary hover:underline">
+          <Link
+            href={`/${lang}/${post.analysisId}`}
+            className="text-xs font-medium text-primary hover:underline"
+          >
             {dictionary.blog.readMore}
           </Link>
         </CardFooter>
@@ -78,8 +90,10 @@ export function LatestPostsSidebar({ lang, dictionary }: LatestPostsSidebarProps
   }
 
   return (
-    <aside className="hidden lg:block sticky top-[calc(8rem+40vh)] w-64 mt-8">
-      <h2 className="mb-4 text-lg font-semibold">{dictionary.blog.latestPosts}</h2>
+    <aside className="sticky top-[calc(8rem+40vh)] mt-8 hidden w-64 overflow-y-auto lg:block">
+      <h2 className="mb-4 text-lg font-semibold">
+        {dictionary.blog.latestPosts}
+      </h2>
       <div>
         {loading
           ? Array.from({ length: 3 }).map((_, i) => (
