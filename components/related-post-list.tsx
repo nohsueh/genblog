@@ -9,7 +9,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { relatedAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +36,9 @@ export function RelatedBlogList({
       setLoading(true);
       try {
         const [relatedRes] = await Promise.all([
-          relatedAnalyses(1, POSTS_PER_PAGE, currentId),
+          relatedAnalyses(1, POSTS_PER_PAGE, currentId, {
+            group: getGroupName(),
+          }),
         ]);
         setRelated(relatedRes);
       } catch (err) {
