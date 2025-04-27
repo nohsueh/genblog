@@ -11,7 +11,8 @@ import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 interface BlogPostProps {
   post: AnalysisResult;
@@ -55,30 +56,47 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     }, [activeId]);
 
     return (
-      <div className="sticky top-8 h-[40vh] overflow-y-auto">
-        <h2 className="mb-4 text-lg font-semibold">
-          {dictionary.blog.tableOfContents}
-        </h2>
-        <nav className="space-y-2">
-          {headings.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              ref={(el) => {
-                itemRefs.current[item.id] = el;
-              }}
-              className={`block text-sm transition-colors ${
-                activeId === item.id
-                  ? "font-medium text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
-            >
-              {item.text}
-            </a>
-          ))}
-        </nav>
-      </div>
+      // Skeleton
+      <Suspense
+        fallback={
+          <div className="sticky top-8 h-[40vh] overflow-y-auto">
+            <h2 className="mb-4 text-lg font-semibold">
+              {dictionary.blog.tableOfContents}
+            </h2>
+            <nav className="space-y-2">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="mb-1 h-4 w-1/2" />
+              <Skeleton className="mb-1 h-4 w-1/2" />
+              <Skeleton className="mb-1 h-4 w-1/2" />
+            </nav>
+          </div>
+        }
+      >
+        <div className="sticky top-8 h-[40vh] overflow-y-auto">
+          <h2 className="mb-4 text-lg font-semibold">
+            {dictionary.blog.tableOfContents}
+          </h2>
+          <nav className="space-y-2">
+            {headings.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                ref={(el) => {
+                  itemRefs.current[item.id] = el;
+                }}
+                className={`block text-sm transition-colors ${
+                  activeId === item.id
+                    ? "font-medium text-primary"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+                style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
+              >
+                {item.text}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </Suspense>
     );
   };
 
