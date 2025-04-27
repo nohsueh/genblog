@@ -125,7 +125,7 @@ export function RelatedAndLatestList({
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {loading
-            ? Array.from({ length: 4 }).map((_, i) => (
+            ? Array.from({ length: 6 }).map((_, i) => (
                 <Card key={i} className="overflow-hidden">
                   <CardHeader className="p-0">
                     <Skeleton className="aspect-video" />

@@ -94,7 +94,7 @@ export function LatestPostsSidebar({
       </h2>
       <div>
         {loading
-          ? Array.from({ length: 4 }).map((_, i) => (
+          ? Array.from({ length: 6 }).map((_, i) => (
               <Card
                 key={i}
                 className="mb-2 flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
