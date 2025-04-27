@@ -1,10 +1,8 @@
 "use client";
 import {
   Card,
-  CardContent,
   CardFooter,
-  CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
@@ -54,23 +52,21 @@ export function LatestPostsSidebar({
     return (
       <Card
         key={post.analysisId}
-        className="mb-2 overflow-hidden border border-gray-100 shadow-none"
+        className="mb-2 flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
       >
-        <CardHeader className="p-0">
-          <div className="relative h-[72px] w-full overflow-hidden">
-            <Image
-              src={
-                image ||
-                `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-              }
-              unoptimized
-              alt={title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        </CardHeader>
-        <CardContent className="px-2 py-1 pb-1">
+        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden">
+          <Image
+            src={
+              image ||
+              `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+            }
+            unoptimized
+            alt={title}
+            fill
+            className="rounded object-cover"
+          />
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
           <CardTitle className="mb-1 line-clamp-2 text-sm font-semibold">
             <Link
               href={`/${lang}/${post.analysisId}`}
@@ -79,15 +75,15 @@ export function LatestPostsSidebar({
               {title}
             </Link>
           </CardTitle>
-        </CardContent>
-        <CardFooter className="px-2 pb-2 pt-0">
-          <Link
-            href={`/${lang}/${post.analysisId}`}
-            className="text-[11px] font-medium text-primary hover:underline"
-          >
-            {dictionary.blog.readMore}
-          </Link>
-        </CardFooter>
+          <CardFooter className="px-0 pb-0 pt-0">
+            <Link
+              href={`/${lang}/${post.analysisId}`}
+              className="text-[11px] font-medium text-primary hover:underline"
+            >
+              {dictionary.blog.readMore}
+            </Link>
+          </CardFooter>
+        </div>
       </Card>
     );
   }
@@ -102,17 +98,17 @@ export function LatestPostsSidebar({
           ? Array.from({ length: 4 }).map((_, i) => (
               <Card
                 key={i}
-                className="mb-2 overflow-hidden border border-gray-100 shadow-none"
+                className="mb-2 flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
               >
-                <CardHeader className="p-0">
-                  <Skeleton className="h-[72px] w-full" />
-                </CardHeader>
-                <CardContent className="px-2 py-1 pb-1">
+                <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden">
+                  <Skeleton className="h-full w-full" />
+                </div>
+                <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
                   <Skeleton className="mb-1 h-4 w-full" />
-                </CardContent>
-                <CardFooter className="px-2 pb-2 pt-0">
-                  <Skeleton className="h-3 w-16" />
-                </CardFooter>
+                  <div className="flex items-center">
+                    <Skeleton className="h-3 w-16" />
+                  </div>
+                </div>
               </Card>
             ))
           : latest.map(renderCard)}
