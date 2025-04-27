@@ -35,7 +35,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" },
+      { rootMargin: "-20% 0px -80% 0px" }
     );
 
     headings.forEach((heading) => {
@@ -143,9 +143,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
               target="_blank"
               rel="noopener noreferrer nofollow"
             >
-              <span>
-                {dictionary.blog.publishedOn} {formatDate(post.createdAt, lang)}
-              </span>
+              <span>{formatDate(post.createdAt, lang)}</span>
               {post.analysis?.author && (
                 <span>
                   {" "}
