@@ -8,6 +8,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 
+import { Suspense } from "react";
+
 export default async function BlogPage(props: {
   params: Promise<{ lang: Locale; id: string }>;
 }) {
@@ -23,7 +25,15 @@ export default async function BlogPage(props: {
       <div className="flex min-h-screen flex-col">
         <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
         <main className="container mb-48 flex-1 px-4 py-6">
-          <BlogPost post={post} lang={lang} dictionary={dictionary} />
+          <Suspense
+            fallback={
+              <div className="py-10 text-center">
+                <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
+              </div>
+            }
+          >
+            <BlogPost post={post} lang={lang} dictionary={dictionary} />
+          </Suspense>
         </main>
         <SiteFooter />
       </div>
