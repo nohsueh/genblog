@@ -56,7 +56,6 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     }, [activeId]);
 
     return (
-      // Skeleton
       <Suspense
         fallback={
           <div className="sticky top-8 h-[40vh] overflow-y-auto">
