@@ -84,7 +84,10 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
 
           return (
             <Link href={`/${lang}/${post.analysisId}`}>
-              <Card key={post.analysisId} className="overflow-hidden transition-shadow hover:shadow-lg">
+              <Card
+                key={post.analysisId}
+                className="overflow-hidden transition-shadow hover:shadow-lg"
+              >
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
                     <Image
@@ -99,7 +102,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                     />
                   </div>
                 </CardHeader>
-                <CardContent className="p-4">
+                <CardContent className="p-4 pb-0">
                   <CardTitle className="mb-2 line-clamp-2">{title}</CardTitle>
                   <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
                     {description}...
@@ -168,7 +171,7 @@ export function BlogList(props: BlogListProps) {
               <CardHeader className="p-0">
                 <Skeleton className="aspect-video" />
               </CardHeader>
-              <CardContent className="p-4">
+              <CardContent className="p-4 pb-0">
                 <Skeleton className="mb-2 h-6 w-full" />
                 <Skeleton className="mb-1 h-4 w-full" />
                 <Skeleton className="mb-1 h-4 w-full" />

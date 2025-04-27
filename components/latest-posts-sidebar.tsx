@@ -49,12 +49,12 @@ export function LatestPostsSidebar({
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const image = post.analysis?.image;
     return (
-      <Link href={`/${lang}/${post.analysisId}`} className="hover:underline">
+      <Link href={`/${lang}/${post.analysisId}`}>
         <Card
           key={post.analysisId}
-          className="mb-2 flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-lg"
+          className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-md"
         >
-          <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden">
+          <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
             <Image
               src={
                 image ||
@@ -67,7 +67,7 @@ export function LatestPostsSidebar({
             />
           </div>
           <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
-            <CardTitle className="mb-1 line-clamp-3 text-sm font-semibold">
+            <CardTitle className="line-clamp-3 text-sm font-semibold">
               {title}
             </CardTitle>
           </div>
@@ -81,14 +81,14 @@ export function LatestPostsSidebar({
       <h2 className="mb-2 text-base font-semibold">
         {dictionary.blog.latestPosts}
       </h2>
-      <div>
+      <div className="flex flex-col space-y-2 px-1">
         {loading
           ? Array.from({ length: 4 }).map((_, i) => (
               <Card
                 key={i}
-                className="mb-2 flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
+                className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
               >
-                <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden">
+                <div className="relative size-16 flex-shrink-0 overflow-hidden">
                   <Skeleton className="h-full w-full" />
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
