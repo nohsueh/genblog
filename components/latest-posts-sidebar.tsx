@@ -90,7 +90,7 @@ export function LatestPostsSidebar({
   }
 
   return (
-    <aside className="sticky top-[calc(8rem+40vh)] mt-8 hidden w-64 overflow-y-auto lg:block">
+    <aside className="sticky top-[calc(8rem+40vh)] mt-8 hidden max-h-[40vh] w-64 overflow-y-auto lg:block">
       <h2 className="mb-4 text-lg font-semibold">
         {dictionary.blog.latestPosts}
       </h2>
