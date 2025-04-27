@@ -64,56 +64,45 @@ export function RelatedAndLatestList({
     const author = post.analysis?.author;
     const createdAt = post.createdAt;
     return (
-      <Card key={post.analysisId} className="flex flex-col overflow-hidden">
-        <CardHeader className="p-0">
-          <div className="relative aspect-video overflow-hidden">
-            <Image
-              src={
-                image ||
-                `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-              }
-              unoptimized
-              alt={title}
-              fill
-              className="object-cover"
-            />
-          </div>
-        </CardHeader>
-        <CardContent className="flex-1 p-4">
-          <CardTitle className="mb-2 line-clamp-2">
-            <Link
-              href={`/${lang}/${post.analysisId}`}
-              className="hover:underline"
-            >
-              {title}
-            </Link>
-          </CardTitle>
-          <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
-            {description}...
-          </div>
-          <div className="text-xs text-muted-foreground">
-            {createdAt && (
-              <>
-                {dictionary.blog.publishedOn} {formatDate(createdAt, lang)}
-              </>
-            )}
-            {author && (
-              <>
-                {" "}
-                {dictionary.blog.by} {author}
-              </>
-            )}
-          </div>
-        </CardContent>
-        <CardFooter className="p-4 pt-0">
-          <Link
-            href={`/${lang}/${post.analysisId}`}
-            className="text-sm font-medium text-primary hover:underline"
-          >
-            {dictionary.blog.readMore}
-          </Link>
-        </CardFooter>
-      </Card>
+      <Link href={`/${lang}/${post.analysisId}`} className="hover:underline">
+        <Card key={post.analysisId} className="flex flex-col overflow-hidden transition-shadow hover:shadow-lg">
+          <CardHeader className="p-0">
+            <div className="relative aspect-video overflow-hidden">
+              <Image
+                src={
+                  image ||
+                  `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+                }
+                unoptimized
+                alt={title}
+                fill
+                className="object-cover"
+              />
+            </div>
+          </CardHeader>
+          <CardContent className="flex-1 p-4">
+            <CardTitle className="mb-2 line-clamp-2">{title}</CardTitle>
+            <div className="mb-2 line-clamp-3 text-sm text-muted-foreground">
+              {description}...
+            </div>
+          </CardContent>
+          <CardFooter className="p-4 pt-0">
+            <div className="text-xs text-muted-foreground">
+              {createdAt && (
+                <>
+                  {dictionary.blog.publishedOn} {formatDate(createdAt, lang)}
+                </>
+              )}
+              {author && (
+                <>
+                  {" "}
+                  {dictionary.blog.by} {author}
+                </>
+              )}
+            </div>
+          </CardFooter>
+        </Card>
+      </Link>
     );
   }
 
@@ -135,10 +124,9 @@ export function RelatedAndLatestList({
                     <Skeleton className="mb-1 h-4 w-full" />
                     <Skeleton className="mb-1 h-4 w-full" />
                     <Skeleton className="mb-2 h-4 w-3/4" />
-                    <Skeleton className="h-3 w-1/2" />
                   </CardContent>
                   <CardFooter className="p-4 pt-0">
-                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="h-3 w-1/2" />
                   </CardFooter>
                 </Card>
               ))

@@ -1,5 +1,5 @@
 "use client";
-import { Card, CardFooter, CardTitle } from "@/components/ui/card";
+import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
@@ -49,41 +49,30 @@ export function LatestPostsSidebar({
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const image = post.analysis?.image;
     return (
-      <Card
-        key={post.analysisId}
-        className="mb-2 flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
-      >
-        <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden">
-          <Image
-            src={
-              image ||
-              `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-            }
-            unoptimized
-            alt={title}
-            fill
-            className="rounded object-cover"
-          />
-        </div>
-        <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
-          <CardTitle className="mb-1 line-clamp-2 text-sm font-semibold">
-            <Link
-              href={`/${lang}/${post.analysisId}`}
-              className="hover:underline"
-            >
+      <Link href={`/${lang}/${post.analysisId}`} className="hover:underline">
+        <Card
+          key={post.analysisId}
+          className="mb-2 flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-lg"
+        >
+          <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden">
+            <Image
+              src={
+                image ||
+                `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+              }
+              unoptimized
+              alt={title}
+              fill
+              className="rounded object-cover"
+            />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
+            <CardTitle className="mb-1 line-clamp-3 text-sm font-semibold">
               {title}
-            </Link>
-          </CardTitle>
-          <CardFooter className="px-0 pb-0 pt-0">
-            <Link
-              href={`/${lang}/${post.analysisId}`}
-              className="text-[11px] font-medium text-primary hover:underline"
-            >
-              {dictionary.blog.readMore}
-            </Link>
-          </CardFooter>
-        </div>
-      </Card>
+            </CardTitle>
+          </div>
+        </Card>
+      </Link>
     );
   }
 
@@ -104,9 +93,8 @@ export function LatestPostsSidebar({
                 </div>
                 <div className="flex min-w-0 flex-1 flex-col justify-between px-2 py-1">
                   <Skeleton className="mb-1 h-4 w-full" />
-                  <div className="flex items-center">
-                    <Skeleton className="h-3 w-16" />
-                  </div>
+                  <Skeleton className="mb-1 h-4 w-full" />
+                  <Skeleton className="mb-1 h-4 w-3/4" />
                 </div>
               </Card>
             ))
