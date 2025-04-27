@@ -1,8 +1,8 @@
 "use client";
 
+import { LatestPostsSidebar } from "@/components/latest-posts-sidebar";
 import { Markdown } from "@/components/markdown";
 import { RelatedAndLatestList } from "@/components/related-posts-sidebar";
-import { LatestPostsSidebar } from "@/components/latest-posts-sidebar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import type { Locale } from "@/lib/i18n-config";
@@ -34,7 +34,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     headings.forEach((heading) => {
@@ -99,6 +99,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
               </SheetTrigger>
               <SheetContent side="right" className="w-[300px]">
                 <OnThisPage />
+                <LatestPostsSidebar lang={lang} dictionary={dictionary} />
               </SheetContent>
             </Sheet>
           </div>
