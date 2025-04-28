@@ -26,8 +26,13 @@ import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const DEFAULT_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
+const ENGLISH_RESPONSE_PROMPT = "Please respond in English only.";
+const FRENCH_RESPONSE_PROMPT = "Veuillez répondre en français.";
+const SPANISH_RESPONSE_PROMPT = "Por favor, responde en español.";
+const GERMAN_RESPONSE_PROMPT = "Bitte antworte auf Deutsch.";
+const CHINESE_RESPONSE_PROMPT = "请仅用中文回答。";
 
+const DEFAULT_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
 - Objective: Produce an in-depth, original article on the provided raw content designed to boost CTR by at least 500% and maximize reader engagement.
 - Structure & Readability: Organize with concise, benefit-oriented subheadings, bullet-point lists, and short paragraphs (2–3 sentences each).
 - SEO Requirements:
@@ -49,6 +54,33 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
+
+  let Prompt: string;
+  switch (dictionary.language) {
+    case "en":
+      Prompt = `${ENGLISH_RESPONSE_PROMPT}
+${DEFAULT_PROMPT}`;
+      break;
+    case "fr":
+      Prompt = `${FRENCH_RESPONSE_PROMPT}
+${DEFAULT_PROMPT}`;
+      break;
+    case "es":
+      Prompt = `${SPANISH_RESPONSE_PROMPT}
+${DEFAULT_PROMPT}`;
+      break;
+    case "de":
+      Prompt = `${GERMAN_RESPONSE_PROMPT}
+${DEFAULT_PROMPT}`;
+      break;
+    case "zh":
+      Prompt = `${CHINESE_RESPONSE_PROMPT}
+${DEFAULT_PROMPT}`;
+      break;
+    default:
+      Prompt = `${DEFAULT_PROMPT}`;
+      break;
+  }
 
   const isDateRangeValid = (!startDate && !endDate) || (startDate && endDate);
 
@@ -181,7 +213,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="search-prompt"
                     name="prompt"
                     placeholder="Write a comprehensive blog post about..."
-                    defaultValue={DEFAULT_PROMPT}
+                    defaultValue={Prompt}
                     rows={4}
                     disabled={isLoading}
                     required
@@ -226,7 +258,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !startDate && "text-muted-foreground",
+                            !startDate && "text-muted-foreground"
                           )}
                           disabled={isLoading}
                         >
@@ -255,7 +287,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !endDate && "text-muted-foreground",
+                            !endDate && "text-muted-foreground"
                           )}
                           disabled={isLoading}
                         >
@@ -342,7 +374,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="link-prompt"
                     name="prompt"
                     placeholder="Write a comprehensive blog post about..."
-                    defaultValue={DEFAULT_PROMPT}
+                    defaultValue={Prompt}
                     rows={4}
                     disabled={isLoading}
                     required
