@@ -75,7 +75,12 @@ export function AdminDashboard({
       try {
         setLoading(true);
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const result = await getPublishedBlogs(currentPage, PAGE_SIZE, group);
+        const result = await getPublishedBlogs(
+          currentPage,
+          PAGE_SIZE,
+          group,
+          lang
+        );
         setPosts(result.blogs);
         setTotal(result.total);
       } catch (error) {
@@ -86,7 +91,7 @@ export function AdminDashboard({
     };
 
     fetchPosts();
-  }, [groupName, selectedGroup, currentPage]);
+  }, [groupName, lang, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
     post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase())
