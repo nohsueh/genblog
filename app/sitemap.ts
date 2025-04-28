@@ -14,7 +14,7 @@ export default async function sitemap({
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
-  const CURRENT_DATE = new Date();
+  const CURRENT_DATE = new Date().toISOString();
   const analyses = await listAnalysesIds(1, 49999, {
     group: getGroupName(),
     language: id,
