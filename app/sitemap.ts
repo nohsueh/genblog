@@ -5,28 +5,28 @@ import type { MetadataRoute } from "next";
 
 export async function generateSitemaps() {
   return i18n.locales.map((locale) => ({
-    language: locale,
+    id: locale,
   }));
 }
 
 export default async function sitemap({
-  language,
+  id,
 }: {
-  language: string;
+  id: string;
 }): Promise<MetadataRoute.Sitemap> {
   const CURRENT_DATE = new Date();
-  const analyses = await listAnalysesIds(1, 10000, {
+  const analyses = await listAnalysesIds(1, 49999, {
     group: getGroupName(),
-    language,
+    language: id,
   });
 
   return [
     {
-      url: `${getBaseUrl()}/${language}`,
+      url: `${getBaseUrl()}/${id}`,
       lastModified: CURRENT_DATE,
     },
     ...analyses.map((analysis) => ({
-      url: `${getBaseUrl()}/${language}/${analysis.analysisId}`,
+      url: `${getBaseUrl()}/${id}/${analysis.analysisId}`,
       lastModified: analysis.updatedAt,
     })),
   ];
