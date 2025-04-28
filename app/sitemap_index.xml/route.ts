@@ -1,17 +1,8 @@
 import { i18n } from "@/lib/i18n-config";
 import { getBaseUrl } from "@/lib/utils";
 
-export async function generateSitemaps() {
-  const sitemaps = i18n.locales.map((locale) => ({
-    id: locale,
-    url: `${getBaseUrl()}/sitemap/${locale}.xml`,
-  }));
-
-  return sitemaps;
-}
-
 export async function GET() {
-  const dynamicSitemaps = await generateSitemaps();
+  const dynamicSitemaps = generateSitemaps();
   const sitemaps = [...dynamicSitemaps.map((sitemap) => sitemap.url)];
 
   const sitemapIndexXML = buildSitemapIndexXML(sitemaps);
@@ -21,6 +12,15 @@ export async function GET() {
       "Content-Type": "application/xml",
     },
   });
+}
+
+function generateSitemaps() {
+  const sitemaps = i18n.locales.map((locale) => ({
+    id: locale,
+    url: `${getBaseUrl()}/sitemap/${locale}.xml`,
+  }));
+
+  return sitemaps;
 }
 
 function buildSitemapIndexXML(sitemaps: string[]) {
