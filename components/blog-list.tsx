@@ -43,7 +43,8 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         const { blogs, total } = await getPublishedBlogs(
           currentPage,
           PAGE_SIZE,
-          group
+          group,
+          lang
         );
         setPosts(blogs);
         setTotal(total);

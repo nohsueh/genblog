@@ -66,6 +66,8 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
         formData.append("startPublishedDate", startDate.toISOString());
         formData.append("endPublishedDate", endDate.toISOString());
       }
+      // Add language to the form data
+      formData.append("language", dictionary.language);
 
       toast.promise(analyzeSearch(formData), {
         loading: dictionary.admin.create.generating,
@@ -106,6 +108,8 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
       // Replace the single link with array of links
       formData.delete("link");
       formData.append("link", JSON.stringify(links));
+      // Add language to the form data
+      formData.append("language", dictionary.language);
 
       toast.promise(analyzeLinks(formData), {
         loading: dictionary.admin.create.generating,

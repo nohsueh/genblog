@@ -1,4 +1,5 @@
 export default {
+  language: "es",
   home: {
     title: "Bienvenido a nuestro Blog",
     description: "Descubre las últimas ideas y artículos sobre diversos temas.",
