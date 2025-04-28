@@ -94,24 +94,24 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
   let Prompt: string;
   switch (dictionary.language) {
     case "en":
-      Prompt = `${ENGLISH_RESPONSE_PROMPT}
-${ENGLISH_PROMPT}`;
+      Prompt = `${ENGLISH_PROMPT}
+${ENGLISH_RESPONSE_PROMPT}`;
       break;
     case "fr":
-      Prompt = `${FRENCH_RESPONSE_PROMPT}
-${FRENCH_PROMPT}`;
+      Prompt = `${FRENCH_PROMPT}
+${FRENCH_RESPONSE_PROMPT}`;
       break;
     case "es":
-      Prompt = `${SPANISH_RESPONSE_PROMPT}
-${SPANISH_PROMPT}`;
+      Prompt = `${SPANISH_PROMPT}
+${SPANISH_RESPONSE_PROMPT}`;
       break;
     case "de":
-      Prompt = `${GERMAN_RESPONSE_PROMPT}
-${GERMAN_PROMPT}`;
+      Prompt = `${GERMAN_PROMPT}
+${GERMAN_RESPONSE_PROMPT}`;
       break;
     case "zh":
-      Prompt = `${CHINESE_RESPONSE_PROMPT}
-${CHINESE_PROMPT}`;
+      Prompt = `${CHINESE_PROMPT}
+${CHINESE_RESPONSE_PROMPT}`;
       break;
     default:
       Prompt = `${ENGLISH_PROMPT}`;
