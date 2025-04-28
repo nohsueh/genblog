@@ -56,22 +56,22 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     }, [activeId]);
 
     return (
-      <Suspense
-        fallback={
-          <div className="sticky top-8 h-[40vh] overflow-y-auto">
-            <h2 className="mb-4 text-lg font-semibold">
-              {dictionary.blog.tableOfContents}
-            </h2>
-            <nav className="space-y-2">
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="mb-1 h-4 w-1/2" />
-              <Skeleton className="mb-1 h-4 w-1/2" />
-              <Skeleton className="mb-1 h-4 w-1/2" />
-            </nav>
-          </div>
-        }
-      >
-        <div className="sticky top-8 h-[40vh] overflow-y-auto">
+      <div className="sticky top-8 h-[40vh] overflow-y-auto">
+        <Suspense
+          fallback={
+            <>
+              <h2 className="mb-4 text-lg font-semibold">
+                {dictionary.blog.tableOfContents}
+              </h2>
+              <nav className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="mb-1 h-4 w-1/2" />
+                <Skeleton className="mb-1 h-4 w-1/2" />
+                <Skeleton className="mb-1 h-4 w-1/2" />
+              </nav>
+            </>
+          }
+        >
           <h2 className="mb-4 text-lg font-semibold">
             {dictionary.blog.tableOfContents}
           </h2>
@@ -94,8 +94,8 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
               </a>
             ))}
           </nav>
-        </div>
-      </Suspense>
+         </Suspense>
+      </div>
     );
   };
 
