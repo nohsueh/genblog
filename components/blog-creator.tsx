@@ -27,14 +27,14 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 const ENGLISH_RESPONSE_PROMPT =
-  "Please answer all user queries ONLY in English, regardless of the input language.";
+  "Regardless of the input language, please answer in English only.";
 const FRENCH_RESPONSE_PROMPT =
-  "Veuillez répondre en anglais uniquement, quelle que soit la langue de saisie.";
+  "Veuillez répondre en français uniquement, quelle que soit la langue de saisie.";
 const SPANISH_RESPONSE_PROMPT =
-  "Responda sólo en inglés, independientemente del idioma de entrada.";
+  "Por favor responda sólo en español, independientemente del idioma de entrada.";
 const GERMAN_RESPONSE_PROMPT =
-  "Bitte antworten Sie nur auf Englisch, unabhängig von der Eingabesprache.";
-const CHINESE_RESPONSE_PROMPT = "无论输入什么语言，请仅使用英语回答。";
+  "Bitte antworten Sie ausschließlich auf Deutsch, unabhängig von der Eingabesprache.";
+const CHINESE_RESPONSE_PROMPT = "无论输入什么语言，请仅使用中文回答。";
 
 const DEFAULT_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
 - Objective: Produce an in-depth, original article on the provided raw content designed to boost CTR by at least 500% and maximize reader engagement.
