@@ -26,11 +26,16 @@ import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const ENGLISH_RESPONSE_PROMPT = "Please respond in English only.";
-const FRENCH_RESPONSE_PROMPT = "Veuillez répondre en français.";
-const SPANISH_RESPONSE_PROMPT = "Por favor, responde en español.";
-const GERMAN_RESPONSE_PROMPT = "Bitte antworte auf Deutsch.";
-const CHINESE_RESPONSE_PROMPT = "请仅用中文回答。";
+const ENGLISH_RESPONSE_PROMPT =
+  "Please answer all user queries ONLY in English, regardless of the input language.";
+const FRENCH_RESPONSE_PROMPT =
+  "Veuillez répondre à toutes les questions des utilisateurs UNIQUEMENT en anglais, quelle que soit la langue de saisie.";
+const SPANISH_RESPONSE_PROMPT =
+  "Responda todas las consultas de los usuarios SÓLO en inglés, independientemente del idioma de entrada.";
+const GERMAN_RESPONSE_PROMPT =
+  "Bitte beantworten Sie alle Benutzeranfragen NUR auf Englisch, unabhängig von der Eingabesprache.";
+const CHINESE_RESPONSE_PROMPT =
+  "无论输入语言是什么，请仅使用中文回答所有用户查询。";
 
 const DEFAULT_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
 - Objective: Produce an in-depth, original article on the provided raw content designed to boost CTR by at least 500% and maximize reader engagement.
