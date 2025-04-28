@@ -3,6 +3,7 @@ import en from "./dictionaries/en";
 import fr from "./dictionaries/fr";
 import es from "./dictionaries/es";
 import de from "./dictionaries/de";
+import ja from "./dictionaries/ja";
 import zh from "./dictionaries/zh";
 
 const dictionaries = {
@@ -10,6 +11,7 @@ const dictionaries = {
   fr: fr,
   es: es,
   de: de,
+  ja: ja,
   zh: zh,
 } as const;
 

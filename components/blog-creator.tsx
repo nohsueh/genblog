@@ -34,6 +34,8 @@ const SPANISH_RESPONSE_PROMPT =
   "Por favor responda sólo en español, independientemente del idioma de entrada.";
 const GERMAN_RESPONSE_PROMPT =
   "Bitte antworten Sie ausschließlich auf Deutsch, unabhängig von der Eingabesprache.";
+const JAPANESE_RESPONSE_PROMPT =
+  "入力言語に関わらず、日本語のみで回答してください。";
 const CHINESE_RESPONSE_PROMPT = "无论输入什么语言，请仅使用中文回答。";
 
 const ENGLISH_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
@@ -68,6 +70,14 @@ const GERMAN_PROMPT = `Sie sind ein erfahrener SEO-Texter und Klickratenstratege
   - Binden Sie das primäre Keyword 3–5 Mal und 2–3 verwandte Long-Tail-Begriffe auf natürliche Weise ein.
   - Wert & Aktion: Liefern Sie umsetzbare Erkenntnisse und Beispiele aus der Praxis.
   - Ton & Stil: Ansprechend, lebendig, interessant und leicht verständlich, kompetent und leserorientiert – verbinden Sie professionelle Expertise mit klarer Konversation.`;
+const JAPANESE_PROMPT = `SEOコピーライターおよびクリックスルー率戦略の専門家として、魅力的でデータに基づいた記事作成の実績をお持ちの方。
+- 目標：提供された未加工のコンテンツに基づき、CTRを500%以上向上させ、読者のエンゲージメントを最大化するよう設計された、詳細で独創的な記事を作成してください。
+- 構成と読みやすさ：簡潔でメリット重視の小見出し、箇条書き、短い段落（それぞれ2～3文）で構成してください。
+- SEO要件：
+  - タイトル：ロングテールキーワードを自然に含め、「unlock（アンロック）」「supercharge（スーパーチャージ）」「level up（レベルアップ）」「unleash（解放）」といった大げさな言葉は使用しないでください。
+  - 主要キーワードを3～5回、関連するロングテールキーワードを2～3個、自然に織り込んでください。
+  - 価値とアクション：実用的な洞察と実例を提供してください。
+  - トーンとスタイル：魅力的で、生き生きとして、興味深く、理解しやすく、権威があり、読者を第一に考え、専門知識と会話の明瞭さをバランスよく取り入れてください。`;
 const CHINESE_PROMPT = `您是一位专业的SEO文案撰写者和点击率策略专家，并拥有撰写引人入胜、数据驱动型文章的丰富经验。
 - 目标：根据提供的原始内容撰写一篇深入的原创文章，旨在将点击率提升至少500%，并最大限度地提高读者参与度。
 - 结构与可读性：使用简洁、以效益为导向的副标题、项目符号列表和简短的段落（每段2-3句话）进行组织。
@@ -108,6 +118,10 @@ ${SPANISH_RESPONSE_PROMPT}`;
     case "de":
       Prompt = `${GERMAN_PROMPT}
 ${GERMAN_RESPONSE_PROMPT}`;
+      break;
+    case "ja":
+      Prompt = `${JAPANESE_PROMPT}
+  ${JAPANESE_RESPONSE_PROMPT}`;
       break;
     case "zh":
       Prompt = `${CHINESE_PROMPT}
