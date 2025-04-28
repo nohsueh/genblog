@@ -3,20 +3,31 @@ import { i18n } from "@/lib/i18n-config";
 import { getBaseUrl, getGroupName } from "@/lib/utils";
 import type { MetadataRoute } from "next";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const CURRENT_DATE = new Date();
-  const analyses = await listAnalysesIds(1, 10000, { group: getGroupName() });
+export async function generateSitemaps() {
+  return i18n.locales.map((locale) => ({
+    language: locale,
+  }));
+}
 
-  return i18n.locales
-    .filter((locale) => locale === i18n.defaultLocale)
-    .flatMap((locale) => [
-      {
-        url: `${getBaseUrl()}/${locale}`,
-        lastModified: CURRENT_DATE,
-      },
-      ...analyses.map((analysis) => ({
-        url: `${getBaseUrl()}/${locale}/${analysis.analysisId}`,
-        lastModified: analysis.updatedAt,
-      })),
-    ]);
+export default async function sitemap({
+  language,
+}: {
+  language: string;
+}): Promise<MetadataRoute.Sitemap> {
+  const CURRENT_DATE = new Date();
+  const analyses = await listAnalysesIds(1, 10000, {
+    group: getGroupName(),
+    language,
+  });
+
+  return [
+    {
+      url: `${getBaseUrl()}/${language}`,
+      lastModified: CURRENT_DATE,
+    },
+    ...analyses.map((analysis) => ({
+      url: `${getBaseUrl()}/${language}/${analysis.analysisId}`,
+      lastModified: analysis.updatedAt,
+    })),
+  ];
 }
