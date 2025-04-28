@@ -74,13 +74,9 @@ export function AdminDashboard({
     const fetchPosts = async () => {
       try {
         setLoading(true);
+        // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const result = await getPublishedBlogs(
-          currentPage,
-          PAGE_SIZE,
-          group,
-          lang
-        );
+        const result = await getPublishedBlogs(currentPage, PAGE_SIZE, group);
         setPosts(result.blogs);
         setTotal(result.total);
       } catch (error) {
