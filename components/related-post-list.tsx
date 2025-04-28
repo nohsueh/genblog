@@ -89,11 +89,7 @@ export function RelatedBlogList({
           </CardContent>
           <CardFooter className="p-4 pt-0">
             <div className="text-xs text-muted-foreground">
-              {createdAt && (
-                <>
-                  {dictionary.blog.publishedOn} {formatDate(createdAt, lang)}
-                </>
-              )}
+              {createdAt && <>{formatDate(createdAt, lang)}</>}
               {author && (
                 <>
                   {" "}
