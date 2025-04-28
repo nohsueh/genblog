@@ -27,7 +27,6 @@ export default async function sitemap({
     },
     ...analyses.map((analysis) => ({
       url: `${getBaseUrl()}/${id}/${analysis.analysisId}`,
-      lastModified: analysis.updatedAt,
     })),
   ];
 }
