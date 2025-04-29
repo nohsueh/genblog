@@ -7,20 +7,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getPaginationRange } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 
 const PAGE_SIZE = 12;
 
@@ -35,28 +29,81 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const loaderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
+    setPosts([]);
+    setCurrentPage(1);
+    setHasMore(true);
+    setTotal(0);
+    setLoading(true);
+    const fetchFirstPage = async () => {
       try {
-        setLoading(true);
         const { blogs, total } = await getPublishedBlogs(
-          currentPage,
+          1,
           PAGE_SIZE,
           group,
           lang
         );
         setPosts(blogs);
         setTotal(total);
+        setHasMore(blogs.length < total);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
         setLoading(false);
       }
     };
+    fetchFirstPage();
+  }, [group, lang]);
 
-    fetchBlogs();
-  }, [group, currentPage, setPosts, setTotal, setLoading]);
+  // 加载更多
+  const loadMore = async () => {
+    if (loadingMore || loading) return;
+    setLoadingMore(true);
+    try {
+      const nextPage = currentPage + 1;
+      const { blogs } = await getPublishedBlogs(
+        nextPage,
+        PAGE_SIZE,
+        group,
+        lang
+      );
+      setPosts((prev) => [...prev, ...blogs]);
+      setCurrentPage(nextPage);
+      if (posts.length + blogs.length >= total) {
+        setHasMore(false);
+      }
+    } catch (error) {
+      console.error("Failed to load more posts:", error);
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
+  // IntersectionObserver
+  useEffect(() => {
+    if (!hasMore || loading) return;
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          loadMore();
+        }
+      },
+      { threshold: 1 }
+    );
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loaderRef, hasMore, loading, currentPage, total, group, lang]);
 
   return loading ? (
     <div className="py-10 text-center">
@@ -125,32 +172,10 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           );
         })}
       </div>
-      {total > PAGE_SIZE && (
-        <div className="mt-8 flex justify-center">
-          <Pagination>
-            <PaginationContent>
-              {getPaginationRange(
-                currentPage,
-                Math.ceil(total / PAGE_SIZE)
-              ).map((page, idx) =>
-                page === "..." ? (
-                  <PaginationItem key={`ellipsis-${idx}`}>
-                    <span className="px-2 text-muted-foreground">...</span>
-                  </PaginationItem>
-                ) : (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      href="#"
-                      isActive={currentPage === page}
-                      onClick={() => setCurrentPage(Number(page))}
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                )
-              )}
-            </PaginationContent>
-          </Pagination>
+      <div ref={loaderRef} />
+      {loadingMore && (
+        <div className="py-6 text-center">
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
         </div>
       )}
     </div>
