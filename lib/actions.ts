@@ -13,8 +13,8 @@ import { redirect } from "next/navigation";
 const API_URL = "https://searchlysis.com/api";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
-const SESSION_COOKIE_NAME = "blog_admin_session";
-const SESSION_EXPIRY = 60 * 60 * 24; // 24 hours
+const SESSION_COOKIE_NAME = `${process.env.NEXT_PUBLIC_BASE_PATH}/admin_session`;
+const SESSION_EXPIRY = 60 * 60 * 24 * 30; // 30 days
 
 if (!API_KEY) {
   console.warn("SEARCHLYSIS_API_KEY is not defined");
@@ -304,7 +304,7 @@ export async function getPublishedBlogs(
   pageNum = 1,
   pageSize = 20,
   group?: string,
-  language?:string
+  language?: string
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
   const metadata = { group, language };
 
