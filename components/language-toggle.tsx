@@ -38,12 +38,12 @@ export function LanguageToggle() {
                   return "English";
                 case "es":
                   return "Español";
-                case "fr":
-                  return "Français";
                 case "de":
                   return "Deutsch";
                 case "ja":
                   return "日本語";
+                case "fr":
+                  return "Français";
                 case "zh":
                   return "中文";
               }

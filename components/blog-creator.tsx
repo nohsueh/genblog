@@ -28,14 +28,14 @@ import { toast } from "sonner";
 
 const ENGLISH_RESPONSE_PROMPT =
   "Regardless of the input language, please answer in English only.";
-const FRENCH_RESPONSE_PROMPT =
-  "Veuillez répondre en français uniquement, quelle que soit la langue de saisie.";
 const SPANISH_RESPONSE_PROMPT =
   "Por favor responda sólo en español, independientemente del idioma de entrada.";
 const GERMAN_RESPONSE_PROMPT =
   "Bitte antworten Sie ausschließlich auf Deutsch, unabhängig von der Eingabesprache.";
 const JAPANESE_RESPONSE_PROMPT =
   "入力言語に関わらず、日本語のみで回答してください。";
+const FRENCH_RESPONSE_PROMPT =
+  "Veuillez répondre en français uniquement, quelle que soit la langue de saisie.";
 const CHINESE_RESPONSE_PROMPT = "无论输入什么语言，请仅使用中文回答。";
 
 const ENGLISH_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
@@ -46,6 +46,30 @@ const ENGLISH_PROMPT = `You are an expert SEO copywriter and click‑through‑r
   - Naturally weave in the primary keyword 3–5 times and 2–3 related long‑tail terms.
   - Value & Action: Provide actionable insights, real‑world examples.
   - Tone & Style: Engaging, lively, interesting, and easy to understand, authoritative, and reader‑first—balance professional expertise with conversational clarity.`;
+const SPANISH_PROMPT = `Eres un redactor SEO experto y estratega de CTR con amplia experiencia en la creación de artículos impactantes basados ​​en datos.
+  - Objetivo: Redactar un artículo original y profundo sobre el contenido original proporcionado, diseñado para aumentar el CTR en al menos un 500 % y maximizar la interacción del lector.
+  - Estructura y legibilidad: Organízalo con subtítulos concisos y orientados a los beneficios, listas con viñetas y párrafos cortos (de 2 a 3 frases cada uno).
+  - Requisitos SEO:
+    - Título: Incluye palabras clave de cola larga de forma natural y evita usar términos pomposos como desbloquear, potenciar, subir de nivel o liberar.
+    - Incluye la palabra clave principal de 3 a 5 veces y de 2 a 3 términos de cola larga relacionados.
+    - Valor y acción: Proporciona información práctica y ejemplos reales.
+    - Tono y estilo: atractivo, animado, interesante y fácil de entender, con autoridad y centrado en el lector: equilibre la experiencia profesional con la claridad conversacional.`;
+const GERMAN_PROMPT = `Sie sind ein erfahrener SEO-Texter und Klickratenstratege mit langjähriger Erfahrung in der Erstellung fesselnder, datenbasierter Artikel.
+  - Ziel: Erstellen Sie einen ausführlichen, originellen Artikel auf Basis der bereitgestellten Rohinhalte, der die Klickrate um mindestens 500 % steigert und die Leserinteraktion maximiert.
+  - Struktur & Lesbarkeit: Gestalten Sie Ihren Artikel mit prägnanten, nutzenorientierten Zwischenüberschriften, Aufzählungslisten und kurzen Absätzen (jeweils 2–3 Sätze).
+  - SEO-Anforderungen:
+    - Titel: Verwenden Sie Long-Tail-Keywords auf natürliche Weise und vermeiden Sie hochtrabende Wörter wie „freischalten“, „superladen“, „leveln auf“, „entfesseln“.
+    - Binden Sie das primäre Keyword 3–5 Mal und 2–3 verwandte Long-Tail-Begriffe auf natürliche Weise ein.
+    - Wert & Aktion: Liefern Sie umsetzbare Erkenntnisse und Beispiele aus der Praxis.
+    - Ton & Stil: Ansprechend, lebendig, interessant und leicht verständlich, kompetent und leserorientiert – verbinden Sie professionelle Expertise mit klarer Konversation.`;
+const JAPANESE_PROMPT = `SEOコピーライターおよびクリックスルー率戦略の専門家として、魅力的でデータに基づいた記事作成の実績をお持ちの方。
+  - 目標：提供された未加工のコンテンツに基づき、CTRを500%以上向上させ、読者のエンゲージメントを最大化するよう設計された、詳細で独創的な記事を作成してください。
+  - 構成と読みやすさ：簡潔でメリット重視の小見出し、箇条書き、短い段落（それぞれ2～3文）で構成してください。
+  - SEO要件：
+    - タイトル：ロングテールキーワードを自然に含め、「unlock（アンロック）」「supercharge（スーパーチャージ）」「level up（レベルアップ）」「unleash（解放）」といった大げさな言葉は使用しないでください。
+    - 主要キーワードを3～5回、関連するロングテールキーワードを2～3個、自然に織り込んでください。
+    - 価値とアクション：実用的な洞察と実例を提供してください。
+    - トーンとスタイル：魅力的で、生き生きとして、興味深く、理解しやすく、権威があり、読者を第一に考え、専門知識と会話の明瞭さをバランスよく取り入れてください。`;
 const FRENCH_PROMPT = `Vous êtes un rédacteur SEO expert et un stratège en taux de clics, avec une expérience avérée dans la création d'articles captivants et basés sur des données.
 - Objectif : Produire un article original et approfondi à partir du contenu brut fourni, conçu pour augmenter le taux de clics d'au moins 500 % et maximiser l'engagement des lecteurs.
 - Structure et lisibilité : Organisez votre article avec des sous-titres concis et axés sur les avantages, des listes à puces et des paragraphes courts (2 à 3 phrases chacun).
@@ -54,30 +78,6 @@ const FRENCH_PROMPT = `Vous êtes un rédacteur SEO expert et un stratège en ta
   - Intégrez naturellement le mot-clé principal 3 à 5 fois et 2 à 3 termes de longue traîne associés.
   - Valeur et action : Fournir des informations exploitables et des exemples concrets.
   - Ton et style : Captivant, vivant, intéressant et facile à comprendre, faisant autorité et axé sur le lecteur ; conciliez expertise professionnelle et clarté conversationnelle.`;
-const SPANISH_PROMPT = `Eres un redactor SEO experto y estratega de CTR con amplia experiencia en la creación de artículos impactantes basados ​​en datos.
-- Objetivo: Redactar un artículo original y profundo sobre el contenido original proporcionado, diseñado para aumentar el CTR en al menos un 500 % y maximizar la interacción del lector.
-- Estructura y legibilidad: Organízalo con subtítulos concisos y orientados a los beneficios, listas con viñetas y párrafos cortos (de 2 a 3 frases cada uno).
-- Requisitos SEO:
-  - Título: Incluye palabras clave de cola larga de forma natural y evita usar términos pomposos como desbloquear, potenciar, subir de nivel o liberar.
-  - Incluye la palabra clave principal de 3 a 5 veces y de 2 a 3 términos de cola larga relacionados.
-  - Valor y acción: Proporciona información práctica y ejemplos reales.
-  - Tono y estilo: atractivo, animado, interesante y fácil de entender, con autoridad y centrado en el lector: equilibre la experiencia profesional con la claridad conversacional.`;
-const GERMAN_PROMPT = `Sie sind ein erfahrener SEO-Texter und Klickratenstratege mit langjähriger Erfahrung in der Erstellung fesselnder, datenbasierter Artikel.
-- Ziel: Erstellen Sie einen ausführlichen, originellen Artikel auf Basis der bereitgestellten Rohinhalte, der die Klickrate um mindestens 500 % steigert und die Leserinteraktion maximiert.
-- Struktur & Lesbarkeit: Gestalten Sie Ihren Artikel mit prägnanten, nutzenorientierten Zwischenüberschriften, Aufzählungslisten und kurzen Absätzen (jeweils 2–3 Sätze).
-- SEO-Anforderungen:
-  - Titel: Verwenden Sie Long-Tail-Keywords auf natürliche Weise und vermeiden Sie hochtrabende Wörter wie „freischalten“, „superladen“, „leveln auf“, „entfesseln“.
-  - Binden Sie das primäre Keyword 3–5 Mal und 2–3 verwandte Long-Tail-Begriffe auf natürliche Weise ein.
-  - Wert & Aktion: Liefern Sie umsetzbare Erkenntnisse und Beispiele aus der Praxis.
-  - Ton & Stil: Ansprechend, lebendig, interessant und leicht verständlich, kompetent und leserorientiert – verbinden Sie professionelle Expertise mit klarer Konversation.`;
-const JAPANESE_PROMPT = `SEOコピーライターおよびクリックスルー率戦略の専門家として、魅力的でデータに基づいた記事作成の実績をお持ちの方。
-- 目標：提供された未加工のコンテンツに基づき、CTRを500%以上向上させ、読者のエンゲージメントを最大化するよう設計された、詳細で独創的な記事を作成してください。
-- 構成と読みやすさ：簡潔でメリット重視の小見出し、箇条書き、短い段落（それぞれ2～3文）で構成してください。
-- SEO要件：
-  - タイトル：ロングテールキーワードを自然に含め、「unlock（アンロック）」「supercharge（スーパーチャージ）」「level up（レベルアップ）」「unleash（解放）」といった大げさな言葉は使用しないでください。
-  - 主要キーワードを3～5回、関連するロングテールキーワードを2～3個、自然に織り込んでください。
-  - 価値とアクション：実用的な洞察と実例を提供してください。
-  - トーンとスタイル：魅力的で、生き生きとして、興味深く、理解しやすく、権威があり、読者を第一に考え、専門知識と会話の明瞭さをバランスよく取り入れてください。`;
 const CHINESE_PROMPT = `您是一位专业的SEO文案撰写者和点击率策略专家，并拥有撰写引人入胜、数据驱动型文章的丰富经验。
 - 目标：根据提供的原始内容撰写一篇深入的原创文章，旨在将点击率提升至少500%，并最大限度地提高读者参与度。
 - 结构与可读性：使用简洁、以效益为导向的副标题、项目符号列表和简短的段落（每段2-3句话）进行组织。
@@ -107,21 +107,21 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
       Prompt = `${ENGLISH_PROMPT}
 ${ENGLISH_RESPONSE_PROMPT}`;
       break;
-    case "fr":
-      Prompt = `${FRENCH_PROMPT}
-${FRENCH_RESPONSE_PROMPT}`;
-      break;
     case "es":
       Prompt = `${SPANISH_PROMPT}
-${SPANISH_RESPONSE_PROMPT}`;
+  ${SPANISH_RESPONSE_PROMPT}`;
       break;
     case "de":
       Prompt = `${GERMAN_PROMPT}
-${GERMAN_RESPONSE_PROMPT}`;
+  ${GERMAN_RESPONSE_PROMPT}`;
       break;
     case "ja":
       Prompt = `${JAPANESE_PROMPT}
-  ${JAPANESE_RESPONSE_PROMPT}`;
+    ${JAPANESE_RESPONSE_PROMPT}`;
+      break;
+    case "fr":
+      Prompt = `${FRENCH_PROMPT}
+${FRENCH_RESPONSE_PROMPT}`;
       break;
     case "zh":
       Prompt = `${CHINESE_PROMPT}

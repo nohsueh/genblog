@@ -1,17 +1,17 @@
-import { Locale } from "./i18n-config";
-import en from "./dictionaries/en";
-import fr from "./dictionaries/fr";
-import es from "./dictionaries/es";
 import de from "./dictionaries/de";
+import en from "./dictionaries/en";
+import es from "./dictionaries/es";
+import fr from "./dictionaries/fr";
 import ja from "./dictionaries/ja";
 import zh from "./dictionaries/zh";
+import { Locale } from "./i18n-config";
 
 const dictionaries = {
   en: en,
-  fr: fr,
   es: es,
   de: de,
   ja: ja,
+  fr: fr,
   zh: zh,
 } as const;
 
