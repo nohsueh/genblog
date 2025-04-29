@@ -59,7 +59,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
     fetchFirstPage();
   }, [group, lang]);
 
-  // 加载更多
+  // Load more
   const loadMore = async () => {
     if (loadingMore || loading) return;
     setLoadingMore(true);
