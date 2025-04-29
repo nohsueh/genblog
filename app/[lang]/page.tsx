@@ -12,7 +12,7 @@ export default async function Home({
   params: Promise<{ lang: Locale }>;
 }) {
   const { lang } = await params;
-  const dictionary = getDictionary(lang);
+  const dictionary = await getDictionary(lang);
   const isLoggedIn = await checkAdminSession();
 
   return (

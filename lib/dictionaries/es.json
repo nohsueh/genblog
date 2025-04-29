@@ -1,0 +1,81 @@
+{
+  "language": "es",
+  "home": {
+    "title": "Bienvenido a nuestro Blog",
+    "description": "Descubre las últimas ideas y artículos sobre diversos temas."
+  },
+  "blog": {
+    "readMore": "Leer Más",
+    "publishedOn": "Publicado el",
+    "by": "por",
+    "backToHome": "Volver al Inicio",
+    "noBlogs": "No se encontraron blogs",
+    "tableOfContents": "En esta página",
+    "previousPost": "Artículo Anterior",
+    "nextPost": "Artículo Siguiente",
+    "latestPosts": "Artículos más recientes",
+    "relatedPosts": "Artículos relacionados"
+  },
+  "admin": {
+    "login": {
+      "title": "Inicio de Sesión de Administrador",
+      "description": "Ingrese su contraseña de administrador para acceder al dashboard de gestión de blogs.",
+      "password": "Contraseña",
+      "submit": "Iniciar Sesión",
+      "error": "Contraseña inválida",
+      "success": "Inicio de sesión exitoso",
+      "loading": "Cargando..."
+    },
+    "dashboard": {
+      "title": "Gestión del Blog",
+      "createNew": "Crear Nuevo Blog",
+      "search": "Buscar blogs...",
+      "filter": "Filtrar por grupo",
+      "allGroups": "Todos los Grupos",
+      "otherGroups": "Otros Grupos",
+      "noBlogs": "No se encontraron blogs",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "confirmDelete": "¿Estás seguro de que quieres eliminar este blog?",
+      "group": "Grupo",
+      "visibility": "Visibilidad",
+      "visible": "Visible",
+      "hidden": "Oculto",
+      "cancel": "Cancelar"
+    },
+    "create": {
+      "title": "Crear Nuevo Blog",
+      "description": "Crea un nuevo blog a partir de una consulta de búsqueda o un enlace específico.",
+      "searchQuery": "Consulta de Búsqueda",
+      "link": "URL del Enlace",
+      "prompt": "Prompt de Análisis",
+      "num": "Número",
+      "group": "Grupo",
+      "temperature": "Temperatura",
+      "submit": "Generar Blog",
+      "generating": "Generando...",
+      "error": "Error al generar el blog",
+      "precise": "Preciso",
+      "creative": "Creativo",
+      "success": "Blog generado con éxito",
+      "linkHelp": "Introduzca cada URL en una nueva línea"
+    },
+    "edit": {
+      "title": "Editar Blog",
+      "content": "Contenido",
+      "group": "Grupo",
+      "save": "Guardar Cambios",
+      "saving": "Guardando...",
+      "success": "Blog actualizado con éxito",
+      "error": "Error al actualizar el blog",
+      "editTab": "Editar",
+      "previewTab": "Vista Previa"
+    }
+  },
+  "header": {
+    "home": "Inicio",
+    "admin": "Admin",
+    "dashboard": "Panel",
+    "logout": "Cerrar Sesión"
+  }
+}

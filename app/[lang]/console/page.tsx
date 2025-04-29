@@ -13,7 +13,7 @@ export default async function AdminPage(props: {
 
   const { lang } = params;
 
-  const dictionary = getDictionary(lang);
+  const dictionary = await getDictionary(lang);
   const isLoggedIn = await checkAdminSession();
 
   if (isLoggedIn) {

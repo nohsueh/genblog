@@ -16,7 +16,7 @@ export default async function EditBlogPage(props: {
   // This will redirect if not authenticated
   await requireAdmin(lang);
 
-  const dictionary = getDictionary(lang);
+  const dictionary = await getDictionary(lang);
 
   try {
     const post = await getAnalysis(id);
