@@ -50,13 +50,13 @@ export const Markdown = memo(function Markdown({
 
   return (
     <div
-      className="prose prose-sm prose-gray w-full max-w-none dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
+      className="prose prose-sm prose-gray w-full max-w-none dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500 break-all"
       dangerouslySetInnerHTML={{ __html: markdown }}
     />
   );
 });
 
-// 动态导入 Prism 语言包
+// Dynamic import Prism language
 const loadedLanguages: Record<string, boolean> = {};
 async function loadPrismLanguage(lang: string) {
   if (!lang || loadedLanguages[lang]) return;
@@ -67,7 +67,7 @@ async function loadPrismLanguage(lang: string) {
     );
     loadedLanguages[lang] = true;
   } catch (e) {
-    // 语言包不存在时忽略
+    console.error(`Failed to load Prism language: ${lang}`, e);
   }
 }
 
@@ -106,14 +106,12 @@ async function markdownToHtml(markdown: string) {
     };
   };
 
-  // 提取所有代码块语言
-  const codeLangs = Array.from(
-    markdown.matchAll(/```([\w-]+)/g)
-  ).map(m => m[1].toLowerCase()).filter(Boolean);
-  // 只加载未加载过的语言
-  await Promise.all(
-    codeLangs.map(lang => loadPrismLanguage(lang))
-  );
+  // Extract all code block languages
+  const codeLangs = Array.from(markdown.matchAll(/```([\w-]+)/g))
+    .map((m) => m[1].toLowerCase())
+    .filter(Boolean);
+  // Only load languages that haven't been loaded
+  await Promise.all(codeLangs.map((lang) => loadPrismLanguage(lang)));
 
   const file = await unified()
     .use(remarkParse)

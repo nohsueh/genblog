@@ -13,7 +13,7 @@ import { redirect } from "next/navigation";
 const API_URL = "https://searchlysis.com/api";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
-const SESSION_COOKIE_NAME = `${process.env.NEXT_PUBLIC_BASE_PATH}/admin_session`;
+const SESSION_COOKIE_NAME = `__Secure-${process.env.NEXT_PUBLIC_BASE_PATH}`;
 const SESSION_EXPIRY = 60 * 60 * 24 * 30; // 30 days
 
 if (!API_KEY) {
