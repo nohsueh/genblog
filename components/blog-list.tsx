@@ -34,6 +34,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef<HTMLDivElement | null>(null);
   const scrollPositionRef = useRef<number>(0);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setPosts([]);
@@ -65,8 +66,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const loadMore = async () => {
     if (loadingMore || loading) return;
     setLoadingMore(true);
-    // 保存当前滚动位置
-    scrollPositionRef.current = window.scrollY;
     try {
       const nextPage = currentPage + 1;
       const { blogs } = await getPublishedBlogs(
@@ -87,13 +86,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
     }
   };
 
-  // 在内容更新后恢复滚动位置
-  useEffect(() => {
-    if (scrollPositionRef.current > 0) {
-      window.scrollTo(0, scrollPositionRef.current);
-    }
-  }, [posts]);
-
   // IntersectionObserver
   useEffect(() => {
     if (!hasMore || loading) return;
@@ -103,7 +95,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           loadMore();
         }
       },
-      { threshold: 1 },
+      { threshold: 0.1 },
     );
     if (loaderRef.current) {
       observer.observe(loaderRef.current);
@@ -113,7 +105,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         observer.unobserve(loaderRef.current);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loaderRef, hasMore, loading, currentPage, total, group, lang]);
 
   return loading ? (
@@ -125,7 +116,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
   ) : (
-    <div>
+    <div ref={containerRef}>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => {
           const contentLines = post.analysis?.content
@@ -187,7 +178,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           );
         })}
       </div>
-      <div ref={loaderRef} />
       {loadingMore && (
         <div className="py-6 text-center">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
