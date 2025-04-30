@@ -64,6 +64,8 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           return (
             <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
               <Card className="overflow-hidden transition-shadow hover:shadow-lg">
+            <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
+              <Card className="overflow-hidden transition-shadow hover:shadow-lg">
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
                     <Image
