@@ -49,6 +49,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
+import { debounce } from "lodash";
+import React from "react";
 
 const PAGE_SIZE = 20;
 
@@ -70,6 +72,41 @@ export function AdminDashboard({
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
 
+  // 创建一个防抖版本的 handleToggleVisibility
+  const debouncedToggleVisibility = React.useCallback(
+    debounce(async (post: AnalysisResult) => {
+      try {
+        const formData = new FormData();
+        formData.append("analysisId", post.analysisId);
+        formData.append("content", post.analysis?.content || "");
+        formData.append(
+          "group",
+          post.metadata?.group === groupName ? "" : groupName,
+        );
+
+        const updatedPost = await updateAnalysis(formData);
+
+        // Update local state
+        setPosts(
+          posts.map((post) =>
+            post.analysisId === updatedPost.analysisId ? updatedPost : post,
+          ),
+        );
+      } catch (error) {
+        toast.error(dictionary.admin.edit.error);
+        console.error("Failed to update post visibility:", error);
+      }
+    }, 500),
+    [groupName, posts, dictionary],
+  );
+
+  // 清理防抖函数
+  React.useEffect(() => {
+    return () => {
+      debouncedToggleVisibility.cancel();
+    };
+  }, [debouncedToggleVisibility]);
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -90,32 +127,8 @@ export function AdminDashboard({
   }, [groupName, lang, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
-    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase())
+    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
-
-  const handleToggleVisibility = async (post: AnalysisResult) => {
-    try {
-      const formData = new FormData();
-      formData.append("analysisId", post.analysisId);
-      formData.append("content", post.analysis?.content || "");
-      formData.append(
-        "group",
-        post.metadata?.group === groupName ? "" : groupName
-      );
-
-      const updatedPost = await updateAnalysis(formData);
-
-      // Update local state
-      setPosts(
-        posts.map((post) =>
-          post.analysisId === updatedPost.analysisId ? updatedPost : post
-        )
-      );
-    } catch (error) {
-      toast.error(dictionary.admin.edit.error);
-      console.error("Failed to update post visibility:", error);
-    }
-  };
 
   const handleDelete = async (post: AnalysisResult) => {
     try {
@@ -210,7 +223,7 @@ export function AdminDashboard({
                     <div className="flex items-center gap-2">
                       <Switch
                         checked={post.metadata?.group === groupName}
-                        onCheckedChange={() => handleToggleVisibility(post)}
+                        onCheckedChange={() => debouncedToggleVisibility(post)}
                       />
                       <Label>
                         {post.metadata?.group === groupName
@@ -265,7 +278,7 @@ export function AdminDashboard({
                 <PaginationContent>
                   {getPaginationRange(
                     currentPage,
-                    Math.ceil(total / PAGE_SIZE)
+                    Math.ceil(total / PAGE_SIZE),
                   ).map((page, idx) =>
                     page === "..." ? (
                       <PaginationItem key={`ellipsis-${idx}`}>
@@ -281,7 +294,7 @@ export function AdminDashboard({
                           {page}
                         </PaginationLink>
                       </PaginationItem>
-                    )
+                    ),
                   )}
                 </PaginationContent>
               </Pagination>
