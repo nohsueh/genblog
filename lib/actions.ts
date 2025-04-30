@@ -197,12 +197,14 @@ export async function updateAnalysis(formData: FormData) {
   const analysisId = formData.get("analysisId") as string;
   const content = formData.get("content") as string;
   const group = formData.get("group") as string;
+  const language = formData.get("language") as string;
 
   // Get the current analysis to preserve existing metadata
   const currentAnalysis = await getAnalysis(analysisId);
   const metadata = {
     ...currentAnalysis.metadata,
     group: group || undefined,
+    language: language || undefined,
   };
 
   const body = {
