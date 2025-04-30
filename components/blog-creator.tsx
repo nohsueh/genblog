@@ -131,11 +131,8 @@ ${CHINESE_RESPONSE_PROMPT}`;
       break;
   }
 
-  const isDateRangeValid = (!startDate && !endDate) || (startDate && endDate);
-
   async function handleSearchSubmit(formData: FormData) {
     setIsLoading(true);
-
     try {
       // Add temperature to the form data
       formData.append("temperature", temperature[0].toString());
@@ -143,10 +140,13 @@ ${CHINESE_RESPONSE_PROMPT}`;
       const num = formData.get("num") || DEFAULT_NUM;
       formData.set("num", num.toString());
       // Add published date range if valid
-      if (startDate && endDate) {
+      if (startDate) {
         formData.append("startPublishedDate", startDate.toISOString());
+      }
+      if (endDate) {
         formData.append("endPublishedDate", endDate.toISOString());
       }
+
       // Add language to the form data
       formData.append("language", dictionary.language);
 
@@ -384,11 +384,7 @@ ${CHINESE_RESPONSE_PROMPT}`;
                   </div>
                 </div>
 
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={isLoading || !isDateRangeValid}
-                >
+                <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading
                     ? dictionary.admin.create.generating
                     : dictionary.admin.create.submit}
