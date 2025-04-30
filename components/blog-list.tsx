@@ -33,6 +33,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef<HTMLDivElement | null>(null);
+  const scrollPositionRef = useRef<number>(0);
 
   useEffect(() => {
     setPosts([]);
@@ -46,7 +47,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           1,
           PAGE_SIZE,
           group,
-          lang
+          lang,
         );
         setPosts(blogs);
         setTotal(total);
@@ -64,13 +65,15 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const loadMore = async () => {
     if (loadingMore || loading) return;
     setLoadingMore(true);
+    // 保存当前滚动位置
+    scrollPositionRef.current = window.scrollY;
     try {
       const nextPage = currentPage + 1;
       const { blogs } = await getPublishedBlogs(
         nextPage,
         PAGE_SIZE,
         group,
-        lang
+        lang,
       );
       setPosts((prev) => [...prev, ...blogs]);
       setCurrentPage(nextPage);
@@ -84,6 +87,13 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
     }
   };
 
+  // 在内容更新后恢复滚动位置
+  useEffect(() => {
+    if (scrollPositionRef.current > 0) {
+      window.scrollTo(0, scrollPositionRef.current);
+    }
+  }, [posts]);
+
   // IntersectionObserver
   useEffect(() => {
     if (!hasMore || loading) return;
@@ -93,7 +103,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           loadMore();
         }
       },
-      { threshold: 1 }
+      { threshold: 1 },
     );
     if (loaderRef.current) {
       observer.observe(loaderRef.current);
