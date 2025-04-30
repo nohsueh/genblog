@@ -96,8 +96,12 @@ export async function analyzeSearch(formData: FormData) {
   const group = formData.get("group") as string;
   const language = formData.get("language") as string;
   const num = Number.parseInt(formData.get("num") as string);
-  const startPublishedDate = formData.get("startPublishedDate") as string;
-  const endPublishedDate = formData.get("endPublishedDate") as string;
+  const startPublishedDate = formData.get("startPublishedDate") as
+    | string
+    | undefined;
+  const endPublishedDate = formData.get("endPublishedDate") as
+    | string
+    | undefined;
   const temperature = Number.parseFloat(formData.get("temperature") as string);
 
   const metadata = { group, language };
