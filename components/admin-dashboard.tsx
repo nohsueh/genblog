@@ -116,7 +116,12 @@ export function AdminDashboard({
         setLoading(true);
         // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const result = await getPublishedBlogs(currentPage, PAGE_SIZE, group);
+        const result = await getPublishedBlogs(
+          currentPage,
+          PAGE_SIZE,
+          group,
+          lang
+        );
         setPosts(result.blogs);
         setTotal(result.total);
       } catch (error) {
