@@ -304,7 +304,7 @@ export async function relatedAnalyses(
 
 export async function getPublishedBlogs(
   pageNum = 1,
-  pageSize = 20,
+  pageSize = 10,
   group?: string,
   language?: string
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
