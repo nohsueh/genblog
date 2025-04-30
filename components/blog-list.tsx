@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -18,10 +16,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getPaginationRange } from "@/lib/utils";
-import { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const PAGE_SIZE = 12;
 
@@ -32,38 +30,17 @@ interface BlogListProps {
 }
 
 async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
-  const [posts, setPosts] = useState<AnalysisResult[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const searchParams = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        setLoading(true);
-        const { blogs, total } = await getPublishedBlogs(
-          currentPage,
-          PAGE_SIZE,
-          group,
-          lang,
-        );
-        setPosts(blogs);
-        setTotal(total);
-      } catch (error) {
-        console.error("Failed to fetch posts:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const { blogs: posts, total } = await getPublishedBlogs(
+    currentPage,
+    PAGE_SIZE,
+    group,
+    lang,
+  );
 
-    fetchBlogs();
-  }, [group, lang, currentPage, setPosts, setTotal, setLoading]);
-
-  return loading ? (
-    <div className="py-10 text-center">
-      <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
-    </div>
-  ) : posts.length === 0 ? (
+  return posts.length === 0 ? (
     <div className="py-10 text-center">
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
@@ -85,11 +62,8 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           const createdAt = post.createdAt;
 
           return (
-            <Link href={`/${lang}/${post.analysisId}`}>
-              <Card
-                key={post.analysisId}
-                className="overflow-hidden transition-shadow hover:shadow-lg"
-              >
+            <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
+              <Card className="overflow-hidden transition-shadow hover:shadow-lg">
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
                     <Image
@@ -144,13 +118,11 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
                   </PaginationItem>
                 ) : (
                   <PaginationItem key={page}>
-                    <PaginationLink
-                      href="#"
-                      isActive={currentPage === page}
-                      onClick={() => setCurrentPage(Number(page))}
-                    >
-                      {page}
-                    </PaginationLink>
+                    <Link href={`?page=${page}`}>
+                      <PaginationLink isActive={currentPage === page}>
+                        {page}
+                      </PaginationLink>
+                    </Link>
                   </PaginationItem>
                 ),
               )}
