@@ -21,7 +21,8 @@ import { formatDate, getPaginationRange } from "@/lib/utils";
 import { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState, useRef, useCallback } from "react";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
 const PAGE_SIZE = 12;
 
@@ -34,36 +35,83 @@ interface BlogListProps {
 async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const [posts, setPosts] = useState<AnalysisResult[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(true);
+  const observerTarget = useRef<HTMLDivElement>(null);
+  const pageRef = useRef(1);
+
+  const loadMore = useCallback(async () => {
+    if (!hasMore || loading) return;
+
+    try {
+      setLoading(true);
+      setError(null);
+      const { blogs, total } = await getPublishedBlogs(
+        pageRef.current,
+        PAGE_SIZE,
+        group,
+        lang,
+      );
+
+      if (blogs.length === 0) {
+        setHasMore(false);
+        return;
+      }
+
+      setPosts((prev) => [...prev, ...blogs]);
+      setHasMore(posts.length + blogs.length < total);
+      pageRef.current += 1;
+    } catch (error) {
+      setError(dictionary.blog.loadError || "加载失败，请重试");
+      console.error("Failed to fetch posts:", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [group, lang, hasMore, loading, posts.length, dictionary.blog.loadError]);
+
+  const debouncedLoadMore = useDebounce(loadMore, 300);
 
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        setLoading(true);
-        const { blogs, total } = await getPublishedBlogs(
-          currentPage,
-          PAGE_SIZE,
-          group,
-          lang,
-        );
-        setPosts(blogs);
-        setTotal(total);
-      } catch (error) {
-        console.error("Failed to fetch posts:", error);
-      } finally {
-        setLoading(false);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          debouncedLoadMore();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
       }
     };
+  }, [debouncedLoadMore]);
 
-    fetchBlogs();
-  }, [group, lang, currentPage, setPosts, setTotal, setLoading]);
+  useEffect(() => {
+    loadMore();
+  }, [group, lang]);
 
-  return loading ? (
-    <div className="py-10 text-center">
-      <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
-    </div>
-  ) : posts.length === 0 ? (
+  if (error) {
+    return (
+      <div className="py-10 text-center">
+        <p className="mb-4 text-red-500">{error}</p>
+        <button
+          onClick={loadMore}
+          className="rounded-md bg-primary px-4 py-2 text-primary-foreground hover:bg-primary/90"
+        >
+          {dictionary.blog.retry || "重试"}
+        </button>
+      </div>
+    );
+  }
+
+  return posts.length === 0 ? (
     <div className="py-10 text-center">
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
@@ -85,11 +133,8 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           const createdAt = post.createdAt;
 
           return (
-            <Link href={`/${lang}/${post.analysisId}`}>
-              <Card
-                key={post.analysisId}
-                className="overflow-hidden transition-shadow hover:shadow-lg"
-              >
+            <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
+              <Card className="overflow-hidden transition-shadow hover:shadow-lg">
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
                     <Image
@@ -130,32 +175,12 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           );
         })}
       </div>
-      {total > PAGE_SIZE && (
-        <div className="mt-8 flex justify-center">
-          <Pagination>
-            <PaginationContent>
-              {getPaginationRange(
-                currentPage,
-                Math.ceil(total / PAGE_SIZE),
-              ).map((page, idx) =>
-                page === "..." ? (
-                  <PaginationItem key={`ellipsis-${idx}`}>
-                    <span className="px-2 text-muted-foreground">...</span>
-                  </PaginationItem>
-                ) : (
-                  <PaginationItem key={page}>
-                    <PaginationLink
-                      href="#"
-                      isActive={currentPage === page}
-                      onClick={() => setCurrentPage(Number(page))}
-                    >
-                      {page}
-                    </PaginationLink>
-                  </PaginationItem>
-                ),
-              )}
-            </PaginationContent>
-          </Pagination>
+
+      {hasMore && (
+        <div ref={observerTarget} className="mt-8 flex justify-center">
+          {loading && (
+            <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
+          )}
         </div>
       )}
     </div>
