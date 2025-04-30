@@ -15,7 +15,7 @@ import { formatDate } from "@/lib/utils";
 import { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 
 const PAGE_SIZE = 12;
 
@@ -33,6 +33,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const loaderRef = useRef<HTMLDivElement | null>(null);
+  const scrollPositionRef = useRef<number>(0);
 
   useEffect(() => {
     setPosts([]);
@@ -46,7 +47,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           1,
           PAGE_SIZE,
           group,
-          lang
+          lang,
         );
         setPosts(blogs);
         setTotal(total);
@@ -60,9 +61,12 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
     fetchFirstPage();
   }, [group, lang]);
 
-  // Load more
-  const loadMore = async () => {
+  const loadMore = useCallback(async () => {
     if (loadingMore || loading) return;
+
+    // 保存当前滚动位置
+    scrollPositionRef.current = window.scrollY;
+
     setLoadingMore(true);
     try {
       const nextPage = currentPage + 1;
@@ -70,41 +74,50 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         nextPage,
         PAGE_SIZE,
         group,
-        lang
+        lang,
       );
+
       setPosts((prev) => [...prev, ...blogs]);
       setCurrentPage(nextPage);
-      if (posts.length + blogs.length >= total) {
-        setHasMore(false);
-      }
+      setHasMore(blogs.length > 0 && posts.length + blogs.length < total);
+
+      // 使用 requestAnimationFrame 确保在下一帧恢复滚动位置
+      requestAnimationFrame(() => {
+        window.scrollTo(0, scrollPositionRef.current);
+      });
     } catch (error) {
       console.error("Failed to load more posts:", error);
     } finally {
       setLoadingMore(false);
     }
-  };
+  }, [currentPage, group, lang, loading, loadingMore, posts.length, total]);
 
   // IntersectionObserver
   useEffect(() => {
     if (!hasMore || loading) return;
-    const observer = new window.IntersectionObserver(
+
+    const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
           loadMore();
         }
       },
-      { threshold: 1 }
+      {
+        threshold: 0.1,
+        rootMargin: "100px",
+      },
     );
+
     if (loaderRef.current) {
       observer.observe(loaderRef.current);
     }
+
     return () => {
       if (loaderRef.current) {
         observer.unobserve(loaderRef.current);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaderRef, hasMore, loading, currentPage, total, group, lang]);
+  }, [hasMore, loading, loadMore]);
 
   return loading ? (
     <div className="py-10 text-center">
