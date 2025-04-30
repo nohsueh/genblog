@@ -310,9 +310,9 @@ export async function getPublishedBlogs(
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
   const metadata = { group, language };
 
-  const allBlogs = await listAnalyses(pageNum, pageSize, metadata);
+  const blogs = await listAnalyses(pageNum, pageSize, metadata);
   const total = await getTotalBlogs(metadata);
-  return { blogs: allBlogs, total };
+  return { blogs, total };
 }
 
 async function getTotalBlogs(metadata?: Record<string, any>): Promise<number> {
