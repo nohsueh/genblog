@@ -48,6 +48,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           PAGE_SIZE,
           group,
           lang,
+          lang,
         );
         setPosts(blogs);
         setTotal(total);
@@ -74,6 +75,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
         nextPage,
         PAGE_SIZE,
         group,
+        lang,
         lang,
       );
 
@@ -128,7 +130,7 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
   ) : (
-    <div>
+    <div ref={containerRef}>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => {
           const contentLines = post.analysis?.content
@@ -190,7 +192,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           );
         })}
       </div>
-      <div ref={loaderRef} />
       {loadingMore && (
         <div className="py-6 text-center">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
