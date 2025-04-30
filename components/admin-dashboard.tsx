@@ -51,7 +51,7 @@ import { toast } from "sonner";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 25;
 
 interface AdminDashboardProps {
   lang: Locale;

@@ -26,6 +26,8 @@ import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+const DEFAULT_NUM = 25;
+
 const ENGLISH_RESPONSE_PROMPT =
   "Regardless of the input language, please answer in English only.";
 const SPANISH_RESPONSE_PROMPT =
@@ -86,7 +88,6 @@ const CHINESE_PROMPT = `您是一位专业的SEO文案撰写者和点击率策�
   - 使用 ![alt](src "title") 语法自然地穿插图像。
   - 标题：自然包含长尾关键词，切勿使用诸如“解锁”、“增压”、“升级”、“释放”等浮夸的词语。
   - 语气与风格：引人入胜、生动活泼、趣味盎然、通俗易懂、权威性强、以读者为中心——在专业知识与清晰的对话之间取得平衡。`;
-const DEFAULT_NUM = 10;
 
 interface BlogCreatorProps {
   dictionary: any;
