@@ -18,7 +18,6 @@ import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getPaginationRange } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 
 const PAGE_SIZE = 12;
@@ -27,11 +26,16 @@ interface BlogListProps {
   lang: Locale;
   dictionary: any;
   group?: string;
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
-  const searchParams = useSearchParams();
-  const currentPage = Number(searchParams.get("page")) || 1;
+async function BlogListContent({
+  lang,
+  dictionary,
+  group,
+  searchParams,
+}: BlogListProps) {
+  const currentPage = Number(searchParams.page) || 1;
 
   const { blogs: posts, total } = await getPublishedBlogs(
     currentPage,
@@ -62,8 +66,6 @@ async function BlogListContent({ lang, dictionary, group }: BlogListProps) {
           const createdAt = post.createdAt;
 
           return (
-            <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
-              <Card className="overflow-hidden transition-shadow hover:shadow-lg">
             <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
               <Card className="overflow-hidden transition-shadow hover:shadow-lg">
                 <CardHeader className="p-0">

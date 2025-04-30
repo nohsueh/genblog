@@ -8,8 +8,10 @@ import { getGroupName } from "@/lib/utils";
 
 export default async function Home({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const { lang } = await params;
   const dictionary = await getDictionary(lang);
@@ -30,7 +32,12 @@ export default async function Home({
           </div>
         </section>
 
-        <BlogList lang={lang} dictionary={dictionary} group={getGroupName()} />
+        <BlogList
+          lang={lang}
+          dictionary={dictionary}
+          group={getGroupName()}
+          searchParams={await searchParams}
+        />
       </main>
       <SiteFooter />
     </div>
