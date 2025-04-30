@@ -26,16 +26,66 @@ import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-const DEFAULT_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
+const ENGLISH_RESPONSE_PROMPT =
+  "Regardless of the input language, please answer in English only.";
+const SPANISH_RESPONSE_PROMPT =
+  "Por favor responda sólo en español, independientemente del idioma de entrada.";
+const GERMAN_RESPONSE_PROMPT =
+  "Bitte antworten Sie ausschließlich auf Deutsch, unabhängig von der Eingabesprache.";
+const JAPANESE_RESPONSE_PROMPT =
+  "入力言語に関わらず、日本語のみで回答してください。";
+const FRENCH_RESPONSE_PROMPT =
+  "Veuillez répondre en français uniquement, quelle que soit la langue de saisie.";
+const CHINESE_RESPONSE_PROMPT = "无论输入什么语言，请仅使用中文回答。";
 
+const ENGLISH_PROMPT = `You are an expert SEO copywriter and click‑through‑rate strategist with a track record of crafting magnetic, data‑driven articles.
 - Objective: Produce an in-depth, original article on the provided raw content designed to boost CTR by at least 500% and maximize reader engagement.
 - Structure & Readability: Organize with concise, benefit-oriented subheadings, bullet-point lists, and short paragraphs (2–3 sentences each).
 - SEO Requirements:
-  - Title: Naturally include long-tail keywords and don't use pompous words like unlock, supercharge, level up, unleash.
   - Naturally weave in the primary keyword 3–5 times and 2–3 related long‑tail terms.
-  - Value & Action: Provide actionable insights, real‑world examples.
+  - Naturally intersperse images with ![alt](src "title") syntax.
+  - Title: Naturally include long-tail keywords and don't use pompous words like unlock, supercharge, level up, unleash.
   - Tone & Style: Engaging, lively, interesting, and easy to understand, authoritative, and reader‑first—balance professional expertise with conversational clarity.`;
-
+const SPANISH_PROMPT = `Eres un redactor SEO experto y estratega de CTR con amplia experiencia en la creación de artículos impactantes basados ​​en datos.
+  - Objetivo: Redactar un artículo original y profundo sobre el contenido original proporcionado, diseñado para aumentar el CTR en al menos un 500 % y maximizar la interacción del lector.
+  - Estructura y legibilidad: Organízalo con subtítulos concisos y orientados a los beneficios, listas con viñetas y párrafos cortos (de 2 a 3 frases cada uno).
+  - Requisitos SEO:
+    - Incluye la palabra clave principal de 3 a 5 veces y de 2 a 3 términos de cola larga relacionados.
+    - Intercala imágenes de forma natural con la sintaxis ![alt](src "title").
+    - Título: Incluye palabras clave de cola larga de forma natural y evita usar términos pomposos como desbloquear, potenciar, subir de nivel o liberar.
+    - Tono y estilo: atractivo, animado, interesante y fácil de entender, con autoridad y centrado en el lector: equilibre la experiencia profesional con la claridad conversacional.`;
+const GERMAN_PROMPT = `Sie sind ein erfahrener SEO-Texter und Klickratenstratege mit langjähriger Erfahrung in der Erstellung fesselnder, datenbasierter Artikel.
+  - Ziel: Erstellen Sie einen ausführlichen, originellen Artikel auf Basis der bereitgestellten Rohinhalte, der die Klickrate um mindestens 500 % steigert und die Leserinteraktion maximiert.
+  - Struktur & Lesbarkeit: Gestalten Sie Ihren Artikel mit prägnanten, nutzenorientierten Zwischenüberschriften, Aufzählungslisten und kurzen Absätzen (jeweils 2–3 Sätze).
+  - SEO-Anforderungen:
+    - Binden Sie das primäre Keyword 3–5 Mal und 2–3 verwandte Long-Tail-Begriffe auf natürliche Weise ein.
+    - Fügen Sie Bilder auf natürliche Weise mit der Syntax ![alt](src "title") ein.
+    - Titel: Verwenden Sie Long-Tail-Keywords auf natürliche Weise und vermeiden Sie hochtrabende Wörter wie „freischalten“, „superladen“, „leveln auf“, „entfesseln“.
+    - Ton & Stil: Ansprechend, lebendig, interessant und leicht verständlich, kompetent und leserorientiert – verbinden Sie professionelle Expertise mit klarer Konversation.`;
+const JAPANESE_PROMPT = `SEOコピーライターおよびクリックスルー率戦略の専門家として、魅力的でデータに基づいた記事作成の実績をお持ちの方。
+  - 目標：提供された未加工のコンテンツに基づき、CTRを500%以上向上させ、読者のエンゲージメントを最大化するよう設計された、詳細で独創的な記事を作成してください。
+  - 構成と読みやすさ：簡潔でメリット重視の小見出し、箇条書き、短い段落（それぞれ2～3文）で構成してください。
+  - SEO要件：
+    - 主要キーワードを3～5回、関連するロングテールキーワードを2～3個、自然に織り込んでください。
+    - ![alt](src "title") 構文を使用して画像を自然に散りばめる。
+    - タイトル：ロングテールキーワードを自然に含め、「unlock（アンロック）」「supercharge（スーパーチャージ）」「level up（レベルアップ）」「unleash（解放）」といった大げさな言葉は使用しないでください。
+    - トーンとスタイル：魅力的で、生き生きとして、興味深く、理解しやすく、権威があり、読者を第一に考え、専門知識と会話の明瞭さをバランスよく取り入れてください。`;
+const FRENCH_PROMPT = `Vous êtes un rédacteur SEO expert et un stratège en taux de clics, avec une expérience avérée dans la création d'articles captivants et basés sur des données.
+- Objectif : Produire un article original et approfondi à partir du contenu brut fourni, conçu pour augmenter le taux de clics d'au moins 500 % et maximiser l'engagement des lecteurs.
+- Structure et lisibilité : Organisez votre article avec des sous-titres concis et axés sur les avantages, des listes à puces et des paragraphes courts (2 à 3 phrases chacun).
+- Exigences SEO :
+  - Intégrez naturellement le mot-clé principal 3 à 5 fois et 2 à 3 termes de longue traîne associés.
+  - Intercalez naturellement les images avec la syntaxe ![alt](src "title").
+  - Titre : Intégrez naturellement des mots-clés de longue traîne et évitez les termes pompeux tels que « débloquer », « surcharger », « monter en niveau », « déchaîner ».
+  - Ton et style : Captivant, vivant, intéressant et facile à comprendre, faisant autorité et axé sur le lecteur ; conciliez expertise professionnelle et clarté conversationnelle.`;
+const CHINESE_PROMPT = `您是一位专业的SEO文案撰写者和点击率策略专家，并拥有撰写引人入胜、数据驱动型文章的丰富经验。
+- 目标：根据提供的原始内容撰写一篇深入的原创文章，旨在将点击率提升至少500%，并最大限度地提高读者参与度。
+- 结构与可读性：使用简洁、以效益为导向的副标题、项目符号列表和简短的段落（每段2-3句话）进行组织。
+- SEO要求：
+  - 自然地穿插使用主要关键词3-5次以及2-3个相关的长尾词。
+  - 使用 ![alt](src "title") 语法自然地穿插图像。
+  - 标题：自然包含长尾关键词，切勿使用诸如“解锁”、“增压”、“升级”、“释放”等浮夸的词语。
+  - 语气与风格：引人入胜、生动活泼、趣味盎然、通俗易懂、权威性强、以读者为中心——在专业知识与清晰的对话之间取得平衡。`;
 const DEFAULT_NUM = 25;
 
 interface BlogCreatorProps {
@@ -49,6 +99,37 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [startDate, setStartDate] = useState<Date | undefined>();
   const [endDate, setEndDate] = useState<Date | undefined>();
+
+  let Prompt: string;
+  switch (dictionary.language) {
+    case "en":
+      Prompt = `${ENGLISH_PROMPT}
+${ENGLISH_RESPONSE_PROMPT}`;
+      break;
+    case "es":
+      Prompt = `${SPANISH_PROMPT}
+  ${SPANISH_RESPONSE_PROMPT}`;
+      break;
+    case "de":
+      Prompt = `${GERMAN_PROMPT}
+  ${GERMAN_RESPONSE_PROMPT}`;
+      break;
+    case "ja":
+      Prompt = `${JAPANESE_PROMPT}
+    ${JAPANESE_RESPONSE_PROMPT}`;
+      break;
+    case "fr":
+      Prompt = `${FRENCH_PROMPT}
+${FRENCH_RESPONSE_PROMPT}`;
+      break;
+    case "zh":
+      Prompt = `${CHINESE_PROMPT}
+${CHINESE_RESPONSE_PROMPT}`;
+      break;
+    default:
+      Prompt = `${ENGLISH_PROMPT}`;
+      break;
+  }
 
   const isDateRangeValid = (!startDate && !endDate) || (startDate && endDate);
 
@@ -66,6 +147,8 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
         formData.append("startPublishedDate", startDate.toISOString());
         formData.append("endPublishedDate", endDate.toISOString());
       }
+      // Add language to the form data
+      formData.append("language", dictionary.language);
 
       toast.promise(analyzeSearch(formData), {
         loading: dictionary.admin.create.generating,
@@ -106,6 +189,8 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
       // Replace the single link with array of links
       formData.delete("link");
       formData.append("link", JSON.stringify(links));
+      // Add language to the form data
+      formData.append("language", dictionary.language);
 
       toast.promise(analyzeLinks(formData), {
         loading: dictionary.admin.create.generating,
@@ -177,7 +262,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="search-prompt"
                     name="prompt"
                     placeholder="Write a comprehensive blog post about..."
-                    defaultValue={DEFAULT_PROMPT}
+                    defaultValue={Prompt}
                     rows={4}
                     disabled={isLoading}
                     required
@@ -222,7 +307,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !startDate && "text-muted-foreground",
+                            !startDate && "text-muted-foreground"
                           )}
                           disabled={isLoading}
                         >
@@ -251,7 +336,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                           variant={"outline"}
                           className={cn(
                             "w-[160px] justify-start text-left font-normal",
-                            !endDate && "text-muted-foreground",
+                            !endDate && "text-muted-foreground"
                           )}
                           disabled={isLoading}
                         >
@@ -338,7 +423,7 @@ export function BlogCreator({ dictionary, groupName }: BlogCreatorProps) {
                     id="link-prompt"
                     name="prompt"
                     placeholder="Write a comprehensive blog post about..."
-                    defaultValue={DEFAULT_PROMPT}
+                    defaultValue={Prompt}
                     rows={4}
                     disabled={isLoading}
                     required

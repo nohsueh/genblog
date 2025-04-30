@@ -74,6 +74,7 @@ export function AdminDashboard({
     const fetchPosts = async () => {
       try {
         setLoading(true);
+        // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
         const result = await getPublishedBlogs(currentPage, PAGE_SIZE, group);
         setPosts(result.blogs);
@@ -86,7 +87,7 @@ export function AdminDashboard({
     };
 
     fetchPosts();
-  }, [groupName, selectedGroup, currentPage]);
+  }, [groupName, lang, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
     post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase())

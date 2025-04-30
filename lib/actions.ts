@@ -13,8 +13,8 @@ import { redirect } from "next/navigation";
 const API_URL = "https://searchlysis.com/api";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
-const SESSION_COOKIE_NAME = "blog_admin_session";
-const SESSION_EXPIRY = 60 * 60 * 24; // 24 hours
+const SESSION_COOKIE_NAME = `__Secure-${process.env.NEXT_PUBLIC_BASE_PATH}`;
+const SESSION_EXPIRY = 60 * 60 * 24 * 30; // 30 days
 
 if (!API_KEY) {
   console.warn("SEARCHLYSIS_API_KEY is not defined");
@@ -49,7 +49,7 @@ export async function validateAdmin(formData: FormData) {
       JWT_SECRET,
       {
         expiresIn: SESSION_EXPIRY,
-      },
+      }
     );
 
     // Set the JWT token in the cookie
@@ -94,12 +94,17 @@ export async function analyzeSearch(formData: FormData) {
   const query = formData.get("query") as string;
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
+  const language = formData.get("language") as string;
   const num = Number.parseInt(formData.get("num") as string);
-  const startPublishedDate = formData.get("startPublishedDate") as string;
-  const endPublishedDate = formData.get("endPublishedDate") as string;
+  const startPublishedDate = formData.get("startPublishedDate") as
+    | string
+    | undefined;
+  const endPublishedDate = formData.get("endPublishedDate") as
+    | string
+    | undefined;
   const temperature = Number.parseFloat(formData.get("temperature") as string);
 
-  const metadata = group ? { group } : undefined;
+  const metadata = { group, language };
 
   const params: AnalyzeSearchParams = {
     query,
@@ -119,7 +124,7 @@ export async function analyzeSearch(formData: FormData) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to analyze search: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to analyze search: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 
@@ -131,9 +136,10 @@ export async function analyzeLinks(formData: FormData) {
   const link = JSON.parse(formData.get("link") as string) as string[];
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
+  const language = formData.get("language") as string;
   const temperature = Number.parseFloat(formData.get("temperature") as string);
 
-  const metadata = group ? { group } : undefined;
+  const metadata = { group, language };
 
   const params: AnalyzeLinksParams = {
     link,
@@ -150,7 +156,7 @@ export async function analyzeLinks(formData: FormData) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to analyze link: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to analyze link: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 
@@ -163,12 +169,12 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
     `${API_URL}/v1/analyses?analysisId=${analysisId}`,
     {
       headers,
-    },
+    }
   );
 
   if (!response.ok) {
     throw new Error(
-      `Failed to get analysis: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to get analysis: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 
@@ -184,7 +190,7 @@ export async function deleteAnalysis(analysisId: string) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to delete analysis: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to delete analysis: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 }
@@ -215,7 +221,7 @@ export async function updateAnalysis(formData: FormData) {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to update analysis: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to update analysis: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 
@@ -225,7 +231,7 @@ export async function updateAnalysis(formData: FormData) {
 export async function listAnalyses(
   pageNum = 1,
   pageSize = 10,
-  metadata?: Record<string, any>,
+  metadata?: Record<string, any>
 ): Promise<AnalysisResult[]> {
   let url = `${API_URL}/v1/analyses/list?pageNum=${pageNum}&pageSize=${pageSize}`;
 
@@ -240,7 +246,7 @@ export async function listAnalyses(
 
   if (!response.ok) {
     throw new Error(
-      `Failed to list analyses: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to list analyses: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 
@@ -250,7 +256,7 @@ export async function listAnalyses(
 export async function listAnalysesIds(
   pageNum = 1,
   pageSize = 10,
-  metadata?: Record<string, any>,
+  metadata?: Record<string, any>
 ): Promise<AnalysisResult[]> {
   let url = `${API_URL}/v1/analyses/listIds?pageNum=${pageNum}&pageSize=${pageSize}`;
 
@@ -265,7 +271,7 @@ export async function listAnalysesIds(
 
   if (!response.ok) {
     throw new Error(
-      `Failed to list analyses ids: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to list analyses ids: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 
@@ -276,7 +282,7 @@ export async function relatedAnalyses(
   pageNum = 1,
   pageSize = 10,
   analysisId: string,
-  metadata?: Record<string, any>,
+  metadata?: Record<string, any>
 ): Promise<AnalysisResult[]> {
   let url = `${API_URL}/v1/analyses/related?pageNum=${pageNum}&pageSize=${pageSize}&analysisId=${analysisId}`;
 
@@ -291,7 +297,7 @@ export async function relatedAnalyses(
 
   if (!response.ok) {
     throw new Error(
-      `Failed to list related analyses: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to list related analyses: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 
@@ -302,15 +308,16 @@ export async function getPublishedBlogs(
   pageNum = 1,
   pageSize = 20,
   group?: string,
+  language?: string
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
-  const metadata = group ? { group } : undefined;
+  const metadata = { group, language };
 
   const allBlogs = await listAnalyses(pageNum, pageSize, metadata);
   const total = await getTotalBlogs(metadata);
   return { blogs: allBlogs, total };
 }
 
-async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
+async function getTotalBlogs(metadata?: Record<string, any>): Promise<number> {
   let url = `${API_URL}/v1/analyses/count`;
 
   if (metadata) {
@@ -323,7 +330,7 @@ async function getTotalBlogs(metadata?: { group?: string }): Promise<number> {
 
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch total blogs: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to fetch total blogs: ${response.headers.get("x-searchlysis-error")}`
     );
   }
 

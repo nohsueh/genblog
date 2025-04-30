@@ -10,6 +10,6 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
         disallow: ["/_next"],
       },
     ],
-    sitemap: [`${getBaseUrl()}/sitemap.xml`],
+    sitemap: [`${getBaseUrl()}/sitemap_index.xml`],
   };
 }

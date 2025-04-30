@@ -38,6 +38,9 @@ export interface AnalyzeAnalysisObject {
   id: string;
   image?: string;
   favicon?: string;
+  extras: {
+    imageLinks?: string[];
+  };
   text: string;
   content: string;
 }

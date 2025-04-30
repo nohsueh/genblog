@@ -29,6 +29,7 @@ export function LatestPostsSidebar({
       try {
         const latestRes = await listAnalyses(1, POSTS_PER_PAGE, {
           group: getGroupName(),
+          language: lang,
         });
         setLatest(latestRes);
       } catch (err) {
@@ -38,7 +39,7 @@ export function LatestPostsSidebar({
       }
     }
     fetchData();
-  }, []);
+  }, [lang]);
 
   function renderCard(post: AnalysisResult) {
     const contentLines = post.analysis?.content

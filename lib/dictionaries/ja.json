@@ -1,0 +1,82 @@
+{
+  "language": "ja",
+  "home": {
+    "title": "私たちのブログへようこそ",
+    "description": "さまざまなトピックに関する最新の洞察と記事を発見しましょう。"
+  },
+  "blog": {
+    "readMore": "続きを読む",
+    "publishedOn": "公開日",
+    "by": "著者",
+    "backToHome": "ホームに戻る",
+    "noBlogs": "ブログが見つかりません",
+    "tableOfContents": "このページについて",
+    "previousPost": "前の記事",
+    "nextPost": "次の記事",
+    "latestPosts": "最新の記事",
+    "relatedPosts": "関連する記事"
+  },
+  "admin": {
+    "login": {
+      "title": "管理者ログイン",
+      "description": "ブログ管理ダッシュボードにアクセスするには管理者パスワードを入力してください。",
+      "password": "パスワード",
+      "submit": "ログイン",
+      "loading": "読み込み中...",
+      "error": "パスワードが無効です",
+      "success": "ログイン成功"
+    },
+    "dashboard": {
+      "title": "ブログ管理",
+      "createNew": "新しいブログを作成",
+      "search": "ブログを検索...",
+      "filter": "グループで絞り込む",
+      "allGroups": "すべてのグループ",
+      "otherGroups": "その他のグループ",
+      "noBlogs": "ブログが見つかりません",
+      "edit": "編集",
+      "delete": "削除",
+      "confirmDelete": "このブログを本当に削除しますか？",
+      "group": "グループ",
+      "visibility": "表示設定",
+      "visible": "表示",
+      "hidden": "非表示",
+      "cancel": "キャンセル"
+    },
+    "create": {
+      "title": "新しいブログを作成",
+      "description": "検索結果または特定のリンクを分析してブログ記事を生成します。",
+      "searchQuery": "検索クエリ",
+      "link": "リンクURL",
+      "prompt": "分析プロンプト",
+      "num": "件数",
+      "group": "グループ",
+      "temperature": "温度",
+      "submit": "ブログを生成",
+      "generating": "生成中...",
+      "error": "ブログ生成エラー",
+      "precise": "正確",
+      "creative": "クリエイティブ",
+      "success": "ブログが正常に生成されました",
+      "linkHelp": "各URLを新しい行に入力してください"
+    },
+    "edit": {
+      "title": "ブログを編集",
+      "content": "内容",
+      "group": "グループ",
+      "groupHelp": "グループを設定するとホームページにブログが表示されます。グループが設定されていない場合、ホームページに表示されません。",
+      "save": "変更を保存",
+      "saving": "保存中...",
+      "success": "ブログが正常に更新されました",
+      "error": "ブログ更新エラー",
+      "editTab": "編集",
+      "previewTab": "プレビュー"
+    }
+  },
+  "header": {
+    "home": "ホーム",
+    "admin": "管理者",
+    "dashboard": "ダッシュボード",
+    "logout": "ログアウト"
+  }
+}

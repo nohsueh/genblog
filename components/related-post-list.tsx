@@ -38,6 +38,7 @@ export function RelatedBlogList({
         const [relatedRes] = await Promise.all([
           relatedAnalyses(1, POSTS_PER_PAGE, currentId, {
             group: getGroupName(),
+            language: lang,
           }),
         ]);
         setRelated(relatedRes);
@@ -48,7 +49,7 @@ export function RelatedBlogList({
       }
     }
     fetchData();
-  }, [currentId]);
+  }, [currentId, lang]);
 
   function renderCard(post: AnalysisResult) {
     const contentLines = post.analysis?.content

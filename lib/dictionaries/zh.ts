@@ -1,4 +1,5 @@
 export default {
+  language: "zh",
   home: {
     title: "欢迎访问我们的博客",
     description: "探索各种主题的最新见解和文章。",

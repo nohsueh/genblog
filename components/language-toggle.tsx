@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { i18n } from "@/lib/i18n-config";
 import { Globe } from "lucide-react";
@@ -38,10 +38,12 @@ export function LanguageToggle() {
                   return "English";
                 case "es":
                   return "Español";
-                case "fr":
-                  return "Français";
                 case "de":
                   return "Deutsch";
+                case "ja":
+                  return "日本語";
+                case "fr":
+                  return "Français";
                 case "zh":
                   return "中文";
               }

@@ -15,7 +15,7 @@ export default async function BlogPage(props: {
 }) {
   const params = await props.params;
   const { lang, id } = params;
-  const dictionary = getDictionary(lang);
+  const dictionary = await getDictionary(lang);
   const isLoggedIn = await checkAdminSession();
 
   try {

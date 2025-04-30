@@ -56,71 +56,73 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     }, [activeId]);
 
     return (
-      <div className="sticky top-8 h-[40vh] overflow-y-auto">
-        <Suspense
-          fallback={
-            <>
+      <>
+        {headings.length > 0 && (
+          <div className="sticky top-8 h-[40vh] overflow-y-auto">
+            <Suspense
+              fallback={
+                <>
+                  <h2 className="mb-4 text-lg font-semibold">
+                    {dictionary.blog.tableOfContents}
+                  </h2>
+                  <nav className="space-y-2">
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="mb-1 h-4 w-1/2" />
+                    <Skeleton className="mb-1 h-4 w-1/2" />
+                    <Skeleton className="mb-1 h-4 w-1/2" />
+                  </nav>
+                </>
+              }
+            >
               <h2 className="mb-4 text-lg font-semibold">
                 {dictionary.blog.tableOfContents}
               </h2>
               <nav className="space-y-2">
-                <Skeleton className="h-4 w-full" />
-                <Skeleton className="mb-1 h-4 w-1/2" />
-                <Skeleton className="mb-1 h-4 w-1/2" />
-                <Skeleton className="mb-1 h-4 w-1/2" />
+                {headings.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    ref={(el) => {
+                      itemRefs.current[item.id] = el;
+                    }}
+                    className={`block text-sm transition-colors ${
+                      activeId === item.id
+                        ? "font-medium text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                    style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
+                  >
+                    {item.text}
+                  </a>
+                ))}
               </nav>
-            </>
-          }
-        >
-          <h2 className="mb-4 text-lg font-semibold">
-            {dictionary.blog.tableOfContents}
-          </h2>
-          <nav className="space-y-2">
-            {headings.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                ref={(el) => {
-                  itemRefs.current[item.id] = el;
-                }}
-                className={`block text-sm transition-colors ${
-                  activeId === item.id
-                    ? "font-medium text-primary"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-                style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
-              >
-                {item.text}
-              </a>
-            ))}
-          </nav>
-         </Suspense>
-      </div>
+            </Suspense>
+          </div>
+        )}
+      </>
     );
   };
 
   return (
     <div className="relative">
       <article className="mx-auto max-w-4xl">
-        {headings.length > 0 && (
-          <div className="xl:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="fixed right-8 top-20 z-50"
-                >
-                  <TableOfContents className="h-4 w-4" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px]">
-                <OnThisPage />
-                <LatestPostsSidebar lang={lang} dictionary={dictionary} />
-              </SheetContent>
-            </Sheet>
-          </div>
-        )}
+        <div className="xl:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="fixed right-8 top-20 z-50"
+              >
+                <TableOfContents className="h-4 w-4" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px]">
+              <OnThisPage />
+              <LatestPostsSidebar lang={lang} dictionary={dictionary} />
+            </SheetContent>
+          </Sheet>
+        </div>
         <div>
           {post.analysis?.image && (
             <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
@@ -162,16 +164,13 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
         </div>
       </article>
 
-      {headings.length > 0 && (
-        <div className="fixed right-8 top-24 hidden w-64 xl:block">
-          <div>
-            <OnThisPage />
-            <LatestPostsSidebar lang={lang} dictionary={dictionary} />
-          </div>
+      <div className="fixed right-8 top-24 hidden w-64 xl:block">
+        <div>
+          <OnThisPage />
+          <LatestPostsSidebar lang={lang} dictionary={dictionary} />
         </div>
-      )}
+      </div>
 
-      {/* 新增：相关文章与最新文章展示列表 */}
       <div>
         <RelatedBlogList
           lang={lang}
