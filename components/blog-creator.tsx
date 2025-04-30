@@ -146,7 +146,6 @@ ${CHINESE_RESPONSE_PROMPT}`;
       if (endDate) {
         formData.append("endPublishedDate", endDate.toISOString());
       }
-
       // Add language to the form data
       formData.append("language", dictionary.language);
 

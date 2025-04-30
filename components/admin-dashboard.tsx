@@ -212,15 +212,13 @@ export function AdminDashboard({
             <TableBody>
               {filteredPosts.map((post) => (
                 <TableRow key={post.analysisId}>
-                  <TableCell className="font-medium">
+                  <TableCell className="font-medium break-all">
                     {post.analysis?.title || ""}
                   </TableCell>
-                  <TableCell>
-                    {post.updatedAt
-                      ? formatDate(post.updatedAt, lang)
-                      : formatDate(post.createdAt, lang)}
+                  <TableCell className="text-nowrap">
+                    {formatDate(post.updatedAt, lang)}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-nowrap">
                     {post.metadata?.group ? (
                       <Badge variant="outline">{post.metadata.group}</Badge>
                     ) : (
