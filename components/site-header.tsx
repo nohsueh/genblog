@@ -1,3 +1,5 @@
+"use client";
+
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -5,8 +7,8 @@ import { logoutAdmin } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { EllipsisVertical, LogOut } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { LanguageToggle } from "./language-toggle";
-import { redirect } from "next/navigation";
 
 interface SiteHeaderProps {
   lang: Locale;
@@ -19,9 +21,12 @@ export function SiteHeader({
   dictionary,
   isAdmin = false,
 }: SiteHeaderProps) {
+  const router = useRouter();
+
   const handleLogout = async () => {
     await logoutAdmin();
-    redirect(`/${lang}/console`);
+    router.push(`/${lang}/console`);
+    router.refresh();
   };
 
   return (
