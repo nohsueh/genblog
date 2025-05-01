@@ -1,11 +1,8 @@
-"use client";
-
 import "prismjs";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
 import "prismjs/themes/prism-okaidia.css";
-import { memo, useEffect, useState } from "react";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypePrism from "rehype-prism";
 import rehypeSanitize from "rehype-sanitize";
@@ -27,49 +24,19 @@ interface MarkdownProps {
   onHeadingsExtracted?: (headings: Heading[]) => void;
 }
 
-export const Markdown = memo(function Markdown({
-  content,
-  onHeadingsExtracted,
-}: MarkdownProps) {
-  const [markdown, setMarkdown] = useState("");
-
-  useEffect(() => {
-    const processMarkdown = async () => {
-      const { html, headings } = await markdownToHtml(content);
-      setMarkdown(html);
-
-      if (onHeadingsExtracted) {
-        onHeadingsExtracted(headings);
-      }
-    };
-
-    processMarkdown();
-  }, [content, onHeadingsExtracted]);
-
-  return (
-    <div
-      className="prose prose-sm prose-gray w-full max-w-none break-all dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
-      dangerouslySetInnerHTML={{ __html: markdown }}
-    />
-  );
-});
-
 // Dynamic import Prism language
 const loadedLanguages: Record<string, boolean> = {};
-async function loadPrismLanguage(lang: string) {
+function loadPrismLanguage(lang: string) {
   if (!lang || loadedLanguages[lang]) return;
   try {
-    await import(
-      /* webpackChunkName: "prismjs-[request]" */
-      `prismjs/components/prism-${lang}.js`
-    );
+    require(`prismjs/components/prism-${lang}.js`);
     loadedLanguages[lang] = true;
   } catch (e) {
     console.error(`Failed to load Prism language: ${lang}`, e);
   }
 }
 
-async function markdownToHtml(markdown: string) {
+function markdownToHtml(markdown: string) {
   const headings: Heading[] = [];
 
   const extractHeadings: Plugin = () => {
@@ -109,9 +76,9 @@ async function markdownToHtml(markdown: string) {
     .map((m) => m[1].toLowerCase())
     .filter(Boolean);
   // Only load languages that haven't been loaded
-  await Promise.all(codeLangs.map((lang) => loadPrismLanguage(lang)));
+  codeLangs.forEach((lang) => loadPrismLanguage(lang));
 
-  const file = await unified()
+  const file = unified()
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkRehype)
@@ -126,10 +93,25 @@ async function markdownToHtml(markdown: string) {
     })
     .use(extractHeadings)
     .use(rehypeStringify)
-    .process(markdown);
+    .processSync(markdown);
 
   return {
     html: String(file),
     headings,
   };
+}
+
+export function Markdown({ content, onHeadingsExtracted }: MarkdownProps) {
+  const { html, headings } = markdownToHtml(content);
+
+  if (onHeadingsExtracted) {
+    onHeadingsExtracted(headings);
+  }
+
+  return (
+    <div
+      className="prose prose-sm prose-gray w-full max-w-none break-all dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
 }
