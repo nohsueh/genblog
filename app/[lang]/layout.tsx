@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { i18n } from "@/lib/i18n-config";
 import { Inter } from "next/font/google";
 import type React from "react";
+import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,7 +32,7 @@ export default async function RootLayout(props: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Suspense fallback={<></>}>{children}</Suspense>
           <Toaster richColors />
         </ThemeProvider>
       </body>

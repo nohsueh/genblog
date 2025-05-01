@@ -6,35 +6,33 @@ import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
-
-export const revalidate = 86400;
 
 export default async function BlogPage({
   params,
 }: {
   params: Promise<{ lang: Locale; id: string }>;
 }) {
-  const { lang, id } = await params;
-  const dictionary = await getDictionary(lang);
-  const isLoggedIn = await checkAdminSession();
-
   try {
-    const post = await getAnalysis(id);
+    const { lang, id } = await params;
+    const [dictionary, isLoggedIn, post] = await Promise.all([
+      getDictionary(lang),
+      checkAdminSession(),
+      getAnalysis(id),
+    ]);
 
     return (
       <div className="flex min-h-screen flex-col">
         <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
         <main className="container mb-48 flex-1 px-4 py-6">
-          <Suspense
+          {/* <Suspense
             fallback={
               <div className="py-10 text-center">
                 <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
               </div>
             }
-          >
-            <BlogPost post={post} lang={lang} dictionary={dictionary} />
-          </Suspense>
+          > */}
+          <BlogPost post={post} lang={lang} dictionary={dictionary} />
+          {/* </Suspense> */}
         </main>
         <SiteFooter />
       </div>
