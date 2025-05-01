@@ -45,12 +45,12 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             <LatestPostsSidebar lang={lang} dictionary={dictionary} />
           </SheetContent>
         </Sheet>
-        <div className="fixed lg:right-4 xl:left-[calc(50vw+32rem)] top-24 hidden w-60 lg:block">
+        <div className="fixed lg:right-4 2xl:left-[calc(50vw+32rem)] top-24 hidden w-60 lg:block">
           <OnThisPage headings={headings} dictionary={dictionary} />
           <LatestPostsSidebar lang={lang} dictionary={dictionary} />
         </div>
 
-        <div className="lg:mr-[calc(48rem-50vw)] xl:mr-0">
+        <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
           <article className="mx-auto max-w-4xl">
             {post.analysis?.image && (
               <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
