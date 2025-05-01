@@ -165,9 +165,6 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
     `${API_URL}/v1/analyses?analysisId=${analysisId}`,
     {
       headers,
-      next: {
-        revalidate: 60 * 60,
-      },
     },
   );
 
