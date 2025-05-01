@@ -19,7 +19,7 @@ export default async function BlogPage(props: {
   const isLoggedIn = await checkAdminSession();
 
   try {
-    const post = await getCachedAnalysis(id);
+    const post = await getAnalysis(id);
 
     return (
       <div className="flex min-h-screen flex-col">
@@ -44,15 +44,13 @@ export default async function BlogPage(props: {
   }
 }
 
-const getCachedAnalysis = cache(getAnalysis);
-
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: Locale; id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const post = await getCachedAnalysis(id);
+  const post = await getAnalysis(id);
 
   const contentLines = post.analysis?.content
     .split("\n")
