@@ -44,10 +44,6 @@ export default async function BlogPage(props: {
   }
 }
 
-export async function generateStaticParams() {
-  return [];
-}
-
 export async function generateMetadata({
   params,
 }: {
