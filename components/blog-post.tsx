@@ -2,6 +2,7 @@
 
 import { LatestPostsSidebar } from "@/components/latest-posts-sidebar";
 import { Markdown } from "@/components/markdown";
+import { OnThisPage } from "@/components/on-this-page";
 import { RelatedBlogList } from "@/components/related-post-list";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -11,8 +12,7 @@ import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense, useEffect, useRef, useState } from "react";
-import { Skeleton } from "./ui/skeleton";
+import { useEffect, useState } from "react";
 
 interface BlogPostProps {
   post: AnalysisResult;
@@ -46,63 +46,6 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
     return () => observer.disconnect();
   }, [headings]);
 
-  const OnThisPage = () => {
-    const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
-
-    useEffect(() => {
-      if (activeId && itemRefs.current[activeId]) {
-        itemRefs.current[activeId]?.scrollIntoView({ block: "nearest" });
-      }
-    }, [activeId]);
-
-    return (
-      <>
-        {headings.length > 0 && (
-          <div className="sticky top-8 h-[40vh] overflow-y-auto">
-            <Suspense
-              fallback={
-                <>
-                  <h2 className="mb-4 text-lg font-semibold">
-                    {dictionary.blog.tableOfContents}
-                  </h2>
-                  <nav className="space-y-2">
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="mb-1 h-4 w-1/2" />
-                    <Skeleton className="mb-1 h-4 w-1/2" />
-                    <Skeleton className="mb-1 h-4 w-1/2" />
-                  </nav>
-                </>
-              }
-            >
-              <h2 className="mb-4 text-lg font-semibold">
-                {dictionary.blog.tableOfContents}
-              </h2>
-              <nav className="space-y-2">
-                {headings.map((item) => (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    ref={(el) => {
-                      itemRefs.current[item.id] = el;
-                    }}
-                    className={`block text-sm transition-colors ${
-                      activeId === item.id
-                        ? "font-medium text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                    style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
-                  >
-                    {item.text}
-                  </a>
-                ))}
-              </nav>
-            </Suspense>
-          </div>
-        )}
-      </>
-    );
-  };
-
   return (
     <div className="relative">
       <article className="mx-auto max-w-4xl">
@@ -118,7 +61,11 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
-              <OnThisPage />
+              <OnThisPage
+                headings={headings}
+                activeId={activeId}
+                dictionary={dictionary}
+              />
               <LatestPostsSidebar lang={lang} dictionary={dictionary} />
             </SheetContent>
           </Sheet>
@@ -166,7 +113,11 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
       <div className="fixed right-8 top-24 hidden w-64 xl:block">
         <div>
-          <OnThisPage />
+          <OnThisPage
+            headings={headings}
+            activeId={activeId}
+            dictionary={dictionary}
+          />
           <LatestPostsSidebar lang={lang} dictionary={dictionary} />
         </div>
       </div>
