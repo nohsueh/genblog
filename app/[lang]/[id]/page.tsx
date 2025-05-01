@@ -1,20 +1,23 @@
 import { BlogPost } from "@/components/blog-post";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { checkAdminSession, getAnalysis } from "@/lib/actions";
+import { checkAdminSession, getAnalysis, listAnalysesIds } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
+import { getGroupName } from "@/lib/utils";
+import { group } from "console";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
 export const revalidate = 3600;
 
-export default async function BlogPage(props: {
+export default async function BlogPage({
+  params,
+}: {
   params: Promise<{ lang: Locale; id: string }>;
 }) {
-  const params = await props.params;
-  const { lang, id } = params;
+  const { lang, id } = await params;
   const dictionary = await getDictionary(lang);
   const isLoggedIn = await checkAdminSession();
 
@@ -42,6 +45,12 @@ export default async function BlogPage(props: {
     console.error(error);
     return notFound();
   }
+}
+
+export async function generateStaticParams() {
+  return (await listAnalysesIds(1, 10, { group: getGroupName() })).map(
+    (item) => ({ lang: item.metadata?.language, id: item.analysisId })
+  );
 }
 
 export async function generateMetadata({

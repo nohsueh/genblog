@@ -6,7 +6,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getGroupName } from "@/lib/utils";
 
-export default async function Home({
+export default async function HomePage({
   params,
   searchParams,
 }: {
