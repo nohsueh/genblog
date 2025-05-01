@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
@@ -8,7 +6,7 @@ import { getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
 
 const POSTS_PER_PAGE = 12;
 
@@ -17,65 +15,18 @@ interface LatestPostsSidebarProps {
   dictionary: any;
 }
 
-export function LatestPostsSidebar({
+export async function LatestPostsSidebar({
   lang,
   dictionary,
 }: LatestPostsSidebarProps) {
-  const [latest, setLatest] = useState<AnalysisResult[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      try {
-        const latestRes = await listAnalyses(1, POSTS_PER_PAGE, {
-          group: getGroupName(),
-          language: lang,
-        });
-        setLatest(latestRes);
-      } catch (err) {
-        setLatest([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [lang]);
-
-  function renderCard(post: AnalysisResult) {
-    const contentLines = post.analysis?.content
-      ?.split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line !== "");
-    const title =
-      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
-    const image = post.analysis?.image;
-    return (
-      <Link href={`/${lang}/${post.analysisId}`}>
-        <Card
-          key={post.analysisId}
-          className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-md"
-        >
-          <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
-            <Image
-              src={
-                image ||
-                `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-              }
-              unoptimized
-              alt={title}
-              fill
-              className="rounded object-cover"
-            />
-          </div>
-          <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
-            <CardTitle className="line-clamp-3 text-sm font-semibold">
-              {title}
-            </CardTitle>
-          </div>
-        </Card>
-      </Link>
-    );
+  let latest: AnalysisResult[];
+  try {
+    latest = await listAnalyses(1, POSTS_PER_PAGE, {
+      group: getGroupName(),
+      language: lang,
+    });
+  } catch (error) {
+    latest = [];
   }
 
   return (
@@ -84,24 +35,62 @@ export function LatestPostsSidebar({
         {dictionary.blog.latestPosts}
       </h2>
       <div className="flex flex-col space-y-2 px-1">
-        {loading
-          ? Array.from({ length: 4 }).map((_, i) => (
-              <Card
-                key={i}
-                className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
-              >
-                <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
-                  <Skeleton className="h-full w-full" />
-                </div>
-                <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
-                  <Skeleton className="mb-1 h-4 w-full" />
-                  <Skeleton className="mb-1 h-4 w-full" />
-                  <Skeleton className="mb-1 h-4 w-3/4" />
-                </div>
-              </Card>
-            ))
-          : latest.map(renderCard)}
+        <Suspense
+          fallback={Array.from({ length: 4 }).map((_, i) => (
+            <Card
+              key={i}
+              className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
+            >
+              <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
+                <Skeleton className="h-full w-full" />
+              </div>
+              <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
+                <Skeleton className="mb-1 h-4 w-full" />
+                <Skeleton className="mb-1 h-4 w-full" />
+                <Skeleton className="mb-1 h-4 w-3/4" />
+              </div>
+            </Card>
+          ))}
+        >
+          {latest.map((post) => renderCard(post, lang))}
+        </Suspense>
       </div>
     </aside>
+  );
+}
+
+function renderCard(post: AnalysisResult, lang: Locale) {
+  const contentLines = post.analysis?.content
+    ?.split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line !== "");
+  const title =
+    contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
+  const image = post.analysis?.image;
+  return (
+    <Link href={`/${lang}/${post.analysisId}`}>
+      <Card
+        key={post.analysisId}
+        className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-md"
+      >
+        <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
+          <Image
+            src={
+              image ||
+              `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+            }
+            unoptimized
+            alt={title}
+            fill
+            className="rounded object-cover"
+          />
+        </div>
+        <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
+          <CardTitle className="line-clamp-3 text-sm font-semibold">
+            {title}
+          </CardTitle>
+        </div>
+      </Card>
+    </Link>
   );
 }
