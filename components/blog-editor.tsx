@@ -40,6 +40,7 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
       // Update the form data with the current state values
       formData.set("content", content);
       formData.set("group", group);
+      formData.set("language", lang);
 
       await updateAnalysis(formData);
 
