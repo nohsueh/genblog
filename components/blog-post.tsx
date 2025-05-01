@@ -30,25 +30,28 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
       }
     >
       <div className="relative">
-        <article className="mx-auto max-w-4xl">
-          <div className="xl:hidden">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="fixed right-8 top-20 z-50"
-                >
-                  <TableOfContents className="h-4 w-4" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="w-[300px]">
-                <OnThisPage headings={headings} dictionary={dictionary} />
-                <LatestPostsSidebar lang={lang} dictionary={dictionary} />
-              </SheetContent>
-            </Sheet>
-          </div>
-          <div>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="fixed right-4 top-20 z-50 lg:hidden"
+            >
+              <TableOfContents className="h-4 w-4" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px]">
+            <OnThisPage headings={headings} dictionary={dictionary} />
+            <LatestPostsSidebar lang={lang} dictionary={dictionary} />
+          </SheetContent>
+        </Sheet>
+        <div className="fixed lg:right-4 xl:left-[calc(50vw+33rem)] top-24 hidden w-60 lg:block">
+          <OnThisPage headings={headings} dictionary={dictionary} />
+          <LatestPostsSidebar lang={lang} dictionary={dictionary} />
+        </div>
+
+        <div className="lg:mr-[calc(48rem-50vw)]">
+          <article className="mx-auto max-w-4xl">
             {post.analysis?.image && (
               <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
                 <Image
@@ -86,17 +89,8 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
                 dangerouslySetInnerHTML={{ __html: html }}
               />
             </div>
-          </div>
-        </article>
+          </article>
 
-        <div className="fixed right-8 top-24 hidden w-64 xl:block">
-          <div>
-            <OnThisPage headings={headings} dictionary={dictionary} />
-            <LatestPostsSidebar lang={lang} dictionary={dictionary} />
-          </div>
-        </div>
-
-        <div>
           <RelatedBlogList
             lang={lang}
             dictionary={dictionary}

@@ -26,15 +26,7 @@ export default async function BlogPage({
       <div className="flex min-h-screen flex-col">
         <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
         <main className="container mb-48 flex-1 px-4 py-6">
-          {/* <Suspense
-            fallback={
-              <div className="py-10 text-center">
-                <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
-              </div>
-            }
-          > */}
           <BlogPost post={post} lang={lang} dictionary={dictionary} />
-          {/* </Suspense> */}
         </main>
         <SiteFooter />
       </div>
