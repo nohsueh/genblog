@@ -95,16 +95,22 @@ export function SiteHeader({
                       {dictionary.header.dashboard}
                     </Link>
                   )}
-                  <LanguageToggle />
-                  <ThemeToggle />
-                  {isAdmin && (
-                    <Button variant="ghost" size="icon" onClick={handleLogout}>
-                      <LogOut className="h-5 w-5" />
-                      <span className="sr-only">
-                        {dictionary.header.logout}
-                      </span>
-                    </Button>
-                  )}
+                  <div className="flex flex-col">
+                    <LanguageToggle />
+                    <ThemeToggle />
+                    {isAdmin && (
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={handleLogout}
+                      >
+                        <LogOut className="h-5 w-5" />
+                        <span className="sr-only">
+                          {dictionary.header.logout}
+                        </span>
+                      </Button>
+                    )}
+                  </div>
                 </nav>
               </SheetContent>
             </Sheet>
