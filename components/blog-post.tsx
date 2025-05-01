@@ -45,7 +45,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             <LatestPostsSidebar lang={lang} dictionary={dictionary} />
           </SheetContent>
         </Sheet>
-        <div className="fixed lg:right-4 xl:left-[calc(50vw+33rem)] top-24 hidden w-60 lg:block">
+        <div className="fixed lg:right-4 xl:left-[calc(50vw+32rem)] top-24 hidden w-60 lg:block">
           <OnThisPage headings={headings} dictionary={dictionary} />
           <LatestPostsSidebar lang={lang} dictionary={dictionary} />
         </div>
