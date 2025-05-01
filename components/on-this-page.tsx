@@ -74,7 +74,22 @@ export function OnThisPage({ headings, dictionary }: OnThisPageProps) {
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                   style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
-                  onClick={() => setActiveId(item.id)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById(item.id);
+                    if (element) {
+                      const headerOffset = 128;
+                      const elementPosition =
+                        element.getBoundingClientRect().top;
+                      const offsetPosition =
+                        elementPosition + window.scrollY - headerOffset;
+                      window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth",
+                      });
+                    }
+                    setActiveId(item.id);
+                  }}
                 >
                   {item.text}
                 </a>
