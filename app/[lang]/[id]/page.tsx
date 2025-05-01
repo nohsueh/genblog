@@ -6,9 +6,9 @@ import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache } from "react";
-
 import { Suspense } from "react";
+
+export const revalidate = 3600
 
 export default async function BlogPage(props: {
   params: Promise<{ lang: Locale; id: string }>;
