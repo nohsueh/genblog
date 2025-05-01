@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-export const revalidate = 3600
+export const revalidate = 3600;
 
 export default async function BlogPage(props: {
   params: Promise<{ lang: Locale; id: string }>;
@@ -42,6 +42,10 @@ export default async function BlogPage(props: {
     console.error(error);
     return notFound();
   }
+}
+
+export async function generateStaticParams() {
+  return [];
 }
 
 export async function generateMetadata({
