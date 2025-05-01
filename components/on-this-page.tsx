@@ -74,6 +74,7 @@ export function OnThisPage({ headings, dictionary }: OnThisPageProps) {
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                   style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
+                  onClick={() => setActiveId(item.id)}
                 >
                   {item.text}
                 </a>
