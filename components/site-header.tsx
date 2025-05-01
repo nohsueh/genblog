@@ -7,7 +7,7 @@ import { logoutAdmin } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { EllipsisVertical, LogOut } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { LanguageToggle } from "./language-toggle";
 
 interface SiteHeaderProps {
@@ -21,9 +21,6 @@ export function SiteHeader({
   dictionary,
   isAdmin = false,
 }: SiteHeaderProps) {
-  const pathname = usePathname();
-  const segments = pathname.split("/");
-  const currentPath = segments.slice(2).join("/") || "";
   const router = useRouter();
 
   const handleLogout = async () => {

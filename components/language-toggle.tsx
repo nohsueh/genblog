@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { i18n } from "@/lib/i18n-config";
-import { Globe } from "lucide-react";
+import { Languages } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 export function LanguageToggle() {
@@ -25,7 +25,7 @@ export function LanguageToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Globe className="h-5 w-5" />
+          <Languages className="h-5 w-5" />
           <span className="sr-only">Switch language</span>
         </Button>
       </DropdownMenuTrigger>
