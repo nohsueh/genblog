@@ -1,20 +1,36 @@
 "use client";
 
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Skeleton } from "./ui/skeleton";
 
 interface OnThisPageProps {
   headings: Array<{ id: string; text: string; level: number }>;
-  activeId: string;
   dictionary: any;
 }
 
-export function OnThisPage({
-  headings,
-  activeId,
-  dictionary,
-}: OnThisPageProps) {
+export function OnThisPage({ headings, dictionary }: OnThisPageProps) {
+  const [activeId, setActiveId] = useState<string>("");
   const itemRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-20% 0px -80% 0px" },
+    );
+
+    headings.forEach((heading) => {
+      const element = document.getElementById(heading.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [headings]);
 
   useEffect(() => {
     if (activeId && itemRefs.current[activeId]) {

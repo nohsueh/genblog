@@ -12,7 +12,7 @@ import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface BlogPostProps {
   post: AnalysisResult;
@@ -24,27 +24,6 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   const [headings, setHeadings] = useState<
     Array<{ id: string; text: string; level: number }>
   >([]);
-  const [activeId, setActiveId] = useState<string>("");
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
-      },
-      { rootMargin: "-20% 0px -80% 0px" },
-    );
-
-    headings.forEach((heading) => {
-      const element = document.getElementById(heading.id);
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
-  }, [headings]);
 
   return (
     <div className="relative">
@@ -61,11 +40,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
               </Button>
             </SheetTrigger>
             <SheetContent side="right" className="w-[300px]">
-              <OnThisPage
-                headings={headings}
-                activeId={activeId}
-                dictionary={dictionary}
-              />
+              <OnThisPage headings={headings} dictionary={dictionary} />
               <LatestPostsSidebar lang={lang} dictionary={dictionary} />
             </SheetContent>
           </Sheet>
@@ -113,11 +88,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
 
       <div className="fixed right-8 top-24 hidden w-64 xl:block">
         <div>
-          <OnThisPage
-            headings={headings}
-            activeId={activeId}
-            dictionary={dictionary}
-          />
+          <OnThisPage headings={headings} dictionary={dictionary} />
           <LatestPostsSidebar lang={lang} dictionary={dictionary} />
         </div>
       </div>
