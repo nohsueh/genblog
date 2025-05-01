@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -14,7 +12,7 @@ import { formatDate, getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
 
 const POSTS_PER_PAGE = 12;
 
@@ -24,33 +22,20 @@ interface RelatedBlogListProps {
   currentId: string;
 }
 
-export function RelatedBlogList({
+export async function RelatedBlogList({
   lang,
   dictionary,
   currentId,
 }: RelatedBlogListProps) {
-  const [related, setRelated] = useState<AnalysisResult[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      try {
-        const [relatedRes] = await Promise.all([
-          relatedAnalyses(1, POSTS_PER_PAGE, currentId, {
-            group: getGroupName(),
-            language: lang,
-          }),
-        ]);
-        setRelated(relatedRes);
-      } catch (err) {
-        setRelated([]);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [currentId, lang]);
+  let related: AnalysisResult[];
+  try {
+    related = await relatedAnalyses(1, POSTS_PER_PAGE, currentId, {
+      group: getGroupName(),
+      language: lang,
+    });
+  } catch (error) {
+    related = [];
+  }
 
   function renderCard(post: AnalysisResult) {
     const contentLines = post.analysis?.content
@@ -112,24 +97,26 @@ export function RelatedBlogList({
           {dictionary.blog.relatedPosts}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {loading
-            ? Array.from({ length: 6 }).map((_, i) => (
-                <Card key={i} className="overflow-hidden">
-                  <CardHeader className="p-0">
-                    <Skeleton className="aspect-video" />
-                  </CardHeader>
-                  <CardContent className="p-4 pb-0">
-                    <Skeleton className="mb-2 h-6 w-full" />
-                    <Skeleton className="mb-1 h-4 w-full" />
-                    <Skeleton className="mb-1 h-4 w-full" />
-                    <Skeleton className="mb-2 h-4 w-3/4" />
-                  </CardContent>
-                  <CardFooter className="p-4 pt-0">
-                    <Skeleton className="h-3 w-1/2" />
-                  </CardFooter>
-                </Card>
-              ))
-            : related.map(renderCard)}
+          <Suspense
+            fallback={Array.from({ length: 6 }).map((_, i) => (
+              <Card key={i} className="overflow-hidden">
+                <CardHeader className="p-0">
+                  <Skeleton className="aspect-video" />
+                </CardHeader>
+                <CardContent className="p-4 pb-0">
+                  <Skeleton className="mb-2 h-6 w-full" />
+                  <Skeleton className="mb-1 h-4 w-full" />
+                  <Skeleton className="mb-1 h-4 w-full" />
+                  <Skeleton className="mb-2 h-4 w-3/4" />
+                </CardContent>
+                <CardFooter className="p-4 pt-0">
+                  <Skeleton className="h-3 w-1/2" />
+                </CardFooter>
+              </Card>
+            ))}
+          >
+            {related.map(renderCard)}
+          </Suspense>
         </div>
       </section>
     </div>

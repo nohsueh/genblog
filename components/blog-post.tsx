@@ -35,7 +35,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           }
         });
       },
-      { rootMargin: "-20% 0px -80% 0px" }
+      { rootMargin: "-20% 0px -80% 0px" },
     );
 
     headings.forEach((heading) => {

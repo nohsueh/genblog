@@ -29,6 +29,42 @@ export async function LatestPostsSidebar({
     latest = [];
   }
 
+  function renderCard(post: AnalysisResult) {
+    const contentLines = post.analysis?.content
+      ?.split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line !== "");
+    const title =
+      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
+    const image = post.analysis?.image;
+    return (
+      <Link href={`/${lang}/${post.analysisId}`}>
+        <Card
+          key={post.analysisId}
+          className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-md"
+        >
+          <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
+            <Image
+              src={
+                image ||
+                `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
+              }
+              unoptimized
+              alt={title}
+              fill
+              className="rounded object-cover"
+            />
+          </div>
+          <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
+            <CardTitle className="line-clamp-3 text-sm font-semibold">
+              {title}
+            </CardTitle>
+          </div>
+        </Card>
+      </Link>
+    );
+  }
+
   return (
     <aside className="sticky top-[40vh] mt-8 h-[40vh] overflow-y-auto xl:top-[calc(8rem+40vh)]">
       <h2 className="mb-2 text-base font-semibold">
@@ -52,45 +88,9 @@ export async function LatestPostsSidebar({
             </Card>
           ))}
         >
-          {latest.map((post) => renderCard(post, lang))}
+          {latest.map(renderCard)}
         </Suspense>
       </div>
     </aside>
-  );
-}
-
-function renderCard(post: AnalysisResult, lang: Locale) {
-  const contentLines = post.analysis?.content
-    ?.split("\n")
-    .map((line) => line.trim())
-    .filter((line) => line !== "");
-  const title =
-    contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
-  const image = post.analysis?.image;
-  return (
-    <Link href={`/${lang}/${post.analysisId}`}>
-      <Card
-        key={post.analysisId}
-        className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-md"
-      >
-        <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
-          <Image
-            src={
-              image ||
-              `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-            }
-            unoptimized
-            alt={title}
-            fill
-            className="rounded object-cover"
-          />
-        </div>
-        <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
-          <CardTitle className="line-clamp-3 text-sm font-semibold">
-            {title}
-          </CardTitle>
-        </div>
-      </Card>
-    </Link>
   );
 }
