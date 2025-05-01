@@ -1,4 +1,4 @@
-import Prism from "prismjs";
+import "prismjs";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
@@ -12,8 +12,6 @@ import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import { Plugin, unified } from "unified";
-
-Prism;
 
 export interface Heading {
   id: string;
