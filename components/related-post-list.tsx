@@ -14,6 +14,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const revalidate = 3600;
+
 const POSTS_PER_PAGE = 12;
 
 interface RelatedBlogListProps {
