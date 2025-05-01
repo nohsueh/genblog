@@ -1,11 +1,8 @@
-"use client";
-
 import Prism from "prismjs";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
 import "prismjs/themes/prism-okaidia.css";
-import { memo, useEffect, useState } from "react";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypePrism from "rehype-prism";
 import rehypeSanitize from "rehype-sanitize";
@@ -28,33 +25,6 @@ interface MarkdownProps {
   content: string;
   onHeadingsExtracted?: (headings: Heading[]) => void;
 }
-
-export const Markdown = memo(function Markdown({
-  content,
-  onHeadingsExtracted,
-}: MarkdownProps) {
-  const [markdown, setMarkdown] = useState("");
-
-  useEffect(() => {
-    const processMarkdown = async () => {
-      const { html, headings } = await markdownToHtml(content);
-      setMarkdown(html);
-
-      if (onHeadingsExtracted) {
-        onHeadingsExtracted(headings);
-      }
-    };
-
-    processMarkdown();
-  }, [content, onHeadingsExtracted]);
-
-  return (
-    <div
-      className="prose prose-sm prose-gray w-full max-w-none dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500 break-all"
-      dangerouslySetInnerHTML={{ __html: markdown }}
-    />
-  );
-});
 
 // Dynamic import Prism language
 const loadedLanguages: Record<string, boolean> = {};
@@ -135,3 +105,23 @@ async function markdownToHtml(markdown: string) {
     headings,
   };
 }
+
+export async function Markdown({
+  content,
+  onHeadingsExtracted,
+}: MarkdownProps) {
+  const { html, headings } = await markdownToHtml(content);
+
+  if (onHeadingsExtracted) {
+    onHeadingsExtracted(headings);
+  }
+
+  return (
+    <div
+      className="prose prose-sm prose-gray w-full max-w-none break-all dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
+export const revalidate = 60 * 60;
