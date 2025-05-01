@@ -6,6 +6,8 @@ import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getGroupName } from "@/lib/utils";
 
+export const revalidate = 3600;
+
 export default async function HomePage({
   params,
   searchParams,
