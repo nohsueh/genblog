@@ -6,7 +6,7 @@ import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getGroupName } from "@/lib/utils";
 
-export default async function AdminDashboardPage(props: {
+export default async function DashboardPage(props: {
   params: Promise<{ lang: Locale }>;
 }) {
   const params = await props.params;
