@@ -7,6 +7,8 @@ import type { Locale } from "@/lib/i18n-config";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+export const revalidate = 86400;
+
 export default async function BlogPage({
   params,
 }: {
