@@ -1,7 +1,5 @@
-"use client";
-
 import { LatestPostsSidebar } from "@/components/latest-posts-sidebar";
-import { Markdown } from "@/components/markdown";
+import { markdownToHtml } from "@/components/markdown";
 import { OnThisPage } from "@/components/on-this-page";
 import { RelatedBlogList } from "@/components/related-post-list";
 import { Button } from "@/components/ui/button";
@@ -12,7 +10,6 @@ import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 interface BlogPostProps {
   post: AnalysisResult;
@@ -21,9 +18,7 @@ interface BlogPostProps {
 }
 
 export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
-  const [headings, setHeadings] = useState<
-    Array<{ id: string; text: string; level: number }>
-  >([]);
+  const { html, headings } = markdownToHtml(post.analysis?.content || "");
 
   return (
     <div className="relative">
@@ -78,9 +73,9 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           </div>
 
           <div className="prose prose-gray max-w-none dark:prose-invert">
-            <Markdown
-              content={post.analysis?.content || ""}
-              onHeadingsExtracted={setHeadings}
+            <div
+              className="prose prose-sm prose-gray w-full max-w-none break-all dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
+              dangerouslySetInnerHTML={{ __html: html }}
             />
           </div>
         </div>

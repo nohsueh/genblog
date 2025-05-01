@@ -36,7 +36,7 @@ function loadPrismLanguage(lang: string) {
   }
 }
 
-function markdownToHtml(markdown: string) {
+export function markdownToHtml(markdown: string) {
   const headings: Heading[] = [];
 
   const extractHeadings: Plugin = () => {
