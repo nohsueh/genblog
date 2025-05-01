@@ -26,6 +26,8 @@ import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+const DEFAULT_NUM = 25;
+
 const ENGLISH_RESPONSE_PROMPT =
   "Regardless of the input language, please answer in English only.";
 const SPANISH_RESPONSE_PROMPT =
@@ -86,7 +88,6 @@ const CHINESE_PROMPT = `您是一位专业的SEO文案撰写者和点击率策�
   - 使用 ![alt](src "title") 语法自然地穿插图像。
   - 标题：自然包含长尾关键词，切勿使用诸如“解锁”、“增压”、“升级”、“释放”等浮夸的词语。
   - 语气与风格：引人入胜、生动活泼、趣味盎然、通俗易懂、权威性强、以读者为中心——在专业知识与清晰的对话之间取得平衡。`;
-const DEFAULT_NUM = 10;
 
 interface BlogCreatorProps {
   dictionary: any;
@@ -131,11 +132,8 @@ ${CHINESE_RESPONSE_PROMPT}`;
       break;
   }
 
-  const isDateRangeValid = (!startDate && !endDate) || (startDate && endDate);
-
   async function handleSearchSubmit(formData: FormData) {
     setIsLoading(true);
-
     try {
       // Add temperature to the form data
       formData.append("temperature", temperature[0].toString());
@@ -143,8 +141,10 @@ ${CHINESE_RESPONSE_PROMPT}`;
       const num = formData.get("num") || DEFAULT_NUM;
       formData.set("num", num.toString());
       // Add published date range if valid
-      if (startDate && endDate) {
+      if (startDate) {
         formData.append("startPublishedDate", startDate.toISOString());
+      }
+      if (endDate) {
         formData.append("endPublishedDate", endDate.toISOString());
       }
       // Add language to the form data
@@ -384,11 +384,7 @@ ${CHINESE_RESPONSE_PROMPT}`;
                   </div>
                 </div>
 
-                <Button
-                  type="submit"
-                  className="w-full"
-                  disabled={isLoading || !isDateRangeValid}
-                >
+                <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading
                     ? dictionary.admin.create.generating
                     : dictionary.admin.create.submit}

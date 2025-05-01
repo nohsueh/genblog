@@ -96,12 +96,8 @@ export async function analyzeSearch(formData: FormData) {
   const group = formData.get("group") as string;
   const language = formData.get("language") as string;
   const num = Number.parseInt(formData.get("num") as string);
-  const startPublishedDate = formData.get("startPublishedDate") as
-    | string
-    | undefined;
-  const endPublishedDate = formData.get("endPublishedDate") as
-    | string
-    | undefined;
+  const startPublishedDate = formData.get("startPublishedDate") as string;
+  const endPublishedDate = formData.get("endPublishedDate") as string;
   const temperature = Number.parseFloat(formData.get("temperature") as string);
 
   const metadata = { group, language };
@@ -110,8 +106,8 @@ export async function analyzeSearch(formData: FormData) {
     query,
     prompt,
     num,
-    startPublishedDate,
-    endPublishedDate,
+    startPublishedDate: startPublishedDate || undefined,
+    endPublishedDate: endPublishedDate || undefined,
     temperature,
     metadata,
   };
@@ -199,12 +195,14 @@ export async function updateAnalysis(formData: FormData) {
   const analysisId = formData.get("analysisId") as string;
   const content = formData.get("content") as string;
   const group = formData.get("group") as string;
+  const language = formData.get("language") as string;
 
   // Get the current analysis to preserve existing metadata
   const currentAnalysis = await getAnalysis(analysisId);
   const metadata = {
     ...currentAnalysis.metadata,
     group: group || undefined,
+    language: language || undefined,
   };
 
   const body = {
@@ -306,15 +304,15 @@ export async function relatedAnalyses(
 
 export async function getPublishedBlogs(
   pageNum = 1,
-  pageSize = 20,
+  pageSize = 10,
   group?: string,
   language?: string
 ): Promise<{ blogs: AnalysisResult[]; total: number }> {
   const metadata = { group, language };
 
-  const allBlogs = await listAnalyses(pageNum, pageSize, metadata);
+  const blogs = await listAnalyses(pageNum, pageSize, metadata);
   const total = await getTotalBlogs(metadata);
-  return { blogs: allBlogs, total };
+  return { blogs, total };
 }
 
 async function getTotalBlogs(metadata?: Record<string, any>): Promise<number> {

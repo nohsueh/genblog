@@ -43,16 +43,15 @@ import {
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getPaginationRange } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
+import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
-import { debounce } from "lodash";
-import React from "react";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 25;
 
 interface AdminDashboardProps {
   lang: Locale;
@@ -81,7 +80,11 @@ export function AdminDashboard({
         formData.append("content", post.analysis?.content || "");
         formData.append(
           "group",
-          post.metadata?.group === groupName ? "" : groupName,
+          post.metadata?.group === groupName ? "" : groupName
+        );
+        formData.append(
+          "language",
+          post.metadata?.language === lang ? "" : lang
         );
 
         const updatedPost = await updateAnalysis(formData);
@@ -89,15 +92,15 @@ export function AdminDashboard({
         // Update local state
         setPosts(
           posts.map((post) =>
-            post.analysisId === updatedPost.analysisId ? updatedPost : post,
-          ),
+            post.analysisId === updatedPost.analysisId ? updatedPost : post
+          )
         );
       } catch (error) {
         toast.error(dictionary.admin.edit.error);
         console.error("Failed to update post visibility:", error);
       }
     }, 500),
-    [groupName, posts, dictionary],
+    [groupName, posts, dictionary]
   );
 
   // 清理防抖函数
@@ -113,7 +116,12 @@ export function AdminDashboard({
         setLoading(true);
         // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const result = await getPublishedBlogs(currentPage, PAGE_SIZE, group);
+        const result = await getPublishedBlogs(
+          currentPage,
+          PAGE_SIZE,
+          group,
+          lang
+        );
         setPosts(result.blogs);
         setTotal(result.total);
       } catch (error) {
@@ -127,7 +135,7 @@ export function AdminDashboard({
   }, [groupName, lang, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
-    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleDelete = async (post: AnalysisResult) => {
@@ -204,15 +212,13 @@ export function AdminDashboard({
             <TableBody>
               {filteredPosts.map((post) => (
                 <TableRow key={post.analysisId}>
-                  <TableCell className="font-medium">
+                  <TableCell className="font-medium break-all">
                     {post.analysis?.title || ""}
                   </TableCell>
-                  <TableCell>
-                    {post.updatedAt
-                      ? formatDate(post.updatedAt, lang)
-                      : formatDate(post.createdAt, lang)}
+                  <TableCell className="text-nowrap">
+                    {formatDate(post.updatedAt, lang)}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-nowrap">
                     {post.metadata?.group ? (
                       <Badge variant="outline">{post.metadata.group}</Badge>
                     ) : (
@@ -222,11 +228,15 @@ export function AdminDashboard({
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Switch
-                        checked={post.metadata?.group === groupName}
+                        checked={
+                          post.metadata?.group === groupName &&
+                          post.metadata?.language == lang
+                        }
                         onCheckedChange={() => debouncedToggleVisibility(post)}
                       />
                       <Label>
-                        {post.metadata?.group === groupName
+                        {post.metadata?.group === groupName &&
+                        post.metadata?.language == lang
                           ? dictionary.admin.dashboard.visible
                           : dictionary.admin.dashboard.hidden}
                       </Label>
@@ -278,7 +288,7 @@ export function AdminDashboard({
                 <PaginationContent>
                   {getPaginationRange(
                     currentPage,
-                    Math.ceil(total / PAGE_SIZE),
+                    Math.ceil(total / PAGE_SIZE)
                   ).map((page, idx) =>
                     page === "..." ? (
                       <PaginationItem key={`ellipsis-${idx}`}>
@@ -294,7 +304,7 @@ export function AdminDashboard({
                           {page}
                         </PaginationLink>
                       </PaginationItem>
-                    ),
+                    )
                   )}
                 </PaginationContent>
               </Pagination>
