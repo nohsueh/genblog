@@ -87,7 +87,7 @@ async function BlogListContent({
                     <h3 className="mb-2 line-clamp-2">{title}</h3>
                   </CardTitle>
                   <CardDescription>
-                    <h4 className="mb-2 line-clamp-3 text-sm text-muted-foreground">
+                    <h4 className="mb-2 line-clamp-3 text-sm text-muted-foreground break-all">
                       {description}...
                     </h4>
                   </CardDescription>
