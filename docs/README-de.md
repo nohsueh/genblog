@@ -11,7 +11,7 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 - 📝 KI + Suchmaschine + Web-Crawler basierte Batch-Blog-Inhaltsgenerierung
 - 💻 Unterstützung für die Bereitstellung auf beliebigen Pfaden Ihrer Website
 - 🌐 Mehrsprachige Unterstützung (Englisch, Spanisch, Deutsch, Japanisch, Französisch, Chinesisch)
-- 🔍 SEO-Optimierung
+- 🔍 SEO-Optimierung, robots.txt, sitemap_index.xml, ads.txt usw.
 - 📱 Responsives Design, mobilfreundlich
 - 🎨 Moderne Benutzeroberfläche
 - 🔒 Sicheres Authentifizierungssystem

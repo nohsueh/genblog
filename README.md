@@ -11,7 +11,7 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 - 📝 AI + Search Engine + Web Crawler based batch blog content generation
 - 💻 Support for deployment to any path on your website
 - 🌐 Multilingual support (English, Spanish, German, Japanese, French, Chinese)
-- 🔍 SEO optimization
+- 🔍 SEO optimization, robots.txt, sitemap_index.xml, ads.txt, etc.
 - 📱 Responsive design, mobile-friendly
 - 🎨 Modern UI interface
 - 🔒 Secure authentication system
