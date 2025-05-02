@@ -55,8 +55,7 @@ export async function generateMetadata({
     " - " +
     process.env.NEXT_PUBLIC_APP_NAME;
   const description = contentLines?.[1];
-  const images =
-    post.analysis?.extras.imageLinks || "https://searchlysis.com/logo.svg";
+  const images = post.analysis?.image || "https://searchlysis.com/logo.svg";
 
   const canonicalUrl = `${getBaseUrl()}/${lang}/${id}`;
 

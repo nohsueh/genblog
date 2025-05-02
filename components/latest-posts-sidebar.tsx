@@ -37,7 +37,7 @@ export async function LatestPostsSidebar({
     const title =
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const image =
-      post.analysis?.extras.imageLinks?.[0] ||
+      post.analysis?.image ||
       "https://searchlysis.com/logo.svg";
 
     return (

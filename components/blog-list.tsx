@@ -62,7 +62,7 @@ async function BlogListContent({
             "";
           const description = contentLines?.[1];
           const image =
-            post.analysis?.extras.imageLinks?.[0] ||
+            post.analysis?.image ||
             "https://searchlysis.com/logo.svg";
           const author = post.analysis?.author;
           const updatedAt = post.updatedAt;
