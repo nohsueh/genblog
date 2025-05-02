@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminSession, getAnalysis } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
+import { getBaseUrl } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -42,7 +43,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ lang: Locale; id: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
+  const { id, lang } = await params;
   const post = await getAnalysis(id);
 
   const contentLines = post.analysis?.content
@@ -56,6 +57,8 @@ export async function generateMetadata({
   const description = contentLines?.[1];
   const images = post.analysis?.image;
 
+  const canonicalUrl = `${getBaseUrl()}/${lang}/${id}`;
+
   return {
     title,
     description,
@@ -68,6 +71,9 @@ export async function generateMetadata({
       title,
       description,
       images,
+    },
+    alternates: {
+      canonical: canonicalUrl,
     },
   };
 }
