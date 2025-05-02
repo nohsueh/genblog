@@ -30,26 +30,6 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
       }
     >
       <div className="relative">
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="fixed right-4 top-20 z-50 lg:hidden"
-            >
-              <TableOfContents className="h-4 w-4" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[300px]">
-            <OnThisPage headings={headings} dictionary={dictionary} />
-            <LatestPostsSidebar lang={lang} dictionary={dictionary} />
-          </SheetContent>
-        </Sheet>
-        <div className="fixed top-24 hidden w-60 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
-          <OnThisPage headings={headings} dictionary={dictionary} />
-          <LatestPostsSidebar lang={lang} dictionary={dictionary} />
-        </div>
-
         <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
           <article className="mx-auto max-w-4xl">
             {post.analysis?.image && (
@@ -96,6 +76,26 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             dictionary={dictionary}
             currentId={post.analysisId}
           />
+        </div>
+
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="fixed right-4 top-20 z-50 lg:hidden"
+            >
+              <TableOfContents className="h-4 w-4" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[300px]">
+            <OnThisPage headings={headings} dictionary={dictionary} />
+            <LatestPostsSidebar lang={lang} dictionary={dictionary} />
+          </SheetContent>
+        </Sheet>
+        <div className="fixed top-24 hidden w-60 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
+          <OnThisPage headings={headings} dictionary={dictionary} />
+          <LatestPostsSidebar lang={lang} dictionary={dictionary} />
         </div>
       </div>
     </Suspense>
