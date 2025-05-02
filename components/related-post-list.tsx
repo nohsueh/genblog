@@ -71,7 +71,7 @@ export async function RelatedBlogList({
           </CardHeader>
           <CardContent className="p-4 pb-0">
             <CardTitle className="mb-2 line-clamp-2">{title}</CardTitle>
-            <div className="mb-2 line-clamp-3 text-sm text-muted-foreground break-all">
+            <div className="mb-2 line-clamp-3 break-all text-sm text-muted-foreground">
               {description}...
             </div>
           </CardContent>
@@ -97,7 +97,7 @@ export async function RelatedBlogList({
         <h2 className="mb-4 text-xl font-bold">
           {dictionary.blog.relatedPosts}
         </h2>
-        <div className="grid sm:1 md:gap-2 lg:gap-4 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid sm:grid-cols-2 sm:gap-1 md:grid-cols-3 md:gap-2 lg:gap-4">
           <Suspense
             fallback={Array.from({ length: 6 }).map((_, i) => (
               <Card key={i} className="overflow-hidden">
