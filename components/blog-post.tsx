@@ -20,7 +20,8 @@ interface BlogPostProps {
 
 export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   const { html, headings } = markdownToHtml(post.analysis?.content || "");
-  const image = post.analysis?.extras.imageLinks?.[0] || post.analysis?.image;
+  const image =
+    post.analysis?.extras.imageLinks?.[0] || "https://searchlysis.com/logo.svg";
   const title = post.analysis?.title || "";
 
   return (

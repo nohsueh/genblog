@@ -47,8 +47,7 @@ export async function RelatedBlogList({
     const description = contentLines?.[1] || "";
     const image =
       post.analysis?.extras.imageLinks?.[0] ||
-      post.analysis?.image ||
-      `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`;
+      "https://searchlysis.com/logo.svg";
     const author = post.analysis?.author;
     const updatedAt = post.updatedAt;
 
