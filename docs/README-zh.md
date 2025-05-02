@@ -1,84 +1,111 @@
-# Blog Builder
+# GenBlog
 
-[English](../README.md)
+[English](../README.md) | [Español](README-es.md) | [Deutsch](README-de.md) | [日本語](README-ja.md) | [Français](README-fr.md)
 
-一个现代化的博客构建平台，使用 Next.js 15+ 构建，提供 AI 批量博客创作和管理功能。
+## 项目介绍
 
-## 特点
+GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语言内容管理。它提供了一个优雅的用户界面和强大的管理功能，让您可以轻松创建和管理博客内容。
 
-- 🚀 5分钟部署网站生成博客（通过 AI 读取你提供的搜索关键词或 URLs）
-- 💻 作为独立的博客网站，或者你网站的 /blog 路径
-- 📝 支持 Markdown 编辑
-- 🌐 国际化支持
-- 📱 移动端优化
+## 主要功能
+
+- 📝 基于 AI + 搜索引擎 + 爬虫的批量博客内容生成
+- 💻 支持部署到你网站的任意路径
+- 🌐 多语言支持（英语、西班牙语、德语、日语、法语、中文）
+- 🔍 SEO 优化
+- 📱 响应式设计，支持移动端
+- 🎨 现代化的 UI 界面
+- 🔒 安全的身份验证系统
+- 📊 博客分组管理
+- 🔄 实时预览和编辑
 
 ## 技术栈
 
-- **框架**: Next.js 15+
+- **前端框架**: Next.js 15
+- **UI 组件**: 
+  - Radix UI
+  - Tailwind CSS
+  - shadcn/ui
+- **内容处理**: 
+  - Markdown 支持
+  - Prism.js 代码高亮
+- **状态管理**: React Hooks
 - **样式**: Tailwind CSS
-- **UI 组件**: Shadcn UI
+- **国际化**: 内置多语言支持
 
-## 安装步骤
+## 快速开始
 
-1. 克隆仓库
+### 环境要求
 
-```bash
-git clone git@github.com:nohsueh/blog-builder.git
-cd blog-builder
-```
+- Node.js 18+ 
+- npm 或 yarn
+- [Vercel 账号](https://vercel.com)
+- [Searchlysis 账号](https://searchlysis.com)
 
-2. 安装依赖
+### Vercel 部署步骤
 
-```bash
-pnpm install
-```
+1. Fork 项目
+   - 访问 [GenBlog GitHub 仓库](https://github.com/nohsueh/genblog)
+   - 点击右上角的 "Fork" 按钮，将项目复制到您的 GitHub 账号
 
-3. 创建环境变量
+2. 导入到 Vercel
+   - 登录 [Vercel](https://vercel.com)
+   - 点击 "Add New..." 按钮
+   - 选择 "Project"
+   - 在 "Import Git Repository" 部分，选择您刚才 fork 的 GenBlog 仓库
+   - 点击 "Import"
 
-```properties
-SEARCHLYSIS_API_KEY="你的 Searchlysis API Key，可以在 https://searchlysis.com/key 获取，新用户前 100 篇免费"
-PASSWORD="你的博客管理密码，自定义"
-NEXT_PUBLIC_ROOT_DOMAIN="网站域名，如果你想为 example.com 的所有页面生成博客，这里填 example.com"
-```
+3. 配置项目
+   - 在项目配置页面，保持默认设置
+   - 点击 "Environment Variables" 添加以下环境变量：
 
-4. 启动开发服务器
+   ```env
+   # 必需配置
+   NEXT_PUBLIC_APP_NAME="您的应用名称"
+   NEXT_PUBLIC_ROOT_DOMAIN="您的域名"
+   SEARCHLYSIS_API_KEY="您的 Searchlysis API 密钥"
+   PASSWORD="您的管理员密码"
 
-```bash
-pnpm dev
-```
+   # 可选配置
+   NEXT_PUBLIC_BASE_PATH="/blog"  # 如果您的博客不是部署在根路径
+   NEXT_PUBLIC_APP_DESCRIPTION="您的应用描述"
+   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION="您的 Google 站点验证码"
+   NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT="您的 Google AdSense 账号"
+   ```
 
-## 使用方法
+4. 部署项目
+   - 点击 "Deploy" 按钮
+   - Vercel 将自动开始构建和部署过程
+   - 等待部署完成，通常需要 1-2 分钟
 
-1. 访问 `localhost:3000` 启动开发服务器
-2. 使用提供的 UI 组件进行博客创作
-3. 通过管理界面进行博客内容的编辑和发布
+5. 配置自定义域名（可选）
+   - 在 Vercel 项目仪表板中，点击 "Settings"
+   - 选择 "Domains"
+   - 添加您的自定义域名
+   - 按照 Vercel 的指示配置 DNS 记录
 
-## 项目结构
+6. 验证部署
+   - 访问您的 Vercel 部署 URL 或自定义域名
+   - 确认网站正常运行
+   - 测试管理员登录功能
+   - 检查多语言切换是否正常
 
-```
-blog-builder/
-├── app/                 # Next.js 应用路由
-├── components/         # React 组件
-├── hooks/             # 自定义 React Hooks
-├── lib/               # 工具函数和配置
-├── public/            # 静态资源
-└── styles/            # 全局样式
-└── types/            # TypeScript 类型定义
-```
+## 部署说明
 
-## 开发规范
+### 环境变量说明
 
-- 使用 TypeScript 进行类型检查
-- 遵循 ESLint 规范
-- 使用 Prettier 进行代码格式化
+- `NEXT_PUBLIC_APP_NAME`: 您的博客名称，将显示在浏览器标签和页面标题中
+- `NEXT_PUBLIC_ROOT_DOMAIN`: 您的网站域名，用于生成规范链接和社交媒体分享
+- `SEARCHLYSIS_API_KEY`: Searchlysis API 密钥，用于内容分析和生成
+- `PASSWORD`: 管理员登录密码
+- `NEXT_PUBLIC_BASE_PATH`: 如果您的博客不是部署在根路径，请设置此值
+- `NEXT_PUBLIC_APP_DESCRIPTION`: 网站描述，用于 SEO
+- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`: Google Search Console 验证码
+- `NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT`: Google AdSense 账号，用于显示广告
 
 ## 贡献指南
 
-1. Fork 仓库
-2. 创建新功能分支
-3. 提交更改
-4. 提交 Pull Request
+欢迎提交 Pull Request 或创建 Issue 来帮助改进项目。
 
 ## 许可证
 
-MIT License
+本项目采用 MIT 许可证 - 详见 [LICENSE](../LICENSE) 文件

@@ -11,7 +11,7 @@ export function SiteFooter() {
           </p>
           <div className="flex flex-row">
             <Link
-              href={"https://github.com/nohsueh/blog-builder"}
+              href={"https://github.com/nohsueh/genblog"}
               target="_blank"
             >
               <Image

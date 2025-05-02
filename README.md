@@ -1,85 +1,111 @@
-# Blog Builder
+# GenBlog
 
-[中文](docs/README-zh.md)
+[Español](docs/README-es.md) | [Deutsch](docs/README-de.md) | [日本語](docs/README-ja.md) | [Français](docs/README-fr.md) | [中文](docs/README-zh.md)
 
-A modern blog building platform built with Next.js 15+, providing powerful blog creation and management features.
+## Project Introduction
 
-## Features
+GenBlog is a modern blog system built with Next.js, supporting multilingual content management. It provides an elegant user interface and powerful management features, allowing you to easily create and manage blog content.
 
-- 🚀 Modern architecture based on Next.js 15+
-- 🎨 Responsive design with Tailwind CSS
-- 🛠️ Rich UI component library (Shadcn UI)
-- 📝 Markdown editing support
-- 🌐 Internationalization support
-- 📱 Mobile optimization
+## Key Features
+
+- 📝 AI + Search Engine + Web Crawler based batch blog content generation
+- 💻 Support for deployment to any path on your website
+- 🌐 Multilingual support (English, Spanish, German, Japanese, French, Chinese)
+- 🔍 SEO optimization
+- 📱 Responsive design, mobile-friendly
+- 🎨 Modern UI interface
+- 🔒 Secure authentication system
+- 📊 Blog group management
+- 🔄 Real-time preview and editing
 
 ## Tech Stack
 
-- **Framework**: Next.js 14+
+- **Frontend Framework**: Next.js 15
+- **UI Components**: 
+  - Radix UI
+  - Tailwind CSS
+  - shadcn/ui
+- **Content Processing**: 
+  - Markdown support
+  - Prism.js code highlighting
+- **State Management**: React Hooks
 - **Styling**: Tailwind CSS
-- **UI Components**: Radix UI
-- **State Management**: React Hook Form
-- **Date Handling**: date-fns
-- **Authentication**: JSON Web Token
+- **Internationalization**: Built-in multilingual support
 
-## Installation Steps
+## Quick Start
 
-1. Clone the repository
+### Requirements
 
-```bash
-git clone [your repository URL]
-cd blog-builder
-```
+- Node.js 18+ 
+- npm or yarn
+- [Vercel account](https://vercel.com)
+- [Searchlysis account](https://searchlysis.com)
 
-2. Install dependencies
+### Vercel Deployment Steps
 
-```bash
-pnpm install
-```
+1. Fork the project
+   - Visit [GenBlog GitHub repository](https://github.com/nohsueh/genblog)
+   - Click the "Fork" button in the top right to copy the project to your GitHub account
 
-3. Copy environment variables
+2. Import to Vercel
+   - Log in to [Vercel](https://vercel.com)
+   - Click the "Add New..." button
+   - Select "Project"
+   - In the "Import Git Repository" section, select your forked GenBlog repository
+   - Click "Import"
 
-```bash
-cp .env.example .env
-```
+3. Configure the project
+   - On the project configuration page, keep the default settings
+   - Click "Environment Variables" to add the following environment variables:
 
-4. Start development server
+   ```env
+   # Required configuration
+   NEXT_PUBLIC_APP_NAME="Your application name"
+   NEXT_PUBLIC_ROOT_DOMAIN="Your domain"
+   SEARCHLYSIS_API_KEY="Your searchlysis API key"
+   PASSWORD="Your admin password"
 
-```bash
-pnpm dev
-```
+   # Optional configuration
+   NEXT_PUBLIC_BASE_PATH="/blog"  # If your blog is not deployed at the root path
+   NEXT_PUBLIC_APP_DESCRIPTION="Your application description"
+   NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION="Your Google site verification code"
+   NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT="Your Google AdSense account"
+   ```
 
-## Usage
+4. Deploy the project
+   - Click the "Deploy" button
+   - Vercel will automatically start the build and deployment process
+   - Wait for deployment to complete, usually takes 1-2 minutes
 
-1. Access `http://localhost:3000` to start the development server
-2. Use the provided UI components for blog creation
-3. Edit and publish blog content through the management interface
+5. Configure custom domain (optional)
+   - In the Vercel project dashboard, click "Settings"
+   - Select "Domains"
+   - Add your custom domain
+   - Follow Vercel's instructions to configure DNS records
 
-## Project Structure
+6. Verify deployment
+   - Visit your Vercel deployment URL or custom domain
+   - Confirm the website is running properly
+   - Test the admin login functionality
+   - Check if language switching works correctly
 
-```
-blog-builder/
-├── app/                 # Next.js application routes
-├── components/         # React components
-├── hooks/             # Custom React Hooks
-├── lib/               # Utility functions and configurations
-├── public/            # Static resources
-└── styles/            # Global styles
-```
+## Deployment Guide
 
-## Development Standards
+### Environment Variables Guide
 
-- Use TypeScript for type checking
-- Follow ESLint standards
-- Use Prettier for code formatting
+- `NEXT_PUBLIC_APP_NAME`: Your blog name, displayed in browser tabs and page titles
+- `NEXT_PUBLIC_ROOT_DOMAIN`: Your website domain, used for generating canonical links and social media sharing
+- `SEARCHLYSIS_API_KEY`: Searchlysis API key for content analysis and generation
+- `PASSWORD`: Admin login password
+- `NEXT_PUBLIC_BASE_PATH`: Set this value if your blog is not deployed at the root path
+- `NEXT_PUBLIC_APP_DESCRIPTION`: Website description for SEO
+- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`: Google Search Console verification code
+- `NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT`: Google AdSense account for displaying ads
 
-## Contribution Guidelines
+## Contributing
 
-1. Fork the repository
-2. Create a new feature branch
-3. Submit changes
-4. Submit a Pull Request
+Pull requests and issue reports are welcome to help improve the project.
 
 ## License
 
-MIT License
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details 
