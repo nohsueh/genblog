@@ -4,9 +4,12 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminSession } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getGroupName } from "@/lib/utils";
+import { getBaseUrl, getGroupName } from "@/lib/utils";
+import { Metadata } from "next";
 
-export default async function Home({
+export const revalidate = 3600;
+
+export default async function HomePage({
   params,
   searchParams,
 }: {
@@ -42,4 +45,39 @@ export default async function Home({
       <SiteFooter />
     </div>
   );
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: Locale }>;
+}): Promise<Metadata> {
+  const { lang } = await params;
+  const dictionary = await getDictionary(lang);
+
+  const title = process.env.NEXT_PUBLIC_APP_NAME;
+  const description =
+    process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+    `${dictionary.home.title} - ${dictionary.home.description}`;
+  const images = "https://searchlysis.com/logo.svg";
+
+  const canonicalUrl = `${getBaseUrl()}/${lang}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images,
+    },
+    twitter: {
+      title,
+      description,
+      images,
+    },
+    alternates: {
+      canonical: canonicalUrl,
+    },
+  };
 }

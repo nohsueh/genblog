@@ -4,36 +4,30 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminSession, getAnalysis } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
+import { getBaseUrl } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 
-export const revalidate = 3600
+export const revalidate = 86400;
 
-export default async function BlogPage(props: {
+export default async function BlogPage({
+  params,
+}: {
   params: Promise<{ lang: Locale; id: string }>;
 }) {
-  const params = await props.params;
-  const { lang, id } = params;
-  const dictionary = await getDictionary(lang);
-  const isLoggedIn = await checkAdminSession();
-
   try {
-    const post = await getAnalysis(id);
+    const { lang, id } = await params;
+    const [dictionary, isLoggedIn, post] = await Promise.all([
+      getDictionary(lang),
+      checkAdminSession(),
+      getAnalysis(id),
+    ]);
 
     return (
       <div className="flex min-h-screen flex-col">
         <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
         <main className="container mb-48 flex-1 px-4 py-6">
-          <Suspense
-            fallback={
-              <div className="py-10 text-center">
-                <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
-              </div>
-            }
-          >
-            <BlogPost post={post} lang={lang} dictionary={dictionary} />
-          </Suspense>
+          <BlogPost post={post} lang={lang} dictionary={dictionary} />
         </main>
         <SiteFooter />
       </div>
@@ -49,7 +43,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ lang: Locale; id: string }>;
 }): Promise<Metadata> {
-  const { id } = await params;
+  const { id, lang } = await params;
   const post = await getAnalysis(id);
 
   const contentLines = post.analysis?.content
@@ -63,6 +57,8 @@ export async function generateMetadata({
   const description = contentLines?.[1];
   const images = post.analysis?.image;
 
+  const canonicalUrl = `${getBaseUrl()}/${lang}/${id}`;
+
   return {
     title,
     description,
@@ -75,6 +71,9 @@ export async function generateMetadata({
       title,
       description,
       images,
+    },
+    alternates: {
+      canonical: canonicalUrl,
     },
   };
 }
