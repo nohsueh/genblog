@@ -45,7 +45,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             <LatestPostsSidebar lang={lang} dictionary={dictionary} />
           </SheetContent>
         </Sheet>
-        <div className="fixed lg:right-4 2xl:left-[calc(50vw+32rem)] top-24 hidden w-60 lg:block">
+        <div className="fixed top-24 hidden w-60 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
           <OnThisPage headings={headings} dictionary={dictionary} />
           <LatestPostsSidebar lang={lang} dictionary={dictionary} />
         </div>
@@ -73,7 +73,7 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
                 target="_blank"
                 rel="noopener noreferrer nofollow"
               >
-                <span>{formatDate(post.createdAt, lang)}</span>
+                <span>{formatDate(post.updatedAt, lang)}</span>
                 {post.analysis?.author && (
                   <span>
                     {" "}

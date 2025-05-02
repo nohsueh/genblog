@@ -63,7 +63,7 @@ async function BlogListContent({
           const description = contentLines?.[1];
           const image = post.analysis?.image;
           const author = post.analysis?.author;
-          const createdAt = post.createdAt;
+          const updatedAt = post.updatedAt;
 
           return (
             <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
@@ -94,7 +94,7 @@ async function BlogListContent({
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
                   <div className="text-xs text-muted-foreground">
-                    {createdAt && <>{formatDate(createdAt, lang)}</>}
+                    {updatedAt && <>{formatDate(updatedAt, lang)}</>}
                     {author && (
                       <>
                         {" "}
