@@ -63,10 +63,6 @@ export async function RelatedBlogList({
                 alt={title}
                 fill
                 className="object-cover"
-                onError={(e) => {
-                  const img = e.target as HTMLImageElement;
-                  img.src = getDefaultImage();
-                }}
               />
             </div>
           </CardHeader>

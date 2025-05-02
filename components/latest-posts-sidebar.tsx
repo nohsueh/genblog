@@ -51,10 +51,6 @@ export async function LatestPostsSidebar({
               alt={title}
               fill
               className="rounded object-cover"
-              onError={(e) => {
-                const img = e.target as HTMLImageElement;
-                img.src = getDefaultImage();
-              }}
             />
           </div>
           <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
