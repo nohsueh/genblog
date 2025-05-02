@@ -20,6 +20,8 @@ interface BlogPostProps {
 
 export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   const { html, headings } = markdownToHtml(post.analysis?.content || "");
+  const image = post.analysis?.extras.imageLinks?.[0] || post.analysis?.image;
+  const title = post.analysis?.title || "";
 
   return (
     <Suspense
@@ -32,15 +34,12 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
       <div className="relative">
         <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
           <article className="mx-auto max-w-4xl">
-            {post.analysis?.image && (
+            {image && (
               <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
                 <Image
-                  src={
-                    post.analysis.image ||
-                    `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-                  }
+                  src={image}
                   unoptimized
-                  alt={post.analysis.title}
+                  alt={title}
                   fill
                   className="object-cover"
                 />

@@ -61,7 +61,10 @@ async function BlogListContent({
             post.analysis?.title ||
             "";
           const description = contentLines?.[1];
-          const image = post.analysis?.image;
+          const image =
+            post.analysis?.extras.imageLinks?.[0] ||
+            post.analysis?.image ||
+            `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`;
           const author = post.analysis?.author;
           const updatedAt = post.updatedAt;
 
@@ -71,10 +74,7 @@ async function BlogListContent({
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
                     <Image
-                      src={
-                        image ||
-                        `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-                      }
+                      src={image}
                       unoptimized
                       alt={title}
                       fill
