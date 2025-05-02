@@ -14,7 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
-const POSTS_PER_PAGE = 12;
+const POSTS_PER_PAGE = 24;
 
 interface RelatedBlogListProps {
   lang: Locale;
