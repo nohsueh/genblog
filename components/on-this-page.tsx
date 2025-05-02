@@ -44,22 +44,14 @@ export function OnThisPage({ headings, dictionary }: OnThisPageProps) {
         <div className="sticky top-8 h-[40vh] overflow-y-auto">
           <Suspense
             fallback={
-              <>
-                <h2 className="mb-4 text-lg font-semibold">
-                  {dictionary.blog.tableOfContents}
-                </h2>
-                <nav className="space-y-2">
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="mb-1 h-4 w-1/2" />
-                  <Skeleton className="mb-1 h-4 w-1/2" />
-                  <Skeleton className="mb-1 h-4 w-1/2" />
-                </nav>
-              </>
+              <nav className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="mb-1 h-4 w-1/2" />
+                <Skeleton className="mb-1 h-4 w-1/2" />
+                <Skeleton className="mb-1 h-4 w-1/2" />
+              </nav>
             }
           >
-            <h2 className="mb-4 text-lg font-semibold">
-              {dictionary.blog.tableOfContents}
-            </h2>
             <nav className="space-y-2">
               {headings.map((item) => (
                 <a
