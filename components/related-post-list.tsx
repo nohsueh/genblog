@@ -8,7 +8,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { relatedAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getGroupName } from "@/lib/utils";
+import { formatDate, getDefaultImage, getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -45,7 +45,7 @@ export async function RelatedBlogList({
     const title =
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const description = contentLines?.[1] || "";
-    const image = post.analysis?.image || "https://searchlysis.com/logo.svg";
+    const image = post.analysis?.image || getDefaultImage();
     const author = post.analysis?.author;
     const updatedAt = post.updatedAt;
 
@@ -63,6 +63,10 @@ export async function RelatedBlogList({
                 alt={title}
                 fill
                 className="object-cover"
+                onError={(e) => {
+                  const img = e.target as HTMLImageElement;
+                  img.src = getDefaultImage();
+                }}
               />
             </div>
           </CardHeader>

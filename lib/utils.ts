@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(
   dateString: string,
-  locale: Locale = i18n.defaultLocale,
+  locale: Locale = i18n.defaultLocale
 ) {
   const date = new Date(dateString);
 
@@ -22,7 +22,7 @@ export function formatDate(
 export function getPaginationRange(
   current: number,
   total: number,
-  siblingCount: number = 2,
+  siblingCount: number = 2
 ) {
   const totalPageNumbers = siblingCount * 2 + 5; // 首页+末页+当前+两侧+siblingCount
   if (total <= totalPageNumbers) {
@@ -54,4 +54,8 @@ export function getBaseUrl() {
   const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
   const BASE_URL = `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${BASE_PATH}`;
   return BASE_URL;
+}
+
+export function getDefaultImage() {
+  return "https://searchlysis.com/logo.svg";
 }

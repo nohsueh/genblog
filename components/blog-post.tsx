@@ -5,7 +5,7 @@ import { RelatedBlogList } from "@/components/related-post-list";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getDefaultImage } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Image from "next/image";
@@ -20,8 +20,7 @@ interface BlogPostProps {
 
 export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
   const { html, headings } = markdownToHtml(post.analysis?.content || "");
-  const image =
-    post.analysis?.image || "https://searchlysis.com/logo.svg";
+  const image = post.analysis?.image || getDefaultImage();
   const title = post.analysis?.title || "";
 
   return (
@@ -43,6 +42,10 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
                   alt={title}
                   fill
                   className="object-cover"
+                  onError={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    img.src = getDefaultImage();
+                  }}
                 />
               </div>
             )}

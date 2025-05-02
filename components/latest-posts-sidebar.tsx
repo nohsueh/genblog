@@ -2,7 +2,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getGroupName } from "@/lib/utils";
+import { getDefaultImage, getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,9 +36,7 @@ export async function LatestPostsSidebar({
       .filter((line) => line !== "");
     const title =
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
-    const image =
-      post.analysis?.image ||
-      "https://searchlysis.com/logo.svg";
+    const image = post.analysis?.image || getDefaultImage();
 
     return (
       <Link href={`/${lang}/${post.analysisId}`}>
@@ -53,6 +51,10 @@ export async function LatestPostsSidebar({
               alt={title}
               fill
               className="rounded object-cover"
+              onError={(e) => {
+                const img = e.target as HTMLImageElement;
+                img.src = getDefaultImage();
+              }}
             />
           </div>
           <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">

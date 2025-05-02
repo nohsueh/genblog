@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminSession, getAnalysis } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl } from "@/lib/utils";
+import { getBaseUrl, getDefaultImage } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -55,7 +55,7 @@ export async function generateMetadata({
     " - " +
     process.env.NEXT_PUBLIC_APP_NAME;
   const description = contentLines?.[1];
-  const images = post.analysis?.image || "https://searchlysis.com/logo.svg";
+  const images = post.analysis?.image || getDefaultImage();
 
   const canonicalUrl = `${getBaseUrl()}/${lang}/${id}`;
 

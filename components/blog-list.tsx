@@ -15,7 +15,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getPaginationRange } from "@/lib/utils";
+import { formatDate, getDefaultImage, getPaginationRange } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -41,7 +41,7 @@ async function BlogListContent({
     currentPage,
     PAGE_SIZE,
     group,
-    lang,
+    lang
   );
 
   return posts.length === 0 ? (
@@ -61,9 +61,7 @@ async function BlogListContent({
             post.analysis?.title ||
             "";
           const description = contentLines?.[1];
-          const image =
-            post.analysis?.image ||
-            "https://searchlysis.com/logo.svg";
+          const image = post.analysis?.image || getDefaultImage();
           const author = post.analysis?.author;
           const updatedAt = post.updatedAt;
 
@@ -78,6 +76,10 @@ async function BlogListContent({
                       alt={title}
                       fill
                       className="object-cover"
+                      onError={(e) => {
+                        const img = e.target as HTMLImageElement;
+                        img.src = getDefaultImage();
+                      }}
                     />
                   </div>
                 </CardHeader>
@@ -113,7 +115,7 @@ async function BlogListContent({
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE),
+                Math.ceil(total / PAGE_SIZE)
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
@@ -127,7 +129,7 @@ async function BlogListContent({
                       </PaginationLink>
                     </Link>
                   </PaginationItem>
-                ),
+                )
               )}
             </PaginationContent>
           </Pagination>
