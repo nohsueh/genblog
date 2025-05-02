@@ -67,7 +67,7 @@ async function BlogListContent({
 
           return (
             <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
-              <Card className="overflow-hidden transition-shadow hover:shadow-lg">
+              <Card className="focus:shadown-lg overflow-hidden transition-shadow hover:shadow-lg active:shadow-lg">
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
                     <Image

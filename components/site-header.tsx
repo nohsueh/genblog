@@ -46,14 +46,14 @@ export function SiteHeader({
           <nav className="hidden gap-6 md:flex">
             <Link
               href={`/${lang}`}
-              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
             >
               {dictionary.header.home}
             </Link>
             {isAdmin && (
               <Link
                 href={`/${lang}/console`}
-                className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
               >
                 {dictionary.header.dashboard}
               </Link>
@@ -83,14 +83,14 @@ export function SiteHeader({
                 <nav className="mt-4 flex flex-col gap-4">
                   <Link
                     href={`/${lang}`}
-                    className="text-sm font-medium transition-colors hover:text-primary"
+                    className="text-sm font-medium transition-colors hover:text-primary focus:text-primary active:text-primary"
                   >
                     {dictionary.header.home}
                   </Link>
                   {isAdmin && (
                     <Link
                       href={`/${lang}/console`}
-                      className="text-sm font-medium transition-colors hover:text-primary"
+                      className="text-sm font-medium transition-colors hover:text-primary focus:text-primary active:text-primary"
                     >
                       {dictionary.header.dashboard}
                     </Link>

@@ -53,7 +53,7 @@ export async function RelatedBlogList({
       <Link href={`/${lang}/${post.analysisId}`}>
         <Card
           key={post.analysisId}
-          className="flex flex-col overflow-hidden transition-shadow hover:shadow-lg"
+          className="flex flex-col overflow-hidden transition-shadow hover:shadow-lg focus:shadow-lg active:shadow-lg"
         >
           <CardHeader className="p-0">
             <div className="relative aspect-video overflow-hidden">

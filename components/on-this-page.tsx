@@ -63,7 +63,7 @@ export function OnThisPage({ headings, dictionary }: OnThisPageProps) {
                   className={`block text-sm transition-colors ${
                     activeId === item.id
                       ? "font-medium text-primary"
-                      : "text-muted-foreground hover:text-foreground"
+                      : "text-muted-foreground hover:text-foreground focus:text-foreground active:text-foreground"
                   }`}
                   style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
                   onClick={(e) => {
