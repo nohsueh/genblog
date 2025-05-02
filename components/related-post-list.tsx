@@ -45,9 +45,12 @@ export async function RelatedBlogList({
     const title =
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const description = contentLines?.[1] || "";
-    const image = post.analysis?.image;
+    const image =
+      post.analysis?.extras.imageLinks?.[0] ||
+      post.analysis?.image ||
+      `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`;
     const author = post.analysis?.author;
-    const createdAt = post.createdAt;
+    const updatedAt = post.updatedAt;
 
     return (
       <Link href={`/${lang}/${post.analysisId}`}>
@@ -58,10 +61,7 @@ export async function RelatedBlogList({
           <CardHeader className="p-0">
             <div className="relative aspect-video overflow-hidden">
               <Image
-                src={
-                  image ||
-                  `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`
-                }
+                src={image}
                 unoptimized
                 alt={title}
                 fill
@@ -77,7 +77,7 @@ export async function RelatedBlogList({
           </CardContent>
           <CardFooter className="p-4 pt-0">
             <div className="text-xs text-muted-foreground">
-              {createdAt && <>{formatDate(createdAt, lang)}</>}
+              {updatedAt && <>{formatDate(updatedAt, lang)}</>}
               {author && (
                 <>
                   {" "}
