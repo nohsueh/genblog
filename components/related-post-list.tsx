@@ -45,9 +45,7 @@ export async function RelatedBlogList({
     const title =
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
     const description = contentLines?.[1] || "";
-    const image =
-      post.analysis?.image ||
-      "https://searchlysis.com/logo.svg";
+    const image = post.analysis?.image || "https://searchlysis.com/logo.svg";
     const author = post.analysis?.author;
     const updatedAt = post.updatedAt;
 
