@@ -59,12 +59,14 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
 
   return (
     <div className="mx-auto max-w-4xl">
-      <h1 className="mb-6 text-3xl font-bold">{dictionary.admin.edit.title}</h1>
-
       <Card>
         <CardHeader>
-          <CardTitle>{post.analysis?.title}</CardTitle>
-          <CardDescription>{post.analysis?.url}</CardDescription>
+          <CardTitle>
+            <h1>{post.analysis?.title}</h1>
+          </CardTitle>
+          <CardDescription>
+            <h2>{post.analysis?.url}</h2>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <form action={handleSubmit} className="space-y-6">

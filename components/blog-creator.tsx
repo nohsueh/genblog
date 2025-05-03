@@ -210,15 +210,13 @@ ${CHINESE_RESPONSE_PROMPT}`;
 
   return (
     <div className="mx-auto max-w-3xl">
-      <h1 className="mb-6 text-3xl font-bold">
-        {dictionary.admin.create.title}
-      </h1>
-
       <Card>
         <CardHeader>
-          <CardTitle>{dictionary.admin.create.title}</CardTitle>
+          <CardTitle>
+            <h1>{dictionary.admin.create.title}</h1>
+          </CardTitle>
           <CardDescription>
-            {dictionary.admin.create.description}
+            <h2>{dictionary.admin.create.description}</h2>
           </CardDescription>
         </CardHeader>
         <CardContent>
