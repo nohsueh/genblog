@@ -21,11 +21,11 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
 ## 技術スタック
 
 - **フロントエンドフレームワーク**: Next.js 15
-- **UIコンポーネント**: 
+- **UIコンポーネント**:
   - Radix UI
   - Tailwind CSS
   - shadcn/ui
-- **コンテンツ処理**: 
+- **コンテンツ処理**:
   - Markdownサポート
   - Prism.jsコードハイライト
 - **状態管理**: React Hooks
@@ -36,7 +36,7 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
 
 ### 必要条件
 
-- Node.js 18+ 
+- Node.js 18+
 - npmまたはyarn
 - [Vercelアカウント](https://vercel.com)
 - [Searchlysisアカウント](https://searchlysis.com)
@@ -44,10 +44,12 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
 ### Vercelデプロイ手順
 
 1. プロジェクトのフォーク
+
    - [GenBlog GitHubリポジトリ](https://github.com/nohsueh/genblog)にアクセス
    - 右上の「Fork」ボタンをクリックして、プロジェクトをGitHubアカウントにコピー
 
 2. Vercelへのインポート
+
    - [Vercel](https://vercel.com)にログイン
    - 「Add New...」ボタンをクリック
    - 「Project」を選択
@@ -55,6 +57,7 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
    - 「Import」をクリック
 
 3. プロジェクトの設定
+
    - プロジェクト設定ページで、デフォルト設定を維持
    - 「Environment Variables」をクリックして、以下の環境変数を追加：
 
@@ -73,21 +76,49 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
    ```
 
 4. プロジェクトのデプロイ
+
    - 「Deploy」ボタンをクリック
    - Vercelが自動的にビルドとデプロイプロセスを開始
    - デプロイの完了を待機（通常1-2分）
 
 5. カスタムドメインの設定（オプション）
+
    - Vercelプロジェクトダッシュボードで「Settings」をクリック
    - 「Domains」を選択
    - カスタムドメインを追加
    - Vercelの指示に従ってDNSレコードを設定
 
 6. デプロイの確認
+
    - VercelデプロイURLまたはカスタムドメインにアクセス
    - ウェブサイトが正常に動作することを確認
    - 管理者ログイン機能をテスト
    - 言語切り替えが正常に機能することを確認
+
+7. /subpath サブパスでブログをホストします（例として Next.js を使用）
+   - `next.config.ts` にリバースプロキシを追加します
+
+```ts next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/blog",
+        destination: "https://yoursubdomain.vercel.app/blog",
+      },
+      {
+        source: "/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
 
 ## デプロイガイド
 
@@ -108,4 +139,4 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
 
 ## ライセンス
 
-このプロジェクトはMITライセンスの下で提供されています - 詳細は[LICENSE](../LICENSE)ファイルを参照してください 
+このプロジェクトはMITライセンスの下で提供されています - 詳細は[LICENSE](../LICENSE)ファイルを参照してください
