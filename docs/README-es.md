@@ -21,11 +21,11 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
 ## Stack Tecnológico
 
 - **Framework Frontend**: Next.js 15
-- **Componentes UI**: 
+- **Componentes UI**:
   - Radix UI
   - Tailwind CSS
   - shadcn/ui
-- **Procesamiento de Contenido**: 
+- **Procesamiento de Contenido**:
   - Soporte Markdown
   - Resaltado de código con Prism.js
 - **Gestión de Estado**: React Hooks
@@ -36,7 +36,7 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
 
 ### Requisitos
 
-- Node.js 18+ 
+- Node.js 18+
 - npm o yarn
 - [Cuenta de Vercel](https://vercel.com)
 - [Cuenta de Searchlysis](https://searchlysis.com)
@@ -44,10 +44,12 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
 ### Pasos para Despliegue en Vercel
 
 1. Hacer fork del proyecto
+
    - Visite el [repositorio GitHub de GenBlog](https://github.com/nohsueh/genblog)
    - Haga clic en el botón "Fork" en la esquina superior derecha para copiar el proyecto a su cuenta de GitHub
 
 2. Importar a Vercel
+
    - Inicie sesión en [Vercel](https://vercel.com)
    - Haga clic en el botón "Add New..."
    - Seleccione "Project"
@@ -55,6 +57,7 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
    - Haga clic en "Import"
 
 3. Configurar el proyecto
+
    - En la página de configuración del proyecto, mantenga la configuración predeterminada
    - Haga clic en "Environment Variables" para agregar las siguientes variables de entorno:
 
@@ -73,21 +76,49 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
    ```
 
 4. Desplegar el proyecto
+
    - Haga clic en el botón "Deploy"
    - Vercel comenzará automáticamente el proceso de construcción y despliegue
    - Espere a que se complete el despliegue, generalmente toma 1-2 minutos
 
 5. Configurar dominio personalizado (opcional)
+
    - En el panel de control del proyecto Vercel, haga clic en "Settings"
    - Seleccione "Domains"
    - Agregue su dominio personalizado
    - Siga las instrucciones de Vercel para configurar los registros DNS
 
 6. Verificar el despliegue
+
    - Visite su URL de despliegue de Vercel o dominio personalizado
    - Confirme que el sitio web funciona correctamente
    - Pruebe la funcionalidad de inicio de sesión de administrador (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Verifique que el cambio de idioma funcione correctamente
+
+7. Alojar un blog en la subruta /subpath (usando Next.js como ejemplo)
+   - Agregar un proxy inverso en `next.config.ts`
+
+```ts next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/blog",
+        destination: "https://yoursubdomain.vercel.app/blog",
+      },
+      {
+        source: "/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
 
 ## Guía de Despliegue
 
@@ -108,4 +139,4 @@ Se aceptan pull requests y reportes de problemas para ayudar a mejorar el proyec
 
 ## Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](../LICENSE) para más detalles 
+Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](../LICENSE) para más detalles

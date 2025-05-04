@@ -21,11 +21,11 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 ## Tech Stack
 
 - **Frontend Framework**: Next.js 15
-- **UI Components**: 
+- **UI Components**:
   - Radix UI
   - Tailwind CSS
   - shadcn/ui
-- **Content Processing**: 
+- **Content Processing**:
   - Markdown support
   - Prism.js code highlighting
 - **State Management**: React Hooks
@@ -36,7 +36,7 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 
 ### Requirements
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - [Vercel account](https://vercel.com)
 - [Searchlysis account](https://searchlysis.com)
@@ -44,10 +44,12 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 ### Vercel Deployment Steps
 
 1. Fork the project
+
    - Visit [GenBlog GitHub repository](https://github.com/nohsueh/genblog)
    - Click the "Fork" button in the top right to copy the project to your GitHub account
 
 2. Import to Vercel
+
    - Log in to [Vercel](https://vercel.com)
    - Click the "Add New..." button
    - Select "Project"
@@ -55,6 +57,7 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
    - Click "Import"
 
 3. Configure the project
+
    - On the project configuration page, keep the default settings
    - Click "Environment Variables" to add the following environment variables:
 
@@ -73,21 +76,49 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
    ```
 
 4. Deploy the project
+
    - Click the "Deploy" button
    - Vercel will automatically start the build and deployment process
    - Wait for deployment to complete, usually takes 1-2 minutes
 
 5. Configure custom domain (optional)
+
    - In the Vercel project dashboard, click "Settings"
    - Select "Domains"
    - Add your custom domain
    - Follow Vercel's instructions to configure DNS records
 
 6. Verify deployment
+
    - Visit your Vercel deployment URL or custom domain
    - Confirm the website is running properly
    - Test the admin login functionality (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Check if language switching works correctly
+
+7. Host a blog on the /subpath subpath (using Next.js as an example)
+   - Add a reverse proxy in `next.config.ts`
+
+```ts next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/blog",
+        destination: "https://yoursubdomain.vercel.app/blog",
+      },
+      {
+        source: "/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
 
 ## Deployment Guide
 
@@ -108,4 +139,4 @@ Pull requests and issue reports are welcome to help improve the project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details 
+This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details

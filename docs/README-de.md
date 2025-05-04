@@ -21,11 +21,11 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 ## Technologie-Stack
 
 - **Frontend-Framework**: Next.js 15
-- **UI-Komponenten**: 
+- **UI-Komponenten**:
   - Radix UI
   - Tailwind CSS
   - shadcn/ui
-- **Inhaltsverarbeitung**: 
+- **Inhaltsverarbeitung**:
   - Markdown-Unterstützung
   - Prism.js Code-Hervorhebung
 - **Zustandsverwaltung**: React Hooks
@@ -36,7 +36,7 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 
 ### Anforderungen
 
-- Node.js 18+ 
+- Node.js 18+
 - npm oder yarn
 - [Vercel-Konto](https://vercel.com)
 - [Searchlysis-Konto](https://searchlysis.com)
@@ -44,10 +44,12 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 ### Vercel-Bereitstellungsschritte
 
 1. Projekt forken
+
    - Besuchen Sie das [GenBlog GitHub-Repository](https://github.com/nohsueh/genblog)
    - Klicken Sie auf die Schaltfläche "Fork" oben rechts, um das Projekt in Ihr GitHub-Konto zu kopieren
 
 2. In Vercel importieren
+
    - Melden Sie sich bei [Vercel](https://vercel.com) an
    - Klicken Sie auf die Schaltfläche "Add New..."
    - Wählen Sie "Project"
@@ -55,6 +57,7 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
    - Klicken Sie auf "Import"
 
 3. Projekt konfigurieren
+
    - Behalten Sie auf der Projektkonfigurationsseite die Standardeinstellungen bei
    - Klicken Sie auf "Environment Variables", um die folgenden Umgebungsvariablen hinzuzufügen:
 
@@ -73,21 +76,49 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
    ```
 
 4. Projekt bereitstellen
+
    - Klicken Sie auf die Schaltfläche "Deploy"
    - Vercel startet automatisch den Build- und Bereitstellungsprozess
    - Warten Sie auf den Abschluss der Bereitstellung, normalerweise 1-2 Minuten
 
 5. Benutzerdefinierte Domain konfigurieren (optional)
+
    - Klicken Sie im Vercel-Projektdashboard auf "Settings"
    - Wählen Sie "Domains"
    - Fügen Sie Ihre benutzerdefinierte Domain hinzu
    - Folgen Sie den Anweisungen von Vercel zur Konfiguration der DNS-Einträge
 
 6. Bereitstellung überprüfen
+
    - Besuchen Sie Ihre Vercel-Bereitstellungs-URL oder benutzerdefinierte Domain
    - Stellen Sie sicher, dass die Website ordnungsgemäß funktioniert
    - Testen Sie die Administrator-Anmeldefunktion (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Überprüfen Sie, ob der Sprachwechsel korrekt funktioniert
+
+7. Hosten Sie einen Blog im Unterpfad /subpath (Beispiel: Next.js).
+   - Fügen Sie einen Reverse-Proxy in `next.config.ts` hinzu.
+
+```ts next.config.ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  async rewrites() {
+    return [
+      {
+        source: "/blog",
+        destination: "https://yoursubdomain.vercel.app/blog",
+      },
+      {
+        source: "/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+      },
+    ];
+  },
+};
+
+export default nextConfig;
+```
 
 ## Bereitstellungshandbuch
 
@@ -108,4 +139,4 @@ Pull-Requests und Problemberichte sind willkommen, um das Projekt zu verbessern.
 
 ## Lizenz
 
-Dieses Projekt ist unter der MIT-Lizenz lizenziert - siehe die [LICENSE](../LICENSE)-Datei für Details 
+Dieses Projekt ist unter der MIT-Lizenz lizenziert - siehe die [LICENSE](../LICENSE)-Datei für Details
