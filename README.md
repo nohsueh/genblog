@@ -86,7 +86,7 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 6. Verify deployment
    - Visit your Vercel deployment URL or custom domain
    - Confirm the website is running properly
-   - Test the admin login functionality
+   - Test the admin login functionality (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Check if language switching works correctly
 
 ## Deployment Guide

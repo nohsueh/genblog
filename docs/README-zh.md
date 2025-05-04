@@ -21,11 +21,11 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
 ## 技术栈
 
 - **前端框架**: Next.js 15
-- **UI 组件**: 
+- **UI 组件**:
   - Radix UI
   - Tailwind CSS
   - shadcn/ui
-- **内容处理**: 
+- **内容处理**:
   - Markdown 支持
   - Prism.js 代码高亮
 - **状态管理**: React Hooks
@@ -36,7 +36,7 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
 
 ### 环境要求
 
-- Node.js 18+ 
+- Node.js 18+
 - npm 或 yarn
 - [Vercel 账号](https://vercel.com)
 - [Searchlysis 账号](https://searchlysis.com)
@@ -44,10 +44,12 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
 ### Vercel 部署步骤
 
 1. Fork 项目
+
    - 访问 [GenBlog GitHub 仓库](https://github.com/nohsueh/genblog)
    - 点击右上角的 "Fork" 按钮，将项目复制到您的 GitHub 账号
 
 2. 导入到 Vercel
+
    - 登录 [Vercel](https://vercel.com)
    - 点击 "Add New..." 按钮
    - 选择 "Project"
@@ -55,6 +57,7 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
    - 点击 "Import"
 
 3. 配置项目
+
    - 在项目配置页面，保持默认设置
    - 点击 "Environment Variables" 添加以下环境变量：
 
@@ -73,11 +76,13 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
    ```
 
 4. 部署项目
+
    - 点击 "Deploy" 按钮
    - Vercel 将自动开始构建和部署过程
    - 等待部署完成，通常需要 1-2 分钟
 
 5. 配置自定义域名（可选）
+
    - 在 Vercel 项目仪表板中，点击 "Settings"
    - 选择 "Domains"
    - 添加您的自定义域名
@@ -86,7 +91,7 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
 6. 验证部署
    - 访问您的 Vercel 部署 URL 或自定义域名
    - 确认网站正常运行
-   - 测试管理员登录功能
+   - 测试管理员登录功能 (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - 检查多语言切换是否正常
 
 ## 部署说明

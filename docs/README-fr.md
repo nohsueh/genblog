@@ -86,7 +86,7 @@ GenBlog est un système de blog moderne construit avec Next.js, prenant en charg
 6. Vérification du déploiement
    - Visitez votre URL de déploiement Vercel ou votre domaine personnalisé
    - Confirmez que le site web fonctionne correctement
-   - Testez la fonctionnalité de connexion administrateur
+   - Testez la fonctionnalité de connexion administrateur (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Vérifiez que le changement de langue fonctionne correctement
 
 ## Guide de Déploiement

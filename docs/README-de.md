@@ -86,7 +86,7 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 6. Bereitstellung überprüfen
    - Besuchen Sie Ihre Vercel-Bereitstellungs-URL oder benutzerdefinierte Domain
    - Stellen Sie sicher, dass die Website ordnungsgemäß funktioniert
-   - Testen Sie die Administrator-Anmeldefunktion
+   - Testen Sie die Administrator-Anmeldefunktion (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Überprüfen Sie, ob der Sprachwechsel korrekt funktioniert
 
 ## Bereitstellungshandbuch

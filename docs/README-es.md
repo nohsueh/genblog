@@ -86,7 +86,7 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
 6. Verificar el despliegue
    - Visite su URL de despliegue de Vercel o dominio personalizado
    - Confirme que el sitio web funciona correctamente
-   - Pruebe la funcionalidad de inicio de sesión de administrador
+   - Pruebe la funcionalidad de inicio de sesión de administrador (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Verifique que el cambio de idioma funcione correctamente
 
 ## Guía de Despliegue
