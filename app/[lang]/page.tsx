@@ -24,7 +24,7 @@ export default async function HomePage({
     <div className="flex min-h-screen flex-col">
       <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
       <main className="container flex-1 px-4 py-6">
-        <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-16">
+        <section className="mb-8 mt-4 space-y-6 md:mb-12 md:mt-8 lg:mb-16 lg:mt-12">
           <div className="flex max-w-[980px] flex-col items-start gap-2">
             <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
               {dictionary.home.title}
