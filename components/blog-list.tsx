@@ -67,7 +67,7 @@ async function BlogListContent({
 
           return (
             <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
-              <Card className="border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
+              <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
                     <Image
