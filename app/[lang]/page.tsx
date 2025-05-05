@@ -61,7 +61,7 @@ export async function generateMetadata({
     `${dictionary.home.title} - ${dictionary.home.description}`;
   const images = getDefaultImage();
 
-  const canonicalUrl = `${getBaseUrl()}/${lang}`;
+  const canonical = `${getBaseUrl()}/${lang}`;
 
   return {
     title,
@@ -77,7 +77,7 @@ export async function generateMetadata({
       images,
     },
     alternates: {
-      canonical: canonicalUrl,
+      canonical,
     },
   };
 }
