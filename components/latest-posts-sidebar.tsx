@@ -42,7 +42,7 @@ export async function LatestPostsSidebar({
       <Link href={`/${lang}/${post.analysisId}`}>
         <Card
           key={post.analysisId}
-          className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 transition-shadow hover:shadow-md focus:shadow-md active:shadow-md"
+          className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"
         >
           <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
             <Image
