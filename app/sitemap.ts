@@ -23,7 +23,6 @@ export default async function sitemap({
   return [
     {
       url: `${getBaseUrl()}/${id}`,
-      lastModified: CURRENT_DATE,
     },
     ...analyses.map((analysis) => ({
       url: `${getBaseUrl()}/${id}/${analysis.analysisId}`,
