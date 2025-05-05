@@ -36,8 +36,6 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
 
 ### Requisitos
 
-- Node.js 18+
-- npm o yarn
 - [Cuenta de Vercel](https://vercel.com)
 - [Cuenta de Searchlysis](https://searchlysis.com)
 
@@ -69,7 +67,7 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
    PASSWORD="Su contraseña de administrador"
 
    # Configuración opcional
-   NEXT_PUBLIC_BASE_PATH="/blog"  # Si su blog no está implementado en la ruta raíz
+   NEXT_PUBLIC_BASE_PATH="/path/to/your/blog"  # Si su blog no está implementado en la ruta raíz
    NEXT_PUBLIC_APP_DESCRIPTION="Descripción de su aplicación"
    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION="Su código de verificación de Google"
    NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT="Su cuenta de Google AdSense"
@@ -92,10 +90,10 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
 
    - Visite su URL de despliegue de Vercel o dominio personalizado
    - Confirme que el sitio web funciona correctamente
-   - Pruebe la funcionalidad de inicio de sesión de administrador (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
+   - Pruebe la funcionalidad de inicio de sesión de administrador (yourdomain.com/path/to/your/blog/[en | es | de | ja | fr | zh]/console)
    - Verifique que el cambio de idioma funcione correctamente
 
-7. Alojar un blog en la subruta /subpath (usando Next.js como ejemplo)
+7. Alojar un blog en la subruta /path/to/your/blog (usando Next.js como ejemplo)
    - Agregar un proxy inverso en `next.config.ts`
 
 ```ts next.config.ts
@@ -106,12 +104,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/blog",
-        destination: "https://yoursubdomain.vercel.app/blog",
+        source: "/path/to/your/blog",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog",
       },
       {
-        source: "/blog/:path*",
-        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+        source: "/path/to/your/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
       },
     ];
   },

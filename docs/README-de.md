@@ -36,8 +36,6 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 
 ### Anforderungen
 
-- Node.js 18+
-- npm oder yarn
 - [Vercel-Konto](https://vercel.com)
 - [Searchlysis-Konto](https://searchlysis.com)
 
@@ -69,7 +67,7 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
    PASSWORD="Ihr Administrator-Passwort"
 
    # Optionale Konfiguration
-   NEXT_PUBLIC_BASE_PATH="/blog"  # Wenn Ihr Blog nicht im Root-Pfad bereitgestellt wird
+   NEXT_PUBLIC_BASE_PATH="/path/to/your/blog"  # Wenn Ihr Blog nicht im Root-Pfad bereitgestellt wird
    NEXT_PUBLIC_APP_DESCRIPTION="Ihre Anwendungsbeschreibung"
    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION="Ihr Google-Site-Verifizierungscode"
    NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT="Ihr Google AdSense-Konto"
@@ -92,10 +90,10 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 
    - Besuchen Sie Ihre Vercel-Bereitstellungs-URL oder benutzerdefinierte Domain
    - Stellen Sie sicher, dass die Website ordnungsgemäß funktioniert
-   - Testen Sie die Administrator-Anmeldefunktion (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
+   - Testen Sie die Administrator-Anmeldefunktion (yourdomain.com/path/to/your/blog/[en | es | de | ja | fr | zh]/console)
    - Überprüfen Sie, ob der Sprachwechsel korrekt funktioniert
 
-7. Hosten Sie einen Blog im Unterpfad /subpath (Beispiel: Next.js).
+7. Hosten Sie einen Blog im Unterpfad /path/to/your/blog (Beispiel: Next.js).
    - Fügen Sie einen Reverse-Proxy in `next.config.ts` hinzu.
 
 ```ts next.config.ts
@@ -106,12 +104,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/blog",
-        destination: "https://yoursubdomain.vercel.app/blog",
+        source: "/path/to/your/blog",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog",
       },
       {
-        source: "/blog/:path*",
-        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+        source: "/path/to/your/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
       },
     ];
   },

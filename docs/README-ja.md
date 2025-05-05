@@ -36,8 +36,6 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
 
 ### 必要条件
 
-- Node.js 18+
-- npmまたはyarn
 - [Vercelアカウント](https://vercel.com)
 - [Searchlysisアカウント](https://searchlysis.com)
 
@@ -69,7 +67,7 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
    PASSWORD="管理者パスワード"
 
    # オプション設定
-   NEXT_PUBLIC_BASE_PATH="/blog"  # ブログがルートパスにデプロイされていない場合
+   NEXT_PUBLIC_BASE_PATH="/path/to/your/blog"  # ブログがルートパスにデプロイされていない場合
    NEXT_PUBLIC_APP_DESCRIPTION="アプリケーションの説明"
    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION="Googleサイト認証コード"
    NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT="Google AdSenseアカウント"
@@ -92,10 +90,10 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
 
    - VercelデプロイURLまたはカスタムドメインにアクセス
    - ウェブサイトが正常に動作することを確認
-   - 管理者ログイン機能をテスト (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
+   - 管理者ログイン機能をテスト (yourdomain.com/path/to/your/blog/[en | es | de | ja | fr | zh]/console)
    - 言語切り替えが正常に機能することを確認
 
-7. /subpath サブパスでブログをホストします（例として Next.js を使用）
+7. /path/to/your/blog サブパスでブログをホストします（例として Next.js を使用）
    - `next.config.ts` にリバースプロキシを追加します
 
 ```ts next.config.ts
@@ -106,12 +104,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/blog",
-        destination: "https://yoursubdomain.vercel.app/blog",
+        source: "/path/to/your/blog",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog",
       },
       {
-        source: "/blog/:path*",
-        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+        source: "/path/to/your/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
       },
     ];
   },

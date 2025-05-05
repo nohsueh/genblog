@@ -36,8 +36,6 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 
 ### Requirements
 
-- Node.js 18+
-- npm or yarn
 - [Vercel account](https://vercel.com)
 - [Searchlysis account](https://searchlysis.com)
 
@@ -69,7 +67,7 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
    PASSWORD="Your admin password"
 
    # Optional configuration
-   NEXT_PUBLIC_BASE_PATH="/blog"  # If your blog is not deployed at the root path
+   NEXT_PUBLIC_BASE_PATH="/path/to/your/blog"  # If your blog is not deployed at the root path
    NEXT_PUBLIC_APP_DESCRIPTION="Your application description"
    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION="Your Google site verification code"
    NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT="Your Google AdSense account"
@@ -92,10 +90,10 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 
    - Visit your Vercel deployment URL or custom domain
    - Confirm the website is running properly
-   - Test the admin login functionality (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
+   - Test the admin login functionality (yourdomain.com/path/to/your/blog/[en | es | de | ja | fr | zh]/console)
    - Check if language switching works correctly
 
-7. Host a blog on the /subpath subpath (using Next.js as an example)
+7. Host a blog on the /path/to/your/blog subpath (using Next.js as an example)
    - Add a reverse proxy in `next.config.ts`
 
 ```ts next.config.ts
@@ -106,12 +104,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/blog",
-        destination: "https://yoursubdomain.vercel.app/blog",
+        source: "/path/to/your/blog",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog",
       },
       {
-        source: "/blog/:path*",
-        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+        source: "/path/to/your/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
       },
     ];
   },

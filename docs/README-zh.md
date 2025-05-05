@@ -36,8 +36,6 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
 
 ### 环境要求
 
-- Node.js 18+
-- npm 或 yarn
 - [Vercel 账号](https://vercel.com)
 - [Searchlysis 账号](https://searchlysis.com)
 
@@ -69,7 +67,7 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
    PASSWORD="您的管理员密码"
 
    # 可选配置
-   NEXT_PUBLIC_BASE_PATH="/blog"  # 如果您的博客不是部署在根路径
+   NEXT_PUBLIC_BASE_PATH="/path/to/your/blog"  # 如果您的博客不是部署在根路径
    NEXT_PUBLIC_APP_DESCRIPTION="您的应用描述"
    NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION="您的 Google 站点验证码"
    NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT="您的 Google AdSense 账号"
@@ -92,10 +90,10 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
 
    - 访问您的 Vercel 部署 URL 或自定义域名
    - 确认网站正常运行
-   - 测试管理员登录功能 (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
+   - 测试管理员登录功能 (yourdomain.com/path/to/your/blog/[en | es | de | ja | fr | zh]/console)
    - 检查多语言切换是否正常
 
-7. 在 /subpath 子路径上托管博客（以 Next.js 为例）
+7. 在 /path/to/your/blog 子路径上托管博客（以 Next.js 为例）
    - 在 `next.config.ts` 中添加反向代理即可
 
 ```ts next.config.ts
@@ -106,12 +104,12 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/blog",
-        destination: "https://yoursubdomain.vercel.app/blog",
+        source: "/path/to/your/blog",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog",
       },
       {
-        source: "/blog/:path*",
-        destination: "https://yoursubdomain.vercel.app/blog/:path*",
+        source: "/path/to/your/blog/:path*",
+        destination: "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
       },
     ];
   },
