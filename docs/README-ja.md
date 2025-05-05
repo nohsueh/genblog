@@ -92,7 +92,7 @@ GenBlogは、Next.jsで構築された最新のブログシステムで、多言
 
    - VercelデプロイURLまたはカスタムドメインにアクセス
    - ウェブサイトが正常に動作することを確認
-   - 管理者ログイン機能をテスト
+   - 管理者ログイン機能をテスト (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - 言語切り替えが正常に機能することを確認
 
 7. /subpath サブパスでブログをホストします（例として Next.js を使用）

@@ -92,7 +92,7 @@ GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语
 
    - 访问您的 Vercel 部署 URL 或自定义域名
    - 确认网站正常运行
-   - 测试管理员登录功能
+   - 测试管理员登录功能 (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - 检查多语言切换是否正常
 
 7. 在 /subpath 子路径上托管博客（以 Next.js 为例）

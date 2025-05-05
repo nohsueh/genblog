@@ -92,7 +92,7 @@ GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrs
 
    - Besuchen Sie Ihre Vercel-Bereitstellungs-URL oder benutzerdefinierte Domain
    - Stellen Sie sicher, dass die Website ordnungsgemäß funktioniert
-   - Testen Sie die Administrator-Anmeldefunktion
+   - Testen Sie die Administrator-Anmeldefunktion (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Überprüfen Sie, ob der Sprachwechsel korrekt funktioniert
 
 7. Hosten Sie einen Blog im Unterpfad /subpath (Beispiel: Next.js).

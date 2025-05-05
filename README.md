@@ -92,7 +92,7 @@ GenBlog is a modern blog system built with Next.js, supporting multilingual cont
 
    - Visit your Vercel deployment URL or custom domain
    - Confirm the website is running properly
-   - Test the admin login functionality
+   - Test the admin login functionality (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Check if language switching works correctly
 
 7. Host a blog on the /subpath subpath (using Next.js as an example)
@@ -139,4 +139,4 @@ Pull requests and issue reports are welcome to help improve the project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](../LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details

@@ -92,7 +92,7 @@ GenBlog es un sistema de blog moderno construido con Next.js, que admite gestió
 
    - Visite su URL de despliegue de Vercel o dominio personalizado
    - Confirme que el sitio web funciona correctamente
-   - Pruebe la funcionalidad de inicio de sesión de administrador
+   - Pruebe la funcionalidad de inicio de sesión de administrador (yourdomain.com/yoursubpath/[en | es | de | ja | fr | zh]/console)
    - Verifique que el cambio de idioma funcione correctamente
 
 7. Alojar un blog en la subruta /subpath (usando Next.js como ejemplo)
