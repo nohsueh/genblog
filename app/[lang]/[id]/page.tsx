@@ -55,9 +55,20 @@ export async function generateMetadata({
     " - " +
     process.env.NEXT_PUBLIC_APP_NAME;
   const description = contentLines?.[1];
-  const images = post.analysis?.image || getDefaultImage();
 
-  const canonicalUrl = `${getBaseUrl()}/${lang}/${id}`;
+  let images = post.analysis?.image || "";
+  try {
+    const res = await fetch(images, { method: "HEAD" });
+    const contentType = res.headers.get("Content-Type") || "";
+    images =
+      res.ok && contentType.startsWith("image")
+        ? (post.analysis?.image as string)
+        : getDefaultImage();
+  } catch (err) {
+    images = getDefaultImage();
+  }
+
+  const canonical = `${getBaseUrl()}/${lang}/${id}`;
 
   return {
     title,
@@ -73,7 +84,7 @@ export async function generateMetadata({
       images,
     },
     alternates: {
-      canonical: canonicalUrl,
+      canonical,
     },
   };
 }
