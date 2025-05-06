@@ -57,5 +57,5 @@ export function getBaseUrl() {
 }
 
 export function getDefaultImage() {
-  return "https://searchlysis.com/logo.svg";
+  return `${getBaseUrl()}/logo.svg`;
 }
