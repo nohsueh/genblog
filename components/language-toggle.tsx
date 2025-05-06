@@ -6,13 +6,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { i18n } from "@/lib/i18n-config";
+import { cn } from "@/lib/utils";
 import { Languages } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 
 export function LanguageToggle() {
   const pathname = usePathname();
   const segments = pathname.split("/");
-  const currentPath = segments.slice(2).join("/") || "";
+  const currentLocale = segments[1];
+  const currentPath = segments.slice(2).join("/");
   const router = useRouter();
 
   const switchLocale = (locale: string) => {
@@ -31,7 +33,14 @@ export function LanguageToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {i18n.locales.map((locale) => (
-          <DropdownMenuItem key={locale} onClick={() => switchLocale(locale)}>
+          <DropdownMenuItem
+            key={locale}
+            onClick={() => switchLocale(locale)}
+            className={cn(
+              "cursor-pointer",
+              locale === currentLocale && "bg-primary/10"
+            )}
+          >
             {(() => {
               switch (locale) {
                 case "en":

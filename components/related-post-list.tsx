@@ -10,9 +10,9 @@ import { relatedAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getDefaultImage, getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import ImageWithFallback from "./image-with-fallback";
 
 const POSTS_PER_PAGE = 24;
 
@@ -57,8 +57,9 @@ export async function RelatedBlogList({
         >
           <CardHeader className="p-0">
             <div className="relative aspect-video overflow-hidden">
-              <Image
+              <ImageWithFallback
                 src={image}
+                fallback={getDefaultImage()}
                 unoptimized
                 alt={title}
                 fill

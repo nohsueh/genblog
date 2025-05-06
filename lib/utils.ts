@@ -24,7 +24,7 @@ export function getPaginationRange(
   total: number,
   siblingCount: number = 2
 ) {
-  const totalPageNumbers = siblingCount * 2 + 5; // 首页+末页+当前+两侧+siblingCount
+  const totalPageNumbers = siblingCount * 2 + 5;
   if (total <= totalPageNumbers) {
     return Array.from({ length: total }, (_, i) => i + 1);
   }
@@ -57,5 +57,5 @@ export function getBaseUrl() {
 }
 
 export function getDefaultImage() {
-  return "https://searchlysis.com/logo.svg";
+  return `${getBaseUrl()}/logo.svg`;
 }

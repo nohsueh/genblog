@@ -6,7 +6,7 @@
 
 GenBlogは、Next.jsで構築された最新のブログシステムで、多言語コンテンツ管理をサポートしています。エレガントなユーザーインターフェースと強力な管理機能を提供し、ブログコンテンツを簡単に作成・管理することができます。
 
-![alt text](../imgs/dashboard-create.png)
+![/path/to/your/blog/console page](../imgs/dashboard-create.png "/path/to/your/blog/console page")
 
 ## 主な機能
 

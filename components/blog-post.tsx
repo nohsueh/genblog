@@ -8,9 +8,8 @@ import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getDefaultImage } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import { TableOfContents } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { Suspense } from "react";
+import ImageWithFallback from "./image-with-fallback";
 
 interface BlogPostProps {
   post: AnalysisResult;
@@ -36,8 +35,9 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
           <article className="mx-auto max-w-4xl">
             {image && (
               <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
-                <Image
+                <ImageWithFallback
                   src={image}
+                  fallback={getDefaultImage()}
                   unoptimized
                   alt={title}
                   fill
@@ -47,19 +47,13 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
             )}
 
             <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-              <Link
-                href={post.analysis?.url || "#"}
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-              >
-                <span>{formatDate(post.updatedAt, lang)}</span>
-                {post.analysis?.author && (
-                  <span>
-                    {" "}
-                    {dictionary.blog.by} {post.analysis.author}
-                  </span>
-                )}
-              </Link>
+              <span>{formatDate(post.updatedAt, lang)}</span>
+              {post.analysis?.author && (
+                <span>
+                  {" "}
+                  {dictionary.blog.by} {post.analysis.author}
+                </span>
+              )}
             </div>
 
             <div className="prose prose-gray max-w-none dark:prose-invert">

@@ -6,7 +6,7 @@
 
 GenBlog ist ein modernes Blog-System, das mit Next.js entwickelt wurde und mehrsprachige Inhaltsverwaltung unterstützt. Es bietet eine elegante Benutzeroberfläche und leistungsstarke Verwaltungsfunktionen, mit denen Sie Blog-Inhalte einfach erstellen und verwalten können.
 
-![alt text](../imgs/dashboard-create.png)
+![/path/to/your/blog/console page](../imgs/dashboard-create.png "/path/to/your/blog/console page")
 
 ## Hauptfunktionen
 
@@ -111,7 +111,8 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/path/to/your/blog/:path*",
-        destination: "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
+        destination:
+          "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
       },
     ];
   },
