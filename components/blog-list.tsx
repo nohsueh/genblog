@@ -16,9 +16,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getDefaultImage, getPaginationRange } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import ImageWithFallback from "./image-with-fallback";
 
 const PAGE_SIZE = 24;
 
@@ -41,7 +41,7 @@ async function BlogListContent({
     currentPage,
     PAGE_SIZE,
     group,
-    lang,
+    lang
   );
 
   return posts.length === 0 ? (
@@ -70,8 +70,9 @@ async function BlogListContent({
               <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
-                    <Image
+                    <ImageWithFallback
                       src={image}
+                      fallback={getDefaultImage()}
                       unoptimized
                       alt={title}
                       fill
@@ -111,7 +112,7 @@ async function BlogListContent({
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE),
+                Math.ceil(total / PAGE_SIZE)
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
@@ -125,7 +126,7 @@ async function BlogListContent({
                       </PaginationLink>
                     </Link>
                   </PaginationItem>
-                ),
+                )
               )}
             </PaginationContent>
           </Pagination>

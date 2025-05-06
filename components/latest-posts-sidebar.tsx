@@ -4,9 +4,9 @@ import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getDefaultImage, getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import ImageWithFallback from "./image-with-fallback";
 
 const POSTS_PER_PAGE = 24;
 
@@ -45,8 +45,9 @@ export async function LatestPostsSidebar({
           className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"
         >
           <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
-            <Image
+            <ImageWithFallback
               src={image}
+              fallback={getDefaultImage()}
               unoptimized
               alt={title}
               fill
