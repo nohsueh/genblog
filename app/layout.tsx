@@ -1,4 +1,3 @@
-import Script from "next/script";
 import "./globals.css";
 
 export default function RootLayout({
@@ -10,12 +9,11 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-          <Script
-            id="adsense-script"
+          <script
             async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
             crossOrigin="anonymous"
-          ></Script>
+          ></script>
         )}
         {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
           <meta
