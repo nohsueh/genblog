@@ -6,7 +6,7 @@
 
 GenBlog 是一个现代化的博客系统，基于 Next.js 构建，支持多语言内容管理。它提供了一个优雅的用户界面和强大的管理功能，让您可以轻松创建和管理博客内容。
 
-![alt text](../imgs/dashboard-create.png)
+![/path/to/your/blog/console page](../imgs/dashboard-create.png "/path/to/your/blog/console page")
 
 ## 主要功能
 
