@@ -44,7 +44,9 @@ export async function RelatedBlogList({
       .filter((line) => line !== "");
     const title =
       contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
-    const description = contentLines?.[1] || "";
+    const description = contentLines
+      ?.slice(1)
+      .find((line) => !line.startsWith("!["));
     const image = post.analysis?.image || getDefaultImage();
     const author = post.analysis?.author;
     const updatedAt = post.updatedAt;
