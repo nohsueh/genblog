@@ -51,7 +51,9 @@ export async function generateMetadata({
     .map((line) => line.trim())
     .filter((line) => line !== "");
   const title =
-    contentLines?.[0].replace(/^#+\s*/, "") +
+    contentLines
+      ?.find((line) => !line.startsWith("!["))
+      ?.replace(/^#+\s*/, "") +
     " - " +
     process.env.NEXT_PUBLIC_APP_NAME;
   const description = contentLines?.[1];
