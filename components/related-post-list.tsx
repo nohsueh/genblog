@@ -43,7 +43,7 @@ export async function RelatedBlogList({
       .map((line) => line.trim())
       .filter((line) => line !== "");
     const title =
-      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
+      contentLines?.[0].replace(/^#+\s*/, "") || post.analysis?.title || "";
     const description = contentLines
       ?.slice(1)
       .find((line) => !line.startsWith("!["));
