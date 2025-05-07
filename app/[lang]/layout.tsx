@@ -25,21 +25,6 @@ export default async function RootLayout(props: RootLayoutProps) {
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <head>
-        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-          <script
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
-            crossOrigin="anonymous"
-          ></script>
-        )}
-        {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
-          <meta
-            name="google-site-verification"
-            content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION}
-          />
-        )}
-      </head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
