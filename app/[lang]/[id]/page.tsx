@@ -54,7 +54,9 @@ export async function generateMetadata({
     contentLines?.[0].replace(/^#+\s*/, "") +
     " - " +
     process.env.NEXT_PUBLIC_APP_NAME;
-  const description = contentLines?.find((line) => !line.startsWith("!["));
+  const description = contentLines
+    ?.slice(1)
+    .find((line) => !line.startsWith("!["));
 
   let images = post.analysis?.image || "";
   try {
