@@ -35,7 +35,7 @@ export function SiteHeader({
 
   return (
     <header className="sticky z-50 top-0 w-full border-b bg-background">
-      <div className="container flex flex-1 h-16 items-center justify-between space-x-2 md:space-x-4">
+      <div className="container flex flex-1 h-16 items-center space-x-2 md:space-x-4">
         <div className={`${isSearching ? "hidden" : "flex"} gap-6 md:gap-10`}>
           <Link
             href={
