@@ -63,7 +63,7 @@ export function SiteHeader({
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <SiteSearch site={getBaseUrl()} />
+          <SiteSearch site={getBaseUrl().replace("https://", "")} />
           <nav className="flex items-center space-x-2">
             <div className="hidden items-center space-x-2 md:flex">
               <LanguageToggle />
