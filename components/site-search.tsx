@@ -1,18 +1,17 @@
 "use client";
 
-import { Search } from "lucide-react";
-import * as React from "react";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { Search } from "lucide-react";
+import { useState } from "react";
 
 interface SiteSearchProps extends React.HTMLAttributes<HTMLFormElement> {
   site: string;
 }
 
 export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
-  const [query, setQuery] = React.useState("");
+  const [query, setQuery] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,7 +33,7 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full rounded-full pl-4 pr-12 h-12 shadow-md border-neutral-200 focus-visible:ring-offset-0"
+          className={`w-full rounded-full pl-4 pr-12 h-12 shadow-md border-neutral-200 focus-visible:ring-offset-0`}
         />
         <Button
           type="submit"

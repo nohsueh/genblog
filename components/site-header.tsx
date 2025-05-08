@@ -9,6 +9,7 @@ import { getBaseUrl } from "@/lib/utils";
 import { EllipsisVertical, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
 
@@ -23,6 +24,7 @@ export function SiteHeader({
   dictionary,
   isAdmin = false,
 }: SiteHeaderProps) {
+  const [isSearching, setIsSearching] = useState(false);
   const router = useRouter();
 
   const handleLogout = async () => {
@@ -32,9 +34,9 @@ export function SiteHeader({
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background">
-      <div className="container flex h-16 items-center space-x-4">
-        <div className="flex gap-6 md:gap-10">
+    <header className="sticky z-50 top-0 w-full border-b bg-background">
+      <div className="container flex h-16 items-center space-x-1 md:space-x-4">
+        <div className={`${isSearching ? "hidden" : "flex"} gap-6 md:gap-10`}>
           <Link
             href={
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
@@ -62,8 +64,12 @@ export function SiteHeader({
             )}
           </nav>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <SiteSearch site={getBaseUrl().replace("https://", "")} />
+        <div className="flex flex-1 items-center justify-end md:space-x-4">
+          <SiteSearch
+            site={getBaseUrl().replace("https://", "")}
+            onFocus={() => setIsSearching(true)}
+            onBlur={() => setIsSearching(false)}
+          />
           <nav className="flex items-center space-x-2">
             <div className="hidden items-center space-x-2 md:flex">
               <LanguageToggle />
