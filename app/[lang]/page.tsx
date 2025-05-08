@@ -1,6 +1,7 @@
 import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SiteSearch } from "@/components/site-search";
 import { checkAdminSession } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
@@ -24,17 +25,10 @@ export default async function HomePage({
     <div className="flex min-h-screen flex-col">
       <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
       <main className="container flex-1 px-4 py-6">
-        <section className="mb-8 mt-4 space-y-6 md:mb-12 md:mt-8 lg:mb-16 lg:mt-12">
-          <div className="flex max-w-[980px] flex-col items-start gap-2">
-            <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl lg:text-5xl">
-              {dictionary.home.title}
-            </h1>
-            <h2 className="max-w-[700px] text-lg text-muted-foreground">
-              {dictionary.home.description}
-            </h2>
-          </div>
-        </section>
-
+        <SiteSearch
+          className="mb-4 md:mb-8 md:mt-4 lg:mb-12 lg:mt-8"
+          site={getBaseUrl()}
+        />
         <BlogList
           lang={lang}
           dictionary={dictionary}
