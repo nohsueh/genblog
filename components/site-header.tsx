@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { logoutAdmin } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
+import { getBaseUrl } from "@/lib/utils";
 import { EllipsisVertical, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LanguageToggle } from "./language-toggle";
+import { SiteSearch } from "./site-search";
 
 interface SiteHeaderProps {
   lang: Locale;
@@ -31,7 +33,7 @@ export function SiteHeader({
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
+      <div className="container flex h-16 items-center space-x-4">
         <div className="flex gap-6 md:gap-10">
           <Link
             href={
@@ -61,6 +63,7 @@ export function SiteHeader({
           </nav>
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
+          <SiteSearch site={getBaseUrl()} />
           <nav className="flex items-center space-x-2">
             <div className="hidden items-center space-x-2 md:flex">
               <LanguageToggle />
