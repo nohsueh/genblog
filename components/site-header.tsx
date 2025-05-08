@@ -35,7 +35,7 @@ export function SiteHeader({
 
   return (
     <header className="sticky z-50 top-0 w-full border-b bg-background">
-      <div className="container flex h-16 items-center space-x-2 md:space-x-4">
+      <div className="container flex w-full h-16 items-center space-x-2 md:space-x-4">
         <div className={`${isSearching ? "hidden" : "flex"} gap-6 md:gap-10`}>
           <Link
             href={
@@ -64,14 +64,12 @@ export function SiteHeader({
             )}
           </nav>
         </div>
-        <div className="flex items-center justify-end md:space-x-4">
-          <div className="flex-1">
-            <SiteSearch
-              site={getBaseUrl().replace("https://", "")}
-              onFocus={() => setIsSearching(true)}
-              onBlur={() => setIsSearching(false)}
-            />
-          </div>
+        <div className="flex items-center justify-end w-full md:space-x-4">
+          <SiteSearch
+            site={getBaseUrl().replace("https://", "")}
+            onFocus={() => setIsSearching(true)}
+            onBlur={() => setIsSearching(false)}
+          />
           <nav className="flex items-center space-x-2">
             <div className="hidden items-center space-x-2 md:flex">
               <LanguageToggle />
