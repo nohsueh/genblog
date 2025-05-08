@@ -45,7 +45,7 @@ export function SiteHeader({
             }
             className="flex items-center space-x-2"
           >
-            <span className="inline-block font-bold">
+            <span className="inline-block font-bold text-nowrap">
               {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
           </Link>
