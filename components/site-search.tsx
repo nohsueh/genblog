@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface SiteSearchProps extends React.HTMLAttributes<HTMLFormElement> {
   site: string;
@@ -12,8 +12,22 @@ interface SiteSearchProps extends React.HTMLAttributes<HTMLFormElement> {
 
 export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
   const [query, setQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleSearch = (e: React.FormEvent) => {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const key = event.key;
+      if (key.length === 1 && document.activeElement !== inputRef.current) {
+        inputRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [inputRef]);
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmedQuery = query.trim();
     if (trimmedQuery) {
@@ -31,6 +45,7 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
       <div className="relative">
         <Input
           type="text"
+          ref={inputRef}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className={`w-full rounded-full pl-4 pr-12 h-12 shadow-md border-neutral-200 focus-visible:ring-offset-0`}
