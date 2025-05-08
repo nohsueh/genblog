@@ -60,7 +60,10 @@ export async function generateMetadata({
 
   let images = post.analysis?.image || "";
   try {
-    const res = await fetch(images, { method: "HEAD" });
+    const res = await fetch(images, {
+      method: "HEAD",
+      next: { revalidate: 2 },
+    });
     const contentType = res.headers.get("Content-Type") || "";
     images =
       res.ok && contentType.startsWith("image")
