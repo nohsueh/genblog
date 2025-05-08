@@ -75,7 +75,6 @@ async function BlogListContent({
                     <ImageWithFallback
                       src={image}
                       fallback={getDefaultImage()}
-                      unoptimized
                       alt={title}
                       fill
                       className="object-cover"

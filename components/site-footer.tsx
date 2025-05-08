@@ -10,17 +10,13 @@ export function SiteFooter() {
             © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_APP_NAME}
           </p>
           <div className="flex flex-row">
-            <Link
-              href={"https://github.com/nohsueh/genblog"}
-              target="_blank"
-            >
+            <Link href={"https://github.com/nohsueh/genblog"} target="_blank">
               <Image
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}
                 alt="GitHub"
                 width={24}
                 height={24}
                 className="block dark:hidden"
-                unoptimized
               />
               <Image
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
@@ -28,7 +24,6 @@ export function SiteFooter() {
                 width={24}
                 height={24}
                 className="hidden dark:block"
-                unoptimized
               />
             </Link>
           </div>

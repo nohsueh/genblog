@@ -62,7 +62,6 @@ export async function RelatedBlogList({
               <ImageWithFallback
                 src={image}
                 fallback={getDefaultImage()}
-                unoptimized
                 alt={title}
                 fill
                 className="object-cover"

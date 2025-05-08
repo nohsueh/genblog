@@ -38,7 +38,6 @@ export function BlogPost({ post, lang, dictionary }: BlogPostProps) {
                 <ImageWithFallback
                   src={image}
                   fallback={getDefaultImage()}
-                  unoptimized
                   alt={title}
                   fill
                   className="object-cover"

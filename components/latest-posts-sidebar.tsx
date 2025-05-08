@@ -48,7 +48,6 @@ export async function LatestPostsSidebar({
             <ImageWithFallback
               src={image}
               fallback={getDefaultImage()}
-              unoptimized
               alt={title}
               fill
               className="rounded object-cover"
