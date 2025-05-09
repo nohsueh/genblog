@@ -45,19 +45,20 @@ export function SiteHeader({
             href={
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
             }
-            className="flex items-center gap-2 md:mr-10"
           >
-            <Suspense fallback={<Skeleton className="size-10" />}>
-              <Image
-                alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
-                src="/favicon.ico"
-                width={40}
-                height={40}
-              />
-            </Suspense>
-            <span className="hidden md:block font-bold text-nowrap">
-              {process.env.NEXT_PUBLIC_APP_NAME}
-            </span>
+            <div className="flex items-center gap-2">
+              <Suspense fallback={<Skeleton className="size-10" />}>
+                <Image
+                  alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
+                  src="/favicon.ico"
+                  width={40}
+                  height={40}
+                />
+              </Suspense>
+              <span className="hidden md:block font-bold text-nowrap">
+                {process.env.NEXT_PUBLIC_APP_NAME}
+              </span>
+            </div>
           </Link>
           <nav className="hidden gap-6 md:flex">
             <Link
