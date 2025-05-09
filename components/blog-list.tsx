@@ -41,7 +41,7 @@ async function BlogListContent({
     currentPage,
     PAGE_SIZE,
     group,
-    lang,
+    lang
   );
 
   return posts.length === 0 ? (
@@ -83,7 +83,7 @@ async function BlogListContent({
                 </CardHeader>
                 <CardContent className="p-4 pb-0">
                   <CardTitle>
-                    <h3 className="mb-2 line-clamp-2">{title}</h3>
+                    <h3 className="mb-2 line-clamp-2 text-base">{title}</h3>
                   </CardTitle>
                   <CardDescription>
                     <h4 className="mb-2 line-clamp-3 break-all text-sm text-muted-foreground">
@@ -113,7 +113,7 @@ async function BlogListContent({
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE),
+                Math.ceil(total / PAGE_SIZE)
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
@@ -127,7 +127,7 @@ async function BlogListContent({
                       </PaginationLink>
                     </Link>
                   </PaginationItem>
-                ),
+                )
               )}
             </PaginationContent>
           </Pagination>
@@ -148,13 +148,13 @@ export function BlogList(props: BlogListProps) {
                 <Skeleton className="aspect-video" />
               </CardHeader>
               <CardContent className="p-4 pb-0">
-                <Skeleton className="mb-2 h-6 w-full" />
-                <Skeleton className="mb-1 h-4 w-full" />
-                <Skeleton className="mb-1 h-4 w-full" />
-                <Skeleton className="mb-2 h-4 w-3/4" />
+                <Skeleton className="my-[4px] h-[16px] w-full" />
+                <Skeleton className="my-[3px] h-[14px] w-full" />
+                <Skeleton className="my-[3px] h-[14px] w-full" />
+                <Skeleton className="my-[3px] h-[14px] w-3/4" />
               </CardContent>
               <CardFooter className="p-4 pt-0">
-                <Skeleton className="h-3 w-1/2" />
+                <Skeleton className="my-[2px] h-[12px] w-1/2" />
               </CardFooter>
             </Card>
           ))}

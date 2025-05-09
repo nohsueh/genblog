@@ -10,10 +10,9 @@ import { EllipsisVertical, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
-import { Skeleton } from "./ui/skeleton";
 
 interface SiteHeaderProps {
   lang: Locale;
@@ -48,17 +47,15 @@ export function SiteHeader({
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
             }
           >
-            <div className="flex items-center gap-2">
-              <Suspense fallback={<Skeleton className="size-10" />}>
-                <Image
-                  alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
-                  src="/favicon.ico"
-                  width={40}
-                  height={40}
-                  priority={true}
-                  className="size-10 object-contain"
-                />
-              </Suspense>
+            <div className="flex flex-row items-center gap-2">
+              <Image
+                alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
+                src="/icon.svg"
+                width={40}
+                height={40}
+                priority={true}
+                className="size-10 object-contain"
+              />
               <span className="hidden text-nowrap font-bold md:block">
                 {process.env.NEXT_PUBLIC_APP_NAME}
               </span>
