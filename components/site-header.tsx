@@ -45,7 +45,7 @@ export function SiteHeader({
             href={
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
             }
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 md:mr-10"
           >
             <Suspense fallback={<Skeleton className="size-10" />}>
               <Image
