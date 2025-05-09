@@ -45,7 +45,7 @@ export function SiteHeader({
               href={
                 `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
               }
-              className="flex flex-row items-center space-x-1"
+              className="flex flex-shrink-0 flex-row items-center space-x-1"
             >
               <Image
                 alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
@@ -54,21 +54,21 @@ export function SiteHeader({
                 height={40}
                 priority={true}
               />
-              <span className="hidden text-nowrap font-bold md:block">
+              <span className="hidden whitespace-nowrap font-bold md:block">
                 {process.env.NEXT_PUBLIC_APP_NAME}
               </span>
             </Link>
-            <nav className="hidden md:flex md:space-x-2 lg:space-x-6">
+            <nav className="hidden md:flex md:items-center md:space-x-2 lg:space-x-6">
               <Link
                 href={`/${lang}`}
-                className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
               >
                 {dictionary.header.home}
               </Link>
               {isAdmin && (
                 <Link
                   href={`/${lang}/console`}
-                  className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
                 >
                   {dictionary.header.dashboard}
                 </Link>
