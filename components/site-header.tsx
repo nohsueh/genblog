@@ -38,7 +38,7 @@ export function SiteHeader({
     <header className="sticky z-50 top-0 w-full border-b bg-background">
       <div className="container flex w-full h-16 items-center space-x-2 md:space-x-4">
         <div
-          className={`${isSearching ? "hidden" : "flex"} md:flex gap-6 md:gap-10`}
+          className={`${isSearching ? "hidden" : "flex"} space-x-6 md:flex md:space-x-10`}
         >
           <Link
             href={
@@ -56,7 +56,7 @@ export function SiteHeader({
               {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
           </Link>
-          <nav className="hidden gap-6 md:flex">
+          <nav className="hidden space-x-6 md:flex">
             <Link
               href={`/${lang}`}
               className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
