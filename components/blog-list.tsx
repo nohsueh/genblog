@@ -41,7 +41,7 @@ async function BlogListContent({
     currentPage,
     PAGE_SIZE,
     group,
-    lang
+    lang,
   );
 
   return posts.length === 0 ? (
@@ -113,7 +113,7 @@ async function BlogListContent({
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE)
+                Math.ceil(total / PAGE_SIZE),
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
@@ -127,7 +127,7 @@ async function BlogListContent({
                       </PaginationLink>
                     </Link>
                   </PaginationItem>
-                )
+                ),
               )}
             </PaginationContent>
           </Pagination>

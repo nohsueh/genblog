@@ -40,7 +40,7 @@ export function ThemeToggle() {
           onClick={() => setTheme("system")}
           className={cn(
             "cursor-pointer",
-            theme === "system" && "bg-primary/10"
+            theme === "system" && "bg-primary/10",
           )}
         >
           System

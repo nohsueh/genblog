@@ -38,7 +38,7 @@ export function LanguageToggle() {
             onClick={() => switchLocale(locale)}
             className={cn(
               "cursor-pointer",
-              locale === currentLocale && "bg-primary/10"
+              locale === currentLocale && "bg-primary/10",
             )}
           >
             {(() => {

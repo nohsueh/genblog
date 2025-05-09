@@ -38,8 +38,8 @@ export function SiteHeader({
   };
 
   return (
-    <header className="sticky z-50 top-0 w-full border-b bg-background">
-      <div className="container flex w-full h-16 items-center space-x-2 md:space-x-4">
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
+      <div className="container flex h-16 w-full items-center space-x-2 md:space-x-4">
         <div className={`${isSearching ? "hidden" : "flex"} md:flex md:gap-10`}>
           <Link
             href={
@@ -55,7 +55,7 @@ export function SiteHeader({
                   height={40}
                 />
               </Suspense>
-              <span className="hidden md:block font-bold text-nowrap">
+              <span className="hidden text-nowrap font-bold md:block">
                 {process.env.NEXT_PUBLIC_APP_NAME}
               </span>
             </div>
@@ -77,7 +77,7 @@ export function SiteHeader({
             )}
           </nav>
         </div>
-        <div className="flex items-center justify-end w-full md:space-x-4">
+        <div className="flex w-full items-center justify-end md:space-x-4">
           {!isConsolePage && (
             <SiteSearch
               site={getBaseUrl().replace("https://", "")}
