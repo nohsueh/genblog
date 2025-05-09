@@ -40,12 +40,12 @@ export function SiteHeader({
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 w-full items-center space-x-2 md:space-x-4">
         {!isSearching && (
-          <div className="flex flex-row items-center justify-between md:gap-2 lg:gap-6">
+          <div className="flex flex-row items-center justify-between md:space-x-2 lg:space-x-6">
             <Link
               href={
                 `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
               }
-              className="flex flex-row items-center gap-1"
+              className="flex flex-row items-center space-x-1"
             >
               <Image
                 alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
@@ -58,7 +58,7 @@ export function SiteHeader({
                 {process.env.NEXT_PUBLIC_APP_NAME}
               </span>
             </Link>
-            <nav className="hidden md:flex md:gap-2 lg:gap-6">
+            <nav className="hidden md:flex md:space-x-2 lg:space-x-6">
               <Link
                 href={`/${lang}`}
                 className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"

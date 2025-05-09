@@ -17,7 +17,11 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const key = event.key;
-      if (
+      if (document.activeElement === inputRef.current) {
+        if (key === "Escape") {
+          inputRef.current?.blur();
+        }
+      } else if (
         key.length === 1 &&
         key !== " " &&
         !event.isComposing &&
@@ -25,8 +29,7 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
         !event.ctrlKey &&
         !event.altKey &&
         !event.shiftKey &&
-        !event.metaKey &&
-        document.activeElement !== inputRef.current
+        !event.metaKey
       ) {
         inputRef.current?.focus();
       }
@@ -41,7 +44,7 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
     e.preventDefault();
     const trimmedQuery = query.trim();
     if (trimmedQuery) {
-      const searchUrl = `https://www.google.com/search?q=site:${site} ${encodeURIComponent(trimmedQuery)}`;
+      const searchUrl = `https://www.google.com/search?q=site:${site.replace("https://", "")} ${encodeURIComponent(trimmedQuery)}`;
       window.open(searchUrl, "_blank");
     }
   };
