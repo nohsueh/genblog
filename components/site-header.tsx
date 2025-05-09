@@ -9,7 +9,7 @@ import { getBaseUrl } from "@/lib/utils";
 import { EllipsisVertical, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
@@ -28,6 +28,8 @@ export function SiteHeader({
 }: SiteHeaderProps) {
   const [isSearching, setIsSearching] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const isConsolePage = pathname.split("/")[2] === "console";
 
   const handleLogout = async () => {
     await logoutAdmin();
@@ -38,9 +40,7 @@ export function SiteHeader({
   return (
     <header className="sticky z-50 top-0 w-full border-b bg-background">
       <div className="container flex w-full h-16 items-center space-x-2 md:space-x-4">
-        <div
-          className={`${isSearching ? "hidden" : "flex"} md:flex md:gap-10`}
-        >
+        <div className={`${isSearching ? "hidden" : "flex"} md:flex md:gap-10`}>
           <Link
             href={
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
@@ -78,11 +78,13 @@ export function SiteHeader({
           </nav>
         </div>
         <div className="flex items-center justify-end w-full md:space-x-4">
-          <SiteSearch
-            site={getBaseUrl().replace("https://", "")}
-            onFocus={() => setIsSearching(true)}
-            onBlur={() => setIsSearching(false)}
-          />
+          {!isConsolePage && (
+            <SiteSearch
+              site={getBaseUrl().replace("https://", "")}
+              onFocus={() => setIsSearching(true)}
+              onBlur={() => setIsSearching(false)}
+            />
+          )}
           <nav className="flex items-center space-x-2">
             <div className="hidden items-center space-x-2 md:flex">
               <LanguageToggle />

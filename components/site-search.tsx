@@ -17,7 +17,17 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const key = event.key;
-      if (key.length === 1 && document.activeElement !== inputRef.current) {
+      if (
+        key.length === 1 &&
+        key !== " " &&
+        !event.isComposing &&
+        !event.repeat &&
+        !event.ctrlKey &&
+        !event.altKey &&
+        !event.shiftKey &&
+        !event.metaKey &&
+        document.activeElement !== inputRef.current
+      ) {
         inputRef.current?.focus();
       }
     };
