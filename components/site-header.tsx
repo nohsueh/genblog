@@ -40,12 +40,12 @@ export function SiteHeader({
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 w-full items-center space-x-2 md:space-x-4">
         {!isSearching && (
-          <div className="flex flex-row items-center justify-between md:space-x-2 lg:space-x-6">
+          <div className="flex w-auto flex-row items-center justify-between md:space-x-2 lg:space-x-6">
             <Link
               href={
                 `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
               }
-              className="flex flex-shrink-0 flex-row items-center space-x-1"
+              className="flex flex-row items-center space-x-1"
             >
               <Image
                 alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
