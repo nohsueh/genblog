@@ -38,7 +38,9 @@ export function SiteHeader({
   return (
     <header className="sticky z-50 top-0 w-full border-b bg-background">
       <div className="container flex w-full h-16 items-center space-x-2 md:space-x-4">
-        <div className={`${isSearching ? "hidden" : "flex"} md:flex`}>
+        <div
+          className={`${isSearching ? "hidden" : "flex"} gap-6 md:flex md:gap-10`}
+        >
           <Link
             href={
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
@@ -53,11 +55,11 @@ export function SiteHeader({
                 height={40}
               />
             </Suspense>
-            <span className="hidden md:inline-block font-bold text-nowrap">
+            <span className="hidden md:block font-bold text-nowrap">
               {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
           </Link>
-          <nav className="hidden gap-6 ml-6 md:flex">
+          <nav className="hidden gap-6 md:flex">
             <Link
               href={`/${lang}`}
               className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
