@@ -7,6 +7,7 @@ import { logoutAdmin } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl } from "@/lib/utils";
 import { EllipsisVertical, LogOut } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -45,7 +46,13 @@ export function SiteHeader({
             }
             className="flex items-center space-x-2"
           >
-            <span className="inline-block font-bold text-nowrap">
+            <Image
+              alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
+              src={"/favicon.ico"}
+              width={40}
+              height={40}
+            ></Image>
+            <span className="hidden md:inline-block font-bold text-nowrap">
               {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
           </Link>
