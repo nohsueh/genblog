@@ -49,7 +49,7 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
   return (
     <form
       onSubmit={handleSearch}
-      className={cn("relative w-full max-w-2xl", className)}
+      className={cn("relative w-full", className)}
       {...props}
     >
       <div className="relative">

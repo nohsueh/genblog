@@ -45,19 +45,19 @@ export function SiteHeader({
               href={
                 `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
               }
+              className="flex flex-row items-center gap-1"
             >
-              <div className="flex flex-row items-center gap-1">
-                <Image
-                  alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
-                  src="/icon.png"
-                  width={40}
-                  height={40}
-                  priority={true}
-                />
-                <span className="hidden text-nowrap font-bold md:block">
-                  {process.env.NEXT_PUBLIC_APP_NAME}
-                </span>
-              </div>
+              <Image
+                alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
+                src="/icon.svg"
+                width={40}
+                height={40}
+                priority={true}
+                className="size-10"
+              />
+              <span className="hidden text-nowrap font-bold md:block">
+                {process.env.NEXT_PUBLIC_APP_NAME}
+              </span>
             </Link>
             <nav className="hidden md:flex md:gap-2 lg:gap-6">
               <Link
