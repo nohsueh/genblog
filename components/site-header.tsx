@@ -40,7 +40,7 @@ export function SiteHeader({
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 w-full items-center space-x-2 md:space-x-4">
         {!isSearching && (
-          <div className={`flex flex-row items-center md:gap-2 lg:gap-6`}>
+          <div className="flex flex-row items-center justify-between md:gap-2 lg:gap-6">
             <Link
               href={
                 `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
@@ -53,7 +53,6 @@ export function SiteHeader({
                 width={40}
                 height={40}
                 priority={true}
-                className="size-10"
               />
               <span className="hidden text-nowrap font-bold md:block">
                 {process.env.NEXT_PUBLIC_APP_NAME}
