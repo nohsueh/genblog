@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
+import { Skeleton } from "./ui/skeleton";
 
 export function SiteFooter() {
   return (
@@ -11,20 +13,22 @@ export function SiteFooter() {
           </p>
           <div className="flex flex-row">
             <Link href={"https://github.com/nohsueh/genblog"} target="_blank">
-              <Image
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}
-                alt="GitHub"
-                width={24}
-                height={24}
-                className="block dark:hidden"
-              />
-              <Image
-                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
-                alt="GitHub"
-                width={24}
-                height={24}
-                className="hidden dark:block"
-              />
+              <Suspense fallback={<Skeleton className="size-6" />}>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}
+                  alt="GitHub"
+                  width={24}
+                  height={24}
+                  className="block dark:hidden"
+                />
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
+                  alt="GitHub"
+                  width={24}
+                  height={24}
+                  className="hidden dark:block"
+                />
+              </Suspense>
             </Link>
           </div>
         </div>

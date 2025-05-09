@@ -10,9 +10,10 @@ import { EllipsisVertical, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
+import { Skeleton } from "./ui/skeleton";
 
 interface SiteHeaderProps {
   lang: Locale;
@@ -38,25 +39,27 @@ export function SiteHeader({
     <header className="sticky z-50 top-0 w-full border-b bg-background">
       <div className="container flex w-full h-16 items-center space-x-2 md:space-x-4">
         <div
-          className={`${isSearching ? "hidden" : "flex"} space-x-6 md:flex md:space-x-10`}
+          className={`${isSearching ? "hidden" : "flex"} gap-6 md:flex md:gap-10`}
         >
           <Link
             href={
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
             }
-            className="flex items-center space-x-2"
+            className="flex items-center gap-2"
           >
-            <Image
-              alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
-              src={"/favicon.ico"}
-              width={40}
-              height={40}
-            ></Image>
+            <Suspense fallback={<Skeleton className="size-10" />}>
+              <Image
+                alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
+                src="/favicon.ico"
+                width={40}
+                height={40}
+              ></Image>
+            </Suspense>
             <span className="hidden md:inline-block font-bold text-nowrap">
               {process.env.NEXT_PUBLIC_APP_NAME}
             </span>
           </Link>
-          <nav className="hidden space-x-6 md:flex">
+          <nav className="hidden gap-6 md:flex">
             <Link
               href={`/${lang}`}
               className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
