@@ -19,14 +19,16 @@ export function SiteFooter() {
                   alt="GitHub"
                   width={24}
                   height={24}
-                  className="block dark:hidden"
+                  className="block dark:hidden size-6 object-contain"
+                  priority={true}
                 />
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
                   alt="GitHub"
                   width={24}
                   height={24}
-                  className="hidden dark:block"
+                  className="hidden dark:block size-6 object-contain"
+                  priority={true}
                 />
               </Suspense>
             </Link>

@@ -40,7 +40,9 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 w-full items-center space-x-2 md:space-x-4">
-        <div className={`${isSearching ? "hidden" : "flex"} md:flex md:gap-10`}>
+        <div
+          className={`${isSearching ? "hidden" : "flex"} md:flex md:gap-6 lg:gap-10 items-center`}
+        >
           <Link
             href={
               `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
@@ -53,6 +55,8 @@ export function SiteHeader({
                   src="/favicon.ico"
                   width={40}
                   height={40}
+                  priority={true}
+                  className="size-10 object-contain"
                 />
               </Suspense>
               <span className="hidden text-nowrap font-bold md:block">
@@ -60,7 +64,7 @@ export function SiteHeader({
               </span>
             </div>
           </Link>
-          <nav className="hidden gap-6 md:flex">
+          <nav className="hidden md:gap-2 lg:gap-6 md:flex">
             <Link
               href={`/${lang}`}
               className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
