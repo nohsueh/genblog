@@ -39,45 +39,44 @@ export function SiteHeader({
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 w-full items-center space-x-2 md:space-x-4">
-        <div
-          className={`${isSearching ? "hidden" : "flex"} md:flex md:gap-6 lg:gap-10 items-center`}
-        >
-          <Link
-            href={
-              `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
-            }
-          >
-            <div className="flex flex-row items-center gap-2">
-              <Image
-                alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
-                src="/icon.svg"
-                width={40}
-                height={40}
-                priority={true}
-                className="size-10 object-contain"
-              />
-              <span className="hidden text-nowrap font-bold md:block">
-                {process.env.NEXT_PUBLIC_APP_NAME}
-              </span>
-            </div>
-          </Link>
-          <nav className="hidden md:gap-2 lg:gap-6 md:flex">
+        {!isSearching && (
+          <div className={`flex flex-row items-center md:gap-6 lg:gap-10`}>
             <Link
-              href={`/${lang}`}
-              className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
+              href={
+                `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `/${lang}`
+              }
             >
-              {dictionary.header.home}
+              <div className="flex flex-row items-center gap-2">
+                <Image
+                  alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
+                  src="/icon.svg"
+                  width={40}
+                  height={40}
+                  priority={true}
+                />
+                <span className="hidden text-nowrap font-bold md:block">
+                  {process.env.NEXT_PUBLIC_APP_NAME}
+                </span>
+              </div>
             </Link>
-            {isAdmin && (
+            <nav className="hidden md:flex md:gap-2 lg:gap-6">
               <Link
-                href={`/${lang}/console`}
+                href={`/${lang}`}
                 className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
               >
-                {dictionary.header.dashboard}
+                {dictionary.header.home}
               </Link>
-            )}
-          </nav>
-        </div>
+              {isAdmin && (
+                <Link
+                  href={`/${lang}/console`}
+                  className="flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
+                >
+                  {dictionary.header.dashboard}
+                </Link>
+              )}
+            </nav>
+          </div>
+        )}
         <div className="flex w-full items-center justify-end md:space-x-4">
           {!isConsolePage && (
             <SiteSearch

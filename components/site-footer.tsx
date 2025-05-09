@@ -19,7 +19,7 @@ export function SiteFooter() {
                   alt="GitHub"
                   width={24}
                   height={24}
-                  className="block dark:hidden size-6 object-contain"
+                  className="block dark:hidden"
                   priority={true}
                 />
                 <Image
@@ -27,7 +27,7 @@ export function SiteFooter() {
                   alt="GitHub"
                   width={24}
                   height={24}
-                  className="hidden dark:block size-6 object-contain"
+                  className="hidden dark:block"
                   priority={true}
                 />
               </Suspense>

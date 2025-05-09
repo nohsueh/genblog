@@ -139,7 +139,7 @@ export default nextConfig;
 
 ## 交流群
 
-![QQ Group](qrcode_1746489578956.jpg)
+![QQ Group](../imgs/qrcode_1746489578956.jpg)
 QQ群：364697359
 
 ## 许可证

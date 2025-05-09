@@ -107,9 +107,10 @@ export async function RelatedBlogList({
                 </CardHeader>
                 <CardContent className="p-4 pb-0">
                   <Skeleton className="my-[4px] h-[16px] w-full" />
+                  <Skeleton className="mt-[4px] mb-2 h-[16px] w-3/4" />
                   <Skeleton className="my-[3px] h-[14px] w-full" />
                   <Skeleton className="my-[3px] h-[14px] w-full" />
-                  <Skeleton className="my-[3px] h-[14px] w-3/4" />
+                  <Skeleton className="mt-[3px] mb-2 h-[14px] w-3/4" />
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
                   <Skeleton className="my-[2px] h-[12px] w-1/2" />
