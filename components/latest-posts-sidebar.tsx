@@ -6,7 +6,6 @@ import { getDefaultImage, getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
-import ImageWithFallback from "./image-with-fallback";
 
 const POSTS_PER_PAGE = 24;
 
@@ -44,20 +43,9 @@ export async function LatestPostsSidebar({
           key={post.analysisId}
           className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"
         >
-          <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
-            <ImageWithFallback
-              src={image}
-              fallback={getDefaultImage()}
-              alt={title}
-              fill
-              className="rounded object-cover"
-            />
-          </div>
-          <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
-            <CardTitle className="line-clamp-3 text-sm font-semibold">
-              {title}
-            </CardTitle>
-          </div>
+          <CardTitle className="line-clamp-3 p-1 text-xs font-semibold">
+            {title}
+          </CardTitle>
         </Card>
       </Link>
     );
@@ -75,13 +63,10 @@ export async function LatestPostsSidebar({
               key={i}
               className="flex flex-row items-center overflow-hidden border border-gray-100 p-0 shadow-none"
             >
-              <div className="relative ml-1 size-16 flex-shrink-0 overflow-hidden">
-                <Skeleton className="h-full w-full" />
-              </div>
-              <div className="flex min-w-0 flex-1 flex-col justify-between py-1 pl-2 pr-1">
-                <Skeleton className="mb-1 h-4 w-full" />
-                <Skeleton className="mb-1 h-4 w-full" />
-                <Skeleton className="mb-1 h-4 w-3/4" />
+              <div className="flex flex-col justify-between p-1">
+                <Skeleton className="my-[2px] h-3 w-full" />
+                <Skeleton className="my-[2px] h-3 w-full" />
+                <Skeleton className="my-[2px] h-3 w-3/4" />
               </div>
             </Card>
           ))}
