@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 import { getBaseUrl } from "./utils";
 
 const API_URL = "https://searchlysis.com/api";
+const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
 const SESSION_COOKIE_NAME = `__Secure-${getBaseUrl()}`;
@@ -44,7 +45,7 @@ export async function validateAdmin(formData: FormData) {
     // Generate JWT token
     const token = jwt.sign(
       {
-        role: "admin",
+        role: ROLE,
         iat: Math.floor(Date.now() / 1000),
       },
       JWT_SECRET,
@@ -74,7 +75,7 @@ export async function checkAdminSession() {
   try {
     // Verify JWT token
     const decoded = jwt.verify(session.value, JWT_SECRET) as JWTPayload;
-    return decoded.role === "admin";
+    return decoded.role === ROLE;
   } catch (err) {
     return false;
   }
