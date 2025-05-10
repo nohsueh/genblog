@@ -61,5 +61,5 @@ export function getDefaultImage() {
 }
 
 export function encode(data: string) {
-  btoa(data).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  return btoa(data).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
