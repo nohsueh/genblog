@@ -14,7 +14,7 @@ import { getBaseUrl } from "./utils";
 const API_URL = "https://searchlysis.com/api";
 const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
-const ADMIN_PASSWORD = process.env.PASSWORD;
+const ADMIN_TOKEN = process.env.PASSWORD;
 const SESSION_COOKIE_NAME = `__Secure-${btoa(getBaseUrl())}`;
 const SESSION_EXPIRY = 60 * 60 * 24 * 7; // 7 days
 
@@ -22,7 +22,7 @@ if (!API_KEY) {
   throw new Error("SEARCHLYSIS_API_KEY is not defined");
 }
 
-if (!ADMIN_PASSWORD) {
+if (!ADMIN_TOKEN) {
   throw new Error("PASSWORD is not defined");
 }
 
@@ -40,14 +40,14 @@ const headers = {
 export async function validateAdmin(formData: FormData) {
   const password = formData.get("password") as string;
 
-  if (password === ADMIN_PASSWORD) {
+  if (password === ADMIN_TOKEN) {
     // Generate JWT token
     const token = jwt.sign(
       {
         role: ROLE,
         iat: Math.floor(Date.now() / 1000),
       },
-      ADMIN_PASSWORD,
+      ADMIN_TOKEN,
       {
         expiresIn: SESSION_EXPIRY,
       },
@@ -59,12 +59,25 @@ export async function validateAdmin(formData: FormData) {
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
       maxAge: SESSION_EXPIRY,
       path: process.env.NEXT_PUBLIC_BASE_PATH,
     });
   } else {
     throw new Error("Invalid password");
   }
+}
+
+export async function logoutAdmin() {
+  (await cookies()).set({
+    name: SESSION_COOKIE_NAME,
+    value: "",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 0,
+    path: process.env.NEXT_PUBLIC_BASE_PATH,
+  });
 }
 
 export async function checkAdminSession() {
@@ -75,23 +88,12 @@ export async function checkAdminSession() {
     // Verify JWT token
     const decoded = jwt.verify(
       session.value,
-      ADMIN_PASSWORD as string,
+      ADMIN_TOKEN as string,
     ) as JWTPayload;
-    return decoded.role === ROLE;
+    return ROLE === decoded.role;
   } catch (err) {
     return false;
   }
-}
-
-export async function logoutAdmin() {
-  (await cookies()).set({
-    name: SESSION_COOKIE_NAME,
-    value: "",
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 0,
-    path: process.env.NEXT_PUBLIC_BASE_PATH,
-  });
 }
 
 export async function requireAdmin(lang: string) {
@@ -355,6 +357,6 @@ async function getTotalBlogs(metadata?: Record<string, any>): Promise<number> {
     );
   }
 
-  const data = await response.json();
+  const data = (await response.json()) as any;
   return data.count;
 }
