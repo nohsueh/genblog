@@ -15,7 +15,7 @@ const API_URL = "https://searchlysis.com/api";
 const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
-const SESSION_COOKIE_NAME = `__Secure-${btoa(getBaseUrl())}`;
+const SESSION_COOKIE_NAME = btoa(getBaseUrl());
 const SESSION_EXPIRY = 60 * 60 * 24 * 7; // 7 days
 
 if (!API_KEY) {
@@ -57,9 +57,9 @@ export async function validateAdmin(formData: FormData) {
     (await cookies()).set({
       name: SESSION_COOKIE_NAME,
       value: token,
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      // httpOnly: true,
+      // secure: process.env.NODE_ENV === "production",
+      // sameSite: "strict",
       maxAge: SESSION_EXPIRY,
       path: process.env.NEXT_PUBLIC_BASE_PATH,
     });
@@ -69,15 +69,7 @@ export async function validateAdmin(formData: FormData) {
 }
 
 export async function logoutAdmin() {
-  (await cookies()).set({
-    name: SESSION_COOKIE_NAME,
-    value: "",
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
-    maxAge: 0,
-    path: process.env.NEXT_PUBLIC_BASE_PATH,
-  });
+  (await cookies()).delete(SESSION_COOKIE_NAME);
 }
 
 export async function checkAdminSession() {
@@ -85,7 +77,6 @@ export async function checkAdminSession() {
   if (!session?.value) return false;
 
   try {
-    // Verify JWT token
     const decoded = jwt.verify(
       session.value,
       ADMIN_TOKEN as string,
