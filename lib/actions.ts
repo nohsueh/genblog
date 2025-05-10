@@ -15,7 +15,7 @@ const API_URL = "https://searchlysis.com/api";
 const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
-const COOKIE_NAME = `__Secure-${btoa(new URL(getBaseUrl()).pathname)}`;
+const COOKIE_NAME = `__sl_${btoa(new URL(getBaseUrl()).pathname)}`;
 const COOKIE_EXPIRY = 60 * 60 * 24 * 7; // 7 days
 
 if (!API_KEY) {
@@ -57,11 +57,8 @@ export async function validateAdmin(formData: FormData) {
     (await cookies()).set({
       name: COOKIE_NAME,
       value: token,
-      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
       maxAge: COOKIE_EXPIRY,
-      path: new URL(getBaseUrl()).pathname,
     });
   } else {
     throw new Error("Invalid password");
