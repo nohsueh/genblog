@@ -14,18 +14,17 @@ import { getBaseUrl } from "./utils";
 const API_URL = "https://searchlysis.com/api";
 const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
-const ADMIN_TOKEN = process.env.PASSWORD;
-const SESSION_COOKIE_NAME = `__Secure-${getBaseUrl()}`;
+const ADMIN_PASSWORD = process.env.PASSWORD;
+const SESSION_COOKIE_NAME = `__Secure-${btoa(getBaseUrl())}`;
 const SESSION_EXPIRY = 60 * 60 * 24 * 7; // 7 days
 
 if (!API_KEY) {
-  throw new Error("PASSWORD is not defined");
+  throw new Error("SEARCHLYSIS_API_KEY is not defined");
 }
 
-if (!ADMIN_TOKEN) {
+if (!ADMIN_PASSWORD) {
   throw new Error("PASSWORD is not defined");
 }
-const JWT_SECRET = ADMIN_TOKEN;
 
 interface JWTPayload {
   role: string;
@@ -35,20 +34,20 @@ interface JWTPayload {
 
 const headers = {
   "Content-Type": "application/json",
-  "x-api-key": API_KEY || "",
+  "x-api-key": API_KEY,
 };
 
 export async function validateAdmin(formData: FormData) {
   const password = formData.get("password") as string;
 
-  if (password === ADMIN_TOKEN) {
+  if (password === ADMIN_PASSWORD) {
     // Generate JWT token
     const token = jwt.sign(
       {
         role: ROLE,
         iat: Math.floor(Date.now() / 1000),
       },
-      JWT_SECRET,
+      ADMIN_PASSWORD,
       {
         expiresIn: SESSION_EXPIRY,
       },
@@ -61,6 +60,7 @@ export async function validateAdmin(formData: FormData) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       maxAge: SESSION_EXPIRY,
+      path: process.env.NEXT_PUBLIC_BASE_PATH,
     });
   } else {
     throw new Error("Invalid password");
@@ -73,7 +73,10 @@ export async function checkAdminSession() {
 
   try {
     // Verify JWT token
-    const decoded = jwt.verify(session.value, JWT_SECRET) as JWTPayload;
+    const decoded = jwt.verify(
+      session.value,
+      ADMIN_PASSWORD as string,
+    ) as JWTPayload;
     return decoded.role === ROLE;
   } catch (err) {
     return false;
@@ -81,7 +84,14 @@ export async function checkAdminSession() {
 }
 
 export async function logoutAdmin() {
-  (await cookies()).delete(SESSION_COOKIE_NAME);
+  (await cookies()).set({
+    name: SESSION_COOKIE_NAME,
+    value: "",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 0,
+    path: process.env.NEXT_PUBLIC_BASE_PATH,
+  });
 }
 
 export async function requireAdmin(lang: string) {
