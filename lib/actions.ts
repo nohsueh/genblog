@@ -66,12 +66,12 @@ export async function validateAdmin(formData: FormData) {
 }
 
 export async function logoutAdmin() {
-  (await cookies()).delete(COOKIE_NAME);
+  (await cookies()).delete(COOKIE_NAME.slice(0, -1));
 }
 
 export async function checkAdminCookie() {
   try {
-    const cookie = (await cookies()).get(COOKIE_NAME);
+    const cookie = (await cookies()).get(COOKIE_NAME.slice(0, -1));
     if (!cookie?.value) {
       console.error({ COOKIE_NAME, cookie: cookie || "No value" });
       return false;
