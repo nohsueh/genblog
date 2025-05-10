@@ -61,7 +61,6 @@ export async function validateAdmin(formData: FormData) {
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
       maxAge: SESSION_EXPIRY,
-      path: process.env.NEXT_PUBLIC_BASE_PATH,
     });
   } else {
     throw new Error("Invalid password");
