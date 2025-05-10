@@ -49,7 +49,7 @@ export function SiteHeader({
             >
               <Image
                 alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
-                src="/icon.svg"
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.svg`}
                 width={40}
                 height={40}
                 priority={true}
