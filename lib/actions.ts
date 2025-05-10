@@ -9,13 +9,13 @@ import type {
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { getBaseUrl } from "./utils";
+import { encode, getBaseUrl } from "./utils";
 
 const API_URL = "https://searchlysis.com/api";
 const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
-const COOKIE_NAME = `__sl_${btoa(new URL(getBaseUrl()).pathname)}`;
+const COOKIE_NAME = `__sl_${encode(new URL(getBaseUrl()).pathname)}`;
 const COOKIE_EXPIRY = 60 * 60 * 24 * 28; // 28 days
 
 if (!API_KEY) {
@@ -52,13 +52,17 @@ export async function validateAdmin(formData: FormData) {
         expiresIn: COOKIE_EXPIRY,
       },
     );
+    console.error({ COOKIE_NAME, token });
 
     // Set the JWT token in the cookie
     (await cookies()).set({
       name: COOKIE_NAME,
       value: token,
+      httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
       maxAge: COOKIE_EXPIRY,
+      path: new URL(getBaseUrl()).pathname,
     });
   } else {
     throw new Error("Invalid password");
@@ -66,12 +70,12 @@ export async function validateAdmin(formData: FormData) {
 }
 
 export async function logoutAdmin() {
-  (await cookies()).delete(COOKIE_NAME.slice(0, -1));
+  (await cookies()).delete(COOKIE_NAME);
 }
 
 export async function checkAdminCookie() {
   try {
-    const cookie = (await cookies()).get(COOKIE_NAME.slice(0, -1));
+    const cookie = (await cookies()).get(COOKIE_NAME);
     if (!cookie?.value) {
       console.error({ COOKIE_NAME, cookie: cookie || "No value" });
       return false;

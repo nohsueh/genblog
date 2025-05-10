@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(
   dateString: string,
-  locale: Locale = i18n.defaultLocale
+  locale: Locale = i18n.defaultLocale,
 ) {
   const date = new Date(dateString);
 
@@ -22,7 +22,7 @@ export function formatDate(
 export function getPaginationRange(
   current: number,
   total: number,
-  siblingCount: number = 2
+  siblingCount: number = 2,
 ) {
   const totalPageNumbers = siblingCount * 2 + 5;
   if (total <= totalPageNumbers) {
@@ -58,4 +58,8 @@ export function getBaseUrl() {
 
 export function getDefaultImage() {
   return `${getBaseUrl()}/logo.svg`;
+}
+
+export function encode(data: string) {
+  btoa(data).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
