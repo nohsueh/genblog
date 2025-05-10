@@ -1,7 +1,7 @@
 import { BlogPost } from "@/components/blog-post";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { checkAdminSession, getAnalysis } from "@/lib/actions";
+import { checkAdminCookie, getAnalysis } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultImage } from "@/lib/utils";
@@ -19,7 +19,7 @@ export default async function BlogPage({
     const { lang, id } = await params;
     const [dictionary, isLoggedIn, post] = await Promise.all([
       getDictionary(lang),
-      checkAdminSession(),
+      checkAdminCookie(),
       getAnalysis(id),
     ]);
 

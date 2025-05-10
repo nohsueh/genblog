@@ -1,7 +1,7 @@
 import { AdminLogin } from "@/components/admin-login";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { checkAdminSession } from "@/lib/actions";
+import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { redirect } from "next/navigation";
@@ -14,7 +14,7 @@ export default async function AdminPage(props: {
   const { lang } = params;
 
   const dictionary = await getDictionary(lang);
-  const isLoggedIn = await checkAdminSession();
+  const isLoggedIn = await checkAdminCookie();
 
   if (isLoggedIn) {
     redirect(`/${lang}/console/dashboard`);

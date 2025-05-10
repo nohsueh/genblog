@@ -15,8 +15,8 @@ const API_URL = "https://searchlysis.com/api";
 const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
-const SESSION_COOKIE_NAME = `__Secure-${btoa(new URL(getBaseUrl()).pathname)}`;
-const SESSION_EXPIRY = 60 * 60 * 24 * 7; // 7 days
+const COOKIE_NAME = `__Secure-${btoa(new URL(getBaseUrl()).pathname)}`;
+const COOKIE_EXPIRY = 60 * 60 * 24 * 7; // 7 days
 
 if (!API_KEY) {
   throw new Error("SEARCHLYSIS_API_KEY is not defined");
@@ -49,18 +49,18 @@ export async function validateAdmin(formData: FormData) {
       },
       ADMIN_TOKEN,
       {
-        expiresIn: SESSION_EXPIRY,
+        expiresIn: COOKIE_EXPIRY,
       },
     );
 
     // Set the JWT token in the cookie
     (await cookies()).set({
-      name: SESSION_COOKIE_NAME,
+      name: COOKIE_NAME,
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: SESSION_EXPIRY,
+      maxAge: COOKIE_EXPIRY,
     });
   } else {
     throw new Error("Invalid password");
@@ -68,16 +68,18 @@ export async function validateAdmin(formData: FormData) {
 }
 
 export async function logoutAdmin() {
-  (await cookies()).delete(SESSION_COOKIE_NAME);
+  (await cookies()).delete(COOKIE_NAME);
 }
 
-export async function checkAdminSession() {
-  const session = (await cookies()).get(SESSION_COOKIE_NAME);
-  if (!session?.value) return false;
-
+export async function checkAdminCookie() {
   try {
+    const cookie = (await cookies()).get(COOKIE_NAME);
+    if (!cookie?.value) {
+      return false;
+    }
+
     const decoded = jwt.verify(
-      session.value,
+      cookie.value,
       ADMIN_TOKEN as string,
     ) as JWTPayload;
     return ROLE === decoded.role;
@@ -87,7 +89,7 @@ export async function checkAdminSession() {
 }
 
 export async function requireAdmin(lang: string) {
-  const isAdmin = await checkAdminSession();
+  const isAdmin = await checkAdminCookie();
   if (!isAdmin) {
     redirect(`/${lang}/console`);
   }

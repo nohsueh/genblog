@@ -1,7 +1,7 @@
 import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { checkAdminSession } from "@/lib/actions";
+import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultImage, getGroupName } from "@/lib/utils";
@@ -18,7 +18,7 @@ export default async function HomePage({
 }) {
   const { lang } = await params;
   const dictionary = await getDictionary(lang);
-  const isLoggedIn = await checkAdminSession();
+  const isLoggedIn = await checkAdminCookie();
 
   return (
     <div className="flex min-h-screen flex-col">
