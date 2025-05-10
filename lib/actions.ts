@@ -52,7 +52,6 @@ export async function validateAdmin(formData: FormData) {
         expiresIn: COOKIE_EXPIRY,
       },
     );
-    console.error({ COOKIE_NAME, token });
 
     // Set the JWT token in the cookie
     (await cookies()).set({
@@ -70,14 +69,21 @@ export async function validateAdmin(formData: FormData) {
 }
 
 export async function logoutAdmin() {
-  (await cookies()).delete(COOKIE_NAME);
+  (await cookies()).set({
+    name: COOKIE_NAME,
+    value: "",
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 0,
+    path: new URL(getBaseUrl()).pathname,
+  });
 }
 
 export async function checkAdminCookie() {
   try {
     const cookie = (await cookies()).get(COOKIE_NAME);
     if (!cookie?.value) {
-      console.error({ COOKIE_NAME, cookie: cookie || "No value" });
       return false;
     }
 
