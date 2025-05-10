@@ -16,7 +16,7 @@ const ROLE = "admin";
 const API_KEY = process.env.SEARCHLYSIS_API_KEY;
 const ADMIN_TOKEN = process.env.PASSWORD;
 const COOKIE_NAME = `__sl_${btoa(new URL(getBaseUrl()).pathname)}`;
-const COOKIE_EXPIRY = 60 * 60 * 24 * 7; // 7 days
+const COOKIE_EXPIRY = 60 * 60 * 24 * 28; // 28 days
 
 if (!API_KEY) {
   throw new Error("SEARCHLYSIS_API_KEY is not defined");
@@ -73,6 +73,7 @@ export async function checkAdminCookie() {
   try {
     const cookie = (await cookies()).get(COOKIE_NAME);
     if (!cookie?.value) {
+      console.error({ COOKIE_NAME, cookie: cookie || "No value" });
       return false;
     }
 
@@ -82,6 +83,7 @@ export async function checkAdminCookie() {
     ) as JWTPayload;
     return ROLE === decoded.role;
   } catch (err) {
+    console.error(`checkAdminCookie ${err}`);
     return false;
   }
 }
