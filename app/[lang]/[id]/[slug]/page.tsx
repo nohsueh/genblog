@@ -1,27 +1,43 @@
-import { getAnalysis } from "@/lib/actions";
+import { BlogPost } from "@/components/blog-post";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { checkAdminCookie, getAnalysis } from "@/lib/actions";
+import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultImage } from "@/lib/utils";
-import { AnalysisResult } from "@/types/api";
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 export const revalidate = 86400;
 
 type Props = {
   lang: Locale;
   id: string;
+  slug: String;
 };
 
 export default async function BlogPage({ params }: { params: Promise<Props> }) {
-  const { lang, id } = await params;
-  let post: AnalysisResult;
   try {
-    post = await getAnalysis(id);
+    const { lang, id } = await params;
+    const [dictionary, isLoggedIn, post] = await Promise.all([
+      getDictionary(lang),
+      checkAdminCookie(),
+      getAnalysis(id),
+    ]);
+
+    return (
+      <div className="flex min-h-screen flex-col">
+        <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
+        <main className="container mb-48 flex-1 px-4 py-6">
+          <BlogPost post={post} lang={lang} dictionary={dictionary} />
+        </main>
+        <SiteFooter />
+      </div>
+    );
   } catch (error) {
     console.error(error);
     return notFound();
   }
-  redirect(`${getBaseUrl()}/${lang}/${id}/${post.slug || ""}`);
 }
 
 export async function generateMetadata({
@@ -29,7 +45,7 @@ export async function generateMetadata({
 }: {
   params: Promise<Props>;
 }): Promise<Metadata> {
-  const { id, lang } = await params;
+  const { id, lang, slug } = await params;
   const post = await getAnalysis(id);
 
   const contentLines = post.analysis?.content
@@ -59,7 +75,7 @@ export async function generateMetadata({
     images = getDefaultImage();
   }
 
-  const canonical = `${getBaseUrl()}/${lang}/${id}/${post.slug || ""}`;
+  const canonical = `${getBaseUrl()}/${lang}/${id}/${slug}`;
 
   return {
     title,

@@ -50,6 +50,7 @@ export interface AnalysisResult {
   updatedAt: string;
   analysisId: string;
   analysis?: AnalyzeAnalysisObject;
+  slug?: string;
   metadata?: Record<string, any>;
 }
 

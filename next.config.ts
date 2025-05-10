@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH,
   images: {
     remotePatterns: [
       {
@@ -13,10 +14,8 @@ const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
       allowedOrigins: [
-        "searchlysis.com",
-        "*.searchlysis.com",
-        process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost",
-        `*.${process.env.NEXT_PUBLIC_ROOT_DOMAIN || "localhost"}`,
+        process.env.NEXT_PUBLIC_ROOT_DOMAIN || "searchlysis.com",
+        `*.${process.env.NEXT_PUBLIC_ROOT_DOMAIN || "*.searchlysis.com"}`,
       ],
     },
   },

@@ -38,7 +38,7 @@ export async function LatestPostsSidebar({
     const image = post.analysis?.image || getDefaultImage();
 
     return (
-      <Link href={`/${lang}/${post.analysisId}`}>
+      <Link href={`/${lang}/${post.analysisId}/${post.slug || ""}`}>
         <Card
           key={post.analysisId}
           className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"

@@ -14,7 +14,6 @@ export default async function sitemap({
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
-  const CURRENT_DATE = new Date().toISOString();
   const analyses = await listAnalysesIds(1, 49999, {
     group: getGroupName(),
     language: id,
@@ -25,7 +24,7 @@ export default async function sitemap({
       url: `${getBaseUrl()}/${id}`,
     },
     ...analyses.map((analysis) => ({
-      url: `${getBaseUrl()}/${id}/${analysis.analysisId}`,
+      url: `${getBaseUrl()}/${id}/${analysis.analysisId}/${analysis.slug || ""}`,
     })),
   ];
 }

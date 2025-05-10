@@ -9,9 +9,7 @@ import { getGroupName } from "@/lib/utils";
 export default async function DashboardPage(props: {
   params: Promise<{ lang: Locale }>;
 }) {
-  const params = await props.params;
-
-  const { lang } = params;
+  const { lang } = await props.params;
 
   // This will redirect if not authenticated
   await requireAdmin(lang);

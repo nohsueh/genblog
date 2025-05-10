@@ -12,7 +12,11 @@ export function SiteFooter() {
             © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_APP_NAME}
           </p>
           <div className="flex flex-row">
-            <Link href={"https://github.com/nohsueh/genblog"} target="_blank">
+            <Link
+              href={"https://github.com/nohsueh/genblog"}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+            >
               <Suspense fallback={<Skeleton className="size-6" />}>
                 <Image
                   src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}

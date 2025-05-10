@@ -1,4 +1,6 @@
 import "prismjs";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-core";
 import "prismjs/components/prism-markup-templating.js";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";

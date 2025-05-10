@@ -41,7 +41,7 @@ async function BlogListContent({
     currentPage,
     PAGE_SIZE,
     group,
-    lang
+    lang,
   );
 
   return posts.length === 0 ? (
@@ -68,7 +68,10 @@ async function BlogListContent({
           const updatedAt = post.updatedAt;
 
           return (
-            <Link href={`/${lang}/${post.analysisId}`} key={post.analysisId}>
+            <Link
+              href={`/${lang}/${post.analysisId}/${post.slug || ""}`}
+              key={post.analysisId}
+            >
               <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
                 <CardHeader className="p-0">
                   <div className="relative aspect-video overflow-hidden">
@@ -113,7 +116,7 @@ async function BlogListContent({
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE)
+                Math.ceil(total / PAGE_SIZE),
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
@@ -127,7 +130,7 @@ async function BlogListContent({
                       </PaginationLink>
                     </Link>
                   </PaginationItem>
-                )
+                ),
               )}
             </PaginationContent>
           </Pagination>

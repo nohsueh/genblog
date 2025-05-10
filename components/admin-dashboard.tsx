@@ -71,7 +71,6 @@ export function AdminDashboard({
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
 
-  // 创建一个防抖版本的 handleToggleVisibility
   const debouncedToggleVisibility = React.useCallback(
     debounce(async (post: AnalysisResult) => {
       try {
@@ -103,7 +102,6 @@ export function AdminDashboard({
     [groupName, posts, dictionary]
   );
 
-  // 清理防抖函数
   React.useEffect(() => {
     return () => {
       debouncedToggleVisibility.cancel();
