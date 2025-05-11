@@ -3,7 +3,7 @@ import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultImage } from "@/lib/utils";
 import { AnalysisResult } from "@/types/api";
 import { Metadata } from "next";
-import { notFound, redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 
 export const revalidate = 86400;
 
@@ -21,7 +21,7 @@ export default async function BlogPage({ params }: { params: Promise<Props> }) {
     console.error(error);
     return notFound();
   }
-  redirect(`${getBaseUrl()}/${lang}/${id}/${post.slug || ""}`);
+  permanentRedirect(`${getBaseUrl()}/${lang}/${id}/${post.slug || ""}`);
 }
 
 export async function generateMetadata({
