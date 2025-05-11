@@ -363,7 +363,7 @@ ${CHINESE_RESPONSE_PROMPT}`;
                     <Label htmlFor="search-temperature">
                       {dictionary.admin.create.temperature}
                     </Label>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {temperature[0].toFixed(2)}
                     </span>
                   </div>
@@ -376,7 +376,7 @@ ${CHINESE_RESPONSE_PROMPT}`;
                     onValueChange={setTemperature}
                     disabled={isLoading}
                   />
-                  <div className="flex justify-between text-xs text-muted-foreground">
+                  <div className="text-muted-foreground flex justify-between text-xs">
                     <span>{dictionary.admin.create.precise}</span>
                     <span>{dictionary.admin.create.creative}</span>
                   </div>
@@ -404,7 +404,7 @@ ${CHINESE_RESPONSE_PROMPT}`;
                     disabled={isLoading}
                     required
                   />
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     {dictionary.admin.create.linkHelp}
                   </p>
                 </div>
@@ -441,7 +441,7 @@ ${CHINESE_RESPONSE_PROMPT}`;
                     <Label htmlFor="link-temperature">
                       {dictionary.admin.create.temperature}
                     </Label>
-                    <span className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground text-sm">
                       {temperature[0].toFixed(2)}
                     </span>
                   </div>
@@ -454,7 +454,7 @@ ${CHINESE_RESPONSE_PROMPT}`;
                     onValueChange={setTemperature}
                     disabled={isLoading}
                   />
-                  <div className="flex justify-between text-xs text-muted-foreground">
+                  <div className="text-muted-foreground flex justify-between text-xs">
                     <span>{dictionary.admin.create.precise}</span>
                     <span>{dictionary.admin.create.creative}</span>
                   </div>

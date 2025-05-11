@@ -2,6 +2,7 @@ import "@/app/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { i18n } from "@/lib/i18n-config";
+import { LoaderCircle } from "lucide-react";
 import { Inter } from "next/font/google";
 import type React from "react";
 import { Suspense } from "react";
@@ -32,7 +33,15 @@ export default async function RootLayout(props: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<></>}>{children}</Suspense>
+          <Suspense
+            fallback={
+              <div className="flex h-[50vh] w-screen flex-col items-center justify-center">
+                <LoaderCircle className="size-10 animate-[spin_0.4s_linear_infinite]" />
+              </div>
+            }
+          >
+            {children}
+          </Suspense>
           <Toaster richColors />
         </ThemeProvider>
       </body>

@@ -1,10 +1,10 @@
 import { BlogPost } from "@/components/blog-post";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { checkAdminCookie, getAnalysis } from "@/lib/actions";
+import { checkAdminCookie, getAnalysis, validateImage } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl, getDefaultImage } from "@/lib/utils";
+import { getBaseUrl } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -60,20 +60,7 @@ export async function generateMetadata({
     ?.slice(1)
     .find((line) => !line.startsWith("!["));
 
-  let images = post.analysis?.image || "";
-  try {
-    const res = await fetch(images, {
-      method: "HEAD",
-      next: { revalidate: 2 },
-    });
-    const contentType = res.headers.get("Content-Type") || "";
-    images =
-      res.ok && contentType.startsWith("image")
-        ? (post.analysis?.image as string)
-        : getDefaultImage();
-  } catch {
-    images = getDefaultImage();
-  }
+  const images = await validateImage(post.analysis?.image || "");
 
   const canonical = `${getBaseUrl()}/${lang}/${id}/${slug}`;
 

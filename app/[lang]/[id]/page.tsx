@@ -1,6 +1,6 @@
-import { getAnalysis } from "@/lib/actions";
+import { getAnalysis, validateImage } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl, getDefaultImage } from "@/lib/utils";
+import { getBaseUrl } from "@/lib/utils";
 import { AnalysisResult } from "@/types/api";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
@@ -18,7 +18,7 @@ export default async function BlogPage({ params }: { params: Promise<Props> }) {
   try {
     post = await getAnalysis(id);
   } catch (error) {
-    console.error(error);
+    console.error(`BlogPage getAnalysis: ${error}`);
     return notFound();
   }
   permanentRedirect(`${getBaseUrl()}/${lang}/${id}/${post.slug || ""}`);
@@ -44,20 +44,7 @@ export async function generateMetadata({
     ?.slice(1)
     .find((line) => !line.startsWith("!["));
 
-  let images = post.analysis?.image || "";
-  try {
-    const res = await fetch(images, {
-      method: "HEAD",
-      next: { revalidate: 2 },
-    });
-    const contentType = res.headers.get("Content-Type") || "";
-    images =
-      res.ok && contentType.startsWith("image")
-        ? (post.analysis?.image as string)
-        : getDefaultImage();
-  } catch {
-    images = getDefaultImage();
-  }
+  let images = await validateImage(post.analysis?.image || "");
 
   const canonical = `${getBaseUrl()}/${lang}/${id}/${post.slug || ""}`;
 

@@ -9,7 +9,7 @@ import type {
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { encode, getBaseUrl } from "./utils";
+import { encode, getBaseUrl, getDefaultImage } from "./utils";
 
 const API_URL = "https://searchlysis.com/api";
 const ROLE = "admin";
@@ -181,7 +181,7 @@ export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
     {
       headers,
       next: {
-        revalidate: 2,
+        revalidate: 3600,
       },
     },
   );
@@ -258,7 +258,7 @@ export async function listAnalyses(
   const response = await fetch(url, {
     headers,
     next: {
-      revalidate: 2,
+      revalidate: 3600,
     },
   });
 
@@ -285,7 +285,7 @@ export async function listAnalysesIds(
   const response = await fetch(url, {
     headers,
     next: {
-      revalidate: 2,
+      revalidate: 3600,
     },
   });
 
@@ -313,7 +313,7 @@ export async function relatedAnalyses(
   const response = await fetch(url, {
     headers,
     next: {
-      revalidate: 2,
+      revalidate: 3600,
     },
   });
 
@@ -349,7 +349,7 @@ async function getTotalBlogs(metadata?: Record<string, any>): Promise<number> {
   const response = await fetch(url, {
     headers,
     next: {
-      revalidate: 2,
+      revalidate: 3600,
     },
   });
 
@@ -361,4 +361,14 @@ async function getTotalBlogs(metadata?: Record<string, any>): Promise<number> {
 
   const data = (await response.json()) as any;
   return data.count;
+}
+
+export async function validateImage(url: string): Promise<string> {
+  try {
+    const res = await fetch(url, { method: "HEAD" });
+    const contentType = res.headers.get("Content-Type") || "";
+    return res.ok && contentType.startsWith("image") ? url : getDefaultImage();
+  } catch (err) {
+    return getDefaultImage();
+  }
 }
