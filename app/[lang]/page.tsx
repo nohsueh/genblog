@@ -38,10 +38,13 @@ export default async function HomePage({
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ lang: Locale }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }): Promise<Metadata> {
   const { lang } = await params;
+  const page = Number((await searchParams).page || 1);
   const dictionary = await getDictionary(lang);
 
   const title = process.env.NEXT_PUBLIC_APP_NAME;
@@ -50,7 +53,7 @@ export async function generateMetadata({
     `${dictionary.home.title} - ${dictionary.home.description}`;
   const images = getDefaultImage();
 
-  const canonical = `${getBaseUrl()}/${lang}`;
+  const canonical = `${getBaseUrl()}/${lang}?page=${page}`;
 
   return {
     title,
