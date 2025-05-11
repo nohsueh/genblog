@@ -71,35 +71,35 @@ export function AdminDashboard({
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
 
-  const debouncedToggleVisibility = React.useCallback(
-    debounce(async (post: AnalysisResult) => {
-      try {
-        const formData = new FormData();
-        formData.append("analysisId", post.analysisId);
-        formData.append("content", post.analysis?.content || "");
-        formData.append(
-          "group",
-          post.metadata?.group === groupName ? "" : groupName
-        );
-        formData.append(
-          "language",
-          post.metadata?.language === lang ? "" : lang
-        );
+  const debouncedToggleVisibility = React.useMemo(
+    () =>
+      debounce(async (post: AnalysisResult) => {
+        try {
+          const formData = new FormData();
+          formData.append("analysisId", post.analysisId);
+          formData.append("content", post.analysis?.content || "");
+          formData.append(
+            "group",
+            post.metadata?.group === groupName ? "" : groupName,
+          );
+          formData.append(
+            "language",
+            post.metadata?.language === lang ? "" : lang,
+          );
 
-        const updatedPost = await updateAnalysis(formData);
+          const updatedPost = await updateAnalysis(formData);
 
-        // Update local state
-        setPosts(
-          posts.map((post) =>
-            post.analysisId === updatedPost.analysisId ? updatedPost : post
-          )
-        );
-      } catch (error) {
-        toast.error(dictionary.admin.edit.error);
-        console.error("Failed to update post visibility:", error);
-      }
-    }, 500),
-    [groupName, posts, dictionary]
+          setPosts(
+            posts.map((p) =>
+              p.analysisId === updatedPost.analysisId ? updatedPost : p,
+            ),
+          );
+        } catch (error) {
+          toast.error(dictionary.admin.edit.error);
+          console.error("Failed to update post visibility:", error);
+        }
+      }, 500),
+    [groupName, lang, posts, dictionary],
   );
 
   React.useEffect(() => {
@@ -118,7 +118,7 @@ export function AdminDashboard({
           currentPage,
           PAGE_SIZE,
           group,
-          lang
+          lang,
         );
         setPosts(result.blogs);
         setTotal(result.total);
@@ -133,7 +133,7 @@ export function AdminDashboard({
   }, [groupName, lang, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
-    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase())
+    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleDelete = async (post: AnalysisResult) => {
@@ -210,7 +210,7 @@ export function AdminDashboard({
             <TableBody>
               {filteredPosts.map((post) => (
                 <TableRow key={post.analysisId}>
-                  <TableCell className="font-medium break-all">
+                  <TableCell className="break-all font-medium">
                     {post.analysis?.title || ""}
                   </TableCell>
                   <TableCell className="text-nowrap">
@@ -286,7 +286,7 @@ export function AdminDashboard({
                 <PaginationContent>
                   {getPaginationRange(
                     currentPage,
-                    Math.ceil(total / PAGE_SIZE)
+                    Math.ceil(total / PAGE_SIZE),
                   ).map((page, idx) =>
                     page === "..." ? (
                       <PaginationItem key={`ellipsis-${idx}`}>
@@ -302,7 +302,7 @@ export function AdminDashboard({
                           {page}
                         </PaginationLink>
                       </PaginationItem>
-                    )
+                    ),
                   )}
                 </PaginationContent>
               </Pagination>
