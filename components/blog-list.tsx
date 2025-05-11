@@ -9,6 +9,7 @@ import {
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
 } from "@/components/ui/pagination";
@@ -120,7 +121,7 @@ async function BlogListContent({
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>
-                    <span className="px-2 text-muted-foreground">...</span>
+                    <PaginationEllipsis />
                   </PaginationItem>
                 ) : (
                   <PaginationItem key={page}>
