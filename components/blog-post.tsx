@@ -23,7 +23,7 @@ export async function BlogPost({
   dictionary,
 }: BlogPostProps) {
   const post: Analysis = await getAnalysis(analysisId);
-  const { html, headings } = markdownToHtml(post.jsonContent.article || "");
+  const { html, headings } = markdownToHtml(post.jsonContent?.article || "");
   const image = post.analysis.image || getDefaultImage();
   const title = post.analysis.title || "";
 
