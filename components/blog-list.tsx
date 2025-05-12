@@ -43,21 +43,21 @@ async function BlogListContent({
 }: BlogListProps) {
   const currentPage = Number(searchParams.page || 1);
 
-  const { blogs: posts, total } = await getPublishedBlogs(
+  const { blogs, total } = await getPublishedBlogs(
     currentPage,
     PAGE_SIZE,
     group,
     lang,
   );
 
-  return posts.length === 0 ? (
+  return blogs.length === 0 ? (
     <div className="py-10 text-center">
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
   ) : (
     <div>
       <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
-        {posts.map((post) => {
+        {blogs.map((post) => {
           const articleLines = extractContent(post.jsonContent);
           const title =
             articleLines[0].replace(/^#+\s+|\*+/g, "") ||
