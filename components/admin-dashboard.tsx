@@ -98,7 +98,7 @@ export function AdminDashboard({
           console.error("Failed to update post visibility:", error);
         }
       }, 500),
-    [groupName, lang, posts, dictionary],
+    [groupName, posts, dictionary],
   );
 
   React.useEffect(() => {

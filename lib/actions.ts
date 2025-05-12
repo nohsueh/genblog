@@ -110,23 +110,26 @@ export async function analyzeSearch(
   formData: FormData,
 ): Promise<AnalyzeResults> {
   const query = formData.get("query") as string;
-  const prompt = formData.get("prompt") as string;
-  const group = formData.get("group") as string;
-  const language = formData.get("language") as string;
   const num = Number.parseInt(formData.get("num") as string);
   const startPublishedDate = formData.get("startPublishedDate") as string;
   const endPublishedDate = formData.get("endPublishedDate") as string;
-  const temperature = Number.parseFloat(formData.get("temperature") as string);
 
+  const prompt = formData.get("prompt") as string;
+  const temperature = Number.parseFloat(formData.get("temperature") as string);
+  const responseFormat = JSON.parse(formData.get("responseFormat") as string);
+
+  const group = formData.get("group") as string;
+  const language = formData.get("language") as string;
   const metadata = { group, language };
 
   const params: AnalyzeSearchParams = {
     query,
-    prompt,
     num,
     startPublishedDate: startPublishedDate || undefined,
     endPublishedDate: endPublishedDate || undefined,
+    prompt,
     temperature,
+    responseFormat: responseFormat || undefined,
     metadata,
   };
 
@@ -147,17 +150,20 @@ export async function analyzeSearch(
 
 export async function analyzeLinks(formData: FormData) {
   const link = JSON.parse(formData.get("link") as string) as string[];
+
   const prompt = formData.get("prompt") as string;
+  const temperature = Number.parseFloat(formData.get("temperature") as string);
+  const responseFormat = JSON.parse(formData.get("responseFormat") as string);
+
   const group = formData.get("group") as string;
   const language = formData.get("language") as string;
-  const temperature = Number.parseFloat(formData.get("temperature") as string);
-
   const metadata = { group, language };
 
   const params: AnalyzeLinksParams = {
     link,
     prompt,
     temperature,
+    responseFormat: responseFormat || undefined,
     metadata,
   };
 

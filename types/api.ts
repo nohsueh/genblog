@@ -6,6 +6,7 @@ export interface AnalyzeSearchParams {
   startPublishedDate?: string;
   endPublishedDate?: string;
   temperature?: number;
+  responseFormat?: any;
 }
 
 export interface AnalyzeLinksParams {
@@ -13,6 +14,7 @@ export interface AnalyzeLinksParams {
   link: string | string[];
   prompt: string;
   temperature?: number;
+  responseFormat?: any;
 }
 
 export interface AnalyzeResults {
