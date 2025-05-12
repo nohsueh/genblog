@@ -10,21 +10,21 @@ export async function generateSitemaps() {
 }
 
 export default async function sitemap({
-  id,
+  id: locale,
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
   const analyses = await listAnalysesIds(1, 49999, {
     group: getGroupName(),
-    language: id,
+    language: locale,
   });
 
   return [
     {
-      url: `${getBaseUrl()}/${id}`,
+      url: `${getBaseUrl()}/${locale}`,
     },
     ...analyses.map((analysis) => ({
-      url: `${getBaseUrl()}/${id}/${analysis.analysisId}/${analysis.jsonContent?.slug || ""}`,
+      url: `${getBaseUrl()}/${locale}/${analysis.analysisId}/${analysis.jsonContent?.slug || ""}`,
     })),
   ];
 }

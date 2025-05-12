@@ -76,8 +76,6 @@ export function getAppType(): "blog" | "directory" {
 }
 
 export function extractContent(content: Content | null) {
-  console.error({ content });
-
   const articleLines = content?.article
     ?.trim()
     .split("\n")
