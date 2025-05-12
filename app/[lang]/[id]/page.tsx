@@ -5,8 +5,6 @@ import { Analysis } from "@/types/api";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 
-export const revalidate = 86400;
-
 type Props = {
   lang: Locale;
   id: string;

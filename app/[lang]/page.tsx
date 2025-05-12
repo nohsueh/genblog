@@ -7,8 +7,6 @@ import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultImage, getGroupName } from "@/lib/utils";
 import { Metadata } from "next";
 
-export const revalidate = 3600;
-
 export default async function HomePage({
   params,
   searchParams,
