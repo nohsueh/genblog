@@ -48,13 +48,13 @@ export function BlogCreator({ dictionary, group }: BlogCreatorProps) {
       schema: {
         type: "object",
         properties: {
-          slug: {
-            type: "string",
-            description: dictionary.prompt.slug,
-          },
           article: {
             type: "string",
             description: dictionary.prompt.article,
+          },
+          slug: {
+            type: "string",
+            description: dictionary.prompt.slug,
           },
           tags: {
             type: "array",
