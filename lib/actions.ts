@@ -359,15 +359,15 @@ export async function getPublishedBlogs({
 
 async function getBlogsCount(
   metadata?: Record<string, any>,
-  content?: Content,
+  jsonContent?: Content,
 ): Promise<number> {
   let url = `${API_URL}/v1/analyses/count`;
 
   if (metadata) {
     url += `?metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
   }
-  if (content) {
-    url += `?jsonContent=${encodeURIComponent(JSON.stringify(metadata))}`;
+  if (jsonContent) {
+    url += `?jsonContent=${encodeURIComponent(JSON.stringify(jsonContent))}`;
   }
 
   const response = await fetch(url, {
@@ -379,7 +379,7 @@ async function getBlogsCount(
 
   if (!response.ok) {
     throw new Error(
-      `Failed to fetch total blogs: ${response.headers.get("x-searchlysis-error")}`,
+      `Failed to fetch total blogs count: ${response.headers.get("x-searchlysis-error")}`,
     );
   }
 
