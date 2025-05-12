@@ -62,7 +62,7 @@ async function LatestPostsContent({ lang }: { lang: Locale }) {
       articleLines[0]?.replace(/^#+\s+|\*+/g, "") || post.analysis.title || "";
 
     return (
-      <Link href={`/${lang}/${post.analysisId}/${post.slug || ""}`}>
+      <Link href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}>
         <Card
           key={post.analysisId}
           className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"

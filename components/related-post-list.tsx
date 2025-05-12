@@ -97,7 +97,7 @@ async function RelatedBlogListContent({
     const updatedAt = post.updatedAt;
 
     return (
-      <Link href={`/${lang}/${post.analysisId}/${post.slug || ""}`}>
+      <Link href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}>
         <Card
           key={post.analysisId}
           className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"

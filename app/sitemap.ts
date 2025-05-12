@@ -24,7 +24,7 @@ export default async function sitemap({
       url: `${getBaseUrl()}/${id}`,
     },
     ...analyses.map((analysis) => ({
-      url: `${getBaseUrl()}/${id}/${analysis.analysisId}/${analysis.slug || ""}`,
+      url: `${getBaseUrl()}/${id}/${analysis.analysisId}/${analysis.jsonContent?.slug || ""}`,
     })),
   ];
 }
