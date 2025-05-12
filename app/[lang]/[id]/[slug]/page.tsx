@@ -7,6 +7,7 @@ import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 export const revalidate = 86400;
 
@@ -19,17 +20,24 @@ type Props = {
 export default async function BlogPage({ params }: { params: Promise<Props> }) {
   try {
     const { lang, id } = await params;
-    const [dictionary, isLoggedIn, post] = await Promise.all([
+    const [dictionary, isLoggedIn] = await Promise.all([
       getDictionary(lang),
       checkAdminCookie(),
-      getAnalysis(id),
     ]);
 
     return (
       <div className="flex min-h-screen flex-col">
         <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
         <main className="container mb-48 flex-1 px-4 py-6">
-          <BlogPost post={post} lang={lang} dictionary={dictionary} />
+          <Suspense
+            fallback={
+              <div className="py-10 text-center">
+                <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
+              </div>
+            }
+          >
+            <BlogPost analysisId={id} lang={lang} dictionary={dictionary} />
+          </Suspense>
         </main>
         <SiteFooter />
       </div>

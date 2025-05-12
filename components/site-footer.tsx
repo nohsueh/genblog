@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
-import { Skeleton } from "./ui/skeleton";
 
 export function SiteFooter() {
   return (
@@ -17,22 +15,20 @@ export function SiteFooter() {
               target="_blank"
               rel="noopener noreferrer nofollow"
             >
-              <Suspense fallback={<Skeleton className="size-6" />}>
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}
-                  alt="GitHub"
-                  width={24}
-                  height={24}
-                  className="block dark:hidden"
-                />
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
-                  alt="GitHub"
-                  width={24}
-                  height={24}
-                  className="hidden dark:block"
-                />
-              </Suspense>
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}
+                alt="GitHub"
+                width={24}
+                height={24}
+                className="block dark:hidden"
+              />
+              <Image
+                src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark-white.svg`}
+                alt="GitHub"
+                width={24}
+                height={24}
+                className="hidden dark:block"
+              />
             </Link>
           </div>
         </div>

@@ -2,7 +2,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getDefaultImage, getGroupName } from "@/lib/utils";
+import { getGroupName } from "@/lib/utils";
 import type { AnalysisResult } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -18,39 +18,6 @@ export async function LatestPostsSidebar({
   lang,
   dictionary,
 }: LatestPostsSidebarProps) {
-  let latest: AnalysisResult[];
-  try {
-    latest = await listAnalyses(1, POSTS_PER_PAGE, {
-      group: getGroupName(),
-      language: lang,
-    });
-  } catch (error) {
-    latest = [];
-  }
-
-  function renderCard(post: AnalysisResult) {
-    const contentLines = post.analysis?.content
-      ?.split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line !== "");
-    const title =
-      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
-    const image = post.analysis?.image || getDefaultImage();
-
-    return (
-      <Link href={`/${lang}/${post.analysisId}/${post.slug || ""}`}>
-        <Card
-          key={post.analysisId}
-          className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"
-        >
-          <CardTitle className="line-clamp-3 p-1 text-xs font-semibold">
-            {title}
-          </CardTitle>
-        </Card>
-      </Link>
-    );
-  }
-
   return (
     <aside className="sticky top-[40vh] mt-8 h-[40vh] overflow-y-auto xl:top-[calc(8rem+40vh)]">
       <h2 className="mb-2 text-base font-semibold">
@@ -71,9 +38,45 @@ export async function LatestPostsSidebar({
             </Card>
           ))}
         >
-          {latest.map(renderCard)}
+          <LatestPostsContent lang={lang} />
         </Suspense>
       </div>
     </aside>
   );
+}
+
+async function LatestPostsContent({ lang }: { lang: Locale }) {
+  let latest: AnalysisResult[];
+  try {
+    latest = await listAnalyses(1, POSTS_PER_PAGE, {
+      group: getGroupName(),
+      language: lang,
+    });
+  } catch (error) {
+    latest = [];
+  }
+
+  function renderCard(post: AnalysisResult) {
+    const contentLines = post.analysis?.content
+      ?.split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line !== "");
+    const title =
+      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
+
+    return (
+      <Link href={`/${lang}/${post.analysisId}/${post.slug || ""}`}>
+        <Card
+          key={post.analysisId}
+          className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"
+        >
+          <CardTitle className="line-clamp-3 p-1 text-xs font-semibold">
+            {title}
+          </CardTitle>
+        </Card>
+      </Link>
+    );
+  }
+
+  return latest.map(renderCard);
 }
