@@ -26,7 +26,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import ImageWithFallback from "./image-with-fallback";
 
-const PAGE_SIZE = 24;
+const PAGE_SIZE = 12;
 
 interface BlogListProps {
   lang: Locale;
@@ -43,12 +43,13 @@ async function BlogListContent({
 }: BlogListProps) {
   const currentPage = Number(searchParams.page || 1);
 
-  const { blogs, total } = await getPublishedBlogs(
-    currentPage,
-    PAGE_SIZE,
+  const { blogs, total } = await getPublishedBlogs({
+    pageNum: currentPage,
+    pageSize: PAGE_SIZE,
+    selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
     group,
-    lang,
-  );
+    language: lang,
+  });
 
   return blogs.length === 0 ? (
     <div className="py-10 text-center">
@@ -57,23 +58,23 @@ async function BlogListContent({
   ) : (
     <div>
       <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
-        {blogs.map((post) => {
-          const articleLines = extractContent(post.jsonContent);
+        {blogs.map((blog) => {
+          const articleLines = extractContent(blog.jsonContent);
           const title =
             articleLines[0].replace(/^#+\s+|\*+/g, "") ||
-            post.analysis.title ||
+            blog.analysis.title ||
             "No Title";
           const description = articleLines
             ?.slice(1)
             .find((line) => !line.startsWith("!["));
-          const image = post.analysis.image || getDefaultImage();
-          const author = post.analysis.author;
-          const updatedAt = post.updatedAt;
+          const image = blog.analysis.image || getDefaultImage();
+          const author = blog.analysis.author;
+          const updatedAt = blog.updatedAt;
 
           return (
             <Link
-              href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
-              key={post.analysisId}
+              href={`/${lang}/${blog.analysisId}/${blog.jsonContent?.slug || ""}`}
+              key={blog.analysisId}
             >
               <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
                 <CardHeader className="p-0">

@@ -27,7 +27,7 @@ interface BlogEditorProps {
 }
 
 export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
-  const [content, setContent] = useState(post.jsonContent?.article || "");
+  const [article, setArticle] = useState(post.jsonContent?.article || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("edit");
@@ -38,9 +38,12 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
 
     try {
       // Update the form data with the current state values
-      formData.set("content", content);
-      formData.set("group", group);
-      formData.set("language", lang);
+      formData.set("analysisId", post.analysisId);
+      formData.set(
+        "jsonContent",
+        JSON.stringify({ ...post.jsonContent, article }),
+      );
+      formData.set("metadata", JSON.stringify({ ...post.metadata, group }));
 
       await updateAnalysis(formData);
 
@@ -70,8 +73,6 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
         </CardHeader>
         <CardContent>
           <form action={handleSubmit} className="space-y-6">
-            <input type="hidden" name="analysisId" value={post.analysisId} />
-
             <div className="space-y-2">
               <Label htmlFor="group">{dictionary.admin.edit.group}</Label>
               <Input
@@ -106,8 +107,8 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
                   <Textarea
                     id="content"
                     name="content"
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
+                    value={article}
+                    onChange={(e) => setArticle(e.target.value)}
                     rows={20}
                     disabled={isLoading}
                     className="font-mono text-sm"
@@ -115,7 +116,7 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
                 </TabsContent>
                 <TabsContent value="preview" className="pt-4">
                   <div className="prose prose-gray min-h-[400px] max-w-none rounded-md border p-4 dark:prose-invert">
-                    <Markdown content={content} />
+                    <Markdown content={article} />
                   </div>
                 </TabsContent>
               </Tabs>

@@ -7,7 +7,7 @@ import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
 
-const POSTS_PER_PAGE = 24;
+const POSTS_PER_PAGE = 12;
 
 interface LatestPostsSidebarProps {
   lang: Locale;
@@ -48,9 +48,14 @@ export async function LatestPostsSidebar({
 async function LatestPostsContent({ lang }: { lang: Locale }) {
   let latest: Analysis[];
   try {
-    latest = await listAnalyses(1, POSTS_PER_PAGE, {
-      group: getGroupName(),
-      language: lang,
+    latest = await listAnalyses({
+      pageNum: 1,
+      pageSize: POSTS_PER_PAGE,
+      selectFields: ["analysisId", "jsonContent"],
+      metadata: {
+        group: getGroupName(),
+        language: lang,
+      },
     });
   } catch (error) {
     latest = [];
@@ -58,11 +63,12 @@ async function LatestPostsContent({ lang }: { lang: Locale }) {
 
   function renderCard(post: Analysis) {
     const articleLines = extractContent(post.jsonContent);
-    const title =
-      articleLines[0]?.replace(/^#+\s+|\*+/g, "") || post.analysis.title || "";
+    const title = articleLines[0]?.replace(/^#+\s+|\*+/g, "") || "";
 
     return (
-      <Link href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}>
+      <Link
+        href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
+      >
         <Card
           key={post.analysisId}
           className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"

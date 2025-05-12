@@ -19,7 +19,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import ImageWithFallback from "./image-with-fallback";
 
-const POSTS_PER_PAGE = 24;
+const POSTS_PER_PAGE = 12;
 
 interface RelatedBlogListProps {
   lang: Locale;
@@ -77,9 +77,15 @@ async function RelatedBlogListContent({
 }: RelatedBlogListProps) {
   let related: Analysis[];
   try {
-    related = await relatedAnalyses(1, POSTS_PER_PAGE, currentId, {
-      group: getGroupName(),
-      language: lang,
+    related = await relatedAnalyses({
+      analysisId: currentId,
+      pageNum: 1,
+      pageSize: POSTS_PER_PAGE,
+      selectFields: ["analysisId", "analysis", "updatedAt", "jsonContent"],
+      metadata: {
+        group: getGroupName(),
+        language: lang,
+      },
     });
   } catch (error) {
     related = [];
@@ -97,7 +103,9 @@ async function RelatedBlogListContent({
     const updatedAt = post.updatedAt;
 
     return (
-      <Link href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}>
+      <Link
+        href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
+      >
         <Card
           key={post.analysisId}
           className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"

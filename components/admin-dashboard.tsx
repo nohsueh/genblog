@@ -77,14 +77,13 @@ export function AdminDashboard({
         try {
           const formData = new FormData();
           formData.append("analysisId", post.analysisId);
-          formData.append("content", post.jsonContent?.article || "");
+          formData.append("jsonContent", JSON.stringify(post.jsonContent));
           formData.append(
-            "group",
-            post.metadata?.group === groupName ? "" : groupName,
-          );
-          formData.append(
-            "language",
-            post.metadata?.language === lang ? "" : lang,
+            "metadata",
+            JSON.stringify({
+              ...post.metadata,
+              group: post.metadata?.group === groupName ? undefined : groupName,
+            }),
           );
 
           const updatedPost = await updateAnalysis(formData);
@@ -114,14 +113,21 @@ export function AdminDashboard({
         setLoading(true);
         // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const result = await getPublishedBlogs(
-          currentPage,
-          PAGE_SIZE,
+        const { blogs, total } = await getPublishedBlogs({
+          pageNum: currentPage,
+          pageSize: PAGE_SIZE,
+          selectFields: [
+            "analysisId",
+            "jsonContent",
+            "metadata",
+            "analysis",
+            "updatedAt",
+          ],
           group,
-          lang,
-        );
-        setPosts(result.blogs);
-        setTotal(result.total);
+          language: lang,
+        });
+        setPosts(blogs);
+        setTotal(total);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
@@ -136,10 +142,12 @@ export function AdminDashboard({
     post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const handleDelete = async (post: Analysis) => {
+  const handleDelete = async (currentPost: Analysis) => {
     try {
-      await deleteAnalysis(post.analysisId);
-      setPosts(posts.filter((p) => p.analysisId !== post.analysisId));
+      await deleteAnalysis(currentPost.analysisId);
+      setPosts(
+        posts.filter((post) => post.analysisId !== currentPost.analysisId),
+      );
     } catch (error) {
       toast.error(dictionary.admin.edit.error);
       console.error("Failed to delete post:", error);

@@ -1,4 +1,4 @@
-import { listAnalysesIds } from "@/lib/actions";
+import { listAnalyses } from "@/lib/actions";
 import { i18n } from "@/lib/i18n-config";
 import { getBaseUrl, getGroupName } from "@/lib/utils";
 import type { MetadataRoute } from "next";
@@ -14,9 +14,14 @@ export default async function sitemap({
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
-  const analyses = await listAnalysesIds(1, 49999, {
-    group: getGroupName(),
-    language: locale,
+  const analyses = await listAnalyses({
+    pageNum: 1,
+    pageSize: 49999,
+    selectFields: ["analysisId", "jsonContent"],
+    metadata: {
+      group: getGroupName(),
+      language: locale,
+    },
   });
 
   return [

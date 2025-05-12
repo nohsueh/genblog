@@ -77,9 +77,8 @@ export function getAppType(): "blog" | "directory" {
 
 export function extractContent(content: Content | null) {
   const articleLines = content?.article
-    ?.trim()
-    .split("\n")
+    ?.split("\n")
     .map((line) => line.trim())
-    .filter((line) => line !== "");
+    .filter(Boolean);
   return articleLines || [];
 }
