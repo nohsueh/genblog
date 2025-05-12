@@ -52,11 +52,11 @@ export interface Analysis {
   analysis: AnalyzeAnalysisObject;
   slug: string | null;
   textContent: string | null;
-  jsonContent: content | null;
+  jsonContent: Content | null;
   metadata?: Record<string, any>;
 }
 
-export interface content {
+export interface Content {
   slug: string | undefined;
   article: string | undefined;
 }

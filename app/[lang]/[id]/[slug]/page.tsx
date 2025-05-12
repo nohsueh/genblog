@@ -58,7 +58,7 @@ export async function generateMetadata({
 
   const articleLines = extractContent(post.jsonContent);
   const title =
-    articleLines?.[0].replace(/^#+\s*/, "") +
+    articleLines[0].replace(/^#+\s+|\*+/g, "") +
     " - " +
     process.env.NEXT_PUBLIC_APP_NAME;
   const description = articleLines

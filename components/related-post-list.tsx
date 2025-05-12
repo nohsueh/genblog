@@ -88,7 +88,7 @@ async function RelatedBlogListContent({
   function renderCard(post: Analysis) {
     const articleLines = extractContent(post.jsonContent);
     const title =
-      articleLines?.[0].replace(/^#+\s*/, "") || post.analysis.title || "";
+      articleLines[0].replace(/^#+\s+|\*+/g, "") || post.analysis.title || "";
     const description = articleLines
       ?.slice(1)
       .find((line) => !line.startsWith("!["));

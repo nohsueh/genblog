@@ -1,4 +1,4 @@
-import { content } from "@/types/api";
+import { Content } from "@/types/api";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { i18n, type Locale } from "./i18n-config";
@@ -75,10 +75,11 @@ export function getAppType(): "blog" | "directory" {
   }
 }
 
-export function extractContent(content: content | null) {
-  const articleLines = content?.article 
-        ?.split("\n")
-        .map((line) => line.trim())
-        .filter((line) => line !== "")
+export function extractContent(content: Content | null) {
+  const articleLines = content?.article
+    ?.trim()
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line !== "");
   return articleLines || [];
 }

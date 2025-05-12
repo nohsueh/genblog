@@ -59,7 +59,7 @@ async function LatestPostsContent({ lang }: { lang: Locale }) {
   function renderCard(post: Analysis) {
     const articleLines = extractContent(post.jsonContent);
     const title =
-      articleLines?.[0]?.replace(/^#+\s*/, "") || post.analysis.title || "";
+      articleLines[0]?.replace(/^#+\s+|\*+/g, "") || post.analysis.title || "";
 
     return (
       <Link href={`/${lang}/${post.analysisId}/${post.slug || ""}`}>

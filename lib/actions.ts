@@ -105,7 +105,9 @@ export async function requireAdmin(lang: string) {
   }
 }
 
-export async function analyzeSearch(formData: FormData) {
+export async function analyzeSearch(
+  formData: FormData,
+): Promise<AnalyzeResults> {
   const query = formData.get("query") as string;
   const prompt = formData.get("prompt") as string;
   const group = formData.get("group") as string;
@@ -139,8 +141,7 @@ export async function analyzeSearch(formData: FormData) {
     );
   }
 
-  const data: AnalyzeResults = await response.json();
-  return data;
+  return await response.json();
 }
 
 export async function analyzeLinks(formData: FormData) {
@@ -192,7 +193,7 @@ export async function getAnalysis(analysisId: string): Promise<Analysis> {
     );
   }
 
-  return response.json();
+  return await response.json();
 }
 
 export async function deleteAnalysis(analysisId: string) {
@@ -209,9 +210,7 @@ export async function deleteAnalysis(analysisId: string) {
   }
 }
 
-export async function updateAnalysis(
-  formData: FormData,
-): Promise<Analysis> {
+export async function updateAnalysis(formData: FormData): Promise<Analysis> {
   const analysisId = formData.get("analysisId") as string;
   const content = formData.get("content") as string;
   const group = formData.get("group") as string;
@@ -243,7 +242,7 @@ export async function updateAnalysis(
     );
   }
 
-  return response.json();
+  return await response.json();
 }
 
 export async function listAnalyses(
@@ -270,7 +269,7 @@ export async function listAnalyses(
     );
   }
 
-  return response.json();
+  return await response.json();
 }
 
 export async function listAnalysesIds(
@@ -297,7 +296,7 @@ export async function listAnalysesIds(
     );
   }
 
-  return response.json();
+  return await response.json();
 }
 
 export async function relatedAnalyses(
@@ -325,7 +324,7 @@ export async function relatedAnalyses(
     );
   }
 
-  return response.json();
+  return await response.json();
 }
 
 export async function getPublishedBlogs(

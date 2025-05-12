@@ -60,7 +60,7 @@ async function BlogListContent({
         {posts.map((post) => {
           const articleLines = extractContent(post.jsonContent);
           const title =
-            articleLines?.[0].replace(/^#+\s*/, "") ||
+            articleLines[0].replace(/^#+\s+|\*+/g, "") ||
             post.analysis.title ||
             "No Title";
           const description = articleLines

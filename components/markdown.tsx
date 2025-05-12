@@ -1,7 +1,4 @@
 import "prismjs";
-import "prismjs/components/prism-c";
-import "prismjs/components/prism-core";
-import "prismjs/components/prism-markup-templating.js";
 import "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/toolbar/prism-toolbar.css";
@@ -25,18 +22,6 @@ export interface Heading {
 interface MarkdownProps {
   content: string;
   onHeadingsExtracted?: (headings: Heading[]) => void;
-}
-
-// Dynamic import Prism language
-const loadedLanguages: Record<string, boolean> = {};
-function loadPrismLanguage(lang: string) {
-  if (!lang || loadedLanguages[lang]) return;
-  try {
-    require(`prismjs/components/prism-${lang}.js`);
-    loadedLanguages[lang] = true;
-  } catch (e) {
-    console.error(`Failed to load Prism language: ${lang}`, e);
-  }
 }
 
 export function markdownToHtml(markdown: string) {
@@ -73,13 +58,6 @@ export function markdownToHtml(markdown: string) {
       return tree;
     };
   };
-
-  // Extract all code block languages
-  const codeLangs = Array.from(markdown.matchAll(/```([\w-]+)/g))
-    .map((m) => m[1].toLowerCase())
-    .filter(Boolean);
-  // Only load languages that haven't been loaded
-  codeLangs.forEach((lang) => loadPrismLanguage(lang));
 
   const file = unified()
     .use(remarkParse)
