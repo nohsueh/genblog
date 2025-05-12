@@ -364,10 +364,10 @@ async function getBlogsCount(
   let url = `${API_URL}/v1/analyses/count`;
 
   if (metadata) {
-    url += `?metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
+    url += `&metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
   }
   if (jsonContent) {
-    url += `?jsonContent=${encodeURIComponent(JSON.stringify(jsonContent))}`;
+    url += `&jsonContent=${encodeURIComponent(JSON.stringify(jsonContent))}`;
   }
 
   const response = await fetch(url, {
