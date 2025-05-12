@@ -24,14 +24,14 @@ function generateSitemaps() {
 }
 
 function buildSitemapIndexXML(sitemaps: string[]) {
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>';
-  xml += '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>`;
+  xml += `<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
   sitemaps.forEach((sitemap) => {
-    xml += "<sitemap>";
+    xml += `<sitemap>`;
     xml += `<loc>${sitemap}</loc>`;
-    xml += "</sitemap>";
+    xml += `</sitemap>`;
   });
-  xml += "</sitemapindex>";
+  xml += `</sitemapindex>`;
 
   return xml;
 }
