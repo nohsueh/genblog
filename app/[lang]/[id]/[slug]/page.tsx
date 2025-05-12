@@ -9,6 +9,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+export const revalidate = 3600
+
 type Props = {
   lang: Locale;
   id: string;
