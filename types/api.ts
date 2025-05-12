@@ -45,13 +45,20 @@ export interface AnalyzeAnalysisObject {
   content: string;
 }
 
-export interface AnalysisResult {
+export interface Analysis {
   createdAt: string;
   updatedAt: string;
   analysisId: string;
-  analysis?: AnalyzeAnalysisObject;
-  slug?: string;
+  analysis: AnalyzeAnalysisObject;
+  slug: string | null;
+  textContent: string | null;
+  jsonContent: content | null;
   metadata?: Record<string, any>;
+}
+
+export interface content {
+  slug: string | undefined;
+  article: string | undefined;
 }
 
 export interface UpdateAnalysisParams {

@@ -16,7 +16,12 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getDefaultImage, getPaginationRange } from "@/lib/utils";
+import {
+  extractContent,
+  formatDate,
+  getDefaultImage,
+  getPaginationRange,
+} from "@/lib/utils";
 import Link from "next/link";
 import { Suspense } from "react";
 import ImageWithFallback from "./image-with-fallback";
@@ -53,19 +58,16 @@ async function BlogListContent({
     <div>
       <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
         {posts.map((post) => {
-          const contentLines = post.analysis?.content
-            .split("\n")
-            .map((line) => line.trim())
-            .filter((line) => line !== "");
+          const articleLines = extractContent(post.jsonContent);
           const title =
-            contentLines?.[0].replace(/^#+\s*/, "") ||
-            post.analysis?.title ||
+            articleLines?.[0].replace(/^#+\s*/, "") ||
+            post.analysis.title ||
             "No Title";
-          const description = contentLines
+          const description = articleLines
             ?.slice(1)
             .find((line) => !line.startsWith("!["));
-          const image = post.analysis?.image || getDefaultImage();
-          const author = post.analysis?.author;
+          const image = post.analysis.image || getDefaultImage();
+          const author = post.analysis.author;
           const updatedAt = post.updatedAt;
 
           return (

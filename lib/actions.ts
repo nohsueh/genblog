@@ -1,7 +1,7 @@
 "use server";
 
 import type {
-  AnalysisResult,
+  Analysis,
   AnalyzeLinksParams,
   AnalyzeResults,
   AnalyzeSearchParams,
@@ -175,7 +175,7 @@ export async function analyzeLinks(formData: FormData) {
   return data;
 }
 
-export async function getAnalysis(analysisId: string): Promise<AnalysisResult> {
+export async function getAnalysis(analysisId: string): Promise<Analysis> {
   const response = await fetch(
     `${API_URL}/v1/analyses?analysisId=${analysisId}`,
     {
@@ -209,7 +209,9 @@ export async function deleteAnalysis(analysisId: string) {
   }
 }
 
-export async function updateAnalysis(formData: FormData) {
+export async function updateAnalysis(
+  formData: FormData,
+): Promise<Analysis> {
   const analysisId = formData.get("analysisId") as string;
   const content = formData.get("content") as string;
   const group = formData.get("group") as string;
@@ -241,14 +243,14 @@ export async function updateAnalysis(formData: FormData) {
     );
   }
 
-  return response.json() as Promise<AnalysisResult>;
+  return response.json();
 }
 
 export async function listAnalyses(
   pageNum = 1,
   pageSize = 10,
   metadata?: Record<string, any>,
-): Promise<AnalysisResult[]> {
+): Promise<Analysis[]> {
   let url = `${API_URL}/v1/analyses/list?pageNum=${pageNum}&pageSize=${pageSize}`;
 
   if (metadata) {
@@ -275,7 +277,7 @@ export async function listAnalysesIds(
   pageNum = 1,
   pageSize = 10,
   metadata?: Record<string, any>,
-): Promise<AnalysisResult[]> {
+): Promise<Analysis[]> {
   let url = `${API_URL}/v1/analyses/listIds?pageNum=${pageNum}&pageSize=${pageSize}`;
 
   if (metadata) {
@@ -303,7 +305,7 @@ export async function relatedAnalyses(
   pageSize = 10,
   analysisId: string,
   metadata?: Record<string, any>,
-): Promise<AnalysisResult[]> {
+): Promise<Analysis[]> {
   let url = `${API_URL}/v1/analyses/related?pageNum=${pageNum}&pageSize=${pageSize}&analysisId=${analysisId}`;
 
   if (metadata) {
@@ -331,7 +333,7 @@ export async function getPublishedBlogs(
   pageSize = 10,
   group?: string,
   language?: string,
-): Promise<{ blogs: AnalysisResult[]; total: number }> {
+): Promise<{ blogs: Analysis[]; total: number }> {
   const metadata = { group, language };
 
   const blogs = await listAnalyses(pageNum, pageSize, metadata);

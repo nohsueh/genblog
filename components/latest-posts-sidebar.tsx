@@ -2,8 +2,8 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getGroupName } from "@/lib/utils";
-import type { AnalysisResult } from "@/types/api";
+import { extractContent, getGroupName } from "@/lib/utils";
+import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -46,7 +46,7 @@ export async function LatestPostsSidebar({
 }
 
 async function LatestPostsContent({ lang }: { lang: Locale }) {
-  let latest: AnalysisResult[];
+  let latest: Analysis[];
   try {
     latest = await listAnalyses(1, POSTS_PER_PAGE, {
       group: getGroupName(),
@@ -56,13 +56,10 @@ async function LatestPostsContent({ lang }: { lang: Locale }) {
     latest = [];
   }
 
-  function renderCard(post: AnalysisResult) {
-    const contentLines = post.analysis?.content
-      ?.split("\n")
-      .map((line) => line.trim())
-      .filter((line) => line !== "");
+  function renderCard(post: Analysis) {
+    const articleLines = extractContent(post.jsonContent);
     const title =
-      contentLines?.[0]?.replace(/^#+\s*/, "") || post.analysis?.title || "";
+      articleLines?.[0]?.replace(/^#+\s*/, "") || post.analysis.title || "";
 
     return (
       <Link href={`/${lang}/${post.analysisId}/${post.slug || ""}`}>

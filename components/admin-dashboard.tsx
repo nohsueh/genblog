@@ -42,7 +42,7 @@ import {
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getPaginationRange } from "@/lib/utils";
-import type { AnalysisResult } from "@/types/api";
+import type { Analysis } from "@/types/api";
 import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
@@ -64,7 +64,7 @@ export function AdminDashboard({
   dictionary,
   groupName,
 }: AdminDashboardProps) {
-  const [posts, setPosts] = useState<AnalysisResult[]>([]);
+  const [posts, setPosts] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<string>("all");
@@ -73,11 +73,11 @@ export function AdminDashboard({
 
   const debouncedToggleVisibility = React.useMemo(
     () =>
-      debounce(async (post: AnalysisResult) => {
+      debounce(async (post: Analysis) => {
         try {
           const formData = new FormData();
           formData.append("analysisId", post.analysisId);
-          formData.append("content", post.analysis?.content || "");
+          formData.append("content", post.jsonContent?.article || "");
           formData.append(
             "group",
             post.metadata?.group === groupName ? "" : groupName,
@@ -90,8 +90,8 @@ export function AdminDashboard({
           const updatedPost = await updateAnalysis(formData);
 
           setPosts(
-            posts.map((p) =>
-              p.analysisId === updatedPost.analysisId ? updatedPost : p,
+            posts.map((post) =>
+              post.analysisId === updatedPost.analysisId ? updatedPost : post,
             ),
           );
         } catch (error) {
@@ -133,10 +133,10 @@ export function AdminDashboard({
   }, [groupName, lang, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
-    post.analysis?.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  const handleDelete = async (post: AnalysisResult) => {
+  const handleDelete = async (post: Analysis) => {
     try {
       await deleteAnalysis(post.analysisId);
       setPosts(posts.filter((p) => p.analysisId !== post.analysisId));
@@ -211,7 +211,7 @@ export function AdminDashboard({
               {filteredPosts.map((post) => (
                 <TableRow key={post.analysisId}>
                   <TableCell className="break-all font-medium">
-                    {post.analysis?.title || ""}
+                    {post.analysis.title || ""}
                   </TableCell>
                   <TableCell className="text-nowrap">
                     {formatDate(post.updatedAt, lang)}
@@ -264,7 +264,7 @@ export function AdminDashboard({
                             {dictionary.admin.dashboard.confirmDelete}
                           </AlertDialogTitle>
                           <AlertDialogDescription>
-                            {post.analysis?.title}
+                            {post.analysis.title}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>

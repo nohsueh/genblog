@@ -15,19 +15,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { updateAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import type { AnalysisResult } from "@/types/api";
+import type { Analysis } from "@/types/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 interface BlogEditorProps {
-  post: AnalysisResult;
+  post: Analysis;
   lang: Locale;
   dictionary: any;
 }
 
 export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
-  const [content, setContent] = useState(post.analysis?.content || "");
+  const [content, setContent] = useState(post.jsonContent?.article || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("edit");
@@ -62,10 +62,10 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
       <Card>
         <CardHeader>
           <CardTitle>
-            <h1>{post.analysis?.title}</h1>
+            <h1>{post.analysis.title}</h1>
           </CardTitle>
           <CardDescription>
-            <h2>{post.analysis?.url}</h2>
+            <h2>{post.analysis.url}</h2>
           </CardDescription>
         </CardHeader>
         <CardContent>

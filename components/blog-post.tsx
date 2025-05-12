@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getDefaultImage } from "@/lib/utils";
-import type { AnalysisResult } from "@/types/api";
+import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import ImageWithFallback from "./image-with-fallback";
 
@@ -22,10 +22,10 @@ export async function BlogPost({
   lang,
   dictionary,
 }: BlogPostProps) {
-  const post: AnalysisResult = await getAnalysis(analysisId);
-  const { html, headings } = markdownToHtml(post.analysis?.content || "");
-  const image = post.analysis?.image || getDefaultImage();
-  const title = post.analysis?.title || "";
+  const post: Analysis = await getAnalysis(analysisId);
+  const { html, headings } = markdownToHtml(post.jsonContent.article || "");
+  const image = post.analysis.image || getDefaultImage();
+  const title = post.analysis.title || "";
 
   return (
     <div className="relative">
@@ -45,7 +45,7 @@ export async function BlogPost({
 
           <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
             <span>{formatDate(post.updatedAt, lang)}</span>
-            {post.analysis?.author && (
+            {post.analysis.author && (
               <span>
                 {" "}
                 {dictionary.blog.by} {post.analysis.author}
