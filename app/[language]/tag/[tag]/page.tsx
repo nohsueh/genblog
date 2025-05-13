@@ -1,6 +1,7 @@
 import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { Badge } from "@/components/ui/badge";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
@@ -33,10 +34,10 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
         />
         <main className="container flex-1 px-4 py-6">
           <div className="mb-6 flex flex-col items-start justify-center gap-2">
-            <h1 className="text-3xl font-bold">{decodedTag}</h1>
-            <h2 className="text-xl font-medium">
-              {dictionary.tag.description}
-            </h2>
+            <Badge variant={"outline"}>
+              <h1 className="text-3xl font-bold">{decodedTag}</h1>
+            </Badge>
+            <h2>{dictionary.tag.description}</h2>
           </div>
           <BlogList
             language={language}
