@@ -15,13 +15,13 @@ import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
 
 interface SiteHeaderProps {
-  lang: Locale;
+  language: Locale;
   dictionary: any;
   isAdmin?: boolean;
 }
 
 export function SiteHeader({
-  lang,
+  language,
   dictionary,
   isAdmin = false,
 }: SiteHeaderProps) {
@@ -32,7 +32,7 @@ export function SiteHeader({
 
   const handleLogout = async () => {
     await logoutAdmin();
-    router.push(`/${lang}/console`);
+    router.push(`/${language}/console`);
     router.refresh();
   };
 
@@ -43,7 +43,8 @@ export function SiteHeader({
           <div className="flex flex-shrink-0 flex-row items-center md:space-x-2 lg:space-x-6">
             <Link
               href={
-                `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || `${getBaseUrl()}/${lang}`
+                `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
+                `${getBaseUrl()}/${language}`
               }
               className="flex flex-row items-center space-x-1"
             >
@@ -60,14 +61,14 @@ export function SiteHeader({
             </Link>
             <nav className="hidden flex-shrink-0 md:flex md:items-center md:space-x-2 lg:space-x-6">
               <Link
-                href={`${getBaseUrl()}/${lang}`}
+                href={`${getBaseUrl()}/${language}`}
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
               >
                 {dictionary.header.home}
               </Link>
               {isAdmin && (
                 <Link
-                  href={`${getBaseUrl()}/${lang}/console`}
+                  href={`${getBaseUrl()}/${language}/console`}
                   className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
                 >
                   {dictionary.header.dashboard}
@@ -105,14 +106,14 @@ export function SiteHeader({
               <SheetContent side="right">
                 <nav className="mt-4 flex flex-col gap-4">
                   <Link
-                    href={`${getBaseUrl()}/${lang}`}
+                    href={`${getBaseUrl()}/${language}`}
                     className="text-sm font-medium transition-colors hover:text-primary focus:text-primary active:text-primary"
                   >
                     {dictionary.header.home}
                   </Link>
                   {isAdmin && (
                     <Link
-                      href={`${getBaseUrl()}/${lang}/console`}
+                      href={`${getBaseUrl()}/${language}/console`}
                       className="text-sm font-medium transition-colors hover:text-primary focus:text-primary active:text-primary"
                     >
                       {dictionary.header.dashboard}

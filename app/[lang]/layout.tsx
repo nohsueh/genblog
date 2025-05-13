@@ -10,22 +10,22 @@ import { Suspense } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
+  return i18n.locales.map((locale) => ({ language: locale }));
 }
 
 // Define the type for the props explicitly
 type RootLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ lang: string }>;
+  params: Promise<{ language: string }>;
 };
 
 export default async function RootLayout(props: RootLayoutProps) {
   // Safely access properties with fallbacks
   const children = props?.children || null;
-  const lang = (await props?.params)?.lang || i18n.defaultLocale;
+  const language = (await props?.params)?.language || i18n.defaultLocale;
 
   return (
-    <html lang={lang} suppressHydrationWarning>
+    <html lang={language} suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"

@@ -44,13 +44,15 @@ async function BlogListContent({
 }: BlogListProps) {
   const currentPage = Number(searchParams.page || 1);
 
-  const { blogs, total } = await getPublishedBlogs({
+  const blogs = await getPublishedBlogs({
     pageNum: currentPage,
     pageSize: PAGE_SIZE,
     selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
+    totalCount: true,
     group,
     language: lang,
   });
+  const totalCount = blogs?.[0]?.totalCount || 0;
 
   return blogs.length === 0 ? (
     <div className="py-10 text-center">
@@ -115,13 +117,13 @@ async function BlogListContent({
           );
         })}
       </div>
-      {total > PAGE_SIZE && (
+      {totalCount > PAGE_SIZE && (
         <div className="mt-8 flex justify-center">
           <Pagination>
             <PaginationContent>
               {getPaginationRange(
                 currentPage,
-                Math.ceil(total / PAGE_SIZE),
+                Math.ceil(totalCount / PAGE_SIZE),
               ).map((page, idx) =>
                 page === "..." ? (
                   <PaginationItem key={`ellipsis-${idx}`}>

@@ -23,7 +23,7 @@ export default async function EditBlogPage(props: {
 
     return (
       <div className="flex min-h-screen flex-col">
-        <SiteHeader lang={lang} dictionary={dictionary} isAdmin={true} />
+        <SiteHeader language={lang} dictionary={dictionary} isAdmin={true} />
         <main className="container mx-auto flex-1 px-4 py-6">
           <BlogEditor post={post} lang={lang} dictionary={dictionary} />
         </main>

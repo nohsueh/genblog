@@ -27,7 +27,7 @@ export default async function BlogPage({ params }: { params: Promise<Props> }) {
 
     return (
       <div className="flex min-h-screen flex-col">
-        <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
+        <SiteHeader language={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
         <main className="container mb-48 flex-1 px-4 py-6">
           <Suspense
             fallback={

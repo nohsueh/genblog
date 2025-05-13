@@ -69,7 +69,7 @@ export function AdminDashboard({
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [totalCount, setTotalCount] = useState(0);
 
   const debouncedToggleVisibility = React.useMemo(
     () =>
@@ -113,7 +113,7 @@ export function AdminDashboard({
         setLoading(true);
         // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const { blogs, total } = await getPublishedBlogs({
+        const blogs = await getPublishedBlogs({
           pageNum: currentPage,
           pageSize: PAGE_SIZE,
           selectFields: [
@@ -123,11 +123,13 @@ export function AdminDashboard({
             "analysis",
             "updatedAt",
           ],
+          totalCount: true,
           group,
           language: lang,
         });
+        const totalCount = blogs?.[0]?.totalCount || 0;
         setPosts(blogs);
-        setTotal(total);
+        setTotalCount(totalCount);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       } finally {
@@ -249,7 +251,9 @@ export function AdminDashboard({
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Link href={`${getBaseUrl()}/${lang}/console/edit/${post.analysisId}`}>
+                    <Link
+                      href={`${getBaseUrl()}/${lang}/console/edit/${post.analysisId}`}
+                    >
                       <Button size="icon" variant="ghost">
                         <Pencil className="h-4 w-4" />
                         <span className="sr-only">
@@ -288,13 +292,13 @@ export function AdminDashboard({
               ))}
             </TableBody>
           </Table>
-          {total > PAGE_SIZE && (
+          {totalCount > PAGE_SIZE && (
             <div className="flex justify-center p-4">
               <Pagination>
                 <PaginationContent>
                   {getPaginationRange(
                     currentPage,
-                    Math.ceil(total / PAGE_SIZE),
+                    Math.ceil(totalCount / PAGE_SIZE),
                   ).map((page, idx) =>
                     page === "..." ? (
                       <PaginationItem key={`ellipsis-${idx}`}>

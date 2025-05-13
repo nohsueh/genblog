@@ -13,19 +13,19 @@ export default async function HomePage({
   params,
   searchParams,
 }: {
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ language: Locale }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { lang } = await params;
-  const dictionary = await getDictionary(lang);
-  const isLoggedIn = await checkAdminCookie();
+  const { language } = await params;
+  const dictionary = await getDictionary(language);
+  const isAdmin = await checkAdminCookie();
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader lang={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
+      <SiteHeader language={language} dictionary={dictionary} isAdmin={isAdmin} />
       <main className="container flex-1 px-4 py-6">
         <BlogList
-          lang={lang}
+          lang={language}
           dictionary={dictionary}
           group={getGroupName()}
           searchParams={await searchParams}
@@ -40,12 +40,12 @@ export async function generateMetadata({
   params,
   searchParams,
 }: {
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ language: Locale }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }): Promise<Metadata> {
-  const { lang } = await params;
+  const { language } = await params;
   const page = Number((await searchParams).page || 1);
-  const dictionary = await getDictionary(lang);
+  const dictionary = await getDictionary(language);
 
   const title = process.env.NEXT_PUBLIC_APP_NAME;
   const description =
@@ -53,7 +53,7 @@ export async function generateMetadata({
     `${dictionary.home.title} - ${dictionary.home.description}`;
   const images = getDefaultImage();
 
-  const canonical = `${getBaseUrl()}/${lang}?page=${page}`;
+  const canonical = `${getBaseUrl()}/${language}?page=${page}`;
 
   return {
     title,

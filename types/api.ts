@@ -55,6 +55,7 @@ export interface Analysis {
   textContent: string | null;
   jsonContent: Content | null;
   metadata?: Record<string, any>;
+  totalCount?: number;
 }
 
 export interface Content {

@@ -247,6 +247,7 @@ export async function listAnalyses({
   pageNum = 1,
   pageSize = 10,
   selectFields,
+  totalCount,
   textContent,
   jsonContent,
   metadata,
@@ -254,6 +255,7 @@ export async function listAnalyses({
   pageNum: number;
   pageSize: number;
   selectFields?: string[];
+  totalCount?: boolean;
   textContent?: string;
   jsonContent?: Content;
   metadata?: Record<string, any>;
@@ -262,6 +264,9 @@ export async function listAnalyses({
 
   if (selectFields) {
     url += `&selectFields=${encodeURIComponent(selectFields.toString())}`;
+  }
+  if (totalCount) {
+    url += `&totalCount=${totalCount}`;
   }
   if (jsonContent) {
     url += `&jsonContent=${encodeURIComponent(JSON.stringify(jsonContent))}`;
@@ -338,6 +343,7 @@ export async function getPublishedBlogs({
   pageNum = 1,
   pageSize = 10,
   selectFields,
+  totalCount,
   group,
   language,
   tags,
@@ -345,52 +351,22 @@ export async function getPublishedBlogs({
   pageNum: number;
   pageSize: number;
   selectFields?: string[];
+  totalCount?: boolean;
   group?: string;
   language?: string;
   tags?: string[];
-}): Promise<{ blogs: Analysis[]; total: number }> {
+}): Promise<Analysis[]> {
   const metadata = { group, language };
   const jsonContent = { tags };
 
-  const blogs = await listAnalyses({
+  return await listAnalyses({
     pageNum,
     pageSize,
     selectFields,
+    totalCount,
     metadata,
     jsonContent,
   });
-  const total = await getBlogsCount(metadata, jsonContent);
-  return { blogs, total };
-}
-
-async function getBlogsCount(
-  metadata?: Record<string, any>,
-  jsonContent?: Content,
-): Promise<number> {
-  let url = `${API_URL}/v1/analyses/count`;
-
-  if (metadata) {
-    url += `${url.includes("?") ? "&" : "?"}metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
-  }
-  if (jsonContent) {
-    url += `${url.includes("?") ? "&" : "?"}jsonContent=${encodeURIComponent(JSON.stringify(jsonContent))}`;
-  }
-
-  const response = await fetch(url, {
-    headers,
-    next: {
-      revalidate: 3600,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(
-      `Failed to fetch total blogs count: ${response.headers.get("x-searchlysis-error")}`,
-    );
-  }
-
-  const data = (await response.json()) as any;
-  return data.count;
 }
 
 export async function validateImage(url: string): Promise<string> {

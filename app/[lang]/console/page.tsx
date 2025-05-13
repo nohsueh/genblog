@@ -22,7 +22,7 @@ export default async function AdminPage(props: {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader lang={lang} dictionary={dictionary} />
+      <SiteHeader language={lang} dictionary={dictionary} />
       <main className="container mx-auto flex-1 px-4 py-6">
         <AdminLogin lang={lang} dictionary={dictionary} />
       </main>
