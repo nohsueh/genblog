@@ -347,7 +347,7 @@ export async function getPublishedBlogs({
   pageNum = 1,
   pageSize = 10,
   selectFields,
-  totalCount,
+  totalCount = true,
   group,
   language,
   tags,

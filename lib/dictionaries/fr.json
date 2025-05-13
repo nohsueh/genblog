@@ -20,7 +20,8 @@
     "previousPost": "Article Précédent",
     "nextPost": "Article Suivant",
     "latestPosts": "Articles les plus récents",
-    "relatedPosts": "Articles liés"
+    "relatedPosts": "Articles liés",
+    "tag": "Étiquette"
   },
   "admin": {
     "login": {

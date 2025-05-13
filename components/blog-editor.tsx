@@ -33,19 +33,35 @@ export function BlogEditor({
 }: BlogEditorProps) {
   const [article, setArticle] = useState(post.jsonContent?.article || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
+  const [tags, setTags] = useState<string[]>(post.jsonContent?.tags || []);
+  const [tagInput, setTagInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("edit");
   const router = useRouter();
+
+  const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const newTag = tagInput.trim();
+      if (newTag && !tags.includes(newTag)) {
+        setTags([...tags, newTag]);
+        setTagInput("");
+      }
+    }
+  };
+
+  const removeTag = (tagToRemove: string) => {
+    setTags(tags.filter(tag => tag !== tagToRemove));
+  };
 
   async function handleSubmit(formData: FormData) {
     setIsLoading(true);
 
     try {
-      // Update the form data with the current state values
       formData.set("analysisId", post.analysisId);
       formData.set(
         "jsonContent",
-        JSON.stringify({ ...post.jsonContent, article }),
+        JSON.stringify({ ...post.jsonContent, article, tags }),
       );
       formData.set("metadata", JSON.stringify({ ...post.metadata, group }));
 
@@ -89,6 +105,39 @@ export function BlogEditor({
               />
               <p className="text-sm text-muted-foreground">
                 {dictionary.admin.edit.groupHelp}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="tags">{dictionary.admin.edit.tags}</Label>
+              <Input
+                id="tags"
+                name="tags"
+                value={tagInput}
+                onChange={(e) => setTagInput(e.target.value)}
+                onKeyDown={handleTagInputKeyDown}
+                placeholder="Press Enter to add a tag"
+                disabled={isLoading}
+              />
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag) => (
+                  <div
+                    key={tag}
+                    className="flex items-center space-x-1 rounded-md bg-muted px-2 py-1 text-sm"
+                  >
+                    <span>{tag}</span>
+                    <Button
+                      type="button"
+                      className="text-muted-foreground hover:text-foreground"
+                      onClick={() => removeTag(tag)}
+                    >
+                      &times;
+                    </Button>
+                  </div>
+                ))}
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {dictionary.admin.edit.tagsHelp}
               </p>
             </div>
 

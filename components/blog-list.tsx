@@ -43,14 +43,15 @@ async function BlogListContent({
   searchParams,
 }: BlogListProps) {
   const currentPage = Number(searchParams.page || 1);
+  const tags = searchParams.tags as string[] | undefined;
 
   const blogs = await getPublishedBlogs({
     pageNum: currentPage,
     pageSize: PAGE_SIZE,
     selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
-    totalCount: true,
     group,
-    language: language,
+    language,
+    tags,
   });
   const totalCount = blogs?.[0]?.totalCount || 0;
 

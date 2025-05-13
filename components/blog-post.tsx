@@ -2,13 +2,15 @@ import { LatestPostsSidebar } from "@/components/latest-posts-sidebar";
 import { markdownToHtml } from "@/components/markdown";
 import { OnThisPage } from "@/components/on-this-page";
 import { RelatedBlogList } from "@/components/related-post-list";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getDefaultImage } from "@/lib/utils";
+import { formatDate, getBaseUrl, getDefaultImage } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
+import Link from "next/link";
 import ImageWithFallback from "./image-with-fallback";
 
 interface BlogPostProps {
@@ -26,6 +28,7 @@ export async function BlogPost({
   const { html, headings } = markdownToHtml(post.jsonContent?.article || "");
   const image = post.analysis.image || getDefaultImage();
   const title = post.analysis.title || "";
+  const tags = post.jsonContent?.tags || [];
 
   return (
     <div className="relative">
@@ -43,13 +46,29 @@ export async function BlogPost({
             </div>
           )}
 
-          <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-            <span>{formatDate(post.updatedAt, language)}</span>
-            {post.analysis.author && (
-              <span>
-                {" "}
-                {dictionary.blog.by} {post.analysis.author}
-              </span>
+          <div className="mb-6 space-y-4">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>{formatDate(post.updatedAt, language)}</span>
+              {post.analysis.author && (
+                <span>
+                  {" "}
+                  {dictionary.blog.by} {post.analysis.author}
+                </span>
+              )}
+            </div>
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {tags.map((tag: string) => (
+                  <Link key={tag} href={`${getBaseUrl()}/${language}/${tag}`}>
+                    <Badge
+                      variant="secondary"
+                      className="cursor-pointer hover:bg-accent"
+                    >
+                      {tag}
+                    </Badge>
+                  </Link>
+                ))}
+              </div>
             )}
           </div>
 

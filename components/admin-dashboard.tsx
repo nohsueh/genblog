@@ -122,7 +122,6 @@ export function AdminDashboard({
             "analysis",
             "updatedAt",
           ],
-          totalCount: true,
           group,
           language: language,
         });

@@ -20,7 +20,8 @@
     "previousPost": "Previous Post",
     "nextPost": "Next Post",
     "latestPosts": "Latest Posts",
-    "relatedPosts": "Related Posts"
+    "relatedPosts": "Related Posts",
+    "tag": "Tag"
   },
   "admin": {
     "login": {
