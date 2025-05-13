@@ -22,10 +22,14 @@ export default async function HomePage({
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader language={language} dictionary={dictionary} isAdmin={isAdmin} />
+      <SiteHeader
+        language={language}
+        dictionary={dictionary}
+        isAdmin={isAdmin}
+      />
       <main className="container flex-1 px-4 py-6">
         <BlogList
-          lang={language}
+          language={language}
           dictionary={dictionary}
           group={getGroupName()}
           searchParams={await searchParams}

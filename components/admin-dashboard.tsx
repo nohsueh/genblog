@@ -54,13 +54,13 @@ import { Switch } from "./ui/switch";
 const PAGE_SIZE = 25;
 
 interface AdminDashboardProps {
-  lang: Locale;
+  language: Locale;
   dictionary: any;
   groupName: string;
 }
 
 export function AdminDashboard({
-  lang,
+  language,
   dictionary,
   groupName,
 }: AdminDashboardProps) {
@@ -125,7 +125,7 @@ export function AdminDashboard({
           ],
           totalCount: true,
           group,
-          language: lang,
+          language: language,
         });
         const totalCount = blogs?.[0]?.totalCount || 0;
         setPosts(blogs);
@@ -138,7 +138,7 @@ export function AdminDashboard({
     };
 
     fetchPosts();
-  }, [groupName, lang, selectedGroup, currentPage]);
+  }, [groupName, language, selectedGroup, currentPage]);
 
   const filteredPosts = posts.filter((post) =>
     post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase()),
@@ -163,7 +163,7 @@ export function AdminDashboard({
           {dictionary.admin.dashboard.title}
         </h1>
         <div className="flex gap-2">
-          <Link href={`${getBaseUrl()}/${lang}/console/create`}>
+          <Link href={`${getBaseUrl()}/${language}/console/create`}>
             <Button>
               <Sparkles className="mr-2 h-4 w-4" />
               {dictionary.admin.dashboard.createNew}
@@ -224,7 +224,7 @@ export function AdminDashboard({
                     {post.analysis.title || ""}
                   </TableCell>
                   <TableCell className="text-nowrap">
-                    {formatDate(post.updatedAt, lang)}
+                    {formatDate(post.updatedAt, language)}
                   </TableCell>
                   <TableCell className="text-nowrap">
                     {post.metadata?.group ? (
@@ -238,13 +238,13 @@ export function AdminDashboard({
                       <Switch
                         checked={
                           post.metadata?.group === groupName &&
-                          post.metadata?.language == lang
+                          post.metadata?.language == language
                         }
                         onCheckedChange={() => debouncedToggleVisibility(post)}
                       />
                       <Label>
                         {post.metadata?.group === groupName &&
-                        post.metadata?.language == lang
+                        post.metadata?.language == language
                           ? dictionary.admin.dashboard.visible
                           : dictionary.admin.dashboard.hidden}
                       </Label>
@@ -252,7 +252,7 @@ export function AdminDashboard({
                   </TableCell>
                   <TableCell>
                     <Link
-                      href={`${getBaseUrl()}/${lang}/console/edit/${post.analysisId}`}
+                      href={`${getBaseUrl()}/${language}/console/edit/${post.analysisId}`}
                     >
                       <Button size="icon" variant="ghost">
                         <Pencil className="h-4 w-4" />

@@ -12,22 +12,26 @@ import { Suspense } from "react";
 export const revalidate = 3600;
 
 type Props = {
-  lang: Locale;
+  language: Locale;
   id: string;
   slug: String;
 };
 
 export default async function BlogPage({ params }: { params: Promise<Props> }) {
   try {
-    const { lang, id } = await params;
+    const { language, id } = await params;
     const [dictionary, isLoggedIn] = await Promise.all([
-      getDictionary(lang),
+      getDictionary(language),
       checkAdminCookie(),
     ]);
 
     return (
       <div className="flex min-h-screen flex-col">
-        <SiteHeader language={lang} dictionary={dictionary} isAdmin={isLoggedIn} />
+        <SiteHeader
+          language={language}
+          dictionary={dictionary}
+          isAdmin={isLoggedIn}
+        />
         <main className="container mb-48 flex-1 px-4 py-6">
           <Suspense
             fallback={
@@ -36,7 +40,11 @@ export default async function BlogPage({ params }: { params: Promise<Props> }) {
               </div>
             }
           >
-            <BlogPost analysisId={id} lang={lang} dictionary={dictionary} />
+            <BlogPost
+              analysisId={id}
+              language={language}
+              dictionary={dictionary}
+            />
           </Suspense>
         </main>
         <SiteFooter />
@@ -53,7 +61,7 @@ export async function generateMetadata({
 }: {
   params: Promise<Props>;
 }): Promise<Metadata> {
-  const { id, lang, slug } = await params;
+  const { id, language, slug } = await params;
   const post = await getAnalysis(id);
 
   const articleLines = extractContent(post.jsonContent);
@@ -67,7 +75,7 @@ export async function generateMetadata({
 
   const images = await validateImage(post.analysis.image || "");
 
-  const canonical = `${getBaseUrl()}/${lang}/${id}/${slug}`;
+  const canonical = `${getBaseUrl()}/${language}/${id}/${slug}`;
 
   return {
     title,

@@ -10,12 +10,12 @@ import { Suspense } from "react";
 const POSTS_PER_PAGE = 12;
 
 interface LatestPostsSidebarProps {
-  lang: Locale;
+  language: Locale;
   dictionary: any;
 }
 
 export async function LatestPostsSidebar({
-  lang,
+  language,
   dictionary,
 }: LatestPostsSidebarProps) {
   return (
@@ -38,14 +38,14 @@ export async function LatestPostsSidebar({
             </Card>
           ))}
         >
-          <LatestPostsContent lang={lang} />
+          <LatestPostsContent language={language} />
         </Suspense>
       </div>
     </aside>
   );
 }
 
-async function LatestPostsContent({ lang }: { lang: Locale }) {
+async function LatestPostsContent({ language }: { language: Locale }) {
   let latest: Analysis[];
   try {
     latest = await listAnalyses({
@@ -54,7 +54,7 @@ async function LatestPostsContent({ lang }: { lang: Locale }) {
       selectFields: ["analysisId", "jsonContent"],
       metadata: {
         group: getGroupName(),
-        language: lang,
+        language: language,
       },
     });
   } catch (error) {
@@ -67,7 +67,7 @@ async function LatestPostsContent({ lang }: { lang: Locale }) {
 
     return (
       <Link
-        href={`${getBaseUrl()}/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
+        href={`${getBaseUrl()}/${language}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
       >
         <Card
           key={post.analysisId}

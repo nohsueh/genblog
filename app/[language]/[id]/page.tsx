@@ -6,12 +6,12 @@ import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 
 type Props = {
-  lang: Locale;
+  language: Locale;
   id: string;
 };
 
 export default async function BlogPage({ params }: { params: Promise<Props> }) {
-  const { lang, id } = await params;
+  const { language, id } = await params;
   let post: Analysis;
   try {
     post = await getAnalysis(id);
@@ -19,7 +19,7 @@ export default async function BlogPage({ params }: { params: Promise<Props> }) {
     console.error(`BlogPage getAnalysis: ${error}`);
     return notFound();
   }
-  permanentRedirect(`${getBaseUrl()}/${lang}/${id}/${post.jsonContent?.slug || ""}`);
+  permanentRedirect(`${getBaseUrl()}/${language}/${id}/${post.jsonContent?.slug || ""}`);
 }
 
 export async function generateMetadata({
@@ -27,7 +27,7 @@ export async function generateMetadata({
 }: {
   params: Promise<Props>;
 }): Promise<Metadata> {
-  const { id, lang } = await params;
+  const { id, language } = await params;
   const post = await getAnalysis(id);
 
   const articleLines = extractContent(post.jsonContent);
@@ -41,7 +41,7 @@ export async function generateMetadata({
 
   const images = await validateImage(post.analysis.image || "");
 
-  const canonical = `${getBaseUrl()}/${lang}/${id}/${post.jsonContent?.slug || ""}`;
+  const canonical = `${getBaseUrl()}/${language}/${id}/${post.jsonContent?.slug || ""}`;
 
   return {
     title,

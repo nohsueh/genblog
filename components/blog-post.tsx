@@ -13,13 +13,13 @@ import ImageWithFallback from "./image-with-fallback";
 
 interface BlogPostProps {
   analysisId: string;
-  lang: Locale;
+  language: Locale;
   dictionary: any;
 }
 
 export async function BlogPost({
   analysisId,
-  lang,
+  language,
   dictionary,
 }: BlogPostProps) {
   const post: Analysis = await getAnalysis(analysisId);
@@ -44,7 +44,7 @@ export async function BlogPost({
           )}
 
           <div className="mb-6 flex items-center gap-2 text-sm text-muted-foreground">
-            <span>{formatDate(post.updatedAt, lang)}</span>
+            <span>{formatDate(post.updatedAt, language)}</span>
             {post.analysis.author && (
               <span>
                 {" "}
@@ -62,7 +62,7 @@ export async function BlogPost({
         </article>
 
         <RelatedBlogList
-          lang={lang}
+          language={language}
           dictionary={dictionary}
           currentId={post.analysisId}
         />
@@ -80,12 +80,12 @@ export async function BlogPost({
         </SheetTrigger>
         <SheetContent side="right" className="w-[300px]">
           <OnThisPage headings={headings} />
-          <LatestPostsSidebar lang={lang} dictionary={dictionary} />
+          <LatestPostsSidebar language={language} dictionary={dictionary} />
         </SheetContent>
       </Sheet>
       <div className="fixed top-24 hidden w-60 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
         <OnThisPage headings={headings} />
-        <LatestPostsSidebar lang={lang} dictionary={dictionary} />
+        <LatestPostsSidebar language={language} dictionary={dictionary} />
       </div>
     </div>
   );

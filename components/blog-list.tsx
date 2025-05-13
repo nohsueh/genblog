@@ -30,14 +30,14 @@ import ImageWithFallback from "./image-with-fallback";
 const PAGE_SIZE = 12;
 
 interface BlogListProps {
-  lang: Locale;
+  language: Locale;
   dictionary: any;
   group?: string;
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
 async function BlogListContent({
-  lang,
+  language,
   dictionary,
   group,
   searchParams,
@@ -50,7 +50,7 @@ async function BlogListContent({
     selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
     totalCount: true,
     group,
-    language: lang,
+    language: language,
   });
   const totalCount = blogs?.[0]?.totalCount || 0;
 
@@ -76,7 +76,7 @@ async function BlogListContent({
 
           return (
             <Link
-              href={`${getBaseUrl()}/${lang}/${blog.analysisId}/${blog.jsonContent?.slug || ""}`}
+              href={`${getBaseUrl()}/${language}/${blog.analysisId}/${blog.jsonContent?.slug || ""}`}
               key={blog.analysisId}
             >
               <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
@@ -103,7 +103,7 @@ async function BlogListContent({
                 </CardContent>
                 <CardFooter className="p-4 pt-0">
                   <div className="text-xs text-muted-foreground">
-                    {updatedAt && <>{formatDate(updatedAt, lang)}</>}
+                    {updatedAt && <>{formatDate(updatedAt, language)}</>}
                     {author && (
                       <>
                         {" "}

@@ -16,11 +16,11 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 interface AdminLoginProps {
-  lang: Locale;
+  language: Locale;
   dictionary: any;
 }
 
-export function AdminLogin({ lang, dictionary }: AdminLoginProps) {
+export function AdminLogin({ language, dictionary }: AdminLoginProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -29,7 +29,7 @@ export function AdminLogin({ lang, dictionary }: AdminLoginProps) {
     toast.promise(validateAdmin(formData), {
       loading: dictionary.admin.login.loading,
       success: () => {
-        router.push(`/${lang}/console/dashboard`);
+        router.push(`/${language}/console/dashboard`);
         router.refresh();
         return dictionary.admin.login.success;
       },

@@ -7,24 +7,24 @@ import type { Locale } from "@/lib/i18n-config";
 import { redirect } from "next/navigation";
 
 export default async function AdminPage(props: {
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ language: Locale }>;
 }) {
   const params = await props.params;
 
-  const { lang } = params;
+  const { language } = params;
 
-  const dictionary = await getDictionary(lang);
+  const dictionary = await getDictionary(language);
   const isLoggedIn = await checkAdminCookie();
 
   if (isLoggedIn) {
-    redirect(`/${lang}/console/dashboard`);
+    redirect(`/${language}/console/dashboard`);
   }
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader language={lang} dictionary={dictionary} />
+      <SiteHeader language={language} dictionary={dictionary} />
       <main className="container mx-auto flex-1 px-4 py-6">
-        <AdminLogin lang={lang} dictionary={dictionary} />
+        <AdminLogin language={language} dictionary={dictionary} />
       </main>
       <SiteFooter />
     </div>

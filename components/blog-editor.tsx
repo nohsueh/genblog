@@ -22,11 +22,15 @@ import { toast } from "sonner";
 
 interface BlogEditorProps {
   post: Analysis;
-  lang: Locale;
+  language: Locale;
   dictionary: any;
 }
 
-export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
+export function BlogEditor({
+  post,
+  language,
+  dictionary,
+}: BlogEditorProps) {
   const [article, setArticle] = useState(post.jsonContent?.article || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +53,7 @@ export function BlogEditor({ post, lang, dictionary }: BlogEditorProps) {
 
       toast.success(dictionary.admin.edit.success);
 
-      router.push(`/${lang}/console/dashboard`);
+      router.push(`/${language}/console/dashboard`);
       router.refresh();
     } catch (error) {
       toast.error(dictionary.admin.edit.error, {

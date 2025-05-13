@@ -99,10 +99,10 @@ export async function checkAdminCookie() {
   }
 }
 
-export async function requireAdmin(lang: string) {
+export async function requireAdmin(language: string) {
   const isAdmin = await checkAdminCookie();
   if (!isAdmin) {
-    redirect(`/${lang}/console`);
+    redirect(`/${language}/console`);
   }
 }
 

@@ -23,13 +23,13 @@ import ImageWithFallback from "./image-with-fallback";
 const POSTS_PER_PAGE = 12;
 
 interface RelatedBlogListProps {
-  lang: Locale;
+  language: Locale;
   dictionary: any;
   currentId: string;
 }
 
 export async function RelatedBlogList({
-  lang,
+  language,
   dictionary,
   currentId,
 }: RelatedBlogListProps) {
@@ -60,7 +60,7 @@ export async function RelatedBlogList({
             ))}
           >
             <RelatedBlogListContent
-              lang={lang}
+              language={language}
               dictionary={dictionary}
               currentId={currentId}
             />
@@ -72,7 +72,7 @@ export async function RelatedBlogList({
 }
 
 async function RelatedBlogListContent({
-  lang,
+  language,
   dictionary,
   currentId,
 }: RelatedBlogListProps) {
@@ -85,7 +85,7 @@ async function RelatedBlogListContent({
       selectFields: ["analysisId", "analysis", "updatedAt", "jsonContent"],
       metadata: {
         group: getGroupName(),
-        language: lang,
+        language,
       },
     });
   } catch (error) {
@@ -105,7 +105,7 @@ async function RelatedBlogListContent({
 
     return (
       <Link
-        href={`${getBaseUrl()}/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
+        href={`${getBaseUrl()}/${language}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
       >
         <Card
           key={post.analysisId}
@@ -132,7 +132,7 @@ async function RelatedBlogListContent({
           </CardContent>
           <CardFooter className="p-4 pt-0">
             <div className="text-xs text-muted-foreground">
-              {updatedAt && <>{formatDate(updatedAt, lang)}</>}
+              {updatedAt && <>{formatDate(updatedAt, language)}</>}
               {author && (
                 <>
                   {" "}
