@@ -2,6 +2,7 @@
 
 import { Markdown } from "@/components/markdown";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -19,6 +20,7 @@ import type { Analysis } from "@/types/api";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
+import { X } from "lucide-react";
 
 interface BlogEditorProps {
   post: Analysis;
@@ -26,11 +28,7 @@ interface BlogEditorProps {
   dictionary: any;
 }
 
-export function BlogEditor({
-  post,
-  language,
-  dictionary,
-}: BlogEditorProps) {
+export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
   const [article, setArticle] = useState(post.jsonContent?.article || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
   const [tags, setTags] = useState<string[]>(post.jsonContent?.tags || []);
@@ -40,7 +38,7 @@ export function BlogEditor({
   const router = useRouter();
 
   const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       const newTag = tagInput.trim();
       if (newTag && !tags.includes(newTag)) {
@@ -51,7 +49,7 @@ export function BlogEditor({
   };
 
   const removeTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove));
+    setTags(tags.filter((tag) => tag !== tagToRemove));
   };
 
   async function handleSubmit(formData: FormData) {
@@ -110,35 +108,32 @@ export function BlogEditor({
 
             <div className="space-y-2">
               <Label htmlFor="tags">{dictionary.admin.edit.tags}</Label>
-              <Input
-                id="tags"
-                name="tags"
-                value={tagInput}
-                onChange={(e) => setTagInput(e.target.value)}
-                onKeyDown={handleTagInputKeyDown}
-                placeholder="Press Enter to add a tag"
-                disabled={isLoading}
-              />
-              <div className="flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <div
-                    key={tag}
-                    className="flex items-center space-x-1 rounded-md bg-muted px-2 py-1 text-sm"
-                  >
-                    <span>{tag}</span>
-                    <Button
-                      type="button"
-                      className="text-muted-foreground hover:text-foreground"
+              <div className="space-y-2">
+                <div className="flex flex-wrap gap-2">
+                  {tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="secondary"
+                      className="cursor-pointer hover:bg-destructive/50"
                       onClick={() => removeTag(tag)}
                     >
-                      &times;
-                    </Button>
-                  </div>
-                ))}
+                      {tag}
+                      <X className="ml-1 h-3 w-3" />
+                    </Badge>
+                  ))}
+                </div>
+                <Input
+                  id="tags"
+                  value={tagInput}
+                  onChange={(e) => setTagInput(e.target.value)}
+                  onKeyDown={handleTagInputKeyDown}
+                  placeholder={dictionary.admin.edit.tagsPlaceholder}
+                  disabled={isLoading}
+                />
+                <p className="text-sm text-muted-foreground">
+                  {dictionary.admin.edit.tagsHelp}
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground">
-                {dictionary.admin.edit.tagsHelp}
-              </p>
             </div>
 
             <div className="space-y-2">

@@ -23,6 +23,10 @@
     "relatedPosts": "Verwandte Artikel",
     "tag": "Tag"
   },
+  "tag":{
+    "title": "Tag",
+    "description": "Entdecken Sie Artikel zu diesem Tag."
+  },
   "admin": {
     "login": {
       "title": "Admin-Login",
@@ -72,6 +76,9 @@
       "content": "Inhalt",
       "group": "Gruppe",
       "groupHelp": "Setzen Sie eine Gruppe, um den Blog auf der Startseite sichtbar zu machen. Wenn keine Gruppe festgelegt ist, wird der Blog nicht auf der Startseite angezeigt.",
+      "tags": "Tags",
+      "tagsHelp": "Drücken Sie Enter, um einen Tag hinzuzufügen. Klicken Sie auf einen Tag, um ihn zu entfernen.",
+      "tagsPlaceholder": "Geben Sie einen Tag ein und drücken Sie Enter",
       "save": "Änderungen speichern",
       "saving": "Speichern...",
       "success": "Blog erfolgreich aktualisiert",

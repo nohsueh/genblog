@@ -23,6 +23,10 @@
     "relatedPosts": "Related Posts",
     "tag": "Tag"
   },
+  "tag":{
+    "title": "Tag",
+    "description": "Discover articles related to this tag."
+  },
   "admin": {
     "login": {
       "title": "Admin Login",
@@ -72,6 +76,9 @@
       "content": "Content",
       "group": "Group",
       "groupHelp": "Set a group to make the blog visible on the homepage. If no group is set, the blog will not be shown on the homepage.",
+      "tags": "Tags",
+      "tagsHelp": "Press Enter to add a tag. Click on a tag to remove it.",
+      "tagsPlaceholder": "Type a tag and press Enter",
       "save": "Save Changes",
       "saving": "Saving...",
       "success": "Blog updated successfully",

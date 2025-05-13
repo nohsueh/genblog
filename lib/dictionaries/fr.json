@@ -23,6 +23,10 @@
     "relatedPosts": "Articles liés",
     "tag": "Étiquette"
   },
+  "tag":{
+    "title": "Étiquette",
+    "description": "Découvrez des articles liés à cette étiquette."
+  },
   "admin": {
     "login": {
       "title": "Connexion Admin",
@@ -71,6 +75,10 @@
       "title": "Modifier le Blog",
       "content": "Contenu",
       "group": "Groupe",
+      "groupHelp": "Définissez un groupe pour rendre le blog visible sur la page d'accueil. Si aucun groupe n'est défini, le blog ne sera pas affiché sur la page d'accueil.",
+      "tags": "Étiquettes",
+      "tagsHelp": "Appuyez sur Entrée pour ajouter une étiquette. Cliquez sur une étiquette pour la supprimer.",
+      "tagsPlaceholder": "Tapez une étiquette et appuyez sur Entrée",
       "save": "Enregistrer les Modifications",
       "saving": "Enregistrement...",
       "success": "Blog mis à jour avec succès",

@@ -21,7 +21,11 @@
     "nextPost": "下一篇",
     "latestPosts": "最新文章",
     "relatedPosts": "相关文章",
-      "tag": "标签"
+    "tag": "标签"
+  },
+  "tag": {
+    "title": "标签",
+    "description": "探索与此标签相关的文章。"
   },
   "admin": {
     "login": {
@@ -72,6 +76,9 @@
       "content": "内容",
       "group": "组",
       "groupHelp": "设置组以使博客在首页可见。如果未设置组，博客将不会显示在首页上。",
+      "tags": "标签",
+      "tagsHelp": "按回车键添加标签，点击标签可删除。",
+      "tagsPlaceholder": "输入标签并按回车键",
       "save": "保存更改",
       "saving": "保存中...",
       "success": "博客更新成功",

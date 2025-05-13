@@ -4,6 +4,8 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
+import { getBaseUrl, getDefaultImage } from "@/lib/utils";
+import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 import { notFound } from "next/navigation";
 
@@ -46,4 +48,36 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
     console.error(error);
     notFound();
   }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<Props>;
+}): Promise<Metadata> {
+  const { language, tag } = await params;
+  const dictionary = await getDictionary(language);
+  const decodedTag = decodeURIComponent(tag);
+  const title = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_NAME}`;
+  const description = `${decodedTag} - ${dictionary.tag.description}`;
+  const images = getDefaultImage();
+  const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images,
+    },
+    twitter: {
+      title,
+      description,
+      images,
+    },
+    alternates: {
+      canonical,
+    },
+  };
 }
