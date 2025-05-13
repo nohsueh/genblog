@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function ImageWithFallback({
   src,
-  fallback: fallbackSrc,
+  fallback,
   alt,
   ...rest
 }: {
@@ -21,10 +21,8 @@ export default function ImageWithFallback({
       src={imgSrc}
       alt={alt}
       onError={() => {
-        setImgSrc(fallbackSrc);
+        setImgSrc(fallback);
       }}
-      placeholder="blur"
-      blurDataURL={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`}
     />
   );
 }
