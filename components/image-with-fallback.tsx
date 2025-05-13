@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Suspense, useState } from "react";
-import { Skeleton } from "./ui/skeleton";
+import { useState } from "react";
 
 export default function ImageWithFallback({
   src,
@@ -17,21 +16,15 @@ export default function ImageWithFallback({
   const [imgSrc, setImgSrc] = useState(src);
 
   return (
-    <Suspense
-      fallback={
-        <Skeleton
-          className={`block ${rest.width && ` w-[${rest.width}px]`} ${rest.height && ` h-[${rest.height}px]`}`}
-        />
-      }
-    >
-      <Image
-        {...rest}
-        src={imgSrc}
-        alt={alt}
-        onError={() => {
-          setImgSrc(fallbackSrc);
-        }}
-      />
-    </Suspense>
+    <Image
+      {...rest}
+      src={imgSrc}
+      alt={alt}
+      onError={() => {
+        setImgSrc(fallbackSrc);
+      }}
+      placeholder="blur"
+      blurDataURL={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/placeholder.svg`}
+    />
   );
 }
