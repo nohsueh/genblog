@@ -32,9 +32,11 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
           isAdmin={isAdmin}
         />
         <main className="container flex-1 px-4 py-6">
-          <div className="mb-6 flex items-center justify-start gap-2">
+          <div className="mb-6 flex flex-col items-start justify-center gap-2">
             <h1 className="text-3xl font-bold">{decodedTag}</h1>
-            <h2>{dictionary.tag.description}</h2>
+            <h2 className="text-xl font-medium">
+              {dictionary.tag.description}
+            </h2>
           </div>
           <BlogList
             language={language}
