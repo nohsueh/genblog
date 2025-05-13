@@ -33,6 +33,7 @@ interface BlogListProps {
   language: Locale;
   dictionary: any;
   group?: string;
+  tags?:string[];
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
@@ -40,10 +41,10 @@ async function BlogListContent({
   language,
   dictionary,
   group,
+  tags,
   searchParams,
 }: BlogListProps) {
   const currentPage = Number(searchParams.page || 1);
-  const tags = searchParams.tags as string[] | undefined;
 
   const blogs = await getPublishedBlogs({
     pageNum: currentPage,

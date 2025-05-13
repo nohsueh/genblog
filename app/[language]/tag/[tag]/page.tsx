@@ -15,7 +15,13 @@ interface Props extends Params {
   tag: string;
 }
 
-export default async function TagPage({ params }: { params: Promise<Props> }) {
+export default async function TagPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<Props>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   try {
     const { language, tag } = await params;
     const [dictionary, isAdmin] = await Promise.all([
@@ -45,7 +51,8 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
             language={language}
             dictionary={dictionary}
             group={getGroupName()}
-            searchParams={{ tags: [decodedTag] }}
+            tags={[decodedTag]}
+            searchParams={await searchParams}
           />
         </main>
         <SiteFooter />
