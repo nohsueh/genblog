@@ -77,7 +77,6 @@ export function AdminDashboard({
         try {
           const formData = new FormData();
           formData.append("analysisId", post.analysisId);
-          formData.append("jsonContent", JSON.stringify(post.jsonContent));
           formData.append(
             "metadata",
             JSON.stringify({

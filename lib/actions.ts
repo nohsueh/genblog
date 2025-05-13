@@ -219,13 +219,17 @@ export async function deleteAnalysis(analysisId: string) {
 
 export async function updateAnalysis(formData: FormData): Promise<Analysis> {
   const analysisId = formData.get("analysisId") as string;
-  const jsonContent = JSON.parse(formData.get("jsonContent") as string);
-  const metadata = JSON.parse(formData.get("metadata") as string);
+  const jsonContent = formData.get("jsonContent")
+    ? JSON.parse(formData.get("jsonContent") as string)
+    : undefined;
+  const metadata = formData.get("metadata")
+    ? JSON.parse(formData.get("metadata") as string)
+    : undefined;
 
   const body = {
     analysisId,
-    jsonContent,
-    metadata,
+    ...(jsonContent && { jsonContent }),
+    ...(metadata && { metadata }),
   };
 
   const response = await fetch(`${API_URL}/v1/analyses`, {
@@ -356,8 +360,14 @@ export async function getPublishedBlogs({
   language?: string;
   tags?: string[];
 }): Promise<Analysis[]> {
-  const metadata = { group, language };
-  const jsonContent = { tags };
+  const metadata =
+    group || language
+      ? {
+          ...(group && { group }),
+          ...(language && { language }),
+        }
+      : undefined;
+  const jsonContent = tags && { tags };
 
   return await listAnalyses({
     pageNum,
