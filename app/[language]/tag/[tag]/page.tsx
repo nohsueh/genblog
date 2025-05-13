@@ -66,16 +66,19 @@ export default async function TagPage({
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<Props>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }): Promise<Metadata> {
   const { language, tag } = await params;
+  const { page } = await searchParams;
   const dictionary = await getDictionary(language);
   const decodedTag = decodeURIComponent(tag);
   const title = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_NAME}`;
   const description = `${decodedTag} - ${dictionary.tag.description}`;
   const images = getDefaultImage();
-  const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}`;
+  const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}?page=${page}`;
 
   return {
     title,
