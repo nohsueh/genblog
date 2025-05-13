@@ -2,7 +2,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { extractContent, getGroupName } from "@/lib/utils";
+import { extractContent, getBaseUrl, getGroupName } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -67,7 +67,7 @@ async function LatestPostsContent({ lang }: { lang: Locale }) {
 
     return (
       <Link
-        href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
+        href={`${getBaseUrl()}/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
       >
         <Card
           key={post.analysisId}

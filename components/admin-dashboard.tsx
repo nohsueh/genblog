@@ -41,7 +41,7 @@ import {
   updateAnalysis,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getPaginationRange } from "@/lib/utils";
+import { formatDate, getBaseUrl, getPaginationRange } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
@@ -161,7 +161,7 @@ export function AdminDashboard({
           {dictionary.admin.dashboard.title}
         </h1>
         <div className="flex gap-2">
-          <Link href={`/${lang}/console/create`}>
+          <Link href={`${getBaseUrl()}/${lang}/console/create`}>
             <Button>
               <Sparkles className="mr-2 h-4 w-4" />
               {dictionary.admin.dashboard.createNew}
@@ -249,7 +249,7 @@ export function AdminDashboard({
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Link href={`/${lang}/console/edit/${post.analysisId}`}>
+                    <Link href={`${getBaseUrl()}/${lang}/console/edit/${post.analysisId}`}>
                       <Button size="icon" variant="ghost">
                         <Pencil className="h-4 w-4" />
                         <span className="sr-only">

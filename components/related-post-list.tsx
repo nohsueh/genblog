@@ -11,6 +11,7 @@ import type { Locale } from "@/lib/i18n-config";
 import {
   extractContent,
   formatDate,
+  getBaseUrl,
   getDefaultImage,
   getGroupName,
 } from "@/lib/utils";
@@ -104,7 +105,7 @@ async function RelatedBlogListContent({
 
     return (
       <Link
-        href={`/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
+        href={`${getBaseUrl()}/${lang}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
       >
         <Card
           key={post.analysisId}
