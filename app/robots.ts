@@ -7,7 +7,7 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
       {
         userAgent: ["*"],
         allow: ["/"],
-        disallow: ["/_next"],
+        disallow: ["/_next", "/wordpress", "/wp-admin"],
       },
     ],
     sitemap: [`${getBaseUrl()}/sitemap_index.xml`],
