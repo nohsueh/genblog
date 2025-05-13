@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl, getDefaultImage } from "@/lib/utils";
+import { getBaseUrl, getDefaultImage, getGroupName } from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 import { notFound } from "next/navigation";
@@ -32,12 +32,14 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
           isAdmin={isAdmin}
         />
         <main className="container flex-1 px-4 py-6">
-          <h1 className="mb-6 text-3xl font-bold">
-            {dictionary.blog.tag} {decodedTag}
-          </h1>
+          <div className="mb-6 flex items-center justify-start gap-2">
+            <h1 className="text-3xl font-bold">{decodedTag}</h1>
+            <h2>{dictionary.tag.description}</h2>
+          </div>
           <BlogList
             language={language}
             dictionary={dictionary}
+            group={getGroupName()}
             searchParams={{ tags: [decodedTag] }}
           />
         </main>
