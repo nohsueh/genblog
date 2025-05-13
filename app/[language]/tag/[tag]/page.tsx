@@ -34,10 +34,12 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
         />
         <main className="container flex-1 px-4 py-6">
           <div className="mb-6 flex flex-col items-start justify-center gap-2">
-            <Badge variant={"outline"}>
+            <Badge variant={"secondary"} className="px-5 py-1">
               <h1 className="text-3xl font-bold">{decodedTag}</h1>
             </Badge>
-            <h2>{dictionary.tag.description}</h2>
+            <div className="px-5">
+              <h2>{dictionary.tag.description}</h2>
+            </div>
           </div>
           <BlogList
             language={language}
