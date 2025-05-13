@@ -59,7 +59,10 @@ export async function BlogPost({
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag: string) => (
-                  <Link key={tag} href={`${getBaseUrl()}/${language}/${tag}`}>
+                  <Link
+                    key={tag}
+                    href={`${getBaseUrl()}/${language}/tag/${tag}`}
+                  >
                     <Badge
                       variant="secondary"
                       className="cursor-pointer hover:bg-accent"
