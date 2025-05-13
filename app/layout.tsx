@@ -24,12 +24,12 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body>{children}</body>
       {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
         <GoogleAnalytics
           gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
         />
       )}
+      <body>{children}</body>
     </html>
   );
 }
