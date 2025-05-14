@@ -48,20 +48,18 @@ export async function SitePost({
                 height={32}
                 fallback={getDefaultFavicon()}
                 alt={title}
-                fill
-                className="size-8 object-cover"
               />
               <h1 className="line-clamp-2 w-full text-3xl font-bold">
                 {title}
               </h1>
             </div>
-            <div className="relative aspect-video h-20 overflow-hidden rounded-lg rounded-l-none">
+            <div className="overflow-hidden rounded-lg rounded-l-none">
               <ImageWithFallback
                 src={image}
                 fallback={getDefaultImage()}
                 alt={title}
-                fill
-                className="object-cover"
+                width={160}
+                height={90}
               />
             </div>
           </div>

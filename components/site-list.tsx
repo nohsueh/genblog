@@ -85,12 +85,14 @@ async function SiteListContent({
                     href={url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="size-8 opacity-90 hover:size-7 focus:size-7 active:size-7 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
+                    className="opacity-90 hover:size-7 focus:size-7 active:size-7 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
                   >
                     <ImageWithFallback
                       src={favicon}
                       fallback={getDefaultFavicon()}
                       alt={title}
+                      width={32}
+                      height={32}
                     />
                   </Link>
                   <h3 className="line-clamp-3 text-sm font-medium">{title}</h3>
