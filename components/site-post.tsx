@@ -43,29 +43,56 @@ export async function SitePost({
         <article className="mx-auto max-w-4xl">
           <Link
             href={url}
-            className="mb-6 flex flex-wrap-reverse items-start gap-4"
+            className="group mb-6 flex flex-col space-y-3 rounded-lg p-4 transition-colors hover:bg-accent/50"
           >
-            <div className="flex w-full items-start gap-2 px-4">
-              <ImageWithFallback
-                src={favicon}
-                width={32}
-                height={32}
-                fallback={getDefaultFavicon()}
-                alt={title}
-              />
-              <h1 className="line-clamp-2 w-full text-xl font-bold underline">
+            <div className="flex items-start gap-3">
+              <div className="mt-1 shrink-0">
+                <ImageWithFallback
+                  src={favicon}
+                  width={20}
+                  height={20}
+                  className="h-5 w-5"
+                  fallback={getDefaultFavicon()}
+                  alt={title}
+                />
+              </div>
+              <h1 className="text-xl font-bold text-primary group-hover:text-primary/80">
                 {title}
               </h1>
             </div>
-            <div className="aspect-video shrink-0 overflow-hidden rounded-lg rounded-l-none">
-              <ImageWithFallback
-                src={image}
-                fallback={getDefaultImage()}
-                alt={title}
-                width={300}
-              />
+            <div className="flex items-center text-sm text-muted-foreground">
+              <span className="line-clamp-1 overflow-hidden text-ellipsis">
+                {url}
+              </span>
+            </div>
+            <div className="flex gap-4">
+              <div className="hidden sm:block">
+                <div className="aspect-video w-[180px] overflow-hidden rounded-lg">
+                  <ImageWithFallback
+                    src={image}
+                    fallback={getDefaultImage()}
+                    alt={title}
+                    width={180}
+                    height={100}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              <div className="sm:hidden">
+                <div className="aspect-video w-[100px] overflow-hidden rounded-lg">
+                  <ImageWithFallback
+                    src={image}
+                    fallback={getDefaultImage()}
+                    alt={title}
+                    width={100}
+                    height={56}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
             </div>
           </Link>
+
           <div className="mb-6 space-y-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>{formatDate(post.updatedAt, language)}</span>
