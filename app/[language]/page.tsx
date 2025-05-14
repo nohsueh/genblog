@@ -42,7 +42,7 @@ export default async function HomePage({
           />
         )}
         {getAppType() === "directory" && (
-          
+          <></>
         )}
       </main>
       <SiteFooter />
