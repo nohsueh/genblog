@@ -91,8 +91,6 @@ async function SiteListContent({
                       src={favicon}
                       fallback={getDefaultFavicon()}
                       alt={title}
-                      fill
-                      className="object-cover"
                     />
                   </Link>
                   <h3 className="line-clamp-3 text-sm font-medium">{title}</h3>
