@@ -21,9 +21,10 @@
     "nextPost": "Nächster Artikel",
     "latestPosts": "Neueste Artikel",
     "relatedPosts": "Verwandte Artikel",
-    "tag": "Tag"
+    "tag": "Tag",
+    "tagCloud": "Beliebte Tags"
   },
-  "tag":{
+  "tag": {
     "title": "Tag",
     "description": "Entdecken Sie Artikel zu diesem Tag."
   },

@@ -21,9 +21,10 @@
     "nextPost": "Artículo Siguiente",
     "latestPosts": "Artículos más recientes",
     "relatedPosts": "Artículos relacionados",
-    "tag": "Etiqueta"
+    "tag": "Etiqueta",
+    "tagCloud": "Etiquetas populares"
   },
-  "tag":{
+  "tag": {
     "title": "Etiqueta",
     "description": "Descubre artículos relacionados con esta etiqueta."
   },

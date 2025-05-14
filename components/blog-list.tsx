@@ -14,8 +14,10 @@ import {
   PaginationLink,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
+import type { Analysis } from "@/types/api";
 import {
   extractContent,
   formatDate,
@@ -33,8 +35,22 @@ interface BlogListProps {
   language: Locale;
   dictionary: any;
   group?: string;
-  tags?:string[];
+  tags?: string[];
   searchParams: { [key: string]: string | string[] | undefined };
+}
+
+// 计算标签频率的函数
+function getTagFrequency(blogs: Analysis[]) {
+  const tagFreq: { [key: string]: number } = {};
+  blogs.forEach((blog) => {
+    const tags = blog.jsonContent?.tags || [];
+    tags.forEach((tag: string) => {
+      tagFreq[tag] = (tagFreq[tag] || 0) + 1;
+    });
+  });
+  return Object.entries(tagFreq)
+    .sort(([, a], [, b]) => b - a)
+    .map(([tag, count]) => ({ tag, count }));
 }
 
 async function BlogListContent({
@@ -46,7 +62,7 @@ async function BlogListContent({
 }: BlogListProps) {
   const currentPage = Number(searchParams.page || 1);
 
-  const blogs = await getPublishedBlogs({
+  const allBlogs = await getPublishedBlogs({
     pageNum: currentPage,
     pageSize: PAGE_SIZE,
     selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
@@ -54,16 +70,39 @@ async function BlogListContent({
     language,
     tags,
   });
-  const totalCount = blogs?.[0]?.totalCount || 0;
 
-  return blogs.length === 0 ? (
+  const totalCount = allBlogs?.[0]?.totalCount || 0;
+  const tagCloud = getTagFrequency(allBlogs);
+
+  return allBlogs.length === 0 ? (
     <div className="py-10 text-center">
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
   ) : (
     <div>
+      {tagCloud.length > 0 && (
+        <div className="mb-8">
+          <h2 className="mb-4 text-xl font-bold">{dictionary.blog.tagCloud}</h2>
+          <div className="flex flex-wrap gap-2">
+            {tagCloud.map(({ tag, count }) => (
+              <Link
+                key={tag}
+                href={`${getBaseUrl()}/${language}/tag/${encodeURIComponent(tag)}`}
+              >
+                <Badge
+                  variant="secondary"
+                  className="cursor-pointer hover:bg-accent"
+                >
+                  {tag} ({count})
+                </Badge>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
-        {blogs.map((blog) => {
+        {allBlogs.map((blog) => {
           const articleLines = extractContent(blog.jsonContent);
           const title =
             articleLines[0].replace(/^#+\s+|\*+/g, "") ||

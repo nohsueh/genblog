@@ -21,9 +21,10 @@
     "nextPost": "次の記事",
     "latestPosts": "最新の記事",
     "relatedPosts": "関連する記事",
-    "tag": "タグ"
+    "tag": "タグ",
+    "tagCloud": "人気のタグ"
   },
-  "tag":{
+  "tag": {
     "title": "タグ",
     "description": "このタグに関連する記事を発見しましょう。"
   },

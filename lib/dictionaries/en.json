@@ -21,9 +21,10 @@
     "nextPost": "Next Post",
     "latestPosts": "Latest Posts",
     "relatedPosts": "Related Posts",
-    "tag": "Tag"
+    "tag": "Tag",
+    "tagCloud": "Popular Tags"
   },
-  "tag":{
+  "tag": {
     "title": "Tag",
     "description": "Discover articles related to this tag."
   },
