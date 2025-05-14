@@ -40,30 +40,14 @@ export async function BlogPost({
     <div className="relative">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
         <article className="mx-auto max-w-4xl">
-          <div className="mb-6 flex items-start gap-4">
-            <div className="flex w-full items-center gap-2 p-4">
-              <ImageWithFallback
-                src={favicon}
-                width={32}
-                height={32}
-                fallback={getDefaultFavicon()}
-                alt={title}
-                fill
-                className="object-cover"
-              />
-              <h1 className="line-clamp-2 w-full text-3xl font-bold">
-                {title}
-              </h1>
-            </div>
-            <div className="relative aspect-video h-20 overflow-hidden rounded-lg rounded-l-none">
-              <ImageWithFallback
-                src={image}
-                fallback={getDefaultImage()}
-                alt={title}
-                fill
-                className="object-cover"
-              />
-            </div>
+          <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
+            <ImageWithFallback
+              src={image}
+              fallback={getDefaultImage()}
+              alt={title}
+              fill
+              className="object-cover"
+            />
           </div>
           <div className="mb-6 space-y-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
