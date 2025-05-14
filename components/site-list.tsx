@@ -85,7 +85,7 @@ async function SiteListContent({
                     href={url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="shrink-0 opacity-90 hover:size-7 focus:size-7 active:size-7 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
+                    className="shrink-0 opacity-90 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
                   >
                     <ImageWithFallback
                       src={favicon}

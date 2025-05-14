@@ -1,11 +1,17 @@
 import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SiteList } from "@/components/site-list";
 import { Badge } from "@/components/ui/badge";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl, getDefaultImage, getGroupName } from "@/lib/utils";
+import {
+  getAppType,
+  getBaseUrl,
+  getDefaultImage,
+  getGroupName,
+} from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 import { notFound } from "next/navigation";
@@ -47,13 +53,24 @@ export default async function TagPage({
               <h2>{dictionary.tag.description}</h2>
             </div>
           </div>
-          <BlogList
-            language={language}
-            dictionary={dictionary}
-            group={getGroupName()}
-            tags={[decodedTag]}
-            searchParams={await searchParams}
-          />
+          {getAppType() === "blog" && (
+            <BlogList
+              language={language}
+              dictionary={dictionary}
+              group={getGroupName()}
+              tags={[decodedTag]}
+              searchParams={await searchParams}
+            />
+          )}
+          {getAppType() === "directory" && (
+            <SiteList
+              language={language}
+              dictionary={dictionary}
+              group={getGroupName()}
+              tags={[decodedTag]}
+              searchParams={await searchParams}
+            />
+          )}
         </main>
         <SiteFooter />
       </div>

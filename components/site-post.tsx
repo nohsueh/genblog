@@ -45,7 +45,7 @@ export async function SitePost({
             href={url}
             className="group mb-6 flex flex-col space-y-3 rounded-lg p-4 transition-colors hover:bg-accent/50"
           >
-            <h1 className="text-xl font-bold text-primary hover:underline group-hover:text-primary/80">
+            <h1 className="text-xl font-bold text-primary group-hover:text-primary/80 group-hover:underline">
               {title}
             </h1>
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
