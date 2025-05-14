@@ -79,8 +79,8 @@ async function SiteListContent({
               key={site.analysisId}
               className="group"
             >
-              <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
-                <CardContent className="flex items-start gap-3 p-4">
+              <Card className="flex h-40 flex-col border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
+                <CardContent className="flex h-full items-start gap-3 p-4">
                   <Link
                     href={url}
                     target="_blank"
@@ -95,7 +95,9 @@ async function SiteListContent({
                       height={32}
                     />
                   </Link>
-                  <h3 className="line-clamp-3 text-sm font-medium">{title}</h3>
+                  <h3 className="h-full overflow-y-auto text-sm font-medium">
+                    {title}
+                  </h3>
                 </CardContent>
               </Card>
             </Link>
