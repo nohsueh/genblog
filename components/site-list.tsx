@@ -85,7 +85,7 @@ async function SiteListContent({
                     href={url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="relative size-8 flex-shrink-0 overflow-hidden opacity-75 hover:border hover:border-primary/50 focus:border focus:border-primary/50 active:border active:border-primary/50 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
+                    className="size-8 opacity-90 hover:size-7 focus:size-7 active:size-7 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
                   >
                     <ImageWithFallback
                       src={favicon}
@@ -95,7 +95,7 @@ async function SiteListContent({
                       className="object-cover"
                     />
                   </Link>
-                  <h3 className="line-clamp-2 text-sm font-medium">{title}</h3>
+                  <h3 className="line-clamp-3 text-sm font-medium">{title}</h3>
                 </CardContent>
               </Card>
             </Link>
@@ -121,6 +121,7 @@ export function SiteList(props: SiteListProps) {
               <CardContent className="flex items-start p-4">
                 <Skeleton className="size-8" />
                 <div>
+                  <Skeleton className="my-[4px] h-[16px] w-full" />
                   <Skeleton className="my-[4px] h-[16px] w-full" />
                   <Skeleton className="my-[4px] mb-2 h-[16px] w-3/4" />
                 </div>
