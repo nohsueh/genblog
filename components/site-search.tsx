@@ -45,7 +45,7 @@ export function SiteSearch({ site, className, ...props }: SiteSearchProps) {
     const trimmedQuery = query.trim();
     if (trimmedQuery) {
       const searchUrl = `https://www.google.com/search?q=site:${site.replace("https://", "")} ${encodeURIComponent(trimmedQuery)}`;
-      window.open(searchUrl, "_blank");
+      window.open(searchUrl);
     }
   };
 
