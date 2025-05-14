@@ -84,7 +84,7 @@ async function BlogListContent({
         <div className="mb-8 px-5">
           <h2 className="mb-4 text-xl font-bold">{dictionary.blog.tagCloud}</h2>
           <div className="flex flex-wrap gap-2">
-            {tagCloud.map(({ tag, count }) => (
+            {tagCloud.slice(0, 60).map(({ tag, count }) => (
               <Link
                 key={tag}
                 href={`${getBaseUrl()}/${language}/tag/${encodeURIComponent(tag)}`}
