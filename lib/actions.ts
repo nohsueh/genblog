@@ -343,7 +343,7 @@ export async function relatedAnalyses({
   return await response.json();
 }
 
-export async function getPublishedBlogs({
+export async function getFilteredAnalyses({
   pageNum = 1,
   pageSize = 10,
   selectFields,

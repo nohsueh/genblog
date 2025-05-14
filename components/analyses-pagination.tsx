@@ -1,27 +1,27 @@
 "use client";
 
 import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
 } from "@/components/ui/pagination";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getPaginationRange } from "@/lib/utils";
 import Link from "next/link";
 
-interface BlogPaginationProps {
+interface AnalysesPaginationProps {
   currentPage: number;
   totalCount: number;
   pageSize: number;
 }
 
-export function BlogPagination({
+export function AnalysesPagination({
   currentPage,
   totalCount,
   pageSize,
-}: BlogPaginationProps) {
+}: AnalysesPaginationProps) {
   const isMobile = useIsMobile();
 
   return totalCount > pageSize ? (

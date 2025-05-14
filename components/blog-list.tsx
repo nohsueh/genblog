@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getPublishedBlogs } from "@/lib/actions";
+import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import {
   extractContent,
@@ -19,7 +19,7 @@ import {
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
-import { BlogPagination } from "./blog-pagination";
+import { AnalysesPagination } from "./analyses-pagination";
 import ImageWithFallback from "./image-with-fallback";
 
 const PAGE_SIZE = 12;
@@ -54,7 +54,7 @@ async function BlogListContent({
 }: BlogListProps) {
   const currentPage = Number(searchParams.page || 1);
 
-  const allBlogs = await getPublishedBlogs({
+  const blogs = await getFilteredAnalyses({
     pageNum: currentPage,
     pageSize: PAGE_SIZE,
     selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
@@ -63,10 +63,10 @@ async function BlogListContent({
     tags,
   });
 
-  const totalCount = allBlogs?.[0]?.totalCount || 0;
-  const tagCloud = getTagFrequency(allBlogs);
+  const totalCount = blogs?.[0]?.totalCount || 0;
+  const tagCloud = getTagFrequency(blogs);
 
-  return allBlogs.length === 0 ? (
+  return blogs.length === 0 ? (
     <div className="py-10 text-center">
       <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
     </div>
@@ -94,7 +94,7 @@ async function BlogListContent({
         </div>
       )}
       <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
-        {allBlogs.map((blog) => {
+        {blogs.map((blog) => {
           const articleLines = extractContent(blog.jsonContent);
           const title =
             articleLines[0].replace(/^#+\s+|\*+/g, "") ||
@@ -150,7 +150,7 @@ async function BlogListContent({
           );
         })}
       </div>
-      <BlogPagination
+      <AnalysesPagination
         currentPage={currentPage}
         totalCount={totalCount}
         pageSize={PAGE_SIZE}

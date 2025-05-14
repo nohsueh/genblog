@@ -1,4 +1,4 @@
-import { Content } from "@/types/api";
+import { Analysis, Content } from "@/types/api";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { i18n, type Locale } from "./i18n-config";
@@ -86,4 +86,17 @@ export function extractContent(content: Content | null) {
     .map((line) => line.trim())
     .filter(Boolean);
   return articleLines || [];
+}
+
+export function getTagFrequency(analyses: Analysis[]) {
+  const tagFreq: { [key: string]: number } = {};
+  analyses.forEach((analysis) => {
+    const tags = analysis.jsonContent?.tags || [];
+    tags.forEach((tag: string) => {
+      tagFreq[tag] = (tagFreq[tag] || 0) + 1;
+    });
+  });
+  return Object.entries(tagFreq)
+    .sort(([, a], [, b]) => b - a)
+    .map(([tag, count]) => ({ tag, count }));
 }

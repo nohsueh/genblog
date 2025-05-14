@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/table";
 import {
   deleteAnalysis,
-  getPublishedBlogs,
+  getFilteredAnalyses,
   updateAnalysis,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
@@ -42,7 +42,7 @@ import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { BlogPagination } from "./blog-pagination";
+import { AnalysesPagination } from "./analyses-pagination";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 
@@ -107,7 +107,7 @@ export function AdminDashboard({
         setLoading(true);
         // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
-        const blogs = await getPublishedBlogs({
+        const blogs = await getFilteredAnalyses({
           pageNum: currentPage,
           pageSize: PAGE_SIZE,
           selectFields: [
@@ -285,7 +285,7 @@ export function AdminDashboard({
               ))}
             </TableBody>
           </Table>
-          <BlogPagination
+          <AnalysesPagination
             currentPage={currentPage}
             totalCount={totalCount}
             pageSize={PAGE_SIZE}
