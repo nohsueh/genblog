@@ -68,7 +68,7 @@ async function SiteListContent({
         </div>
       )}
 
-      <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+      <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {sites.map((site) => {
           const title = site.analysis.title;
           const favicon = site.analysis.favicon || getDefaultFavicon();
@@ -80,12 +80,12 @@ async function SiteListContent({
               className="group"
             >
               <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
-                <CardContent className="flex items-center p-4">
+                <CardContent className="flex items-start gap-3 p-4">
                   <Link
                     href={url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="relative size-8 overflow-hidden rounded-full opacity-50 hover:opacity-100 focus:opacity-100 active:opacity-100 group-hover:opacity-75 group-focus:opacity-75 group-active:opacity-75"
+                    className="relative size-8 flex-shrink-0 overflow-hidden rounded-full opacity-50 hover:opacity-100 focus:opacity-100 active:opacity-100 group-hover:opacity-75 group-focus:opacity-75 group-active:opacity-75"
                   >
                     <ImageWithFallback
                       src={favicon}
@@ -95,7 +95,7 @@ async function SiteListContent({
                       className="object-cover"
                     />
                   </Link>
-                  <h3 className="mb-2 line-clamp-2 text-sm">{title}</h3>
+                  <h3 className="line-clamp-2 text-sm font-medium">{title}</h3>
                 </CardContent>
               </Card>
             </Link>
@@ -115,7 +115,7 @@ export function SiteList(props: SiteListProps) {
   return (
     <Suspense
       fallback={
-        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
+        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: PAGE_SIZE }).map((_, i) => (
             <Card key={i} className="overflow-hidden">
               <CardContent className="flex items-center p-4">
