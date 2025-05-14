@@ -93,7 +93,7 @@ async function BlogListContent({
           </div>
         </div>
       )}
-      <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => {
           const articleLines = extractContent(blog.jsonContent);
           const title =
@@ -163,8 +163,8 @@ export function BlogList(props: BlogListProps) {
   return (
     <Suspense
       fallback={
-        <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
-          {Array.from({ length: 6 }).map((_, i) => (
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: PAGE_SIZE }).map((_, i) => (
             <Card key={i} className="overflow-hidden">
               <CardHeader className="p-0">
                 <Skeleton className="aspect-video" />

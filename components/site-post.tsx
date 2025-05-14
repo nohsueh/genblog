@@ -18,17 +18,17 @@ import { TableOfContents } from "lucide-react";
 import Link from "next/link";
 import ImageWithFallback from "./image-with-fallback";
 
-interface BlogPostProps {
+interface SitePostProps {
   analysisId: string;
   language: Locale;
   dictionary: any;
 }
 
-export async function BlogPost({
+export async function SitePost({
   analysisId,
   language,
   dictionary,
-}: BlogPostProps) {
+}: SitePostProps) {
   const post: Analysis = await getAnalysis(analysisId);
   const { html, headings } = markdownToHtml(post.jsonContent?.article || "");
   const image = post.analysis.image || getDefaultImage();

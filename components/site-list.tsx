@@ -9,7 +9,7 @@ import { Suspense } from "react";
 import { AnalysesPagination } from "./analyses-pagination";
 import ImageWithFallback from "./image-with-fallback";
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 48;
 
 interface SiteListProps {
   language: Locale;
@@ -68,7 +68,7 @@ async function SiteListContent({
         </div>
       )}
 
-      <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {sites.map((site) => {
           const title = site.analysis.title;
           const favicon = site.analysis.favicon || getDefaultFavicon();
@@ -85,7 +85,7 @@ async function SiteListContent({
                     href={url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="relative size-8 flex-shrink-0 overflow-hidden rounded-full opacity-50 hover:opacity-100 focus:opacity-100 active:opacity-100 group-hover:opacity-75 group-focus:opacity-75 group-active:opacity-75"
+                    className="relative size-8 flex-shrink-0 overflow-hidden opacity-75 hover:border hover:border-primary/50 focus:border focus:border-primary/50 active:border active:border-primary/50 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
                   >
                     <ImageWithFallback
                       src={favicon}
@@ -115,10 +115,10 @@ export function SiteList(props: SiteListProps) {
   return (
     <Suspense
       fallback={
-        <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: PAGE_SIZE }).map((_, i) => (
             <Card key={i} className="overflow-hidden">
-              <CardContent className="flex items-center p-4">
+              <CardContent className="flex items-start p-4">
                 <Skeleton className="size-8" />
                 <div>
                   <Skeleton className="my-[4px] h-[16px] w-full" />
