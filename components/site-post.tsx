@@ -43,6 +43,8 @@ export async function SitePost({
         <article className="mx-auto max-w-4xl">
           <Link
             href={url}
+            target="_blank"
+            rel="nofolow noopener noreferrer"
             className="group mb-6 flex flex-col space-y-3 rounded-lg p-4 transition-colors hover:bg-accent/50"
           >
             <h1 className="text-xl font-bold text-primary group-hover:text-primary/80 group-hover:underline">
