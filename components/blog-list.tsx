@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -14,10 +15,8 @@ import {
   PaginationLink,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Badge } from "@/components/ui/badge";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import type { Analysis } from "@/types/api";
 import {
   extractContent,
   formatDate,
@@ -25,6 +24,7 @@ import {
   getDefaultImage,
   getPaginationRange,
 } from "@/lib/utils";
+import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
 import ImageWithFallback from "./image-with-fallback";
@@ -93,7 +93,8 @@ async function BlogListContent({
                   variant="secondary"
                   className="cursor-pointer hover:bg-accent"
                 >
-                  {tag} ({count})
+                  {tag}
+                  {count && `(${count})`}
                 </Badge>
               </Link>
             ))}
