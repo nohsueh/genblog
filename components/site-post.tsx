@@ -65,7 +65,7 @@ export async function SitePost({
                 {url}
               </span>
             </div>
-            <div className="aspect-video w-80 overflow-hidden rounded-lg">
+            <div className="aspect-video max-w-80 overflow-hidden rounded-lg">
               <ImageWithFallback
                 src={image}
                 fallback={getDefaultImage()}
