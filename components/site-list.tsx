@@ -85,7 +85,7 @@ async function SiteListContent({
                     href={url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="size-8 overflow-hidden rounded-full opacity-50 hover:opacity-100 focus:opacity-100 active:opacity-100 group-hover:opacity-75 group-focus:opacity-75 group-active:opacity-75"
+                    className="relative size-8 overflow-hidden rounded-full opacity-50 hover:opacity-100 focus:opacity-100 active:opacity-100 group-hover:opacity-75 group-focus:opacity-75 group-active:opacity-75"
                   >
                     <ImageWithFallback
                       src={favicon}
@@ -118,10 +118,12 @@ export function SiteList(props: SiteListProps) {
         <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
           {Array.from({ length: PAGE_SIZE }).map((_, i) => (
             <Card key={i} className="overflow-hidden">
-              <CardContent className="p-4">
-                <Skeleton className="aspect-video" />
-                <Skeleton className="my-[4px] h-[16px] w-full" />
-                <Skeleton className="my-[4px] mb-2 h-[16px] w-3/4" />
+              <CardContent className="flex items-center p-4">
+                <Skeleton className="size-8" />
+                <div>
+                  <Skeleton className="my-[4px] h-[16px] w-full" />
+                  <Skeleton className="my-[4px] mb-2 h-[16px] w-3/4" />
+                </div>
               </CardContent>
             </Card>
           ))}
