@@ -68,7 +68,7 @@ async function SiteListContent({
         </div>
       )}
 
-      <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
         {sites.map((site) => {
           const title = site.analysis.title;
           const favicon = site.analysis.favicon || getDefaultFavicon();
@@ -79,7 +79,7 @@ async function SiteListContent({
               key={site.analysisId}
               className="group"
             >
-              <Card className="flex h-40 flex-col border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">
+              <Card className="flex h-40 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg focus:border-primary/50 active:border-primary/50 dark:bg-accent/50">
                 <CardContent className="flex h-full items-start gap-3 p-4">
                   <Link
                     href={url}
@@ -95,7 +95,7 @@ async function SiteListContent({
                       height={32}
                     />
                   </Link>
-                  <h3 className="h-full overflow-y-auto text-sm font-medium">
+                  <h3 className="h-full overflow-y-auto text-ellipsis text-sm font-medium">
                     {title}
                   </h3>
                 </CardContent>
@@ -117,7 +117,7 @@ export function SiteList(props: SiteListProps) {
   return (
     <Suspense
       fallback={
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: PAGE_SIZE / 2 }).map((_, i) => (
             <Card key={i} className="overflow-hidden">
               <CardContent className="flex items-start p-4">
