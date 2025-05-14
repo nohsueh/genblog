@@ -69,9 +69,10 @@ async function SiteListContent({
 
       <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {sites.map((site) => {
+          const brand = site.jsonContent?.brand;
           const title = site.analysis.title;
           const favicon = site.analysis.favicon || getDefaultFavicon();
-          const url = site.analysis.url;
+
           return (
             <Link
               href={`${getBaseUrl()}/${language}/${site.analysisId}/${encodeURIComponent(site.jsonContent?.slug || "")}`}
@@ -90,7 +91,7 @@ async function SiteListContent({
                       className="shrink-0 opacity-90 group-hover:opacity-100"
                     />
                     <h2 className="text-ellipsis text-base font-bold">
-                      App Name
+                      {brand}
                     </h2>
                   </div>
                   <h3 className="h-full overflow-y-auto text-ellipsis text-sm font-medium">
