@@ -45,51 +45,33 @@ export async function SitePost({
             href={url}
             className="group mb-6 flex flex-col space-y-3 rounded-lg p-4 transition-colors hover:bg-accent/50"
           >
-            <div className="flex items-start gap-3">
-              <div className="mt-1 shrink-0">
+            <h1 className="text-xl font-bold text-primary group-hover:text-primary/80">
+              {title}
+            </h1>
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="shrink-0">
                 <ImageWithFallback
                   src={favicon}
                   width={20}
                   height={20}
-                  className="h-5 w-5"
+                  className="size-5"
                   fallback={getDefaultFavicon()}
                   alt={title}
                 />
               </div>
-              <h1 className="text-xl font-bold text-primary group-hover:text-primary/80">
-                {title}
-              </h1>
-            </div>
-            <div className="flex items-center text-sm text-muted-foreground">
               <span className="line-clamp-1 overflow-hidden text-ellipsis">
                 {url}
               </span>
             </div>
-            <div className="flex gap-4">
-              <div className="hidden sm:block">
-                <div className="aspect-video w-[180px] overflow-hidden rounded-lg">
-                  <ImageWithFallback
-                    src={image}
-                    fallback={getDefaultImage()}
-                    alt={title}
-                    width={180}
-                    height={100}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
-              <div className="sm:hidden">
-                <div className="aspect-video w-[100px] overflow-hidden rounded-lg">
-                  <ImageWithFallback
-                    src={image}
-                    fallback={getDefaultImage()}
-                    alt={title}
-                    width={100}
-                    height={56}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              </div>
+            <div className="aspect-video w-[180px] overflow-hidden rounded-lg">
+              <ImageWithFallback
+                src={image}
+                fallback={getDefaultImage()}
+                alt={title}
+                width={180}
+                height={100}
+                className="h-full w-full object-cover"
+              />
             </div>
           </Link>
 
