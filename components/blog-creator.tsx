@@ -20,7 +20,7 @@ import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { analyzeLinks, analyzeSearch } from "@/lib/actions";
-import { cn } from "@/lib/utils";
+import { cn, getAppType } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useState } from "react";
@@ -65,8 +65,29 @@ export function BlogCreator({ dictionary, group }: BlogCreatorProps) {
             ],
             description: dictionary.prompt.tags,
           },
+          title: {
+            type: "string",
+            description: dictionary.prompt.title,
+          },
+          overview: {
+            type: "string",
+            description: dictionary.prompt.overview,
+          },
+          ...(getAppType() === "directory" && {
+            name: {
+              type: "string",
+              description: dictionary.prompt.name,
+            },
+          }),
         },
-        required: ["slug", "article", "tags"],
+        required: [
+          "slug",
+          "article",
+          "tags",
+          "title",
+          "overview",
+          getAppType() === "directory" ? "name" : "",
+        ].filter(Boolean),
         additionalProperties: false,
       },
     },

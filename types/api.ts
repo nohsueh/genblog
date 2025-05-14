@@ -59,9 +59,12 @@ export interface Analysis {
 }
 
 export interface Content {
-  slug?: string;
-  article?: string;
-  tags?: string[];
+  slug: string;
+  article: string;
+  tags: string[];
+  title: string;
+  overview: string;
+  brand?: string;
 }
 
 export interface UpdateAnalysisParams {

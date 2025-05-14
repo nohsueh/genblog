@@ -69,7 +69,7 @@ export function encode(data: string) {
   return btoa(data).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
-export function getAppType(): "blog" | "directory" {
+export function getAppType() {
   switch (process.env.NEXT_PUBLIC_APP_TYPE) {
     case "blog":
       return "blog";
@@ -82,7 +82,7 @@ export function getAppType(): "blog" | "directory" {
 
 export function extractContent(content: Content | null) {
   const articleLines = content?.article
-    ?.split("\n")
+    .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
   return articleLines || [];
