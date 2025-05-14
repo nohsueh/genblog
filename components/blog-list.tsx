@@ -81,7 +81,7 @@ async function BlogListContent({
   ) : (
     <div>
       {tagCloud.length > 0 && (
-        <div className="mb-8">
+        <div className="mb-8 px-5">
           <h2 className="mb-4 text-xl font-bold">{dictionary.blog.tagCloud}</h2>
           <div className="flex flex-wrap gap-2">
             {tagCloud.map(({ tag, count }) => (
