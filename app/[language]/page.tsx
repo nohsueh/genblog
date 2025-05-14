@@ -1,7 +1,6 @@
 import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { SiteList } from "@/components/site-list";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
@@ -43,12 +42,7 @@ export default async function HomePage({
           />
         )}
         {getAppType() === "directory" && (
-          <SiteList
-            language={language}
-            dictionary={dictionary}
-            group={getGroupName()}
-            searchParams={await searchParams}
-          />
+          
         )}
       </main>
       <SiteFooter />
