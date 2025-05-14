@@ -14,7 +14,7 @@ import {
   extractContent,
   formatDate,
   getBaseUrl,
-  getDefaultImage
+  getDefaultImage,
 } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
@@ -32,7 +32,6 @@ interface BlogListProps {
   searchParams: { [key: string]: string | string[] | undefined };
 }
 
-// 计算标签频率的函数
 function getTagFrequency(blogs: Analysis[]) {
   const tagFreq: { [key: string]: number } = {};
   blogs.forEach((blog) => {

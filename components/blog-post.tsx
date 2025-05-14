@@ -61,7 +61,7 @@ export async function BlogPost({
                 {tags.map((tag: string) => (
                   <Link
                     key={tag}
-                    href={`${getBaseUrl()}/${language}/tag/${tag}`}
+                    href={`${getBaseUrl()}/${language}/tag/${encodeURIComponent(tag)}`}
                   >
                     <Badge
                       variant="secondary"
