@@ -14,7 +14,7 @@ export const revalidate = 3600;
 type Props = {
   language: Locale;
   id: string;
-  slug: String;
+  slug: string;
 };
 
 export default async function BlogPage({ params }: { params: Promise<Props> }) {
@@ -75,7 +75,7 @@ export async function generateMetadata({
 
   const images = await validateImage(post.analysis.image || "");
 
-  const canonical = `${getBaseUrl()}/${language}/${id}/${slug}`;
+  const canonical = `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(slug)}`;
 
   return {
     title,

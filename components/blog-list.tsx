@@ -109,7 +109,7 @@ async function BlogListContent({
 
           return (
             <Link
-              href={`${getBaseUrl()}/${language}/${blog.analysisId}/${blog.jsonContent?.slug || ""}`}
+              href={`${getBaseUrl()}/${language}/${blog.analysisId}/${encodeURIComponent(blog.jsonContent?.slug || "")}`}
               key={blog.analysisId}
             >
               <Card className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50">

@@ -105,7 +105,7 @@ async function RelatedBlogListContent({
 
     return (
       <Link
-        href={`${getBaseUrl()}/${language}/${post.analysisId}/${post.jsonContent?.slug || ""}`}
+        href={`${getBaseUrl()}/${language}/${post.analysisId}/${encodeURIComponent(post.jsonContent?.slug || "")}`}
       >
         <Card
           key={post.analysisId}

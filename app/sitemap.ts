@@ -29,7 +29,7 @@ export default async function sitemap({
       url: `${getBaseUrl()}/${locale}`,
     },
     ...analyses.map((analysis) => ({
-      url: `${getBaseUrl()}/${locale}/${analysis.analysisId}/${analysis.jsonContent?.slug || ""}`,
+      url: `${getBaseUrl()}/${locale}/${analysis.analysisId}/${encodeURIComponent(analysis.jsonContent?.slug || "")}`,
     })),
   ];
 }

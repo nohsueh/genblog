@@ -19,7 +19,9 @@ export default async function BlogPage({ params }: { params: Promise<Props> }) {
     console.error(`BlogPage getAnalysis: ${error}`);
     return notFound();
   }
-  permanentRedirect(`${getBaseUrl()}/${language}/${id}/${post.jsonContent?.slug || ""}`);
+  permanentRedirect(
+    `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`,
+  );
 }
 
 export async function generateMetadata({
@@ -41,7 +43,7 @@ export async function generateMetadata({
 
   const images = await validateImage(post.analysis.image || "");
 
-  const canonical = `${getBaseUrl()}/${language}/${id}/${post.jsonContent?.slug || ""}`;
+  const canonical = `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`;
 
   return {
     title,
