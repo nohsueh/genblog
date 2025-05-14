@@ -24,7 +24,8 @@
     "latestPosts": "Articles les plus récents",
     "relatedPosts": "Articles liés",
     "tag": "Étiquette",
-    "tagCloud": "Étiquettes populaires"
+    "tagCloud": "Étiquettes Populaires",
+    "tagCloudOnThisPage": "Étiquettes Populaires sur cette page"
   },
   "tag": {
     "title": "Étiquette",

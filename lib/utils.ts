@@ -65,6 +65,18 @@ export function getDefaultFavicon() {
   return `${getBaseUrl()}/icon.svg`;
 }
 
+/**
+ * Encodes a string to a URL-safe Base64 format.
+ *
+ * This function uses the browser's `btoa` method to encode the input string to Base64,
+ * then replaces characters to make the result URL-safe by:
+ * - Replacing '+' with '-'
+ * - Replacing '/' with '_'
+ * - Removing any trailing '=' padding characters
+ *
+ * @param data - The string to encode.
+ * @returns The URL-safe Base64 encoded string.
+ */
 export function encode(data: string) {
   return btoa(data).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }

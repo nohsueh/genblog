@@ -24,7 +24,8 @@
     "latestPosts": "最新文章",
     "relatedPosts": "相关文章",
     "tag": "标签",
-    "tagCloud": "热门标签"
+    "tagCloud": "热门标签",
+    "tagCloudOnThisPage": "本页热门标签"
   },
   "tag": {
     "title": "标签",

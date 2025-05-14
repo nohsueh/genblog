@@ -36,7 +36,7 @@ import {
   updateAnalysis,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getBaseUrl } from "@/lib/utils";
+import { getBaseUrl } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
@@ -227,7 +227,7 @@ export function AdminDashboard({
                     {post.jsonContent?.title}
                   </TableCell>
                   <TableCell className="text-nowrap">
-                    {formatDate(post.updatedAt, language)}
+                    {post.updatedAt}
                   </TableCell>
                   <TableCell className="text-nowrap">
                     {post.metadata?.group ? (

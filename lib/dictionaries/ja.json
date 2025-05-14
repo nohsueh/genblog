@@ -24,7 +24,8 @@
     "latestPosts": "最新の記事",
     "relatedPosts": "関連する記事",
     "tag": "タグ",
-    "tagCloud": "人気のタグ"
+    "tagCloud": "人気のタグ",
+    "tagCloudOnThisPage": "このページの人気のタグ"
   },
   "tag": {
     "title": "タグ",

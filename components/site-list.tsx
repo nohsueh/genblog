@@ -47,7 +47,9 @@ async function SiteListContent({
     <div>
       {tagCloud.length > 0 && (
         <div className="mb-8 px-5">
-          <h2 className="mb-4 text-xl font-bold">{dictionary.blog.tagCloud}</h2>
+          <h2 className="mb-4 text-xl font-bold">
+            {dictionary.blog.tagCloudOnThisPage}
+          </h2>
           <div className="flex flex-wrap gap-2">
             {tagCloud.slice(0, 10).map(({ tag, count }) => (
               <Link

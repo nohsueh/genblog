@@ -24,7 +24,8 @@
     "latestPosts": "Latest Posts",
     "relatedPosts": "Related Posts",
     "tag": "Tag",
-    "tagCloud": "Popular Tags"
+    "tagCloud": "Popular Tags",
+    "tagCloudOnThisPage": "Popular Tags on this page"
   },
   "tag": {
     "title": "Tag",

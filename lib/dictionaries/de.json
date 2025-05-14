@@ -24,7 +24,8 @@
     "latestPosts": "Neueste Artikel",
     "relatedPosts": "Verwandte Artikel",
     "tag": "Tag",
-    "tagCloud": "Beliebte Tags"
+    "tagCloud": "Beliebte Tags",
+    "tagCloudOnThisPage": "Beliebte Tags auf dieser Seite"
   },
   "tag": {
     "title": "Tag",
