@@ -49,7 +49,7 @@ export async function SitePost({
                 fallback={getDefaultFavicon()}
                 alt={title}
                 fill
-                className="object-cover"
+                className="size-8 object-cover"
               />
               <h1 className="line-clamp-2 w-full text-3xl font-bold">
                 {title}
