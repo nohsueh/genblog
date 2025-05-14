@@ -25,7 +25,7 @@
   },
   "tag": {
     "title": "Tag",
-    "description": "Discover articles related to this tag."
+    "description": "Discover contents related to this tag."
   },
   "admin": {
     "login": {
