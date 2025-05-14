@@ -77,6 +77,12 @@
     "edit": {
       "title": "Blog bearbeiten",
       "content": "Inhalt",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Artikeltitel eingeben",
+      "overview": "Überblick",
+      "overviewPlaceholder": "Artikelübersicht eingeben",
+      "brand": "Marke",
+      "brandPlaceholder": "Content-Marke eingeben",
       "group": "Gruppe",
       "groupHelp": "Setzen Sie eine Gruppe, um den Blog auf der Startseite sichtbar zu machen. Wenn keine Gruppe festgelegt ist, wird der Blog nicht auf der Startseite angezeigt.",
       "tags": "Tags",

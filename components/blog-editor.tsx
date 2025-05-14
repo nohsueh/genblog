@@ -30,6 +30,9 @@ interface BlogEditorProps {
 
 export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
   const [article, setArticle] = useState(post.jsonContent?.article || "");
+  const [title, setTitle] = useState(post.jsonContent?.title || "");
+  const [overview, setOverview] = useState(post.jsonContent?.overview || "");
+  const [brand, setBrand] = useState(post.jsonContent?.brand || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
   const [tags, setTags] = useState<string[]>(post.jsonContent?.tags || []);
   const [tagInput, setTagInput] = useState("");
@@ -59,7 +62,14 @@ export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
       formData.set("analysisId", post.analysisId);
       formData.set(
         "jsonContent",
-        JSON.stringify({ ...post.jsonContent, article, tags }),
+        JSON.stringify({
+          ...post.jsonContent,
+          article,
+          tags,
+          title,
+          overview,
+          brand,
+        }),
       );
       formData.set("metadata", JSON.stringify({ ...post.metadata, group }));
 
@@ -91,6 +101,44 @@ export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
         </CardHeader>
         <CardContent>
           <form action={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              {" "}
+              <Label htmlFor="title">{dictionary.admin.edit.titleLabel}</Label>
+              <Input
+                id="title"
+                name="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder={dictionary.admin.edit.titlePlaceholder}
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="overview">{dictionary.admin.edit.overview}</Label>
+              <Textarea
+                id="overview"
+                name="overview"
+                value={overview}
+                onChange={(e) => setOverview(e.target.value)}
+                placeholder={dictionary.admin.edit.overviewPlaceholder}
+                disabled={isLoading}
+                rows={3}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="brand">{dictionary.admin.edit.brand}</Label>
+              <Input
+                id="brand"
+                name="brand"
+                value={brand}
+                onChange={(e) => setBrand(e.target.value)}
+                placeholder={dictionary.admin.edit.brandPlaceholder}
+                disabled={isLoading}
+              />
+            </div>
+
             <div className="space-y-2">
               <Label htmlFor="group">{dictionary.admin.edit.group}</Label>
               <Input
