@@ -50,13 +50,13 @@ async function SiteListContent({
               <Link
                 href={`${getBaseUrl()}/${language}/${site.analysisId}/${encodeURIComponent(site.jsonContent?.slug || "")}`}
               >
-                <Card className="group flex h-full flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50">
-                  <CardContent className="flex flex-row items-center gap-3 p-4">
+                <Card className="h-full border-2 border-transparent transition-colors hover:border-primary/50">
+                  <CardContent className="group flex flex-row items-center gap-3 p-4">
                     <Link
                       href={site.analysis.url}
                       target="_blank"
                       rel="noopener noreferrer nofollow"
-                      className="absolute right-2 top-2 z-10 rounded-full bg-black/50 p-1.5 opacity-0 transition-opacity hover:bg-black/70 group-hover:opacity-100"
+                      className="rounded-full bg-black/50 p-1 opacity-75 transition-opacity hover:bg-black/50 group-hover:opacity-100"
                       title={title}
                     >
                       <ImageWithFallback
@@ -66,7 +66,7 @@ async function SiteListContent({
                         height={32}
                         alt={title}
                         fill
-                        className="rounded-md object-contain"
+                        className="object-contain"
                       />
                     </Link>
                     <CardTitle>
