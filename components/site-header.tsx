@@ -62,14 +62,14 @@ export function SiteHeader({
                   `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
                   `${getBaseUrl()}/${language}`
                 }
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               >
                 {dictionary.header.home}
               </Link>
               {isAdmin && (
                 <Link
                   href={`${getBaseUrl()}/${language}/console`}
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 >
                   {dictionary.header.dashboard}
                 </Link>
@@ -110,14 +110,14 @@ export function SiteHeader({
                       `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
                       `${getBaseUrl()}/${language}`
                     }
-                    className="text-sm font-medium transition-colors hover:text-primary focus:text-primary active:text-primary"
+                    className="text-sm font-medium transition-colors hover:text-primary"
                   >
                     {dictionary.header.home}
                   </Link>
                   {isAdmin && (
                     <Link
                       href={`${getBaseUrl()}/${language}/console`}
-                      className="text-sm font-medium transition-colors hover:text-primary focus:text-primary active:text-primary"
+                      className="text-sm font-medium transition-colors hover:text-primary"
                     >
                       {dictionary.header.dashboard}
                     </Link>

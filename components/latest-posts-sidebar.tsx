@@ -71,7 +71,7 @@ async function LatestPostsContent({ language }: { language: Locale }) {
       >
         <Card
           key={post.analysisId}
-          className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 focus:border-primary/50 active:border-primary/50 dark:hover:bg-accent/50 dark:focus:bg-accent/50 dark:active:bg-accent/50"
+          className="flex flex-row items-center overflow-hidden border-2 border-transparent p-0 transition-colors hover:border-primary/50 dark:hover:bg-accent/50"
         >
           <CardTitle className="line-clamp-3 p-1 text-xs font-semibold">
             {title}

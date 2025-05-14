@@ -91,7 +91,7 @@ export function Markdown({ content, onHeadingsExtracted }: MarkdownProps) {
 
   return (
     <div
-      className="prose prose-sm prose-gray w-full max-w-none break-all dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500 focus:prose-a:text-blue-500 active:prose-a:text-blue-500"
+      className="prose prose-sm prose-gray w-full max-w-none break-all dark:prose-invert sm:prose-base prose-a:text-blue-600 prose-a:underline hover:prose-a:text-blue-500"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

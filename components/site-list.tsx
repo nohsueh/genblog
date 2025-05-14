@@ -78,7 +78,7 @@ async function SiteListContent({
               key={site.analysisId}
               className="group"
             >
-              <Card className="flex h-36 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg focus:border-primary/50 active:border-primary/50 dark:bg-accent/50">
+              <Card className="flex h-36 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
                 <CardContent className="flex h-full flex-col gap-2 p-4">
                   <div className="flex items-center gap-2">
                     <ImageWithFallback
@@ -87,7 +87,7 @@ async function SiteListContent({
                       alt={title}
                       width={32}
                       height={32}
-                      className="shrink-0 opacity-90 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
+                      className="shrink-0 opacity-90 group-hover:opacity-100"
                     />
                     <h2 className="text-ellipsis text-base font-bold">
                       App Name
@@ -119,7 +119,7 @@ export function SiteList(props: SiteListProps) {
           {Array.from({ length: PAGE_SIZE / 2 }).map((_, i) => (
             <Card
               key={i}
-              className="h-36 border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg focus:border-primary/50 active:border-primary/50 dark:bg-accent/50"
+              className="h-36 border-2 border-transparent shadow-md transition-colors dark:bg-accent/50"
             />
           ))}
         </div>
