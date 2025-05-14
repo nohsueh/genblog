@@ -70,7 +70,6 @@ export async function SitePost({
                 src={image}
                 fallback={getDefaultImage()}
                 alt={title}
-                width={320}
                 className="h-full w-full object-cover"
               />
             </div>
