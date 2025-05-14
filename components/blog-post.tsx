@@ -7,16 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { getAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import {
-  formatDate,
-  getBaseUrl,
-  getDefaultFavicon,
-  getDefaultImage,
-} from "@/lib/utils";
+import { formatDate, getBaseUrl } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Link from "next/link";
-import ImageWithFallback from "./image-with-fallback";
 
 interface BlogPostProps {
   analysisId: string;
@@ -31,24 +25,12 @@ export async function BlogPost({
 }: BlogPostProps) {
   const post: Analysis = await getAnalysis(analysisId);
   const { html, headings } = markdownToHtml(post.jsonContent?.article || "");
-  const image = post.analysis.image || getDefaultImage();
-  const favicon = post.analysis.favicon || getDefaultFavicon();
-  const title = post.analysis.title || "";
   const tags = post.jsonContent?.tags || [];
 
   return (
     <div className="relative">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
         <article className="mx-auto max-w-4xl">
-          <div className="relative mb-6 aspect-video overflow-hidden rounded-lg">
-            <ImageWithFallback
-              src={image}
-              fallback={getDefaultImage()}
-              alt={title}
-              fill
-              className="object-cover"
-            />
-          </div>
           <div className="mb-6 space-y-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>{formatDate(post.updatedAt, language)}</span>
