@@ -32,9 +32,6 @@ export function SiteFooter() {
             </Link>
           </div>
         </div>
-        {/* <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-          <Link href="https://searchlysis.com">Powered by Searchlysis</Link>
-        </p> */}
       </div>
     </footer>
   );

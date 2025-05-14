@@ -29,7 +29,7 @@ export default function RootLayout({
           gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
         />
       )}
-      <body>{children}</body>
+      {children}
     </html>
   );
 }
