@@ -94,7 +94,7 @@ async function BlogListContent({
                   className="cursor-pointer hover:bg-accent"
                 >
                   {tag}
-                  {count > 0 && `(${count})`}
+                  {count > 1 && `(${count})`}
                 </Badge>
               </Link>
             ))}
