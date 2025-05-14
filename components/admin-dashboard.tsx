@@ -63,7 +63,7 @@ export function AdminDashboard({
   const [posts, setPosts] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [analysisId, setAnalysisId] = useState("");
-  const [selectedGroup, setSelectedGroup] = useState<string>("all");
+  const [selectedGroup, setSelectedGroup] = useState<string>(groupName);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
@@ -110,13 +110,7 @@ export function AdminDashboard({
         const blogs = await getFilteredAnalyses({
           pageNum: currentPage,
           pageSize: PAGE_SIZE,
-          selectFields: [
-            "analysisId",
-            "jsonContent",
-            "metadata",
-            "analysis",
-            "updatedAt",
-          ],
+          selectFields: ["analysisId", "jsonContent", "metadata", "updatedAt"],
           group,
           language: language,
         });
@@ -230,7 +224,7 @@ export function AdminDashboard({
               {posts.map((post) => (
                 <TableRow key={post.analysisId}>
                   <TableCell className="break-all font-medium">
-                    {post.analysis.title || ""}
+                    {post.jsonContent?.title}
                   </TableCell>
                   <TableCell className="text-nowrap">
                     {formatDate(post.updatedAt, language)}
@@ -285,7 +279,7 @@ export function AdminDashboard({
                             {dictionary.admin.dashboard.confirmDelete}
                           </AlertDialogTitle>
                           <AlertDialogDescription>
-                            {post.analysis.title}
+                            {post.jsonContent?.title}
                           </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
