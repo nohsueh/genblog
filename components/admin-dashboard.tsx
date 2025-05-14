@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/table";
 import {
   deleteAnalysis,
+  getAnalysis,
   getFilteredAnalyses,
   updateAnalysis,
 } from "@/lib/actions";
@@ -61,7 +62,7 @@ export function AdminDashboard({
 }: AdminDashboardProps) {
   const [posts, setPosts] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [analysisId, setAnalysisId] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
@@ -95,17 +96,36 @@ export function AdminDashboard({
     [groupName, posts, dictionary],
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       debouncedToggleVisibility.cancel();
     };
   }, [debouncedToggleVisibility]);
 
   useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        setLoading(true);
+        const post = await getAnalysis(analysisId);
+        if (!post) {
+          setPosts([]);
+          return;
+        }
+        setPosts([post]);
+        setTotalCount(1);
+      } catch (error) {
+        console.error("Failed to fetch post:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPost();
+  }, [analysisId]);
+
+  useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        // TODO: Add language filter
         const group = selectedGroup === groupName ? selectedGroup : undefined;
         const blogs = await getFilteredAnalyses({
           pageNum: currentPage,
@@ -132,10 +152,6 @@ export function AdminDashboard({
 
     fetchPosts();
   }, [groupName, language, selectedGroup, currentPage]);
-
-  const filteredPosts = posts.filter((post) =>
-    post.analysis.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
 
   const handleDelete = async (currentPost: Analysis) => {
     try {
@@ -168,9 +184,9 @@ export function AdminDashboard({
       <div className="flex flex-col gap-4 sm:flex-row">
         <div className="flex-1">
           <Input
-            placeholder={dictionary.admin.dashboard.search}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="analysisId"
+            value={analysisId}
+            onChange={(e) => setAnalysisId(e.target.value)}
           />
         </div>
         <div className="w-full sm:w-64">
@@ -192,7 +208,7 @@ export function AdminDashboard({
         <div className="py-10 text-center">
           <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
         </div>
-      ) : filteredPosts.length === 0 ? (
+      ) : posts.length === 0 ? (
         <div className="py-10 text-center">
           <p className="text-muted-foreground">
             {dictionary.admin.dashboard.noBlogs}
@@ -211,7 +227,7 @@ export function AdminDashboard({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filteredPosts.map((post) => (
+              {posts.map((post) => (
                 <TableRow key={post.analysisId}>
                   <TableCell className="break-all font-medium">
                     {post.analysis.title || ""}
