@@ -118,10 +118,10 @@ async function RelatedBlogListContent({
             </div>
           </CardHeader>
           <CardContent className="p-4 pb-0">
-            <CardTitle className="mb-2 line-clamp-2 text-base">
+            <CardTitle className="mb-2 line-clamp-2 text-ellipsis text-base">
               {title}
             </CardTitle>
-            <div className="mb-2 line-clamp-3 break-all text-sm text-muted-foreground">
+            <div className="mb-2 line-clamp-3 text-ellipsis text-sm text-muted-foreground">
               {overview}...
             </div>
           </CardContent>
