@@ -31,17 +31,18 @@ export async function SitePost({
 }: SitePostProps) {
   const post: Analysis = await getAnalysis(analysisId);
   const { html, headings } = markdownToHtml(post.jsonContent?.article || "");
+  const url = post.analysis.url;
   const image = post.analysis.image || getDefaultImage();
   const favicon = post.analysis.favicon || getDefaultFavicon();
-  const title = post.analysis.title || "";
+  const title = post.analysis.title;
   const tags = post.jsonContent?.tags || [];
 
   return (
     <div className="relative">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
         <article className="mx-auto max-w-4xl">
-          <div className="mb-6 flex items-start gap-4">
-            <div className="flex w-full items-center gap-2 p-4">
+          <Link href={url} className="mb-6 flex items-start gap-4">
+            <div className="flex w-full items-start gap-2 p-4">
               <ImageWithFallback
                 src={favicon}
                 width={32}
@@ -49,7 +50,7 @@ export async function SitePost({
                 fallback={getDefaultFavicon()}
                 alt={title}
               />
-              <h1 className="line-clamp-2 w-full text-3xl font-bold">
+              <h1 className="line-clamp-2 w-full text-xl font-bold hover:underline">
                 {title}
               </h1>
             </div>
@@ -62,7 +63,7 @@ export async function SitePost({
                 height={90}
               />
             </div>
-          </div>
+          </Link>
           <div className="mb-6 space-y-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>{formatDate(post.updatedAt, language)}</span>
