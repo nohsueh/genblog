@@ -15,12 +15,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from "@/components/ui/pagination";
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -41,13 +35,14 @@ import {
   updateAnalysis,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { formatDate, getBaseUrl, getPaginationRange } from "@/lib/utils";
+import { formatDate, getBaseUrl } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { BlogPagination } from "./blog-pagination";
 import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 
@@ -290,34 +285,11 @@ export function AdminDashboard({
               ))}
             </TableBody>
           </Table>
-          {totalCount > PAGE_SIZE && (
-            <div className="flex justify-center p-4">
-              <Pagination>
-                <PaginationContent>
-                  {getPaginationRange(
-                    currentPage,
-                    Math.ceil(totalCount / PAGE_SIZE),
-                  ).map((page, idx) =>
-                    page === "..." ? (
-                      <PaginationItem key={`ellipsis-${idx}`}>
-                        <span className="px-2 text-muted-foreground">...</span>
-                      </PaginationItem>
-                    ) : (
-                      <PaginationItem key={page}>
-                        <PaginationLink
-                          href="#"
-                          onClick={() => setCurrentPage(Number(page))}
-                          isActive={currentPage === page}
-                        >
-                          {page}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ),
-                  )}
-                </PaginationContent>
-              </Pagination>
-            </div>
-          )}
+          <BlogPagination
+            currentPage={currentPage}
+            totalCount={totalCount}
+            pageSize={PAGE_SIZE}
+          />
         </div>
       )}
     </div>

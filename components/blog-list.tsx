@@ -7,13 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-} from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getPublishedBlogs } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
@@ -21,12 +14,12 @@ import {
   extractContent,
   formatDate,
   getBaseUrl,
-  getDefaultImage,
-  getPaginationRange,
+  getDefaultImage
 } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
+import { BlogPagination } from "./blog-pagination";
 import ImageWithFallback from "./image-with-fallback";
 
 const PAGE_SIZE = 12;
@@ -101,7 +94,6 @@ async function BlogListContent({
           </div>
         </div>
       )}
-
       <div className="grid sm:grid-cols-2 sm:gap-3 lg:grid-cols-3 lg:gap-6">
         {allBlogs.map((blog) => {
           const articleLines = extractContent(blog.jsonContent);
@@ -159,32 +151,11 @@ async function BlogListContent({
           );
         })}
       </div>
-      {totalCount > PAGE_SIZE && (
-        <div className="mt-8 flex justify-center">
-          <Pagination>
-            <PaginationContent>
-              {getPaginationRange(
-                currentPage,
-                Math.ceil(totalCount / PAGE_SIZE),
-              ).map((page, idx) =>
-                page === "..." ? (
-                  <PaginationItem key={`ellipsis-${idx}`}>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                ) : (
-                  <PaginationItem key={page}>
-                    <Link href={`?page=${page}`}>
-                      <PaginationLink isActive={currentPage === page}>
-                        {page}
-                      </PaginationLink>
-                    </Link>
-                  </PaginationItem>
-                ),
-              )}
-            </PaginationContent>
-          </Pagination>
-        </div>
-      )}
+      <BlogPagination
+        currentPage={currentPage}
+        totalCount={totalCount}
+        pageSize={PAGE_SIZE}
+      />
     </div>
   );
 }
