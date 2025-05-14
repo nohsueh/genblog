@@ -1,6 +1,5 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultFavicon, getTagFrequency } from "@/lib/utils";
@@ -68,7 +67,7 @@ async function SiteListContent({
         </div>
       )}
 
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {sites.map((site) => {
           const title = site.analysis.title;
           const favicon = site.analysis.favicon || getDefaultFavicon();
@@ -79,22 +78,21 @@ async function SiteListContent({
               key={site.analysisId}
               className="group"
             >
-              <Card className="flex h-40 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg focus:border-primary/50 active:border-primary/50 dark:bg-accent/50">
-                <CardContent className="flex h-full items-start gap-3 p-4">
-                  <Link
-                    href={url}
-                    target="_blank"
-                    rel="nofollow noopener noreferrer"
-                    className="shrink-0 opacity-90 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
-                  >
+              <Card className="flex h-36 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg focus:border-primary/50 active:border-primary/50 dark:bg-accent/50">
+                <CardContent className="flex h-full flex-col gap-2 p-4">
+                  <div className="flex items-center gap-2">
                     <ImageWithFallback
                       src={favicon}
                       fallback={getDefaultFavicon()}
                       alt={title}
                       width={32}
                       height={32}
+                      className="shrink-0 opacity-90 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
                     />
-                  </Link>
+                    <h2 className="text-ellipsis text-base font-bold">
+                      App Name
+                    </h2>
+                  </div>
                   <h3 className="h-full overflow-y-auto text-ellipsis text-sm font-medium">
                     {title}
                   </h3>
@@ -117,18 +115,12 @@ export function SiteList(props: SiteListProps) {
   return (
     <Suspense
       fallback={
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: PAGE_SIZE / 2 }).map((_, i) => (
-            <Card key={i} className="overflow-hidden">
-              <CardContent className="flex items-start p-4">
-                <Skeleton className="size-8" />
-                <div>
-                  <Skeleton className="my-[4px] h-[16px] w-full" />
-                  <Skeleton className="my-[4px] h-[16px] w-full" />
-                  <Skeleton className="my-[4px] mb-2 h-[16px] w-3/4" />
-                </div>
-              </CardContent>
-            </Card>
+            <Card
+              key={i}
+              className="h-36 border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg focus:border-primary/50 active:border-primary/50 dark:bg-accent/50"
+            />
           ))}
         </div>
       }
