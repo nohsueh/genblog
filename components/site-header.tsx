@@ -42,10 +42,7 @@ export function SiteHeader({
         {!isSearching && (
           <div className="flex flex-shrink-0 flex-row items-center md:space-x-2 lg:space-x-6">
             <Link
-              href={
-                `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-                `${getBaseUrl()}/${language}`
-              }
+              href={`${getBaseUrl()}/${language}`}
               className="flex flex-row items-center space-x-1"
             >
               <Image
@@ -61,7 +58,10 @@ export function SiteHeader({
             </Link>
             <nav className="hidden flex-shrink-0 md:flex md:items-center md:space-x-2 lg:space-x-6">
               <Link
-                href={`${getBaseUrl()}/${language}`}
+                href={
+                  `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
+                  `${getBaseUrl()}/${language}`
+                }
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary focus:text-primary active:text-primary"
               >
                 {dictionary.header.home}
@@ -97,16 +97,19 @@ export function SiteHeader({
               )}
             </div>
             <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="md:hidden">
+              <SheetTrigger asChild className="md:hidden">
+                <Button variant="ghost" size="icon">
                   <EllipsisVertical className="h-5 w-5" />
                   <span className="sr-only">Menu</span>
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right">
+              <SheetContent side="right" className="md:hidden">
                 <nav className="mt-4 flex flex-col gap-4">
                   <Link
-                    href={`${getBaseUrl()}/${language}`}
+                    href={
+                      `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
+                      `${getBaseUrl()}/${language}`
+                    }
                     className="text-sm font-medium transition-colors hover:text-primary focus:text-primary active:text-primary"
                   >
                     {dictionary.header.home}
