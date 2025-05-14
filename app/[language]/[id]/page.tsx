@@ -1,6 +1,6 @@
 import { getAnalysis, validateImage } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { extractContent, getBaseUrl } from "@/lib/utils";
+import { getBaseUrl } from "@/lib/utils";
 import { Analysis } from "@/types/api";
 import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
@@ -32,14 +32,9 @@ export async function generateMetadata({
   const { id, language } = await params;
   const post = await getAnalysis(id);
 
-  const articleLines = extractContent(post.jsonContent);
-  const title =
-    articleLines[0].replace(/^#+\s+|\*+/g, "") +
-    " - " +
-    process.env.NEXT_PUBLIC_APP_NAME;
-  const description = articleLines
-    ?.slice(1)
-    .find((line) => !line.startsWith("!["));
+  const title = post.jsonContent?.title || post.analysis.title;
+  process.env.NEXT_PUBLIC_APP_NAME;
+  const description = post.jsonContent?.overview || "";
 
   const images = await validateImage(post.analysis.image || "");
 

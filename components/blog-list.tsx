@@ -11,10 +11,9 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import {
-  extractContent,
   formatDate,
   getBaseUrl,
-  getDefaultImage,
+  getDefaultImage
 } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
@@ -95,14 +94,8 @@ async function BlogListContent({
       )}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => {
-          const articleLines = extractContent(blog.jsonContent);
-          const title =
-            articleLines[0].replace(/^#+\s+|\*+/g, "") ||
-            blog.analysis.title ||
-            "No Title";
-          const description = articleLines
-            ?.slice(1)
-            .find((line) => !line.startsWith("!["));
+          const title = blog.jsonContent?.title || blog.analysis.title;
+          const overview = blog.jsonContent?.overview || "";
           const image = blog.analysis.image || getDefaultImage();
           const author = blog.analysis.author;
           const updatedAt = blog.updatedAt;
@@ -130,7 +123,7 @@ async function BlogListContent({
                   </CardTitle>
                   <CardDescription>
                     <h4 className="mb-2 line-clamp-3 break-all text-sm text-muted-foreground">
-                      {description}...
+                      {overview}...
                     </h4>
                   </CardDescription>
                 </CardContent>

@@ -82,7 +82,7 @@ export function getAppType() {
 
 export function extractContent(content: Content | null) {
   const articleLines = content?.article
-    .split("\n")
+    ?.split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
   return articleLines || [];

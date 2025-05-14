@@ -73,6 +73,15 @@ export async function SitePost({
             </div>
           </Link>
 
+          <header className="mb-8 space-y-4">
+            <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+              {post.jsonContent?.title}
+            </h1>
+            <p className="text-xl leading-7 text-muted-foreground [&:not(:first-child)]:mt-6">
+              {post.jsonContent?.overview}
+            </p>
+          </header>
+
           <div className="mb-6 space-y-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>{formatDate(post.updatedAt, language)}</span>

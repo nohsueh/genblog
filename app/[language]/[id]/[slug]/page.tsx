@@ -5,7 +5,7 @@ import { SitePost } from "@/components/site-post";
 import { checkAdminCookie, getAnalysis, validateImage } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { extractContent, getAppType, getBaseUrl } from "@/lib/utils";
+import { getAppType, getBaseUrl } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -74,14 +74,8 @@ export async function generateMetadata({
   const { id, language, slug } = await params;
   const post = await getAnalysis(id);
 
-  const articleLines = extractContent(post.jsonContent);
-  const title =
-    articleLines[0].replace(/^#+\s+|\*+/g, "") +
-    " - " +
-    process.env.NEXT_PUBLIC_APP_NAME;
-  const description = articleLines
-    ?.slice(1)
-    .find((line) => !line.startsWith("!["));
+  const title = post.jsonContent?.title || post.analysis.title;
+  const description = post.jsonContent?.overview || "";
 
   const images = await validateImage(post.analysis.image || "");
 

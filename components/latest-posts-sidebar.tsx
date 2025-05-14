@@ -2,7 +2,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { extractContent, getBaseUrl, getGroupName } from "@/lib/utils";
+import { getBaseUrl, getGroupName } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -62,8 +62,7 @@ async function LatestPostsContent({ language }: { language: Locale }) {
   }
 
   function renderCard(post: Analysis) {
-    const articleLines = extractContent(post.jsonContent);
-    const title = articleLines[0]?.replace(/^#+\s+|\*+/g, "") || "";
+    const title = post.jsonContent?.title || "";
 
     return (
       <Link

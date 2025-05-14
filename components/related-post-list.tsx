@@ -9,7 +9,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { relatedAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import {
-  extractContent,
   formatDate,
   getBaseUrl,
   getDefaultImage,
@@ -93,12 +92,8 @@ async function RelatedBlogListContent({
   }
 
   function renderCard(post: Analysis) {
-    const articleLines = extractContent(post.jsonContent);
-    const title =
-      articleLines[0].replace(/^#+\s+|\*+/g, "") || post.analysis.title || "";
-    const description = articleLines
-      ?.slice(1)
-      .find((line) => !line.startsWith("!["));
+    const title = post.jsonContent?.title || post.analysis.title;
+    const overview = post.jsonContent?.overview || "";
     const image = post.analysis.image || getDefaultImage();
     const author = post.analysis.author;
     const updatedAt = post.updatedAt;
@@ -127,7 +122,7 @@ async function RelatedBlogListContent({
               {title}
             </CardTitle>
             <div className="mb-2 line-clamp-3 break-all text-sm text-muted-foreground">
-              {description}...
+              {overview}...
             </div>
           </CardContent>
           <CardFooter className="p-4 pt-0">
