@@ -61,6 +61,10 @@ export function getDefaultImage() {
   return `${getBaseUrl()}/logo.svg`;
 }
 
+export function getDefaultFavicon() {
+  return `${getBaseUrl()}/icon.svg`;
+}
+
 export function encode(data: string) {
   return btoa(data).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }

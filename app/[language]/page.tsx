@@ -1,10 +1,16 @@
 import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SiteList } from "@/components/site-list";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl, getDefaultImage, getGroupName } from "@/lib/utils";
+import {
+  getAppType,
+  getBaseUrl,
+  getDefaultImage,
+  getGroupName,
+} from "@/lib/utils";
 import { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -28,12 +34,22 @@ export default async function HomePage({
         isAdmin={isAdmin}
       />
       <main className="container flex-1 px-4 py-6">
-        <BlogList
-          language={language}
-          dictionary={dictionary}
-          group={getGroupName()}
-          searchParams={await searchParams}
-        />
+        {getAppType() === "blog" && (
+          <BlogList
+            language={language}
+            dictionary={dictionary}
+            group={getGroupName()}
+            searchParams={await searchParams}
+          />
+        )}
+        {getAppType() === "directory" && (
+          <SiteList
+            language={language}
+            dictionary={dictionary}
+            group={getGroupName()}
+            searchParams={await searchParams}
+          />
+        )}
       </main>
       <SiteFooter />
     </div>
