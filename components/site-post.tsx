@@ -41,8 +41,11 @@ export async function SitePost({
     <div className="relative">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
         <article className="mx-auto max-w-4xl">
-          <Link href={url} className="mb-6 flex items-start gap-4">
-            <div className="flex w-full items-start gap-2 p-4">
+          <Link
+            href={url}
+            className="mb-6 flex flex-wrap-reverse items-start gap-4"
+          >
+            <div className="flex w-full items-start gap-2 px-4">
               <ImageWithFallback
                 src={favicon}
                 width={32}
@@ -50,17 +53,16 @@ export async function SitePost({
                 fallback={getDefaultFavicon()}
                 alt={title}
               />
-              <h1 className="line-clamp-2 w-full text-xl font-bold hover:underline">
+              <h1 className="line-clamp-2 w-full text-xl font-bold underline">
                 {title}
               </h1>
             </div>
-            <div className="overflow-hidden rounded-lg rounded-l-none">
+            <div className="aspect-video shrink-0 overflow-hidden rounded-lg rounded-l-none">
               <ImageWithFallback
                 src={image}
                 fallback={getDefaultImage()}
                 alt={title}
-                width={160}
-                height={90}
+                width={300}
               />
             </div>
           </Link>

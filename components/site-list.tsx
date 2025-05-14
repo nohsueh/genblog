@@ -85,7 +85,7 @@ async function SiteListContent({
                     href={url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="opacity-90 hover:size-7 focus:size-7 active:size-7 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
+                    className="shrink-0 opacity-90 hover:size-7 focus:size-7 active:size-7 group-hover:opacity-100 group-focus:opacity-100 group-active:opacity-100"
                   >
                     <ImageWithFallback
                       src={favicon}
@@ -116,7 +116,7 @@ export function SiteList(props: SiteListProps) {
     <Suspense
       fallback={
         <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {Array.from({ length: PAGE_SIZE }).map((_, i) => (
+          {Array.from({ length: PAGE_SIZE / 2 }).map((_, i) => (
             <Card key={i} className="overflow-hidden">
               <CardContent className="flex items-start p-4">
                 <Skeleton className="size-8" />
