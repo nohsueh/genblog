@@ -119,7 +119,9 @@ export function AdminDashboard({
         setLoading(false);
       }
     };
-    fetchPost();
+    if (analysisId) {
+      fetchPost();
+    }
   }, [analysisId]);
 
   useEffect(() => {
