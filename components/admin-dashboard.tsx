@@ -103,28 +103,6 @@ export function AdminDashboard({
   }, [debouncedToggleVisibility]);
 
   useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setLoading(true);
-        const post = await getAnalysis(analysisId);
-        if (!post) {
-          setPosts([]);
-          return;
-        }
-        setPosts([post]);
-        setTotalCount(1);
-      } catch (error) {
-        console.error("Failed to fetch post:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    if (analysisId) {
-      fetchPost();
-    }
-  }, [analysisId]);
-
-  useEffect(() => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
@@ -151,9 +129,29 @@ export function AdminDashboard({
         setLoading(false);
       }
     };
+    const fetchPost = async () => {
+      try {
+        setLoading(true);
+        const post = await getAnalysis(analysisId);
+        if (!post) {
+          setPosts([]);
+          return;
+        }
+        setPosts([post]);
+        setTotalCount(1);
+      } catch (error) {
+        console.error("Failed to fetch post:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    fetchPosts();
-  }, [groupName, language, selectedGroup, currentPage]);
+    if (analysisId) {
+      fetchPost();
+    } else {
+      fetchPosts();
+    }
+  }, [groupName, language, selectedGroup, currentPage, analysisId]);
 
   const handleDelete = async (currentPost: Analysis) => {
     try {
