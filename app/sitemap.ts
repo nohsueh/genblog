@@ -1,6 +1,6 @@
 import { listAnalyses } from "@/lib/actions";
 import { i18n } from "@/lib/i18n-config";
-import { getBaseUrl, getGroupName } from "@/lib/utils";
+import { getBaseUrl, getGroup } from "@/lib/utils";
 import type { MetadataRoute } from "next";
 
 export async function generateSitemaps() {
@@ -19,7 +19,7 @@ export default async function sitemap({
     pageSize: 49999,
     selectFields: ["analysisId", "jsonContent"],
     metadata: {
-      group: getGroupName(),
+      group: getGroup(),
       language: locale,
     },
   });

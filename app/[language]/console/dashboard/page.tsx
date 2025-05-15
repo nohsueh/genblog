@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { requireAdmin } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getGroupName } from "@/lib/utils";
+import { getGroup } from "@/lib/utils";
 
 export default async function DashboardPage(props: {
   params: Promise<{ language: Locale }>;
@@ -23,7 +23,7 @@ export default async function DashboardPage(props: {
         <AdminDashboard
           language={language}
           dictionary={dictionary}
-          groupName={getGroupName()}
+          group={getGroup()}
         />
       </main>
       <SiteFooter />

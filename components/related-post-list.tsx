@@ -8,12 +8,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { relatedAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import {
-  formatDate,
-  getBaseUrl,
-  getDefaultImage,
-  getGroupName,
-} from "@/lib/utils";
+import { formatDate, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -83,7 +78,7 @@ async function RelatedBlogListContent({
       pageSize: POSTS_PER_PAGE,
       selectFields: ["analysisId", "analysis", "updatedAt", "jsonContent"],
       metadata: {
-        group: getGroupName(),
+        group: getGroup(),
         language,
       },
     });

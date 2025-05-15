@@ -5,12 +5,7 @@ import { SiteList } from "@/components/site-list";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import {
-  getAppType,
-  getBaseUrl,
-  getDefaultImage,
-  getGroupName,
-} from "@/lib/utils";
+import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
 export const revalidate = 3600;
@@ -38,7 +33,7 @@ export default async function HomePage({
           <BlogList
             language={language}
             dictionary={dictionary}
-            group={getGroupName()}
+            group={getGroup()}
             searchParams={await searchParams}
           />
         )}
@@ -46,7 +41,7 @@ export default async function HomePage({
           <SiteList
             language={language}
             dictionary={dictionary}
-            group={getGroupName()}
+            group={getGroup()}
             searchParams={await searchParams}
           />
         )}

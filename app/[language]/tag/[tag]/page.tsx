@@ -6,12 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import {
-  getAppType,
-  getBaseUrl,
-  getDefaultImage,
-  getGroupName,
-} from "@/lib/utils";
+import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 import { notFound } from "next/navigation";
@@ -57,7 +52,7 @@ export default async function TagPage({
             <BlogList
               language={language}
               dictionary={dictionary}
-              group={getGroupName()}
+              group={getGroup()}
               tags={[decodedTag]}
               searchParams={await searchParams}
             />
@@ -66,7 +61,7 @@ export default async function TagPage({
             <SiteList
               language={language}
               dictionary={dictionary}
-              group={getGroupName()}
+              group={getGroup()}
               tags={[decodedTag]}
               searchParams={await searchParams}
             />

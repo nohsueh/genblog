@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { requireAdmin } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getGroupName } from "@/lib/utils";
+import { getGroup } from "@/lib/utils";
 
 export default async function CreateBlogPage(props: {
   params: Promise<{ language: Locale }>;
@@ -22,7 +22,7 @@ export default async function CreateBlogPage(props: {
     <div className="flex min-h-screen flex-col">
       <SiteHeader language={language} dictionary={dictionary} isAdmin={true} />
       <main className="container mx-auto flex-1 px-4 py-6">
-        <BlogCreator dictionary={dictionary} group={getGroupName()} />
+        <BlogCreator dictionary={dictionary} group={getGroup()} />
       </main>
       <SiteFooter />
     </div>
