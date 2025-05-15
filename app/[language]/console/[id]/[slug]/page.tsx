@@ -1,9 +1,9 @@
-import type { Locale } from "@/lib/i18n-config";
-import { getDictionary } from "@/lib/dictionaries";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
 import { BlogEditor } from "@/components/blog-editor";
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { getAnalysis, requireAdmin } from "@/lib/actions";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n-config";
 import { notFound } from "next/navigation";
 
 export default async function EditBlogPage(props: {

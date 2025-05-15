@@ -5,7 +5,7 @@ import { SitePost } from "@/components/site-post";
 import { checkAdminCookie, getAnalysis, validateImage } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getAppType, getBaseUrl, getDefaultFavicon } from "@/lib/utils";
+import { getAppType, getBaseUrl } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
