@@ -7,7 +7,7 @@
     "tags": "Une liste d'étiquettes liées à l'article.",
     "title": "Titre de l'article.",
     "overview": "Aperçu de l'article.",
-    "brand": "Marque de contenu."
+    "name": "Nom exact de la marque, du produit ou du service fourni."
   },
   "home": {
     "title": "Bienvenue sur notre Blog",

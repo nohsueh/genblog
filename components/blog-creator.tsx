@@ -76,9 +76,9 @@ export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
             description: dictionary.prompt.overview,
           },
           ...(getAppType() === "directory" && {
-            brand: {
+            name: {
               type: "string",
-              description: dictionary.prompt.brand,
+              description: dictionary.prompt.name,
             },
           }),
         },
@@ -88,7 +88,7 @@ export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
           "tags",
           "title",
           "overview",
-          getAppType() === "directory" ? "brand" : "",
+          getAppType() === "directory" ? "name" : "",
         ].filter(Boolean),
         additionalProperties: false,
       },

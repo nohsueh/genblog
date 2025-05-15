@@ -48,7 +48,7 @@ async function SiteListContent({
 
       <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {sites.map((site) => {
-          const brand = site.jsonContent?.brand;
+          const name = site.jsonContent?.name;
           const title = site.analysis.title;
           const favicon = site.analysis.favicon || getDefaultFavicon();
 
@@ -70,7 +70,7 @@ async function SiteListContent({
                       className="shrink-0 opacity-90 group-hover:opacity-100"
                     />
                     <h2 className="text-ellipsis text-base font-bold">
-                      {brand}
+                      {name}
                     </h2>
                   </div>
                   <h3 className="h-full overflow-y-auto text-ellipsis text-sm font-medium">

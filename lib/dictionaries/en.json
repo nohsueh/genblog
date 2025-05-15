@@ -7,7 +7,7 @@
     "tags": "A list of tags related to the article.",
     "title": "Article title.",
     "overview": "Article overview.",
-    "brand": "Content brand."
+    "name": "Exact name of the brand, product, or service provided."
   },
   "home": {
     "title": "Welcome to our Blog",

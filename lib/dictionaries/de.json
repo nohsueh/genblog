@@ -7,7 +7,7 @@
     "tags": "Eine Liste von Tags, die mit dem Artikel verbunden sind.",
     "title": "Artikelüberschrift.",
     "overview": "Artikelübersicht.",
-    "brand": "Inhaltsmarke."
+    "name": "Exakter Name der Marke, des Produkts oder der Dienstleistung."
   },
   "home": {
     "title": "Willkommen auf unserem Blog",

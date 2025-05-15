@@ -64,7 +64,7 @@ export interface Content {
   tags?: string[];
   title?: string;
   overview?: string;
-  brand?: string;
+  name?: string;
 }
 
 export interface UpdateAnalysisParams {

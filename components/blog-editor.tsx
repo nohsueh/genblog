@@ -32,7 +32,7 @@ export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
   const [article, setArticle] = useState(post.jsonContent?.article || "");
   const [title, setTitle] = useState(post.jsonContent?.title || "");
   const [overview, setOverview] = useState(post.jsonContent?.overview || "");
-  const [brand, setBrand] = useState(post.jsonContent?.brand || "");
+  const [name, setBrand] = useState(post.jsonContent?.name || "");
   const [group, setGroup] = useState(post.metadata?.group || "");
   const [tags, setTags] = useState<string[]>(post.jsonContent?.tags || []);
   const [tagInput, setTagInput] = useState("");
@@ -68,7 +68,7 @@ export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
           tags,
           title,
           overview,
-          brand,
+          name,
         }),
       );
       formData.set("metadata", JSON.stringify({ ...post.metadata, group }));
@@ -128,11 +128,11 @@ export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="brand">{dictionary.admin.edit.brand}</Label>
+              <Label htmlFor="name">{dictionary.admin.edit.name}</Label>
               <Input
-                id="brand"
-                name="brand"
-                value={brand}
+                id="name"
+                name="name"
+                value={name}
                 onChange={(e) => setBrand(e.target.value)}
                 placeholder={dictionary.admin.edit.brandPlaceholder}
                 disabled={isLoading}
