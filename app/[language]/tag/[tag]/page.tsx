@@ -92,7 +92,7 @@ export async function generateMetadata({
   const dictionary = await getDictionary(language);
   const decodedTag = decodeURIComponent(tag);
   const title = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_NAME}`;
-  const description = `${decodedTag} - ${dictionary.tag.description}`;
+  const description = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION || dictionary.home.description}`;
   const images = getDefaultImage();
   const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}?page=${page}`;
 
