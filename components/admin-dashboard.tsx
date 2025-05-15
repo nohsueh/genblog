@@ -226,7 +226,7 @@ export function AdminDashboard({
                     {post.jsonContent?.title}
                   </TableCell>
                   <TableCell className="text-nowrap">
-                    {post.updatedAt}
+                    {new Date(post.updatedAt).toLocaleString()}
                   </TableCell>
                   <TableCell className="text-nowrap">
                     {post.metadata?.group ? (
@@ -254,7 +254,7 @@ export function AdminDashboard({
                   </TableCell>
                   <TableCell>
                     <Link
-                      href={`${getBaseUrl()}/${language}/console/edit/${post.analysisId}`}
+                      href={`${getBaseUrl()}/${language}/console/${post.analysisId}`}
                     >
                       <Button size="icon" variant="ghost">
                         <Pencil className="h-4 w-4" />
