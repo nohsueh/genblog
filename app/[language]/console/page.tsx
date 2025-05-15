@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 
 export default async function AdminPage(props: {
@@ -30,3 +31,11 @@ export default async function AdminPage(props: {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};

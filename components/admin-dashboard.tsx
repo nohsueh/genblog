@@ -254,7 +254,9 @@ export function AdminDashboard({
                   </TableCell>
                   <TableCell>
                     <Link
-                      href={`${getBaseUrl()}/${language}/console/${post.analysisId}`}
+                      href={`${getBaseUrl()}/${language}/console/${post.analysisId}/${encodeURIComponent(
+                        post.jsonContent?.slug || "",
+                      )}`}
                     >
                       <Button size="icon" variant="ghost">
                         <Pencil className="h-4 w-4" />
