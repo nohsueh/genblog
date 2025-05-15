@@ -1,10 +1,13 @@
+"use client";
+
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getTagFrequency } from "@/lib/utils";
 import { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Badge } from "./ui/badge";
 
-export async function TagCloud({
+export function TagCloud({
   analyses,
   language,
   dictionary,
@@ -14,6 +17,7 @@ export async function TagCloud({
   dictionary: any;
 }) {
   const tagCloud = getTagFrequency(analyses);
+  const isMobile = useIsMobile();
 
   return (
     tagCloud.length > 0 && (
@@ -22,7 +26,7 @@ export async function TagCloud({
           {dictionary.blog.tagCloudOnThisPage}
         </h2>
         <div className="flex flex-wrap gap-2">
-          {tagCloud.slice(0, 10).map(({ tag, count }) => (
+          {tagCloud.slice(0, isMobile ? 10 : 30).map(({ tag, count }) => (
             <Link
               key={tag}
               href={`${getBaseUrl()}/${language}/tag/${encodeURIComponent(tag)}`}
