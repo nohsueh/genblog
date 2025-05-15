@@ -20,6 +20,9 @@ export default async function HomePage({
   const { language } = await params;
   const dictionary = await getDictionary(language);
   const isAdmin = await checkAdminCookie();
+  const description =
+    process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+    `${dictionary.home.title} - ${dictionary.home.description}`;
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -28,6 +31,9 @@ export default async function HomePage({
         dictionary={dictionary}
         isAdmin={isAdmin}
       />
+      <header className="flex w-full flex-col items-center justify-center px-2 py-8">
+        <h2 className="text-2xl md:text-4xl">{description}</h2>
+      </header>
       <main className="container flex-1 px-4 py-6">
         {getAppType() === "blog" && (
           <BlogList

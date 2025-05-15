@@ -29,8 +29,10 @@ export default async function TagPage({
       getDictionary(language),
       checkAdminCookie(),
     ]);
-
     const decodedTag = decodeURIComponent(tag);
+    const description =
+      process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+      `${dictionary.home.title} - ${dictionary.home.description}`;
 
     return (
       <div className="flex min-h-screen flex-col">
@@ -39,14 +41,14 @@ export default async function TagPage({
           dictionary={dictionary}
           isAdmin={isAdmin}
         />
+        <header className="flex w-full flex-col items-center justify-center px-2 py-8">
+          <h2 className="text-2xl md:text-4xl">{description}</h2>
+        </header>
         <main className="container flex-1 px-4 py-6">
           <div className="mb-6 flex flex-col items-start justify-center gap-2">
             <Badge variant={"secondary"} className="px-5 py-1">
               <h1 className="text-3xl font-bold">{decodedTag}</h1>
             </Badge>
-            <div className="px-5">
-              <h2>{dictionary.tag.description}</h2>
-            </div>
           </div>
           {getAppType() === "blog" && (
             <BlogList
