@@ -33,7 +33,9 @@ export default async function HomePage({
       />
       <main className="container flex-1 px-4 py-6">
         <header className="flex w-full flex-col items-center justify-center px-2 py-8">
-          <h2 className="text-2xl font-bold md:text-4xl">{description}</h2>
+          <h2 className="text-center text-2xl font-bold md:text-4xl">
+            {description}
+          </h2>
         </header>
         {getAppType() === "blog" && (
           <BlogList
