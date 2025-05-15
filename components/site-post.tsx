@@ -54,10 +54,10 @@ export async function SitePost({
               <div className="shrink-0">
                 <ImageWithFallback
                   src={favicon}
+                  fallback={getDefaultFavicon()}
                   width={20}
                   height={20}
                   className="size-5"
-                  fallback={getDefaultFavicon()}
                   alt={title}
                 />
               </div>

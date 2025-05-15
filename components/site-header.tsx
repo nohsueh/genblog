@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { logoutAdmin } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl } from "@/lib/utils";
+import { getBaseUrl, getDefaultFavicon } from "@/lib/utils";
 import { EllipsisVertical, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
+import { get } from "lodash";
 
 interface SiteHeaderProps {
   language: Locale;
@@ -47,10 +48,7 @@ export function SiteHeader({
             >
               <Image
                 alt={process.env.NEXT_PUBLIC_APP_NAME || ""}
-                src={
-                  process.env.NEXT_PUBLIC_ICON ||
-                  `${process.env.NEXT_PUBLIC_BASE_PATH || ""}/icon.svg`
-                }
+                src={getDefaultFavicon()}
                 width={40}
                 height={40}
                 priority={true}
