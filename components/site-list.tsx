@@ -46,7 +46,9 @@ async function SiteListContent({
     </div>
   ) : (
     <div>
-      <TagCloud analyses={sites} language={language} />
+      <div className="mb-8 px-5">
+        <TagCloud analyses={sites} language={language} />
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {sites.map((site) => {

@@ -19,7 +19,7 @@ export function TagCloud({
 
   return (
     tagCloud.length > 0 && (
-      <div className="mb-8 flex flex-wrap gap-2 px-5">
+      <div className="flex flex-wrap gap-2">
         {tagCloud.slice(0, isMobile ? 10 : 30).map(({ tag, count }) => (
           <Link
             key={tag}

@@ -111,7 +111,8 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/path/to/your/blog/:path*",
-        destination: "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
+        destination:
+          "https://yoursubdomain.vercel.app/path/to/your/blog/:path*",
       },
     ];
   },

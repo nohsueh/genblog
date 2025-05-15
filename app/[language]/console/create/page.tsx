@@ -22,7 +22,11 @@ export default async function CreateBlogPage(props: {
     <div className="flex min-h-screen flex-col">
       <SiteHeader language={language} dictionary={dictionary} isAdmin={true} />
       <main className="container mx-auto flex-1 px-4 py-6">
-        <BlogCreator group={getGroup()} language={language} dictionary={dictionary} />
+        <BlogCreator
+          group={getGroup()}
+          language={language}
+          dictionary={dictionary}
+        />
       </main>
       <SiteFooter />
     </div>

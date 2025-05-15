@@ -10,12 +10,12 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getBaseUrl, getDefaultImage } from "@/lib/utils";
-import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
 import { AnalysesPagination } from "./analyses-pagination";
 import ImageWithFallback from "./image-with-fallback";
 import { TagCloud } from "./tag-cloud";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
 const PAGE_SIZE = 12;
 
@@ -25,19 +25,6 @@ interface BlogListProps {
   group?: string;
   tags?: string[];
   searchParams: { [key: string]: string | string[] | undefined };
-}
-
-function getTagFrequency(blogs: Analysis[]) {
-  const tagFreq: { [key: string]: number } = {};
-  blogs.forEach((blog) => {
-    const tags = blog.jsonContent?.tags || [];
-    tags.forEach((tag: string) => {
-      tagFreq[tag] = (tagFreq[tag] || 0) + 1;
-    });
-  });
-  return Object.entries(tagFreq)
-    .sort(([, a], [, b]) => b - a)
-    .map(([tag, count]) => ({ tag, count }));
 }
 
 async function BlogListContent({
@@ -66,7 +53,9 @@ async function BlogListContent({
     </div>
   ) : (
     <div>
-      <TagCloud analyses={blogs} language={language} />
+      <div className="mb-8 px-5">
+        <TagCloud analyses={blogs} language={language} />
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => {
@@ -77,45 +66,52 @@ async function BlogListContent({
           const updatedAt = blog.updatedAt;
 
           return (
-            <Link
-              href={`${getBaseUrl()}/${language}/${blog.analysisId}/${encodeURIComponent(blog.jsonContent?.slug || "")}`}
-              key={blog.analysisId}
-            >
-              <Card className="flex flex-col overflow-hidden border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
-                <CardHeader className="p-0">
-                  <div className="relative aspect-video overflow-hidden">
-                    <ImageWithFallback
-                      src={image}
-                      fallback={getDefaultImage()}
-                      alt={title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                </CardHeader>
-                <CardContent className="p-4 pb-0">
-                  <CardTitle>
-                    <h3 className="mb-2 line-clamp-2 text-base">{title}</h3>
-                  </CardTitle>
-                  <CardDescription>
-                    <h4 className="mb-2 line-clamp-3 text-ellipsis text-sm text-muted-foreground">
-                      {overview}
-                    </h4>
-                  </CardDescription>
-                </CardContent>
-                <CardFooter className="p-4 pt-0">
-                  <div className="text-xs text-muted-foreground">
-                    {updatedAt && <>{formatDate(updatedAt, language)}</>}
-                    {author && (
-                      <>
-                        {" "}
-                        {dictionary.blog.by} {author}
-                      </>
-                    )}
-                  </div>
-                </CardFooter>
-              </Card>
-            </Link>
+            <HoverCard key={blog.analysisId}>
+              <HoverCardTrigger>
+                <Link
+                  href={`${getBaseUrl()}/${language}/${blog.analysisId}/${encodeURIComponent(blog.jsonContent?.slug || "")}`}
+                  key={blog.analysisId}
+                >
+                  <Card className="flex flex-col overflow-hidden border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
+                    <CardHeader className="p-0">
+                      <div className="relative aspect-video overflow-hidden">
+                        <ImageWithFallback
+                          src={image}
+                          fallback={getDefaultImage()}
+                          alt={title}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-4 pb-0">
+                      <CardTitle>
+                        <h3 className="mb-2 line-clamp-2 text-base">{title}</h3>
+                      </CardTitle>
+                      <CardDescription>
+                        <h4 className="mb-2 line-clamp-3 text-ellipsis text-sm text-muted-foreground">
+                          {overview}
+                        </h4>
+                      </CardDescription>
+                    </CardContent>
+                    <CardFooter className="p-4 pt-0">
+                      <div className="text-xs text-muted-foreground">
+                        {updatedAt && <>{formatDate(updatedAt, language)}</>}
+                        {author && (
+                          <>
+                            {" "}
+                            {dictionary.blog.by} {author}
+                          </>
+                        )}
+                      </div>
+                    </CardFooter>
+                  </Card>
+                </Link>
+              </HoverCardTrigger>
+              <HoverCardContent className="max-w-96">
+                <TagCloud analyses={[blog]} language={language} />
+              </HoverCardContent>
+            </HoverCard>
           );
         })}
       </div>
