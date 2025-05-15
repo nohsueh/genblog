@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -16,6 +15,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { AnalysesPagination } from "./analyses-pagination";
 import ImageWithFallback from "./image-with-fallback";
+import { TagCloud } from "./tag-cloud";
 
 const PAGE_SIZE = 12;
 
@@ -59,7 +59,6 @@ async function BlogListContent({
   });
 
   const totalCount = blogs?.[0]?.totalCount || 0;
-  const tagCloud = getTagFrequency(blogs);
 
   return blogs.length === 0 ? (
     <div className="py-10 text-center">
@@ -67,29 +66,8 @@ async function BlogListContent({
     </div>
   ) : (
     <div>
-      {tagCloud.length > 0 && (
-        <div className="mb-8 px-5">
-          <h2 className="mb-4 text-xl font-bold">
-            {dictionary.blog.tagCloudOnThisPage}
-          </h2>
-          <div className="flex flex-wrap gap-2">
-            {tagCloud.slice(0, 10).map(({ tag, count }) => (
-              <Link
-                key={tag}
-                href={`${getBaseUrl()}/${language}/tag/${encodeURIComponent(tag)}`}
-              >
-                <Badge
-                  variant="secondary"
-                  className="cursor-pointer hover:bg-accent"
-                >
-                  {tag}
-                  {count > 1 && `(${count})`}
-                </Badge>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
+      <TagCloud analyses={blogs} language={language} dictionary={dictionary} />
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => {
           const title = blog.jsonContent?.title || blog.analysis.title;

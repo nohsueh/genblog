@@ -20,6 +20,7 @@ import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { analyzeLinks, analyzeSearch } from "@/lib/actions";
+import { Locale } from "@/lib/i18n-config";
 import { cn, getAppType } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
@@ -29,11 +30,12 @@ import { toast } from "sonner";
 const DEFAULT_NUM = 25;
 
 interface BlogCreatorProps {
-  dictionary: any;
   group: string;
+  language: Locale;
+  dictionary: any;
 }
 
-export function BlogCreator({ dictionary, group }: BlogCreatorProps) {
+export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
   const [activeTab, setActiveTab] = useState("search");
   const [temperature, setTemperature] = useState([1]);
   const [isLoading, setIsLoading] = useState(false);
@@ -109,7 +111,7 @@ export function BlogCreator({ dictionary, group }: BlogCreatorProps) {
         formData.append("endPublishedDate", endDate.toISOString());
       }
       // Add language to the form data
-      formData.append("language", dictionary.language);
+      formData.append("language", language);
       formData.append("responseFormat", JSON.stringify(responseFormat));
 
       toast.promise(analyzeSearch(formData), {
@@ -153,7 +155,7 @@ export function BlogCreator({ dictionary, group }: BlogCreatorProps) {
       formData.delete("link");
       formData.append("link", JSON.stringify(links));
       // Add language to the form data
-      formData.append("language", dictionary.language);
+      formData.append("language", language);
 
       toast.promise(analyzeLinks(formData), {
         loading: dictionary.admin.create.generating,
