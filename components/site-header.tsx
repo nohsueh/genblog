@@ -54,6 +54,7 @@ export function SiteHeader({
                 width={40}
                 height={40}
                 priority={true}
+                className="size-10 rounded-lg object-cover"
               />
               <span className="hidden whitespace-nowrap font-bold md:block">
                 {process.env.NEXT_PUBLIC_APP_NAME}
