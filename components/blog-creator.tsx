@@ -80,6 +80,10 @@ export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
               type: "string",
               description: dictionary.prompt.name,
             },
+            description: {
+              type: "string",
+              description: dictionary.prompt.description,
+            },
           }),
         },
         required: [
@@ -88,7 +92,7 @@ export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
           "tags",
           "title",
           "overview",
-          getAppType() === "directory" ? "name" : "",
+          ...(getAppType() === "directory" ? ["name", "description"] : []),
         ].filter(Boolean),
         additionalProperties: false,
       },

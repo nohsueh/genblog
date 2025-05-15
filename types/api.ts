@@ -65,6 +65,7 @@ export interface Content {
   title?: string;
   overview?: string;
   name?: string;
+  description?: string;
 }
 
 export interface UpdateAnalysisParams {

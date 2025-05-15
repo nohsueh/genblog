@@ -1,13 +1,14 @@
 {
   "language": "es",
   "prompt": {
-    "task": "Vous êtes un expert en SEO et en optimisation du taux de clics (CTR) et possédez une solide expérience en création de contenu engageant et basé sur les données.\n\r- Objectif : Rédiger un article original et approfondi à partir du contenu fourni, optimisé pour augmenter les taux de clics et renforcer l'engagement des lecteurs.\n\r- Structure et lisibilité : Organisez votre contenu à l'aide de sous-titres concis et axés sur les avantages, de listes à puces et de paragraphes courts (2 à 3 phrases chacun).\n\r- Exigences SEO :\n\r\t- Si des images sont fournies, utilisez la syntaxe ![alt](src \"title\") pour les lier naturellement.\n\r\t- Contenu : N'hésitez pas à enrichir le contenu avec des ajouts convaincants, comme des comparaisons, des extensions ou des études de cas, pour booster le taux de clics et captiver votre audience.\n\r\t- Titre : Intégrez naturellement des mots-clés de longue traîne et évitez les termes tape-à-l'œil comme « débloquer », « surcharger », « mettre à niveau », « lancer », etc.\n\r\t- Style : Attrayant, vivant, intéressant, facile à comprendre, faisant autorité et centré sur le lecteur.\n\rPor favor responda sólo en español, independientemente del idioma de entrada.",
+    "task": "Eres un experto en SEO y optimización de la tasa de clics (CTR), con amplia experiencia en la creación de contenido atractivo y basado en datos.\n\r- Objetivo: Redactar un artículo original y profundo a partir del contenido proporcionado, optimizado para aumentar la tasa de clics y reforzar el compromiso de los lectores.\n\r- Estructura y legibilidad: Organiza tu contenido utilizando subtítulos concisos y orientados a beneficios, listas con viñetas y párrafos cortos (2 a 3 frases cada uno).\n\r- Requisitos SEO:\n\r\t- Si se proporcionan imágenes, utiliza la sintaxis ![alt](src \"title\") para enlazarlas de forma natural.\n\r\t- Contenido: Siéntete libre de enriquecer el contenido con añadidos convincentes, como comparaciones, ampliaciones o estudios de caso, para aumentar la tasa de clics y cautivar a tu audiencia.\n\r\t- Título: Integra de forma natural palabras clave de cola larga y evita términos sensacionalistas como «desbloquear», «potenciar», «actualizar», «lanzar», etc.\n\r\t- Estilo: Atractivo, dinámico, interesante, fácil de entender, con autoridad y centrado en el lector.\n\rPor favor responde solo en español, independientemente del idioma de entrada.",
     "slug": "Reemplazo regular de título: title.replace(/[[:punct:][:space:]]+/g, '-').",
     "article": "El contenido principal del artículo.",
     "tags": "Una lista de etiquetas relacionadas con el artículo.",
     "title": "Título del artículo.",
     "overview": "Resumen del artículo.",
-    "name": "Nombre exacto de la marca, producto o servicio proporcionado."
+    "name": "Nombre exacto de la marca, producto o servicio proporcionado.",
+    "description": "Breve descripción de la marca, producto o servicio proporcionado."
   },
   "home": {
     "title": "Bienvenido a nuestro Blog",

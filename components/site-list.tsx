@@ -49,7 +49,8 @@ async function SiteListContent({
       <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {sites.map((site) => {
           const name = site.jsonContent?.name;
-          const overview = site.jsonContent?.overview || site.analysis.title;
+          const description =
+            site.jsonContent?.description || site.analysis.title;
           const favicon = site.analysis.favicon || getDefaultFavicon();
 
           return (
@@ -64,7 +65,7 @@ async function SiteListContent({
                     <ImageWithFallback
                       src={favicon}
                       fallback={getDefaultFavicon()}
-                      alt={overview}
+                      alt={description}
                       width={32}
                       height={32}
                       className="shrink-0 opacity-90 group-hover:opacity-100"
@@ -74,7 +75,7 @@ async function SiteListContent({
                     </h2>
                   </div>
                   <h3 className="h-full overflow-y-auto text-ellipsis text-sm font-medium">
-                    {overview}
+                    {description}
                   </h3>
                 </CardContent>
               </Card>
