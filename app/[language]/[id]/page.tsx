@@ -35,9 +35,7 @@ export async function generateMetadata({
   const title = post.jsonContent?.title || post.analysis.title;
   process.env.NEXT_PUBLIC_APP_NAME;
   const description = post.jsonContent?.overview || "";
-
   const images = await validateImage(post.analysis.image || "");
-
   const canonical = `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`;
 
   return {
