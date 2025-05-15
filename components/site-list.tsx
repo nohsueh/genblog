@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultFavicon } from "@/lib/utils";
@@ -7,6 +6,9 @@ import { Suspense } from "react";
 import { AnalysesPagination } from "./analyses-pagination";
 import ImageWithFallback from "./image-with-fallback";
 import { TagCloud } from "./tag-cloud";
+import { Card, CardContent } from "./ui/card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
+import { Skeleton } from "./ui/skeleton";
 
 const PAGE_SIZE = 48;
 
@@ -44,7 +46,7 @@ async function SiteListContent({
     </div>
   ) : (
     <div>
-      <TagCloud analyses={sites} language={language} dictionary={dictionary} />
+      <TagCloud analyses={sites} language={language} />
 
       <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {sites.map((site) => {
@@ -54,32 +56,39 @@ async function SiteListContent({
           const favicon = site.analysis.favicon || getDefaultFavicon();
 
           return (
-            <Link
-              href={`${getBaseUrl()}/${language}/${site.analysisId}/${encodeURIComponent(site.jsonContent?.slug || "")}`}
-              key={site.analysisId}
-              className="group"
-            >
-              <Card className="flex h-36 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
-                <CardContent className="flex h-full flex-col gap-2 p-4">
-                  <div className="flex items-center gap-2">
-                    <ImageWithFallback
-                      src={favicon}
-                      fallback={getDefaultFavicon()}
-                      alt={description}
-                      width={32}
-                      height={32}
-                      className="shrink-0 opacity-90 group-hover:opacity-100"
-                    />
-                    <h2 className="text-ellipsis text-base font-bold">
-                      {name}
-                    </h2>
-                  </div>
-                  <h3 className="h-full overflow-y-auto text-ellipsis text-sm font-medium">
-                    {description}
-                  </h3>
-                </CardContent>
-              </Card>
-            </Link>
+            <HoverCard key={site.analysisId}>
+              <HoverCardTrigger>
+                <Link
+                  href={`${getBaseUrl()}/${language}/${site.analysisId}/${encodeURIComponent(site.jsonContent?.slug || "")}`}
+                  key={site.analysisId}
+                  className="group"
+                >
+                  <Card className="flex h-36 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
+                    <CardContent className="flex h-full flex-col gap-2 p-4">
+                      <div className="flex items-center gap-2">
+                        <ImageWithFallback
+                          src={favicon}
+                          fallback={getDefaultFavicon()}
+                          alt={description}
+                          width={32}
+                          height={32}
+                          className="shrink-0 opacity-90 group-hover:opacity-100"
+                        />
+                        <h2 className="text-ellipsis text-base font-bold">
+                          {name}
+                        </h2>
+                      </div>
+                      <h3 className="h-full overflow-y-auto text-ellipsis text-sm font-medium">
+                        {description}
+                      </h3>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </HoverCardTrigger>
+              <HoverCardContent className="max-w-96">
+                <TagCloud analyses={[site]} language={language} />
+              </HoverCardContent>
+            </HoverCard>
           );
         })}
       </div>
@@ -100,8 +109,10 @@ export function SiteList(props: SiteListProps) {
           {Array.from({ length: PAGE_SIZE / 2 }).map((_, i) => (
             <Card
               key={i}
-              className="h-36 border-2 border-transparent shadow-md transition-colors dark:bg-accent/50"
-            />
+              className="h-36 border-2 border-transparent p-4 shadow-md transition-colors dark:bg-accent/50"
+            >
+              <Skeleton className="size-full" />
+            </Card>
           ))}
         </div>
       }

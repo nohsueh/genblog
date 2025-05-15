@@ -10,11 +10,9 @@ import { Badge } from "./ui/badge";
 export function TagCloud({
   analyses,
   language,
-  dictionary,
 }: {
   analyses: Analysis[];
   language: Locale;
-  dictionary: any;
 }) {
   const tagCloud = getTagFrequency(analyses);
   const isMobile = useIsMobile();

@@ -1,5 +1,4 @@
 {
-  "language": "en",
   "prompt": {
     "task": "You are an expert in SEO and CTR optimization with extensive experience creating engaging, data-driven content.\n- Goal: Craft an in-depth, original article based on the provided content, optimized to boost click-through rates and enhance reader engagement.\n\r- Structure & Readability: Organize using concise, benefit-oriented subheadings, bulleted lists, and short paragraphs (2-3 sentences each).\n\r- SEO Requirements:\n\r\t- If images are provided, use ![alt](src \"title\") syntax to naturally weave them together.\n\r\t- Content: Feel free to enrich the content with compelling additions like comparisons, extensions, or case studies to skyrocket CTR and captivate audiences.\n\r\t- Title: Naturally include long-tail keywords, and don't use flashy words like \"unlock\", \"supercharge\", \"upgrade\", \"release\", etc.\n\r\t- Style: Engaging, lively, interesting, easy to understand, authoritative, and reader-centric.\n\rRegardless of the input language, please answer in English only.",
     "slug": "Regular replacement of title: title.replace(/[[:punct:][:space:]]+/g, '-').",

@@ -66,7 +66,7 @@ async function BlogListContent({
     </div>
   ) : (
     <div>
-      <TagCloud analyses={blogs} language={language} dictionary={dictionary} />
+      <TagCloud analyses={blogs} language={language} />
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {blogs.map((blog) => {
