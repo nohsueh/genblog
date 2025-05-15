@@ -5,7 +5,7 @@ import { SitePost } from "@/components/site-post";
 import { checkAdminCookie, getAnalysis, validateImage } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getAppType, getBaseUrl } from "@/lib/utils";
+import { getAppType, getBaseUrl, getDefaultFavicon } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -71,15 +71,13 @@ export async function generateMetadata({
 }: {
   params: Promise<Props>;
 }): Promise<Metadata> {
-  const { id, language, slug } = await params;
+  const { id, language } = await params;
   const post = await getAnalysis(id);
 
   const title = post.jsonContent?.title || post.analysis.title;
   const description = post.jsonContent?.overview || "";
-
   const images = await validateImage(post.analysis.image || "");
-
-  const canonical = `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(slug)}`;
+  const canonical = `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`;
 
   return {
     title,

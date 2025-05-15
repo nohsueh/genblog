@@ -1,5 +1,22 @@
+import { getDefaultFavicon } from "@/lib/utils";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Metadata } from "next";
 import "./globals.css";
+
+export const metadata: Metadata = {
+  icons: {
+    icon: [
+      {
+        url: process.env.NEXT_PUBLIC_ICON || getDefaultFavicon(),
+      },
+    ],
+    apple: [
+      {
+        url: process.env.NEXT_PUBLIC_ICON || getDefaultFavicon(),
+      },
+    ],
+  },
+};
 
 export default function RootLayout({
   children,
