@@ -50,7 +50,7 @@ export function AnalysesPagination({
               <PaginationItem key={page}>
                 <Link
                   href={{
-                    pathname: `${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${pagePathname}/${page}`,
+                    pathname: `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${pagePathname}/${page}`,
                     query: Object.fromEntries(searchParams.entries()),
                   }}
                 >
