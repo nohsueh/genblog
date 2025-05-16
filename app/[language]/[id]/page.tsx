@@ -1,8 +1,7 @@
-import { getAnalysis, validateImage } from "@/lib/actions";
+import { getAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl } from "@/lib/utils";
 import { Analysis } from "@/types/api";
-import { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 
 type Props = {
@@ -22,37 +21,4 @@ export default async function PostPage({ params }: { params: Promise<Props> }) {
   permanentRedirect(
     `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`,
   );
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<Props>;
-}): Promise<Metadata> {
-  const { id, language } = await params;
-  const post = await getAnalysis(id);
-
-  const title = post.jsonContent?.title || post.analysis.title;
-  process.env.NEXT_PUBLIC_APP_NAME;
-  const description = post.jsonContent?.overview || "";
-  const images = await validateImage(post.analysis.image || "");
-  const canonical = `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      images,
-    },
-    twitter: {
-      title,
-      description,
-      images,
-    },
-    alternates: {
-      canonical,
-    },
-  };
 }

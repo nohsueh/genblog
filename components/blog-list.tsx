@@ -17,14 +17,14 @@ import ImageWithFallback from "./image-with-fallback";
 import { TagCloud } from "./tag-cloud";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
-const PAGE_SIZE = 12;
+export const PAGE_SIZE = 12;
 
 interface BlogListProps {
   language: Locale;
   dictionary: any;
   group?: string;
   tags?: string[];
-  searchParams: { [key: string]: string | string[] | undefined };
+  page?: number;
 }
 
 async function BlogListContent({
@@ -32,12 +32,10 @@ async function BlogListContent({
   dictionary,
   group,
   tags,
-  searchParams,
+  page = 1,
 }: BlogListProps) {
-  const currentPage = Number(searchParams.page || 1);
-
   const blogs = await getFilteredAnalyses({
-    pageNum: currentPage,
+    pageNum: page,
     pageSize: PAGE_SIZE,
     selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
     group,
@@ -116,7 +114,7 @@ async function BlogListContent({
         })}
       </div>
       <AnalysesPagination
-        currentPage={currentPage}
+        currentPage={page}
         totalCount={totalCount}
         pageSize={PAGE_SIZE}
       />

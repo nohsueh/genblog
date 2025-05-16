@@ -1,6 +1,8 @@
+import { PAGE_SIZE as BLOG_PAGE_SIZE } from "@/components/blog-list";
+import { PAGE_SIZE as SITE_PAGE_SIZE } from "@/components/site-list";
 import { listAnalyses } from "@/lib/actions";
 import { i18n } from "@/lib/i18n-config";
-import { getBaseUrl, getGroup } from "@/lib/utils";
+import { getAppType, getBaseUrl, getGroup } from "@/lib/utils";
 import type { MetadataRoute } from "next";
 
 export async function generateSitemaps() {
@@ -18,16 +20,23 @@ export default async function sitemap({
     pageNum: 1,
     pageSize: 49999,
     selectFields: ["analysisId", "jsonContent"],
+    totalCount: true,
     metadata: {
       group: getGroup(),
       language: locale,
     },
   });
+  const totalCount = analyses[0].totalCount || 0;
+  const pageSize = getAppType() === "blog" ? BLOG_PAGE_SIZE : SITE_PAGE_SIZE;
+  const totalPage = Math.ceil(totalCount / pageSize);
 
   return [
     {
       url: `${getBaseUrl()}/${locale}`,
     },
+    ...Array.from({ length: totalPage }).map((_, i) => ({
+      url: `${getBaseUrl()}/${locale}/page/${i + 1}`,
+    })),
     ...analyses.map((analysis) => ({
       url: `${getBaseUrl()}/${locale}/${analysis.analysisId}/${encodeURIComponent(analysis.jsonContent?.slug || "")}`,
     })),

@@ -10,6 +10,7 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import { getPaginationRange } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface AnalysesPaginationProps {
   currentPage: number;
@@ -23,6 +24,7 @@ export function AnalysesPagination({
   pageSize,
 }: AnalysesPaginationProps) {
   const isMobile = useIsMobile();
+  const pathname = usePathname();
 
   return totalCount > pageSize ? (
     <div className="mt-8 flex justify-center">
@@ -39,7 +41,7 @@ export function AnalysesPagination({
               </PaginationItem>
             ) : (
               <PaginationItem key={page}>
-                <Link href={`?page=${page}`}>
+                <Link href={`${pathname}/${page}`}>
                   <PaginationLink isActive={currentPage === page}>
                     {page}
                   </PaginationLink>

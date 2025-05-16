@@ -53,18 +53,19 @@ interface AdminDashboardProps {
   language: Locale;
   dictionary: any;
   group: string;
+  page?: number;
 }
 
 export function AdminDashboard({
   language,
   dictionary,
   group,
+  page = 1,
 }: AdminDashboardProps) {
   const [posts, setPosts] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [analysisId, setAnalysisId] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<string>(group);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
   const debouncedToggleVisibility = React.useMemo(
@@ -107,7 +108,7 @@ export function AdminDashboard({
       try {
         setLoading(true);
         const blogs = await getFilteredAnalyses({
-          pageNum: currentPage,
+          pageNum: page,
           pageSize: PAGE_SIZE,
           selectFields: ["analysisId", "jsonContent", "metadata", "updatedAt"],
           group: selectedGroup === group ? selectedGroup : undefined,
@@ -144,7 +145,7 @@ export function AdminDashboard({
     } else {
       fetchPosts();
     }
-  }, [group, language, selectedGroup, currentPage, analysisId]);
+  }, [group, language, selectedGroup, analysisId]);
 
   const handleDelete = async (currentPost: Analysis) => {
     try {
@@ -297,7 +298,7 @@ export function AdminDashboard({
             </TableBody>
           </Table>
           <AnalysesPagination
-            currentPage={currentPage}
+            currentPage={page}
             totalCount={totalCount}
             pageSize={PAGE_SIZE}
           />

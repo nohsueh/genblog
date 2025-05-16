@@ -10,14 +10,14 @@ import { Card, CardContent } from "./ui/card";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { Skeleton } from "./ui/skeleton";
 
-const PAGE_SIZE = 48;
+export const PAGE_SIZE = 48;
 
 interface SiteListProps {
   language: Locale;
   dictionary: any;
   group?: string;
   tags?: string[];
-  searchParams: { [key: string]: string | string[] | undefined };
+  page?: number;
 }
 
 async function SiteListContent({
@@ -25,12 +25,10 @@ async function SiteListContent({
   dictionary,
   group,
   tags,
-  searchParams,
+  page = 1,
 }: SiteListProps) {
-  const currentPage = Number(searchParams.page || 1);
-
   const sites = await getFilteredAnalyses({
-    pageNum: currentPage,
+    pageNum: page,
     pageSize: PAGE_SIZE,
     selectFields: ["jsonContent", "analysis", "updatedAt", "analysisId"],
     group,
@@ -95,7 +93,7 @@ async function SiteListContent({
         })}
       </div>
       <AnalysesPagination
-        currentPage={currentPage}
+        currentPage={page}
         totalCount={totalCount}
         pageSize={PAGE_SIZE}
       />
