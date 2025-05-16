@@ -3,5 +3,5 @@ import { permanentRedirect } from "next/navigation";
 
 export default function HomePage() {
   // Redirect to the default locale
-  permanentRedirect(`/${i18n.defaultLocale}`);
+  permanentRedirect(`/${i18n.defaultLocale}/page/1`);
 }

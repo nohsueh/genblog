@@ -34,7 +34,7 @@ export function SiteHeader({
         {!isSearching && (
           <div className="flex flex-shrink-0 flex-row items-center md:space-x-2 lg:space-x-6">
             <Link
-              href={`${getBaseUrl()}/${language}`}
+              href={`${getBaseUrl()}/${language}/page/1`}
               className="flex flex-row items-center space-x-1"
             >
               <Image
@@ -53,7 +53,7 @@ export function SiteHeader({
               <Link
                 href={
                   `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-                  `${getBaseUrl()}/${language}`
+                  `${getBaseUrl()}/${language}/page/1`
                 }
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               >
@@ -61,7 +61,7 @@ export function SiteHeader({
               </Link>
               {isAdmin && (
                 <Link
-                  href={`${getBaseUrl()}/${language}/console`}
+                  href={`${getBaseUrl()}/${language}/console/1`}
                   className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 >
                   {dictionary.header.dashboard}
@@ -103,7 +103,7 @@ export function SiteHeader({
                   </Link>
                   {isAdmin && (
                     <Link
-                      href={`${getBaseUrl()}/${language}/console`}
+                      href={`${getBaseUrl()}/${language}/console/1`}
                       className="text-sm font-medium transition-colors hover:text-primary"
                     >
                       {dictionary.header.dashboard}
