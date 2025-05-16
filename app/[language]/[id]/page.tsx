@@ -10,13 +10,13 @@ type Props = {
   id: string;
 };
 
-export default async function BlogPage({ params }: { params: Promise<Props> }) {
+export default async function PostPage({ params }: { params: Promise<Props> }) {
   const { language, id } = await params;
   let post: Analysis;
   try {
     post = await getAnalysis(id);
   } catch (error) {
-    console.error(`BlogPage getAnalysis: ${error}`);
+    console.error(`PostPage getAnalysis: ${error}`);
     return notFound();
   }
   permanentRedirect(

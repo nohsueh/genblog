@@ -7,11 +7,11 @@ import type { Locale } from "@/lib/i18n-config";
 import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
-export const revalidate = 3600;
+// export const revalidate = 3600;
 
-export async function generateStaticParams() {
-  return [];
-}
+// export async function generateStaticParams() {
+//   return [];
+// }
 
 export default async function HomePage({
   params,
@@ -67,7 +67,6 @@ export async function generateMetadata({
   const { language } = await params;
   const page = Number((await searchParams).page || 1);
   const dictionary = await getDictionary(language);
-
   const title = process.env.NEXT_PUBLIC_APP_NAME;
   const description =
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ||

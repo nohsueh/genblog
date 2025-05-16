@@ -22,7 +22,7 @@ type Props = {
   slug: string;
 };
 
-export default async function BlogPage({ params }: { params: Promise<Props> }) {
+export default async function PostPage({ params }: { params: Promise<Props> }) {
   try {
     const { language, id } = await params;
     const dictionary = getDictionary(language);
