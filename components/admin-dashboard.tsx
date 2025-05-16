@@ -17,7 +17,6 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
-  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -204,13 +203,9 @@ export function AdminDashboard({
               <SelectValue placeholder={dictionary.admin.dashboard.filter} />
             </SelectTrigger>
             <SelectContent>
-              <Link href={`${pathname}?group=${getGroup()}`}>
-                <SelectItem value={getGroup()}>{getGroup()}</SelectItem>
-              </Link>
+              <Link href={`${pathname}?group=${getGroup()}`}>{getGroup()}</Link>
               <Link href={`${pathname}?group=${ALL_GROUP}`}>
-                <SelectItem value={ALL_GROUP}>
-                  {dictionary.admin.dashboard.allGroups}
-                </SelectItem>
+                {dictionary.admin.dashboard.allGroups}
               </Link>
             </SelectContent>
           </Select>
