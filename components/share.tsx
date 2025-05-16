@@ -6,7 +6,7 @@ export function Share() {
   return (
     <div className="flex items-center gap-3">
       <Link
-        href={`https://x.com/intent/post?url=${encodeURIComponent(
+        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
           window.location.href,
         )}`}
         aria-label="Share on X"
