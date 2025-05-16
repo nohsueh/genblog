@@ -44,7 +44,10 @@ export function AnalysesPagination({
             ) : (
               <PaginationItem key={page}>
                 <Link
-                  href={`${pathname.split("/").slice(0, -1).join("/")}/${page}${group && `?group=${group}`}`}
+                  href={{
+                    pathname: `${pathname.split("/").slice(0, -1).join("/")}/${page}`,
+                    query: Object.fromEntries(searchParams.entries()),
+                  }}
                 >
                   <PaginationLink isActive={currentPage === page}>
                     {page}

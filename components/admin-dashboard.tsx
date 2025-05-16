@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
+  SelectItem,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -40,7 +41,7 @@ import type { Analysis } from "@/types/api";
 import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { AnalysesPagination } from "./analyses-pagination";
@@ -62,6 +63,7 @@ export function AdminDashboard({
   dictionary,
   page = 1,
 }: AdminDashboardProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const group = searchParams.get("group") || getGroup();
@@ -198,15 +200,23 @@ export function AdminDashboard({
           />
         </div>
         <div className="w-full sm:w-64">
-          <Select value={group}>
+          {" "}
+          <Select
+            value={group}
+            onValueChange={(value) => {
+              const params = new URLSearchParams(searchParams);
+              params.set("group", value);
+              router.push(`${pathname}?${params.toString()}`);
+            }}
+          >
             <SelectTrigger>
               <SelectValue placeholder={dictionary.admin.dashboard.filter} />
             </SelectTrigger>
             <SelectContent>
-              <Link href={`${pathname}?group=${getGroup()}`}>{getGroup()}</Link>
-              <Link href={`${pathname}?group=${ALL_GROUP}`}>
+              <SelectItem value={getGroup()}>{getGroup()}</SelectItem>
+              <SelectItem value={ALL_GROUP}>
                 {dictionary.admin.dashboard.allGroups}
-              </Link>
+              </SelectItem>
             </SelectContent>
           </Select>
         </div>
