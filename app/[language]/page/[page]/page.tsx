@@ -69,7 +69,7 @@ export async function generateMetadata({
     `${dictionary.home.title} - ${dictionary.home.description}`;
   const images = getDefaultImage();
 
-  const canonical = `${getBaseUrl()}/${language}/page/${page}`;
+  const canonical = `${getBaseUrl()}/${language}${Number(page) === 1 ? "" : `/page/${page}`}`;
 
   return {
     title,

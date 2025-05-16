@@ -31,9 +31,14 @@ export default async function sitemap({
   const totalPage = Math.ceil(totalCount / pageSize);
 
   return [
-    ...Array.from({ length: totalPage }).map((_, i) => ({
-      url: `${getBaseUrl()}/${locale}/page/${i + 1}`,
-    })),
+    {
+      url: `${getBaseUrl()}/${locale}`,
+    },
+    ...Array.from({ length: totalPage })
+      .slice(1)
+      .map((_, i) => ({
+        url: `${getBaseUrl()}/${locale}/page/${i + 1}`,
+      })),
     ...analyses.map((analysis) => ({
       url: `${getBaseUrl()}/${locale}/${analysis.analysisId}/${encodeURIComponent(analysis.jsonContent?.slug || "")}`,
     })),

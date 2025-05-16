@@ -34,7 +34,7 @@ export function SiteHeader({
         {!isSearching && (
           <div className="flex flex-shrink-0 flex-row items-center md:space-x-2 lg:space-x-6">
             <Link
-              href={`${getBaseUrl()}/${language}/page/1`}
+              href={`${getBaseUrl()}/${language}`}
               className="flex flex-row items-center space-x-1"
             >
               <Image
@@ -53,7 +53,7 @@ export function SiteHeader({
               <Link
                 href={
                   `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-                  `${getBaseUrl()}/${language}/page/1`
+                  `${getBaseUrl()}/${language}`
                 }
                 className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
               >
