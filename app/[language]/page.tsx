@@ -2,13 +2,16 @@ import { BlogList } from "@/components/blog-list";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteList } from "@/components/site-list";
-import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
 export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  return [];
+}
 
 export default async function HomePage({
   params,
@@ -19,18 +22,13 @@ export default async function HomePage({
 }) {
   const { language } = await params;
   const dictionary = await getDictionary(language);
-  const isAdmin = await checkAdminCookie();
   const description =
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
     `${dictionary.home.title} - ${dictionary.home.description}`;
 
   return (
     <div className="flex min-h-screen flex-col">
-      <SiteHeader
-        language={language}
-        dictionary={dictionary}
-        isAdmin={isAdmin}
-      />
+      <SiteHeader language={language} dictionary={dictionary} />
       <main className="container flex-1 px-4 py-6">
         <header className="flex w-full flex-col items-center justify-center px-2 py-8">
           <h2 className="text-center text-2xl font-bold md:text-4xl">

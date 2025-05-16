@@ -3,13 +3,18 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteList } from "@/components/site-list";
 import { Badge } from "@/components/ui/badge";
-import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 import { notFound } from "next/navigation";
+
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  return [];
+}
 
 interface Props extends Params {
   language: Locale;
@@ -25,10 +30,7 @@ export default async function TagPage({
 }) {
   try {
     const { language, tag } = await params;
-    const [dictionary, isAdmin] = await Promise.all([
-      getDictionary(language),
-      checkAdminCookie(),
-    ]);
+    const dictionary = await getDictionary(language);
     const decodedTag = decodeURIComponent(tag);
     const description =
       process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
@@ -36,11 +38,7 @@ export default async function TagPage({
 
     return (
       <div className="flex min-h-screen flex-col">
-        <SiteHeader
-          language={language}
-          dictionary={dictionary}
-          isAdmin={isAdmin}
-        />
+        <SiteHeader language={language} dictionary={dictionary} />
         <main className="container flex-1 px-4 py-6">
           <header className="flex w-full flex-col items-center justify-center px-2 py-8">
             <h2 className="text-center text-2xl font-bold md:text-4xl">
