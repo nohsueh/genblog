@@ -52,8 +52,6 @@ export async function BlogPost({
               )}
             </div>
 
-            <Share />
-
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag: string) => (
@@ -71,6 +69,8 @@ export async function BlogPost({
                 ))}
               </div>
             )}
+
+            <Share />
           </div>
 
           <div className="prose prose-gray max-w-none dark:prose-invert">
