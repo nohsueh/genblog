@@ -25,7 +25,7 @@ type Props = {
 export default async function PostPage({ params }: { params: Promise<Props> }) {
   try {
     const { language, id } = await params;
-    const dictionary = getDictionary(language);
+    const dictionary = await getDictionary(language);
 
     return (
       <div className="flex min-h-screen flex-col">
