@@ -26,7 +26,6 @@ export function AnalysesPagination({
   const isMobile = useIsMobile();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const group = searchParams.get("group");
 
   return totalCount > pageSize ? (
     <div className="mt-8 flex justify-center">

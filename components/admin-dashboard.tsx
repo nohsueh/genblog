@@ -161,7 +161,7 @@ export function AdminDashboard({
     } else {
       fetchPosts();
     }
-  }, [group, language, analysisId]);
+  }, [language, group, page, analysisId]);
 
   const handleDelete = async (currentPost: Analysis) => {
     try {
