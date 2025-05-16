@@ -17,6 +17,7 @@ import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Link from "next/link";
 import ImageWithFallback from "./image-with-fallback";
+import { Share } from "./share";
 
 interface SitePostProps {
   analysisId: string;
@@ -44,7 +45,7 @@ export async function SitePost({
           <Link
             href={url}
             target="_blank"
-            rel="nofolow noopener noreferrer"
+            rel="nofolow noopener"
             className="group mb-6 flex flex-col space-y-3 rounded-lg p-4 transition-colors hover:bg-accent/50"
           >
             <h1 className="text-ellipsis text-xl font-bold text-primary group-hover:text-primary/80 group-hover:underline">
@@ -92,6 +93,9 @@ export async function SitePost({
                 </span>
               )}
             </div>
+
+            <Share />
+
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag: string) => (

@@ -13,7 +13,7 @@ export function SiteFooter() {
             <Link
               href={"https://github.com/nohsueh/genblog"}
               target="_blank"
-              rel="noopener noreferrer nofollow"
+              rel="nofollow noopener"
             >
               <Image
                 src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/github-mark.svg`}

@@ -13,7 +13,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
-import { get } from "lodash";
 
 interface SiteHeaderProps {
   language: Locale;

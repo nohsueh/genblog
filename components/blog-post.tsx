@@ -11,6 +11,7 @@ import { formatDate, getBaseUrl } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Link from "next/link";
+import { Share } from "./share";
 
 interface BlogPostProps {
   analysisId: string;
@@ -50,6 +51,9 @@ export async function BlogPost({
                 </span>
               )}
             </div>
+
+            <Share />
+
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag: string) => (

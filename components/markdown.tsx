@@ -67,7 +67,7 @@ export function markdownToHtml(markdown: string) {
     .use(rehypeSlug)
     .use(rehypeExternalLinks, {
       target: "_blank",
-      rel: "noopener noreferrer nofollow",
+      rel: "nofollow noopener",
     })
     .use(rehypePrism, {
       plugins: ["line-numbers", "toolbar", "copy-to-clipboard"],
