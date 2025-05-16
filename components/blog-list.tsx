@@ -17,7 +17,7 @@ import ImageWithFallback from "./image-with-fallback";
 import { TagCloud } from "./tag-cloud";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 
-export const PAGE_SIZE = 12;
+export const PAGE_SIZE = 24;
 
 interface BlogListProps {
   language: Locale;

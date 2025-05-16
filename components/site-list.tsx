@@ -63,7 +63,7 @@ async function SiteListContent({
                   key={site.analysisId}
                   className="group"
                 >
-                  <Card className="flex h-36 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
+                  <Card className="flex h-64 flex-col border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
                     <CardContent className="flex h-full flex-col gap-2 p-4">
                       <div className="flex items-center gap-2">
                         <ImageWithFallback
