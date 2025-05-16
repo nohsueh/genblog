@@ -1,5 +1,4 @@
 import "@/app/globals.css";
-import AdsenseReloader from "@/components/adsense-reloader";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { i18n } from "@/lib/i18n-config";
@@ -29,7 +28,6 @@ export default async function RootLayout(props: RootLayoutProps) {
   return (
     <html lang={language} suppressHydrationWarning>
       <body className={inter.className}>
-        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && <AdsenseReloader />}
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
           <GoogleAnalytics
             gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
