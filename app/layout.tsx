@@ -1,3 +1,4 @@
+import GoogleAdsense from "@/components/google-adsense";
 import { getDefaultFavicon } from "@/lib/utils";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Metadata } from "next";
@@ -26,14 +27,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-          <script
-            id="google-adsense-script"
-            async
-            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
-            crossOrigin="anonymous"
-          ></script>
-        )}
         {process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && (
           <meta
             name="google-site-verification"
@@ -44,6 +37,11 @@ export default function RootLayout({
       {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
         <GoogleAnalytics
           gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
+        />
+      )}
+      {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
+        <GoogleAdsense
+          clientId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}
         />
       )}
       {children}
