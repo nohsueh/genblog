@@ -204,7 +204,7 @@ export function AdminDashboard({
       ) : posts.length === 0 ? (
         <div className="py-10 text-center">
           <p className="text-muted-foreground">
-            {dictionary.admin.dashboard.noBlogs}
+            {dictionary.admin.dashboard.noPosts}
           </p>
         </div>
       ) : (

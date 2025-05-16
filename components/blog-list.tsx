@@ -49,7 +49,7 @@ async function BlogListContent({
 
   return blogs.length === 0 ? (
     <div className="py-10 text-center">
-      <p className="text-muted-foreground">{dictionary.blog.noBlogs}</p>
+      <p className="text-muted-foreground">{dictionary.blog.noPosts}</p>
     </div>
   ) : (
     <div>
