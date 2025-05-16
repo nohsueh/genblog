@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export function Share() {
   const pathname = usePathname();
-  const currentUrl = `${getBaseUrl()}/${pathname}`;
+  const currentUrl = `${getBaseUrl()}${pathname}`;
 
   return (
     <div className="flex items-center gap-3">
