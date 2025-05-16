@@ -26,7 +26,6 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
   try {
     const { language, tag, page } = await params;
     const dictionary = await getDictionary(language);
-    const decodedTag = decodeURIComponent(tag);
     const description =
       process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
       `${dictionary.home.title} - ${dictionary.home.description}`;
@@ -42,7 +41,7 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
           </header>
           <div className="mb-6 flex flex-col items-start justify-center gap-2">
             <Badge variant={"secondary"} className="px-5 py-1">
-              <h1 className="text-3xl font-bold">{decodedTag}</h1>
+              <h1 className="text-3xl font-bold">{decodeURIComponent(tag)}</h1>
             </Badge>
           </div>
           {getAppType() === "blog" && (
@@ -50,7 +49,7 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
               language={language}
               dictionary={dictionary}
               group={getGroup()}
-              tags={[decodedTag]}
+              tags={[decodeURIComponent(tag)]}
               page={Number(page)}
             />
           )}
@@ -59,7 +58,7 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
               language={language}
               dictionary={dictionary}
               group={getGroup()}
-              tags={[decodedTag]}
+              tags={[decodeURIComponent(tag)]}
               page={Number(page)}
             />
           )}
@@ -75,19 +74,16 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
 
 export async function generateMetadata({
   params,
-  searchParams,
 }: {
   params: Promise<Props>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }): Promise<Metadata> {
-  const { language, tag } = await params;
-  const { page } = await searchParams;
+  const { language, tag, page } = await params;
   const dictionary = await getDictionary(language);
   const decodedTag = decodeURIComponent(tag);
   const title = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_NAME}`;
   const description = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION || dictionary.home.description}`;
   const images = getDefaultImage();
-  const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}/${page || ""}`;
+  const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}/${page}`;
 
   return {
     title,
