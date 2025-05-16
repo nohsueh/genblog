@@ -2,7 +2,7 @@ import { Card, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { listAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl, getGroup } from "@/lib/utils";
+import { getBaseUrl, getDefaultGroup } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -53,7 +53,7 @@ async function LatestPostsContent({ language }: { language: Locale }) {
       pageSize: POSTS_PER_PAGE,
       selectFields: ["analysisId", "jsonContent"],
       metadata: {
-        group: getGroup(),
+        group: getDefaultGroup(),
         language: language,
       },
     });

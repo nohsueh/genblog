@@ -36,7 +36,7 @@ import {
   updateAnalysis,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl, getGroup } from "@/lib/utils";
+import { getBaseUrl, getDefaultGroup } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
@@ -66,7 +66,7 @@ export function AdminDashboard({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const group = searchParams.get("group") || getGroup();
+  const group = searchParams.get("group") || getDefaultGroup();
 
   const [posts, setPosts] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
@@ -119,7 +119,7 @@ export function AdminDashboard({
             groupValue = undefined;
             break;
           default:
-            groupValue = getGroup();
+            groupValue = getDefaultGroup();
             break;
         }
 
@@ -214,7 +214,9 @@ export function AdminDashboard({
               <SelectValue placeholder={dictionary.admin.dashboard.filter} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value={getGroup()}>{getGroup()}</SelectItem>
+              <SelectItem value={getDefaultGroup()}>
+                {getDefaultGroup()}
+              </SelectItem>
               <SelectItem value={ALL_GROUP}>
                 {dictionary.admin.dashboard.allGroups}
               </SelectItem>
@@ -324,6 +326,7 @@ export function AdminDashboard({
             currentPage={page}
             totalCount={totalCount}
             pageSize={PAGE_SIZE}
+            language={language}
           />
         </div>
       )}

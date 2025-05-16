@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { requireAdmin } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getGroup } from "@/lib/utils";
+import { getDefaultGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
 export default async function CreateBlogPage({
@@ -24,7 +24,7 @@ export default async function CreateBlogPage({
       <SiteHeader language={language} dictionary={dictionary} isAdmin={true} />
       <main className="container mx-auto flex-1 px-4 py-6">
         <BlogCreator
-          group={getGroup()}
+          group={getDefaultGroup()}
           language={language}
           dictionary={dictionary}
         />

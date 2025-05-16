@@ -2,7 +2,7 @@ import { PAGE_SIZE as BLOG_PAGE_SIZE } from "@/components/blog-list";
 import { PAGE_SIZE as SITE_PAGE_SIZE } from "@/components/site-list";
 import { listAnalyses } from "@/lib/actions";
 import { i18n } from "@/lib/i18n-config";
-import { getAppType, getBaseUrl, getGroup } from "@/lib/utils";
+import { getAppType, getBaseUrl, getDefaultGroup } from "@/lib/utils";
 import type { MetadataRoute } from "next";
 
 export async function generateSitemaps() {
@@ -23,7 +23,7 @@ export default async function sitemap({
     selectFields: ["analysisId", "jsonContent"],
     totalCount: true,
     metadata: {
-      group: getGroup(),
+      group: getDefaultGroup(),
       language: locale,
     },
   });

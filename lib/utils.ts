@@ -47,7 +47,7 @@ export function getPaginationRange(
   return pages;
 }
 
-export function getGroup() {
+export function getDefaultGroup() {
   return getBaseUrl();
 }
 

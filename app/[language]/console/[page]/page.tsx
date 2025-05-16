@@ -4,7 +4,7 @@ import { SiteHeader } from "@/components/site-header";
 import { requireAdmin } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getGroup } from "@/lib/utils";
+import { getDefaultGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
 export default async function DashboardPage({

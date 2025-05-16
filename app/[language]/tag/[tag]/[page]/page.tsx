@@ -5,7 +5,12 @@ import { SiteList } from "@/components/site-list";
 import { Badge } from "@/components/ui/badge";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
+import {
+  getAppType,
+  getBaseUrl,
+  getDefaultImage,
+  getDefaultGroup,
+} from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 import { notFound } from "next/navigation";
@@ -48,7 +53,7 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
             <BlogList
               language={language}
               dictionary={dictionary}
-              group={getGroup()}
+              group={getDefaultGroup()}
               tags={[decodeURIComponent(tag)]}
               page={Number(page)}
             />
@@ -57,7 +62,7 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
             <SiteList
               language={language}
               dictionary={dictionary}
-              group={getGroup()}
+              group={getDefaultGroup()}
               tags={[decodeURIComponent(tag)]}
               page={Number(page)}
             />

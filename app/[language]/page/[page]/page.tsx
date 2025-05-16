@@ -3,7 +3,12 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteList } from "@/components/site-list";
 import { getDictionary } from "@/lib/dictionaries";
-import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
+import {
+  getAppType,
+  getBaseUrl,
+  getDefaultImage,
+  getDefaultGroup,
+} from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 
@@ -38,7 +43,7 @@ export default async function HomePage({ params }: { params: Promise<Props> }) {
           <BlogList
             language={language}
             dictionary={dictionary}
-            group={getGroup()}
+            group={getDefaultGroup()}
             page={Number(page)}
           />
         )}
@@ -46,7 +51,7 @@ export default async function HomePage({ params }: { params: Promise<Props> }) {
           <SiteList
             language={language}
             dictionary={dictionary}
-            group={getGroup()}
+            group={getDefaultGroup()}
             page={Number(page)}
           />
         )}

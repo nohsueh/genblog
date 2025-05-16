@@ -96,6 +96,7 @@ async function SiteListContent({
         currentPage={page}
         totalCount={totalCount}
         pageSize={PAGE_SIZE}
+        language={language}
       />
     </div>
   );
