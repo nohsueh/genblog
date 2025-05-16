@@ -32,7 +32,6 @@ export function AnalysesPagination({
       ? `${pathname}/page`
       : pathname.split("/").slice(0, -1).join("/");
   const searchParams = useSearchParams();
-  console.error({ pathname, pagePathname });
 
   return totalCount > pageSize ? (
     <div className="mt-8 flex justify-center">
@@ -51,7 +50,8 @@ export function AnalysesPagination({
               <PaginationItem key={page}>
                 <Link
                   href={{
-                    pathname: `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${pagePathname}/${page}`,
+                    hostname: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+                    pathname: `${pagePathname}/${page}`,
                     query: Object.fromEntries(searchParams.entries()),
                   }}
                 >
