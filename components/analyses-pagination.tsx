@@ -28,9 +28,9 @@ export function AnalysesPagination({
   const isMobile = useIsMobile();
   const pathname = usePathname();
   const pagePathname =
-    pathname === new URL(getBaseUrl()).pathname
-      ? pathname.split("/").slice(0, -1).join("/")
-      : `${pathname}/page`;
+    pathname === `${new URL(getBaseUrl()).pathname}/${language}`
+      ? `${pathname}/page`
+      : pathname.split("/").slice(0, -1).join("/");
   const searchParams = useSearchParams();
 
   return totalCount > pageSize ? (
