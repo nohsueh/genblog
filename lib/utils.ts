@@ -62,7 +62,7 @@ export function getDefaultImage() {
 }
 
 export function getDefaultFavicon() {
-  return process.env.PUBLIC_NEXT_ICON || `${getBaseUrl()}/icon.svg`;
+  return process.env.NEXT_PUBLIC_ICON || `${getBaseUrl()}/icon.svg`;
 }
 
 /**
