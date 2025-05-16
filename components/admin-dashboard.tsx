@@ -36,11 +36,12 @@ import {
   updateAnalysis,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
-import { getBaseUrl } from "@/lib/utils";
+import { getBaseUrl, getGroup } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { debounce } from "lodash";
 import { Pencil, Sparkles, Trash } from "lucide-react";
 import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { AnalysesPagination } from "./analyses-pagination";
@@ -49,23 +50,26 @@ import { Switch } from "./ui/switch";
 
 const PAGE_SIZE = 25;
 
+const ALL_GROUP = "all";
+
 interface AdminDashboardProps {
   language: Locale;
   dictionary: any;
-  group: string;
   page?: number;
 }
 
 export function AdminDashboard({
   language,
   dictionary,
-  group,
   page = 1,
 }: AdminDashboardProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const group = searchParams.get("group") || getGroup();
+
   const [posts, setPosts] = useState<Analysis[]>([]);
   const [loading, setLoading] = useState(true);
   const [analysisId, setAnalysisId] = useState("");
-  const [selectedGroup, setSelectedGroup] = useState<string>(group);
   const [totalCount, setTotalCount] = useState(0);
 
   const debouncedToggleVisibility = React.useMemo(
@@ -107,12 +111,23 @@ export function AdminDashboard({
     const fetchPosts = async () => {
       try {
         setLoading(true);
+
+        let groupValue: string | undefined;
+        switch (group) {
+          case ALL_GROUP:
+            groupValue = undefined;
+            break;
+          default:
+            groupValue = getGroup();
+            break;
+        }
+
         const blogs = await getFilteredAnalyses({
           pageNum: page,
           pageSize: PAGE_SIZE,
           selectFields: ["analysisId", "jsonContent", "metadata", "updatedAt"],
-          group: selectedGroup === group ? selectedGroup : undefined,
-          language: language,
+          group: groupValue,
+          language,
         });
         const totalCount = blogs?.[0]?.totalCount || 0;
         setPosts(blogs);
@@ -145,7 +160,7 @@ export function AdminDashboard({
     } else {
       fetchPosts();
     }
-  }, [group, language, selectedGroup, analysisId]);
+  }, [group, language, analysisId]);
 
   const handleDelete = async (currentPost: Analysis) => {
     try {
@@ -184,15 +199,19 @@ export function AdminDashboard({
           />
         </div>
         <div className="w-full sm:w-64">
-          <Select value={selectedGroup} onValueChange={setSelectedGroup}>
+          <Select value={group}>
             <SelectTrigger>
               <SelectValue placeholder={dictionary.admin.dashboard.filter} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">
-                {dictionary.admin.dashboard.allGroups}
-              </SelectItem>
-              <SelectItem value={group}>{group}</SelectItem>
+              <Link href={`${pathname}?group=${getGroup()}`}>
+                <SelectItem value={getGroup()}>{getGroup()}</SelectItem>
+              </Link>
+              <Link href={`${pathname}?group=${ALL_GROUP}`}>
+                <SelectItem value={ALL_GROUP}>
+                  {dictionary.admin.dashboard.allGroups}
+                </SelectItem>
+              </Link>
             </SelectContent>
           </Select>
         </div>

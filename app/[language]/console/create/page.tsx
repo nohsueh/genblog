@@ -7,12 +7,12 @@ import type { Locale } from "@/lib/i18n-config";
 import { getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
-export default async function CreateBlogPage(props: {
+export default async function CreateBlogPage({
+  params,
+}: {
   params: Promise<{ language: Locale }>;
 }) {
-  const params = await props.params;
-
-  const { language } = params;
+  const { language } = await params;
 
   // This will redirect if not authenticated
   await requireAdmin(language);

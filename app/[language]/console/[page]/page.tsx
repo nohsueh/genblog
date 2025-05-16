@@ -7,10 +7,12 @@ import type { Locale } from "@/lib/i18n-config";
 import { getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
-export default async function DashboardPage(props: {
+export default async function DashboardPage({
+  params,
+}: {
   params: Promise<{ language: Locale; page: string }>;
 }) {
-  const { language, page } = await props.params;
+  const { language, page } = await params;
 
   // This will redirect if not authenticated
   await requireAdmin(language);
@@ -24,7 +26,6 @@ export default async function DashboardPage(props: {
         <AdminDashboard
           language={language}
           dictionary={dictionary}
-          group={getGroup()}
           page={Number(page)}
         />
       </main>
