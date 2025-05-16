@@ -280,7 +280,7 @@ export function AdminDashboard({
                   </TableCell>
                   <TableCell>
                     <Link
-                      href={`${getBaseUrl()}/${language}/console/${post.analysisId}`}
+                      href={`${getBaseUrl()}/${language}/console/edit/${post.analysisId}`}
                     >
                       <Button size="icon" variant="ghost">
                         <Pencil className="h-4 w-4" />
