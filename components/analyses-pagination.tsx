@@ -41,7 +41,9 @@ export function AnalysesPagination({
               </PaginationItem>
             ) : (
               <PaginationItem key={page}>
-                <Link href={`${pathname}/${page}`}>
+                <Link
+                  href={`${pathname.split("/").slice(0, -1).join("/")}/${page}`}
+                >
                   <PaginationLink isActive={currentPage === page}>
                     {page}
                   </PaginationLink>
