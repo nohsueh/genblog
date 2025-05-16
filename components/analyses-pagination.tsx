@@ -28,7 +28,7 @@ export function AnalysesPagination({
   const isMobile = useIsMobile();
   const pathname = usePathname();
   const pagePathname =
-    pathname === `${getBasePath()}/${language}`
+    pathname === `/${language}`
       ? `${pathname}/page`
       : pathname.split("/").slice(0, -1).join("/");
   const searchParams = useSearchParams();
@@ -50,10 +50,10 @@ export function AnalysesPagination({
               <PaginationItem key={page}>
                 <Link
                   href={{
-                    hostname: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
                     pathname: `${pagePathname}/${page}`,
                     query: Object.fromEntries(searchParams.entries()),
                   }}
+                  passHref
                 >
                   <PaginationLink isActive={currentPage === page}>
                     {page}
