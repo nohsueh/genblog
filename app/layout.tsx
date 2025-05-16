@@ -1,6 +1,4 @@
-import GoogleAdsense from "@/components/google-adsense";
 import { getDefaultFavicon } from "@/lib/utils";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { Metadata } from "next";
 import "./globals.css";
 
@@ -34,16 +32,6 @@ export default function RootLayout({
           />
         )}
       </head>
-      {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
-        <GoogleAnalytics
-          gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
-        />
-      )}
-      {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-        <GoogleAdsense
-          clientId={process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}
-        />
-      )}
       {children}
     </html>
   );
