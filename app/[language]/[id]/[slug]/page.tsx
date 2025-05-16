@@ -68,7 +68,7 @@ export async function generateMetadata({
 }: {
   params: Promise<Props>;
 }): Promise<Metadata> {
-  const { id, language } = await params;
+  const { language, id } = await params;
   const post = await getAnalysis(id);
 
   const title =

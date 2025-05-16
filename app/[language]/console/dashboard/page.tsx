@@ -10,5 +10,5 @@ export default async function DashboardPage(props: {
   // This will redirect if not authenticated
   await requireAdmin(language);
 
-  permanentRedirect(`/${language}/console/1`);
+  permanentRedirect(`/${language}/console/dashboard/1`);
 }

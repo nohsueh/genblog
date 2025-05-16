@@ -58,13 +58,10 @@ export function OnThisPage({ headings }: OnThisPageProps) {
                 const element = document.getElementById(item.id);
                 if (element) {
                   const headerOffset = 128;
-                  const elementPosition = element.getBoundingClientRect().top;
-                  const offsetPosition =
-                    elementPosition + window.scrollY - headerOffset;
-                  window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth",
-                  });
+                  element.scrollIntoView({ behavior: "smooth" });
+                  const finalPosition =
+                    document.documentElement.scrollTop - headerOffset;
+                  document.documentElement.scrollTop = finalPosition;
                 }
                 setActiveId(item.id);
               }}
