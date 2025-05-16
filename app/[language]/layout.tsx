@@ -11,10 +11,6 @@ import { Suspense } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ language: locale }));
-}
-
 // Define the type for the props explicitly
 type RootLayoutProps = {
   children: React.ReactNode;

@@ -3,15 +3,15 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteList } from "@/components/site-list";
 import { getDictionary } from "@/lib/dictionaries";
-import type { Locale } from "@/lib/i18n-config";
+import { i18n, type Locale } from "@/lib/i18n-config";
 import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
 export const revalidate = 3600;
 
-// export async function generateStaticParams() {
-//   return [];
-// }
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ language: locale }));
+}
 
 export default async function HomePage({
   params,
