@@ -28,11 +28,6 @@ export default async function RootLayout(props: RootLayoutProps) {
   return (
     <html lang={language} suppressHydrationWarning>
       <body className={inter.className}>
-        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
-          <GoogleAnalytics
-            gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
-          />
-        )}
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -50,6 +45,11 @@ export default async function RootLayout(props: RootLayoutProps) {
           </Suspense>
           <Toaster richColors />
         </ThemeProvider>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
+          <GoogleAnalytics
+            gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
+          />
+        )}
       </body>
     </html>
   );
