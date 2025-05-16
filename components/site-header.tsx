@@ -3,13 +3,12 @@
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { logoutAdmin } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultFavicon } from "@/lib/utils";
-import { EllipsisVertical, LogOut } from "lucide-react";
+import { EllipsisVertical } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LanguageToggle } from "./language-toggle";
 import { SiteSearch } from "./site-search";
@@ -26,15 +25,8 @@ export function SiteHeader({
   isAdmin = false,
 }: SiteHeaderProps) {
   const [isSearching, setIsSearching] = useState(false);
-  const router = useRouter();
   const pathname = usePathname();
   const isConsolePage = pathname.split("/")[2] === "console";
-
-  const handleLogout = async () => {
-    await logoutAdmin();
-    router.push(`/${language}/console`);
-    router.refresh();
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
@@ -90,12 +82,6 @@ export function SiteHeader({
             <div className="hidden items-center space-x-2 md:flex">
               <LanguageToggle />
               <ThemeToggle />
-              {isAdmin && (
-                <Button variant="ghost" size="icon" onClick={handleLogout}>
-                  <LogOut className="h-5 w-5" />
-                  <span className="sr-only">{dictionary.header.logout}</span>
-                </Button>
-              )}
             </div>
             <Sheet>
               <SheetTrigger asChild className="md:hidden">
@@ -126,18 +112,6 @@ export function SiteHeader({
                   <div className="flex flex-col">
                     <LanguageToggle />
                     <ThemeToggle />
-                    {isAdmin && (
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={handleLogout}
-                      >
-                        <LogOut className="h-5 w-5" />
-                        <span className="sr-only">
-                          {dictionary.header.logout}
-                        </span>
-                      </Button>
-                    )}
                   </div>
                 </nav>
               </SheetContent>
