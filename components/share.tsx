@@ -2,12 +2,11 @@
 
 import { getBaseUrl } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export function Share() {
   const pathname = usePathname();
-  const searchParams = new URLSearchParams(useSearchParams());
-  const currentUrl = `${getBaseUrl()}/${pathname}?${searchParams}`;
+  const currentUrl = `${getBaseUrl()}/${pathname}`;
 
   return (
     <div className="flex items-center gap-3">
