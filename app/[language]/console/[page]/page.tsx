@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getGroup } from "@/lib/utils";
+import { Metadata } from "next";
 
 export default async function DashboardPage(props: {
   params: Promise<{ language: Locale; page: string }>;
@@ -31,3 +32,11 @@ export default async function DashboardPage(props: {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Console",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};

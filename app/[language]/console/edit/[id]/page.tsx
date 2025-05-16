@@ -4,14 +4,15 @@ import { SiteHeader } from "@/components/site-header";
 import { getAnalysis, requireAdmin } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-export default async function EditBlogPage(props: {
+export default async function EditBlogPage({
+  params,
+}: {
   params: Promise<{ language: Locale; id: string }>;
 }) {
-  const params = await props.params;
-
-  const { language, id } = params;
+  const { language, id } = await params;
 
   // This will redirect if not authenticated
   await requireAdmin(language);
@@ -39,3 +40,11 @@ export default async function EditBlogPage(props: {
     return notFound();
   }
 }
+
+export const metadata: Metadata = {
+  title: "Edit",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};

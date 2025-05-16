@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 interface OnThisPageProps {
@@ -37,43 +38,41 @@ export function OnThisPage({ headings }: OnThisPageProps) {
   }, [activeId]);
 
   return (
-    <>
-      {headings.length > 0 && (
-        <nav className="sticky top-8 h-[40vh] space-y-2 overflow-y-auto">
-          {headings.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              ref={(el) => {
-                itemRefs.current[item.id] = el;
-              }}
-              className={`block text-sm transition-colors ${
-                activeId === item.id
-                  ? "font-medium text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-              style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
-              onClick={(e) => {
-                e.preventDefault();
-                const element = document.getElementById(item.id);
-                if (element) {
-                  const headerOffset = 128;
-                  const elementTop =
-                    element.getBoundingClientRect().top +
-                    document.documentElement.scrollTop;
-                  document.documentElement.scrollTo({
-                    top: elementTop - headerOffset,
-                    behavior: "smooth",
-                  });
-                }
-                setActiveId(item.id);
-              }}
-            >
-              {item.text}
-            </a>
-          ))}
-        </nav>
-      )}
-    </>
+    headings.length > 0 && (
+      <nav className="sticky top-8 h-[40vh] space-y-2 overflow-y-auto">
+        {headings.map((item) => (
+          <Link
+            key={item.id}
+            href={`#${item.id}`}
+            ref={(el) => {
+              itemRefs.current[item.id] = el;
+            }}
+            className={`block text-sm transition-colors ${
+              activeId === item.id
+                ? "font-medium text-primary"
+                : "text-muted-foreground hover:text-foreground"
+            }`}
+            style={{ paddingLeft: `${(item.level - 1) * 1}rem` }}
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById(item.id);
+              if (element) {
+                const headerOffset = 128;
+                const elementTop =
+                  element.getBoundingClientRect().top +
+                  document.documentElement.scrollTop;
+                document.documentElement.scrollTo({
+                  top: elementTop - headerOffset,
+                  behavior: "smooth",
+                });
+              }
+              setActiveId(item.id);
+            }}
+          >
+            {item.text}
+          </Link>
+        ))}
+      </nav>
+    )
   );
 }

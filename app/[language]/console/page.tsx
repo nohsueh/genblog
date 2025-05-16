@@ -5,20 +5,19 @@ import { checkAdminCookie } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 
-export default async function AdminPage(props: {
+export default async function AdminPage({
+  params,
+}: {
   params: Promise<{ language: Locale }>;
 }) {
-  const params = await props.params;
-
-  const { language } = params;
-
+  const { language } = await params;
   const dictionary = await getDictionary(language);
   const isLoggedIn = await checkAdminCookie();
 
   if (isLoggedIn) {
-    redirect(`/${language}/console/dashboard/1`);
+    permanentRedirect(`/${language}/console/1`);
   }
 
   return (
@@ -33,7 +32,7 @@ export default async function AdminPage(props: {
 }
 
 export const metadata: Metadata = {
-  title: "Dashboard",
+  title: "Login",
   robots: {
     index: false,
     follow: false,

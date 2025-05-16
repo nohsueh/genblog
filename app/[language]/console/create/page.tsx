@@ -5,6 +5,7 @@ import { requireAdmin } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
 import { getGroup } from "@/lib/utils";
+import { Metadata } from "next";
 
 export default async function CreateBlogPage(props: {
   params: Promise<{ language: Locale }>;
@@ -32,3 +33,11 @@ export default async function CreateBlogPage(props: {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Edit",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
