@@ -1,5 +1,6 @@
 import { getDefaultFavicon } from "@/lib/utils";
 import { Metadata } from "next";
+import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -30,6 +31,24 @@ export default function RootLayout({
             name="google-site-verification"
             content={process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION}
           />
+        )}
+        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
+          <>
+            <Script
+              id="adsense-script"
+              strategy="afterInteractive"
+              src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
+              crossOrigin="anonymous"
+            />
+            <Script id="adsense-init" strategy="afterInteractive">
+              {`
+              (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}",
+                enable_page_level_ads: true
+              });
+            `}
+            </Script>
+          </>
         )}
       </head>
       {children}
