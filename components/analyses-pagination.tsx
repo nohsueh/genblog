@@ -31,8 +31,8 @@ export function AnalysesPagination({
   let pagePathname: string;
   if (segements.length === 2) {
     pagePathname = `${pathname}/page`;
-  } else if (segements.length === 3 && segements[2] === "tag") {
-    pagePathname = `${pathname}`;
+  } else if (segements.length === 4 && segements[2] === "tag") {
+    pagePathname = pathname;
   } else {
     pagePathname = segements.slice(0, -1).join("/");
   }
