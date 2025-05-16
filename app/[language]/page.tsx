@@ -7,9 +7,11 @@ import type { Locale } from "@/lib/i18n-config";
 import { getAppType, getBaseUrl, getDefaultImage, getGroup } from "@/lib/utils";
 import { Metadata } from "next";
 
-export async function generateStaticParams() {
-  return [];
-}
+export const revalidate = 3600;
+
+// export async function generateStaticParams() {
+//   return [];
+// }
 
 export default async function HomePage({
   params,
