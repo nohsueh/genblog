@@ -51,10 +51,12 @@ export function getDefaultGroup() {
   return getBaseUrl();
 }
 
+export function getBasePath() {
+  return process.env.NEXT_PUBLIC_BASE_PATH || "";
+}
+
 export function getBaseUrl() {
-  const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
-  const BASE_URL = `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${BASE_PATH}`;
-  return BASE_URL;
+  return `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}${getBasePath()}`;
 }
 
 export function getDefaultImage() {
