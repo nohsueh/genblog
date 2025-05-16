@@ -200,13 +200,14 @@ export function AdminDashboard({
           />
         </div>
         <div className="w-full sm:w-64">
-          {" "}
           <Select
             value={group}
             onValueChange={(value) => {
               const params = new URLSearchParams(searchParams);
               params.set("group", value);
-              router.push(`${pathname}?${params.toString()}`);
+              router.push(
+                `${pathname.split("/").slice(0, -1).join("/")}/1?${params.toString()}`,
+              );
             }}
           >
             <SelectTrigger>
