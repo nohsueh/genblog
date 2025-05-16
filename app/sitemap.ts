@@ -31,9 +31,6 @@ export default async function sitemap({
   const totalPage = Math.ceil(totalCount / pageSize);
 
   return [
-    {
-      url: `${getBaseUrl()}/${locale}`,
-    },
     ...Array.from({ length: totalPage }).map((_, i) => ({
       url: `${getBaseUrl()}/${locale}/page/${i + 1}`,
     })),
