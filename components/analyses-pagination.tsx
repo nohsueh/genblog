@@ -32,6 +32,7 @@ export function AnalysesPagination({
       ? `${pathname}/page`
       : pathname.split("/").slice(0, -1).join("/");
   const searchParams = useSearchParams();
+  console.error({ pathname, pagePathname });
 
   return totalCount > pageSize ? (
     <div className="mt-8 flex justify-center">
