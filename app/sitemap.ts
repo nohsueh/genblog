@@ -16,9 +16,10 @@ export default async function sitemap({
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
+  const pageSize = getAppType() === "blog" ? BLOG_PAGE_SIZE : SITE_PAGE_SIZE;
   const analyses = await listAnalyses({
     pageNum: 1,
-    pageSize: 49999,
+    pageSize: Math.floor((50000 * pageSize) / (pageSize + 1)),
     selectFields: ["analysisId", "jsonContent"],
     totalCount: true,
     metadata: {
@@ -26,8 +27,7 @@ export default async function sitemap({
       language: locale,
     },
   });
-  const totalCount = analyses[0].totalCount || 0;
-  const pageSize = getAppType() === "blog" ? BLOG_PAGE_SIZE : SITE_PAGE_SIZE;
+  const totalCount = analyses[0]?.totalCount || 0;
   const totalPage = Math.ceil(totalCount / pageSize);
 
   return [

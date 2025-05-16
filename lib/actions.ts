@@ -145,10 +145,12 @@ export async function analyzeSearch(
     );
   }
 
-  return await response.json();
+  return (await response.json()) || [];
 }
 
-export async function analyzeLinks(formData: FormData) {
+export async function analyzeLinks(
+  formData: FormData,
+): Promise<AnalyzeResults> {
   const link = JSON.parse(formData.get("link") as string) as string[];
 
   const prompt = formData.get("prompt") as string;
@@ -179,8 +181,7 @@ export async function analyzeLinks(formData: FormData) {
     );
   }
 
-  const data: AnalyzeResults = await response.json();
-  return data;
+  return (await response.json()) || [];
 }
 
 export async function getAnalysis(analysisId: string): Promise<Analysis> {
@@ -292,7 +293,7 @@ export async function listAnalyses({
     );
   }
 
-  return await response.json();
+  return (await response.json()) || [];
 }
 
 export async function relatedAnalyses({
@@ -340,7 +341,7 @@ export async function relatedAnalyses({
     );
   }
 
-  return await response.json();
+  return (await response.json()) || [];
 }
 
 export async function getFilteredAnalyses({
