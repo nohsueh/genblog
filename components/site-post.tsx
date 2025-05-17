@@ -39,9 +39,9 @@ export async function SitePost({
   const tags = post.jsonContent?.tags || [];
 
   return (
-    <div className="relative">
-      <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
-        <article className="mx-auto max-w-4xl break-all">
+    <div className="relative max-w-screen-lg">
+      <div className="xl:mr-[calc(48rem-50vw)] 2xl:mr-0">
+        <article className="mx-auto break-all">
           <Link
             href={url}
             target="_blank"
@@ -145,6 +145,7 @@ export async function SitePost({
           <LatestPostsSidebar language={language} dictionary={dictionary} />
         </SheetContent>
       </Sheet>
+
       <div className="fixed top-24 hidden w-60 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
         <OnThisPage headings={headings} />
         <LatestPostsSidebar language={language} dictionary={dictionary} />

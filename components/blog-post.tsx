@@ -29,7 +29,7 @@ export async function BlogPost({
   const tags = post.jsonContent?.tags || [];
 
   return (
-    <div className="relative">
+    <div className="relative max-w-screen-lg">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
         <article className="mx-auto max-w-4xl break-all">
           <header className="mb-6 space-y-4">
@@ -103,6 +103,7 @@ export async function BlogPost({
           <LatestPostsSidebar language={language} dictionary={dictionary} />
         </SheetContent>
       </Sheet>
+
       <div className="fixed top-24 hidden w-60 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
         <OnThisPage headings={headings} />
         <LatestPostsSidebar language={language} dictionary={dictionary} />

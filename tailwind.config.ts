@@ -9,7 +9,7 @@ if (getAppType() === "blog") {
 }
 if (getAppType() === "directory") {
   screens = {
-    "2xl": "1536px",
+    "2xl": "1408px",
   };
 }
 

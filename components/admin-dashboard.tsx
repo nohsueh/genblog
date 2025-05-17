@@ -250,7 +250,7 @@ export function AdminDashboard({
             <TableBody>
               {posts.map((post) => (
                 <TableRow key={post.analysisId}>
-                  <TableCell className="break-all font-medium">
+                  <TableCell className="line-clamp-3 break-all font-medium">
                     {post.jsonContent?.title}
                   </TableCell>
                   <TableCell className="text-nowrap">
