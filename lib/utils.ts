@@ -60,11 +60,13 @@ export function getBaseUrl() {
 }
 
 export function getDefaultImage() {
-  return `${getBaseUrl()}/logo.svg`;
+  return (
+    process.env.NEXT_PUBLIC_IMAGE || "https://cdn.searchlysis.com/logo.svg"
+  );
 }
 
 export function getDefaultFavicon() {
-  return process.env.NEXT_PUBLIC_ICON || `${getBaseUrl()}/icon.svg`;
+  return process.env.NEXT_PUBLIC_ICON || "https://cdn.searchlysis.com/icon.svg";
 }
 
 /**
