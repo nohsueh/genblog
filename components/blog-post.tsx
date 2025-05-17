@@ -29,7 +29,7 @@ export async function BlogPost({
   const tags = post.jsonContent?.tags || [];
 
   return (
-    <div className="relative mx-auto">
+    <div className="relative">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
         <article className="break-all">
           <header className="mb-6 space-y-4">

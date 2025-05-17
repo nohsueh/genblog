@@ -30,7 +30,7 @@ export default async function PostPage({ params }: { params: Promise<Props> }) {
     return (
       <div className="flex min-h-screen flex-col">
         <SiteHeader language={language} dictionary={dictionary} />
-        <main className="container mb-48 max-w-screen-lg flex-1 px-4 py-6">
+        <main className="mx-auto mb-48 max-w-screen-lg flex-1 px-4 py-6">
           <Suspense
             fallback={
               <div className="py-10 text-center">

@@ -40,7 +40,7 @@ export async function SitePost({
   const tags = post.jsonContent?.tags || [];
 
   return (
-    <div className="relative mx-auto">
+    <div className="relative">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
         <Link
           href={url}
