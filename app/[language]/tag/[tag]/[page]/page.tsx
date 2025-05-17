@@ -8,8 +8,8 @@ import type { Locale } from "@/lib/i18n-config";
 import {
   getAppType,
   getBaseUrl,
-  getDefaultImage,
   getDefaultGroup,
+  getDefaultImage,
 } from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
@@ -88,7 +88,7 @@ export async function generateMetadata({
   const title = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_NAME}`;
   const description = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION || dictionary.home.description}`;
   const images = getDefaultImage();
-  const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}/${page}`;
+  const canonical = `${getBaseUrl()}/${language}/tag/${encodeURIComponent(decodedTag)}${Number(page) === 1 ? "" : `/${page}`}`;
 
   return {
     title,

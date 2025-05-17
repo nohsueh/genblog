@@ -100,11 +100,11 @@ async function RelatedBlogListContent({
 
     return (
       <Link
-        href={`${getBaseUrl()}/${language}/${post.analysisId}/${encodeURIComponent(post.jsonContent?.slug || "")}`}
+        href={`${getBaseUrl()}/${language}/${post.analysisId}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`}
       >
         <Card
           key={post.analysisId}
-          className="flex flex-col overflow-hidden border-2 border-transparent transition-colors hover:border-primary/50 dark:hover:bg-accent/50"
+          className="flex flex-col overflow-hidden break-all border-2 border-transparent transition-colors hover:border-primary/50 dark:hover:bg-accent/50"
         >
           <CardHeader className="p-0">
             <div className="relative aspect-video overflow-hidden">

@@ -19,6 +19,6 @@ export default async function PostPage({ params }: { params: Promise<Props> }) {
     return notFound();
   }
   permanentRedirect(
-    `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`,
+    `${getBaseUrl()}/${language}/${id}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`,
   );
 }

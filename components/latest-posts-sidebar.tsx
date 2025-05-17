@@ -66,13 +66,13 @@ async function LatestPostsContent({ language }: { language: Locale }) {
 
     return (
       <Link
-        href={`${getBaseUrl()}/${language}/${post.analysisId}/${encodeURIComponent(post.jsonContent?.slug || "")}`}
+        href={`${getBaseUrl()}/${language}/${post.analysisId}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`}
       >
         <Card
           key={post.analysisId}
           className="flex flex-row items-center border-2 border-transparent p-0 transition-colors hover:border-primary/50 dark:hover:bg-accent/50"
         >
-          <CardTitle className="line-clamp-3 text-ellipsis p-1 text-xs font-semibold">
+          <CardTitle className="line-clamp-3 text-ellipsis break-all p-1 text-xs font-semibold">
             {title}
           </CardTitle>
         </Card>

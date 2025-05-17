@@ -8,7 +8,7 @@ import {
   PaginationLink,
 } from "@/components/ui/pagination";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { getBasePath, getPaginationRange } from "@/lib/utils";
+import { getPaginationRange } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -27,10 +27,15 @@ export function AnalysesPagination({
 }: AnalysesPaginationProps) {
   const isMobile = useIsMobile();
   const pathname = usePathname();
-  const pagePathname =
-    pathname === `/${language}`
-      ? `${pathname}/page`
-      : pathname.split("/").slice(0, -1).join("/");
+  const segements = pathname.split("/");
+  let pagePathname: string;
+  if (segements.length === 2) {
+    pagePathname = `${pathname}/page`;
+  } else if (segements.length === 4 && segements[2] === "tag") {
+    pagePathname = pathname;
+  } else {
+    pagePathname = segements.slice(0, -1).join("/");
+  }
   const searchParams = useSearchParams();
 
   return totalCount > pageSize ? (
