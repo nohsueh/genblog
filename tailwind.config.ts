@@ -7,7 +7,7 @@ if (getAppType() === "blog") {
     "2xl": "1024px",
   };
 }
-if (getAppType() === "blog") {
+if (getAppType() === "directory") {
   screens = {
     "2xl": "1536px",
   };
