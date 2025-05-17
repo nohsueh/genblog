@@ -6,6 +6,7 @@ import { getBaseUrl, getTagFrequency } from "@/lib/utils";
 import { Analysis } from "@/types/api";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -17,7 +18,9 @@ export function TagCloud({
   analyses: Analysis[];
   language: Locale;
 }) {
-  const tagCloud = getTagFrequency(analyses);
+  const pathname = usePathname();
+  const isTagPage = pathname.split("/")[2] === "tag";
+  const tagCloud = getTagFrequency(analyses).slice(isTagPage ? 1 : 0);
   const isMobile = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -31,7 +34,7 @@ export function TagCloud({
 
   const getTagSize = (count: number) => {
     const minSize = 0.8;
-    const maxSize = 1.5;
+    const maxSize = 1.2;
     if (maxCount === minCount) return 1;
     const size =
       minSize +
@@ -57,7 +60,6 @@ export function TagCloud({
                 }}
               >
                 {tag}
-                {count > 1 && `(${count})`}
               </Badge>
             </Link>
           ))}
