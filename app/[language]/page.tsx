@@ -65,10 +65,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { language } = await params;
   const dictionary = await getDictionary(language);
-  const title = process.env.NEXT_PUBLIC_APP_NAME;
   const description =
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
     `${dictionary.home.title} - ${dictionary.home.description}`;
+  const title = `${process.env.NEXT_PUBLIC_APP_NAME} - ${description}`;
   const images = getDefaultImage();
 
   const canonical = `${getBaseUrl()}/${language}`;

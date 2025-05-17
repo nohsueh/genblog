@@ -86,22 +86,24 @@ export async function generateMetadata({
   const { language, tag } = await params;
   const dictionary = await getDictionary(language);
   const decodedTag = decodeURIComponent(tag);
-  const title = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_NAME}`;
-  const description = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION || dictionary.home.description}`;
+  const description =
+    process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+    `${dictionary.home.title} - ${dictionary.home.description}`;
+  const title = `${process.env.NEXT_PUBLIC_APP_NAME} - ${description}`;
   const images = getDefaultImage();
   const canonical = `${getBaseUrl()}/${language}/tag/${encodeURIComponent(decodedTag)}${Number(page) === 1 ? "" : `/${page}`}`;
 
   return {
-    title,
-    description,
+    title: `${decodedTag} - ${title}`,
+    description: `${decodedTag}- ${description}`,
     openGraph: {
-      title,
-      description,
+      title: `${decodedTag} - ${title}`,
+      description: `${decodedTag}- ${description}`,
       images,
     },
     twitter: {
-      title,
-      description,
+      title: `${decodedTag} - ${title}`,
+      description: `${decodedTag}- ${description}`,
       images,
     },
     alternates: {
