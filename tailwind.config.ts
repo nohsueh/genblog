@@ -1,4 +1,17 @@
 import type { Config } from "tailwindcss";
+import { getAppType } from "./lib/utils";
+
+let screens;
+if (getAppType() === "blog") {
+  screens = {
+    "2xl": "1024px",
+  };
+}
+if (getAppType() === "blog") {
+  screens = {
+    "2xl": "1536px",
+  };
+}
 
 const config = {
   darkMode: "class",
@@ -14,9 +27,7 @@ const config = {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1024px",
-      },
+      screens,
     },
     extend: {
       colors: {
