@@ -6,8 +6,8 @@ import { getDictionary } from "@/lib/dictionaries";
 import {
   getAppType,
   getBaseUrl,
-  getDefaultImage,
   getDefaultGroup,
+  getDefaultImage,
 } from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
