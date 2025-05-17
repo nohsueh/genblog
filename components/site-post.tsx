@@ -45,7 +45,7 @@ export async function SitePost({
           href={url}
           target="_blank"
           rel="nofolow noopener"
-          className="group mb-6 flex flex-row gap-3 rounded-lg p-4 transition-colors hover:bg-accent/50 md:flex-col"
+          className="group mb-6 flex flex-col gap-3 rounded-lg p-4 transition-colors hover:bg-accent/50 md:flex-row"
         >
           <div className="flex flex-col space-y-3">
             <h1 className="text-ellipsis text-xl font-bold text-primary group-hover:text-primary/80 group-hover:underline">
@@ -65,7 +65,7 @@ export async function SitePost({
               <span className="line-clamp-1 text-ellipsis">{url}</span>
             </div>
           </div>
-          <div className="aspect-video max-w-80 overflow-hidden rounded-lg">
+          <div className="aspect-video max-w-80 overflow-hidden rounded-lg md:w-80">
             <ImageWithFallback
               src={image}
               fallback={getDefaultImage()}
