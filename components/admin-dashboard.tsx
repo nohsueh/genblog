@@ -250,10 +250,10 @@ export function AdminDashboard({
             <TableBody>
               {posts.map((post) => (
                 <TableRow key={post.analysisId}>
-                  <TableCell className="w-80 text-ellipsis font-medium">
+                  <TableCell className="min-w-80 text-ellipsis font-medium">
                     <Link
                       href={`${getBaseUrl()}/${language}/${post.analysisId}`}
-                      className="h-full w-full hover:underline"
+                      className="hover:underline"
                     >
                       {post.jsonContent?.title}
                     </Link>

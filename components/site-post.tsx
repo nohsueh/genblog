@@ -65,7 +65,7 @@ export async function SitePost({
               <span className="line-clamp-1 text-ellipsis">{url}</span>
             </div>
           </div>
-          <div className="aspect-video max-w-80 overflow-hidden rounded-lg md:w-80">
+          <div className="aspect-video max-w-80 overflow-hidden rounded-lg md:w-80 md:min-w-80">
             <ImageWithFallback
               src={image}
               fallback={getDefaultImage()}
