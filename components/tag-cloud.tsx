@@ -18,9 +18,13 @@ export function TagCloud({
   analyses: Analysis[];
   language: Locale;
 }) {
-  const pathname = usePathname();
-  const isTagPage = pathname.split("/")[2] === "tag";
-  const tagCloud = getTagFrequency(analyses).slice(isTagPage ? 1 : 0);
+  const segments = usePathname().split("/");
+  const tagCloud =
+    segments[2] === "tag"
+      ? getTagFrequency(analyses).filter(
+          ({ tag }) => tag !== decodeURIComponent(segments[3]),
+        )
+      : getTagFrequency(analyses);
   const isMobile = useIsMobile();
   const [isExpanded, setIsExpanded] = useState(false);
 
