@@ -89,7 +89,7 @@ export async function generateMetadata({
   const title = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_NAME}`;
   const description = `${decodedTag} - ${process.env.NEXT_PUBLIC_APP_DESCRIPTION || dictionary.home.description}`;
   const images = getDefaultImage();
-  const canonical = `${getBaseUrl()}/${language}/tag/${decodedTag}${page === "1" ? "" : `/${page}`}`;
+  const canonical = `${getBaseUrl()}/${language}/tag/${encodeURIComponent(decodedTag)}${Number(page) === 1 ? "" : `/${page}`}`;
 
   return {
     title,
