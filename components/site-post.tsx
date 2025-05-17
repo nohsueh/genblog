@@ -41,7 +41,7 @@ export async function SitePost({
   return (
     <div className="relative">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
-        <article className="mx-auto max-w-4xl">
+        <article className="mx-auto max-w-4xl break-all">
           <Link
             href={url}
             target="_blank"

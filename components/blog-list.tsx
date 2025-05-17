@@ -70,7 +70,7 @@ async function BlogListContent({
                   href={`${getBaseUrl()}/${language}/${blog.analysisId}/${encodeURIComponent(blog.jsonContent?.slug || "")}`}
                   key={blog.analysisId}
                 >
-                  <Card className="flex flex-col overflow-hidden border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
+                  <Card className="flex flex-col overflow-hidden break-all border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">
                     <CardHeader className="p-0">
                       <div className="relative aspect-video overflow-hidden">
                         <ImageWithFallback
