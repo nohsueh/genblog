@@ -39,9 +39,9 @@ export async function SitePost({
   const tags = post.jsonContent?.tags || [];
 
   return (
-    <div className="relative max-w-screen-lg">
-      <div className="xl:mr-[calc(48rem-50vw)] 2xl:mr-0">
-        <article className="mx-auto break-all">
+    <div className="relative mx-auto max-w-screen-lg">
+      <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
+        <article className="max-w-4xl break-all">
           <Link
             href={url}
             target="_blank"

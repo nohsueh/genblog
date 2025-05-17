@@ -29,9 +29,9 @@ export async function BlogPost({
   const tags = post.jsonContent?.tags || [];
 
   return (
-    <div className="relative max-w-screen-lg">
+    <div className="relative mx-auto max-w-screen-lg">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
-        <article className="mx-auto max-w-4xl break-all">
+        <article className="max-w-4xl break-all">
           <header className="mb-6 space-y-4">
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
               {post.jsonContent?.title}
