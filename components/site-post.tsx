@@ -65,7 +65,7 @@ export async function SitePost({
               </div>
               <span className="line-clamp-1 text-ellipsis">{url}</span>
             </div>
-            <h3 className="line-clamp-2 text-ellipsis text-base text-muted-foreground">
+            <h3 className="line-clamp-2 text-ellipsis text-base text-muted-foreground md:line-clamp-3">
               {description}
             </h3>
           </div>
