@@ -85,6 +85,7 @@ export async function generateMetadata({
   const { language, tag, page } = await params;
   const dictionary = await getDictionary(language);
   const decodedTag = decodeURIComponent(tag);
+  const applicationName = process.env.NEXT_PUBLIC_APP_NAME;
   const description =
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
     `${dictionary.home.title} - ${dictionary.home.description}`;
@@ -93,9 +94,15 @@ export async function generateMetadata({
   const canonical = `${getBaseUrl()}/${language}/tag/${encodeURIComponent(decodedTag)}${Number(page) === 1 ? "" : `/${page}`}`;
 
   return {
+    alternates: {
+      canonical,
+    },
+    applicationName,
     title: `${decodedTag} - ${title}`,
     description: `${decodedTag}- ${description}`,
     openGraph: {
+      url: canonical,
+      siteName: applicationName,
       title: `${decodedTag} - ${title}`,
       description: `${decodedTag}- ${description}`,
       images,
@@ -104,9 +111,6 @@ export async function generateMetadata({
       title: `${decodedTag} - ${title}`,
       description: `${decodedTag}- ${description}`,
       images,
-    },
-    alternates: {
-      canonical,
     },
   };
 }

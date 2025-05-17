@@ -68,6 +68,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { language, page } = await params;
   const dictionary = await getDictionary(language);
+  const applicationName = process.env.NEXT_PUBLIC_APP_NAME;
   const description =
     process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
     `${dictionary.home.title} - ${dictionary.home.description}`;
@@ -77,9 +78,15 @@ export async function generateMetadata({
   const canonical = `${getBaseUrl()}/${language}${Number(page) === 1 ? "" : `/page/${page}`}`;
 
   return {
+    alternates: {
+      canonical,
+    },
+    applicationName,
     title,
     description,
     openGraph: {
+      url: canonical,
+      siteName: applicationName,
       title,
       description,
       images,
@@ -88,9 +95,6 @@ export async function generateMetadata({
       title,
       description,
       images,
-    },
-    alternates: {
-      canonical,
     },
   };
 }

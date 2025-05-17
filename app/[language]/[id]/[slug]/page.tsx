@@ -71,6 +71,7 @@ export async function generateMetadata({
   const { language, id } = await params;
   const post = await getAnalysis(id);
 
+  const applicationName = process.env.NEXT_PUBLIC_APP_NAME;
   const title =
     post.jsonContent?.title ||
     post.jsonContent?.description ||
@@ -80,9 +81,15 @@ export async function generateMetadata({
   const canonical = `${getBaseUrl()}/${language}/${id}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`;
 
   return {
+    alternates: {
+      canonical,
+    },
+    applicationName,
     title,
     description,
     openGraph: {
+      url: canonical,
+      siteName: applicationName,
       title,
       description,
       images,
@@ -91,9 +98,6 @@ export async function generateMetadata({
       title,
       description,
       images,
-    },
-    alternates: {
-      canonical,
     },
   };
 }
