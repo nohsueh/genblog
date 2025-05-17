@@ -78,45 +78,47 @@ export function SiteHeader({
               onBlur={() => setIsSearching(false)}
             />
           )}
-          <nav className="flex items-center space-x-2">
-            <div className="hidden items-center space-x-2 md:flex">
-              <LanguageToggle />
-              <ThemeToggle />
-            </div>
-            <Sheet>
-              <SheetTrigger asChild className="md:hidden">
-                <Button variant="ghost" size="icon">
-                  <EllipsisVertical className="h-5 w-5" />
-                  <span className="sr-only">Menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="right" className="md:hidden">
-                <nav className="mt-4 flex flex-col gap-4">
-                  <Link
-                    href={
-                      `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-                      `${getBaseUrl()}/${language}`
-                    }
-                    className="text-sm font-medium transition-colors hover:text-primary"
-                  >
-                    {dictionary.header.home}
-                  </Link>
-                  {isAdmin && (
+          {!isSearching && (
+            <nav className="flex items-center space-x-2">
+              <div className="hidden items-center space-x-2 md:flex">
+                <LanguageToggle />
+                <ThemeToggle />
+              </div>
+              <Sheet>
+                <SheetTrigger asChild className="md:hidden">
+                  <Button variant="ghost" size="icon">
+                    <EllipsisVertical className="h-5 w-5" />
+                    <span className="sr-only">Menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="md:hidden">
+                  <nav className="mt-4 flex flex-col gap-4">
                     <Link
-                      href={`${getBaseUrl()}/${language}/console/1`}
+                      href={
+                        `https://${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
+                        `${getBaseUrl()}/${language}`
+                      }
                       className="text-sm font-medium transition-colors hover:text-primary"
                     >
-                      {dictionary.header.dashboard}
+                      {dictionary.header.home}
                     </Link>
-                  )}
-                  <div className="flex flex-col">
-                    <LanguageToggle />
-                    <ThemeToggle />
-                  </div>
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </nav>
+                    {isAdmin && (
+                      <Link
+                        href={`${getBaseUrl()}/${language}/console/1`}
+                        className="text-sm font-medium transition-colors hover:text-primary"
+                      >
+                        {dictionary.header.dashboard}
+                      </Link>
+                    )}
+                    <div className="flex flex-col">
+                      <LanguageToggle />
+                      <ThemeToggle />
+                    </div>
+                  </nav>
+                </SheetContent>
+              </Sheet>
+            </nav>
+          )}
         </div>
       </div>
     </header>

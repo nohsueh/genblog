@@ -250,8 +250,13 @@ export function AdminDashboard({
             <TableBody>
               {posts.map((post) => (
                 <TableRow key={post.analysisId}>
-                  <TableCell className="line-clamp-3 break-all font-medium">
-                    {post.jsonContent?.title}
+                  <TableCell className="w-80 text-ellipsis font-medium">
+                    <Link
+                      href={`${getBaseUrl()}/${language}/${post.analysisId}`}
+                      className="h-full w-full hover:underline"
+                    >
+                      {post.jsonContent?.title}
+                    </Link>
                   </TableCell>
                   <TableCell className="text-nowrap">
                     {new Date(post.updatedAt).toLocaleString()}

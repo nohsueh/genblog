@@ -41,13 +41,13 @@ export async function SitePost({
   return (
     <div className="relative mx-auto max-w-screen-lg">
       <div className="lg:mr-[calc(48rem-50vw)] 2xl:mr-0">
-        <article className="break-all">
-          <Link
-            href={url}
-            target="_blank"
-            rel="nofolow noopener"
-            className="group mb-6 flex flex-col space-y-3 rounded-lg p-4 transition-colors hover:bg-accent/50"
-          >
+        <Link
+          href={url}
+          target="_blank"
+          rel="nofolow noopener"
+          className="group mb-6 flex flex-row gap-3 rounded-lg p-4 transition-colors hover:bg-accent/50 md:flex-col"
+        >
+          <div className="flex flex-col space-y-3">
             <h1 className="text-ellipsis text-xl font-bold text-primary group-hover:text-primary/80 group-hover:underline">
               {title}
             </h1>
@@ -64,16 +64,18 @@ export async function SitePost({
               </div>
               <span className="line-clamp-1 text-ellipsis">{url}</span>
             </div>
-            <div className="aspect-video max-w-80 overflow-hidden rounded-lg">
-              <ImageWithFallback
-                src={image}
-                fallback={getDefaultImage()}
-                alt={title}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </Link>
+          </div>
+          <div className="aspect-video max-w-80 overflow-hidden rounded-lg">
+            <ImageWithFallback
+              src={image}
+              fallback={getDefaultImage()}
+              alt={title}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </Link>
 
+        <article className="break-all">
           <header className="mb-6 space-y-4">
             <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
               {post.jsonContent?.title}
