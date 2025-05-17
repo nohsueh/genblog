@@ -36,6 +36,7 @@ export async function SitePost({
   const image = post.analysis.image || getDefaultImage();
   const favicon = post.analysis.favicon || getDefaultFavicon();
   const title = post.analysis.title;
+  const description = post.jsonContent?.description;
   const tags = post.jsonContent?.tags || [];
 
   return (
@@ -64,6 +65,9 @@ export async function SitePost({
               </div>
               <span className="line-clamp-1 text-ellipsis">{url}</span>
             </div>
+            <h3 className="line-clamp-2 text-ellipsis text-base text-muted-foreground">
+              {description}
+            </h3>
           </div>
           <div className="aspect-video max-w-80 overflow-hidden rounded-lg md:w-80 md:min-w-80">
             <ImageWithFallback
