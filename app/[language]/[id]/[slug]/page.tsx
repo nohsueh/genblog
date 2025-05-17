@@ -77,7 +77,7 @@ export async function generateMetadata({
     post.analysis.title;
   const description = post.jsonContent?.overview || "";
   const images = await validateImage(post.analysis.image || "");
-  const canonical = `${getBaseUrl()}/${language}/${id}/${encodeURIComponent(post.jsonContent?.slug || "")}`;
+  const canonical = `${getBaseUrl()}/${language}/${id}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`;
 
   return {
     title,
