@@ -118,7 +118,6 @@ async function BlogListContent({
         currentPage={page}
         totalCount={totalCount}
         pageSize={PAGE_SIZE}
-        language={language}
       />
     </div>
   );

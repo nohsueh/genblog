@@ -3,6 +3,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SiteList } from "@/components/site-list";
 import { getDictionary } from "@/lib/dictionaries";
+import { i18n } from "@/lib/i18n-config";
 import {
   getAppType,
   getBaseUrl,
@@ -72,9 +73,12 @@ export async function generateMetadata({
   const title = `${process.env.NEXT_PUBLIC_APP_NAME} - ${description}`;
   const images = getDefaultImage();
 
-  const canonical = `${getBaseUrl()}/${language}`;
+  const canonical = `${getBaseUrl()}${language === i18n.defaultLocale ? "" : `/${language}`}`;
 
   return {
+    alternates: {
+      canonical,
+    },
     applicationName,
     title,
     description,
@@ -89,9 +93,6 @@ export async function generateMetadata({
       title,
       description,
       images,
-    },
-    alternates: {
-      canonical,
     },
   };
 }
