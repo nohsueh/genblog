@@ -72,7 +72,7 @@ export async function generateMetadata({
   const post = await getAnalysis(id);
 
   const applicationName = process.env.NEXT_PUBLIC_APP_NAME;
-  const authors = [{ name: post.analysis.author }, { name: "Searchlysis" }];
+  const authors = [{ name: post.analysis.author }, { name: applicationName }];
   const keywords = post.jsonContent?.tags;
   const title =
     post.jsonContent?.title ||
