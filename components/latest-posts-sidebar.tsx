@@ -19,7 +19,7 @@ export async function LatestPostsSidebar({
   dictionary,
 }: LatestPostsSidebarProps) {
   return (
-    <aside className="overflow-y-auto">
+    <aside className="h-[40vh] overflow-y-auto">
       <h2 className="mb-2 text-base font-semibold">
         {dictionary.blog.latestPosts}
       </h2>
