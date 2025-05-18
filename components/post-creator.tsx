@@ -65,6 +65,7 @@ export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
                 type: "string",
               },
             ],
+            minItems: 5,
             description: dictionary.prompt.tags,
           },
           title: {
