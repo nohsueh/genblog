@@ -39,7 +39,7 @@ export function OnThisPage({ headings }: OnThisPageProps) {
 
   return (
     headings.length > 0 && (
-      <nav className="sticky h-full space-y-2 overflow-y-auto">
+      <nav className="space-y-2 overflow-y-auto">
         {headings.map((item) => (
           <Link
             key={item.id}
