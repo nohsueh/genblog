@@ -12,7 +12,7 @@ export async function generateSitemaps() {
 }
 
 export default async function sitemap({
-  id: locale,
+  id: language,
 }: {
   id: string;
 }): Promise<MetadataRoute.Sitemap> {
@@ -24,7 +24,7 @@ export default async function sitemap({
     totalCount: true,
     metadata: {
       group: getDefaultGroup(),
-      language: locale,
+      language: language,
     },
   });
   const totalCount = analyses[0]?.totalCount || 0;
@@ -32,13 +32,13 @@ export default async function sitemap({
 
   return [
     {
-      url: `${getBaseUrl()}/${locale}`,
+      url: `${getBaseUrl()}${language === i18n.defaultLocale ? "" : `/${language}`}`,
     },
     ...Array.from({ length: totalPage - 1 }).map((_, i) => ({
-      url: `${getBaseUrl()}/${locale}/page/${i + 2}`,
+      url: `${getBaseUrl()}/${language}/page/${i + 2}`,
     })),
     ...analyses.map((analysis) => ({
-      url: `${getBaseUrl()}/${locale}/${analysis.analysisId}${analysis.jsonContent?.slug ? `/${encodeURIComponent(analysis.jsonContent?.slug)}` : ""}`,
+      url: `${getBaseUrl()}/${language}/${analysis.analysisId}${analysis.jsonContent?.slug ? `/${encodeURIComponent(analysis.jsonContent?.slug)}` : ""}`,
     })),
   ];
 }
