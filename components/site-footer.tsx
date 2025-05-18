@@ -24,33 +24,35 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t bg-background py-8 md:py-12">
-      <div className="container flex flex-col gap-8">
+    <footer className="border-t bg-background py-8">
+      <div className="container flex flex-col">
         {resourceGroups.length > 0 && (
-          <div className="grid grid-cols-2 gap-4 break-all sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-            {resourceGroups.map((group, index) => (
-              <div key={index} className="flex flex-col space-y-3">
-                <h3 className="text-sm font-medium text-foreground">
-                  {group.group}
-                </h3>
-                <div className="flex flex-col space-y-2">
-                  {group.links.map((link, linkIndex) => (
-                    <Link
-                      key={linkIndex}
-                      href={link.link}
-                      target="_blank"
-                      rel="nofollow noopener"
-                      className="text-sm text-muted-foreground transition-colors hover:text-primary hover:underline"
-                    >
-                      {link.name}
-                    </Link>
-                  ))}
+          <>
+            <div className="grid grid-cols-1 gap-4 break-all sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+              {resourceGroups.map((group, index) => (
+                <div key={index} className="flex flex-col space-y-3">
+                  <h3 className="text-sm font-medium text-foreground">
+                    {group.group}
+                  </h3>
+                  <div className="flex flex-col space-y-2">
+                    {group.links.map((link, linkIndex) => (
+                      <Link
+                        key={linkIndex}
+                        href={link.link}
+                        target="_blank"
+                        rel="nofollow noopener"
+                        className="text-sm text-muted-foreground transition-colors hover:text-primary hover:underline"
+                      >
+                        {link.name}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+            <Separator className="my-4" />
+          </>
         )}
-        <Separator className="my-4" />
         <div className="flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
           <div className="flex flex-col items-center gap-4 md:flex-row">
             <p className="text-center text-sm text-muted-foreground md:text-left">
