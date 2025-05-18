@@ -28,7 +28,7 @@ export function SiteFooter() {
       <div className="container flex flex-col">
         {resourceGroups.length > 0 && (
           <>
-            <div className="grid grid-cols-1 gap-4 break-all sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+            <div className="grid grid-cols-2 gap-4 break-all sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
               {resourceGroups.map((group, index) => (
                 <div key={index} className="flex flex-col space-y-3">
                   <h3 className="text-sm font-medium text-foreground">
