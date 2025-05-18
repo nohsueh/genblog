@@ -24,7 +24,7 @@ export function SiteFooter() {
   }
 
   return (
-    <footer className="border-t bg-background py-8">
+    <footer className="border-t bg-background py-4">
       <div className="container flex flex-col">
         {resourceGroups.length > 0 && (
           <>
