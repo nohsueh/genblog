@@ -19,7 +19,7 @@ export async function LatestPostsSidebar({
   dictionary,
 }: LatestPostsSidebarProps) {
   return (
-    <aside className="sticky top-[40vh] mt-8 h-[40vh] overflow-y-auto xl:top-[calc(8rem+40vh)]">
+    <aside className="sticky h-full overflow-y-auto">
       <h2 className="mb-2 text-base font-semibold">
         {dictionary.blog.latestPosts}
       </h2>

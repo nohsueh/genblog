@@ -99,12 +99,14 @@ export async function BlogPost({
           </Button>
         </SheetTrigger>
         <SheetContent side="right" className="w-[300px]">
-          <OnThisPage headings={headings} />
-          <LatestPostsSidebar language={language} dictionary={dictionary} />
+          <div className="h-[90vh] space-y-8">
+            <OnThisPage headings={headings} />
+            <LatestPostsSidebar language={language} dictionary={dictionary} />
+          </div>
         </SheetContent>
       </Sheet>
 
-      <div className="fixed top-24 hidden w-60 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
+      <div className="fixed top-24 hidden h-[90vh] w-60 space-y-8 lg:right-4 lg:block 2xl:left-[calc(50vw+32rem)]">
         <OnThisPage headings={headings} />
         <LatestPostsSidebar language={language} dictionary={dictionary} />
       </div>
