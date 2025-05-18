@@ -66,6 +66,7 @@ export function AnalysesPagination({
 function getPagePathname(pathname: string) {
   const segements = pathname.split("/");
   if (segements.length === 2 && segements[0] === "" && segements[1] === "") {
+    console.log(`\nhit-1: ${pathname} ${segements.toString()}\n`);
     return `${pathname}/${i18n.defaultLocale}/page`;
   }
   if (
@@ -73,6 +74,7 @@ function getPagePathname(pathname: string) {
     segements[0] === "" &&
     i18n.locales.includes(segements[1])
   ) {
+    console.log(`\nhit-2: ${pathname} ${segements.toString()}\n`);
     return `${pathname}/page`;
   }
   if (
@@ -81,7 +83,9 @@ function getPagePathname(pathname: string) {
     i18n.locales.includes(segements[1]) &&
     segements[2] === "tag"
   ) {
+    console.log(`\nhit-3: ${pathname} ${segements.toString()}\n`);
     return pathname;
   }
+  console.log(`\nhit-4: ${pathname} ${segements.toString()}\n`);
   return segements.slice(0, -1).join("/");
 }
