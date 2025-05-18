@@ -64,7 +64,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = `${process.env.NEXT_PUBLIC_APP_NAME} - ${description}`;
   const images = getDefaultImage();
 
-  const canonical = `${getBaseUrl()}${language === i18n.defaultLocale ? "" : `/${language}`}`;
+  const canonical = `${getBaseUrl()}`;
 
   return {
     alternates: {
