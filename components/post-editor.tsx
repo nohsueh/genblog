@@ -1,8 +1,8 @@
 "use client";
 
 import { Markdown } from "@/components/markdown";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -17,10 +17,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { updateAnalysis } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import type { Analysis } from "@/types/api";
+import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
-import { X } from "lucide-react";
 
 interface BlogEditorProps {
   post: Analysis;
@@ -43,9 +43,12 @@ export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
   const handleTagInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      const newTag = tagInput.trim();
-      if (newTag && !tags.includes(newTag)) {
-        setTags([...tags, newTag]);
+      const newTags = tagInput
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean);
+      if (newTags.length > 0 && !newTags.some((tag) => tags.includes(tag))) {
+        setTags([...tags, ...newTags]);
         setTagInput("");
       }
     }

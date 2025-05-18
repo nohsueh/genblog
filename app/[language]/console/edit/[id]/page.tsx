@@ -1,4 +1,4 @@
-import { BlogEditor } from "@/components/blog-editor";
+import { BlogEditor } from "@/components/post-editor";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getAnalysis, requireAdmin } from "@/lib/actions";

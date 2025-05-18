@@ -1,4 +1,4 @@
-import { BlogCreator } from "@/components/blog-creator";
+import { BlogCreator } from "@/components/post-creator";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { requireAdmin } from "@/lib/actions";
