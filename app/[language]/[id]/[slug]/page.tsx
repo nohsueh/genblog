@@ -73,6 +73,7 @@ export async function generateMetadata({
 
   const applicationName = process.env.NEXT_PUBLIC_APP_NAME;
   const authors = [{ name: post.analysis.author }, { name: "Searchlysis" }];
+  const keywords = post.jsonContent?.tags;
   const title =
     post.jsonContent?.title ||
     post.jsonContent?.description ||
@@ -87,6 +88,7 @@ export async function generateMetadata({
     },
     applicationName,
     authors,
+    keywords,
     title,
     description,
     openGraph: {
