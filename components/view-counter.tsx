@@ -4,6 +4,19 @@ import { getAnalysis, updateAnalysis } from "@/lib/actions";
 import { Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 
+const formatNumber = (num: number): string => {
+  if (num >= 1_000_000_000) {
+    return (num / 1_000_000_000).toFixed(1) + "B";
+  }
+  if (num >= 1_000_000) {
+    return (num / 1_000_000).toFixed(1) + "M";
+  }
+  if (num >= 1_000) {
+    return (num / 1_000).toFixed(1) + "K";
+  }
+  return num.toString();
+};
+
 interface ViewCounterProps {
   analysisId: string;
   metadata?: Record<string, any>;
@@ -41,7 +54,7 @@ export default function ViewCounter({
   return (
     <div className="flex items-center gap-1 text-sm text-muted-foreground">
       <Eye className="h-4 w-4" />
-      <span>{views}</span>
+      <span>{formatNumber(views)}</span>
     </div>
   );
 }
