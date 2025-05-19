@@ -34,8 +34,7 @@ export default function ViewCounter({
       }
     };
 
-    const timeoutId = setTimeout(updateViews, 1000 * 60 * 5);
-    return () => clearTimeout(timeoutId);
+    updateViews();
   }, [analysisId, isUpdating, metadata, views]);
 
   return (
