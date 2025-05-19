@@ -1,6 +1,6 @@
 "use client";
 
-import { updateAnalysis } from "@/lib/actions";
+import { getAnalysis, updateAnalysis } from "@/lib/actions";
 import { Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -22,11 +22,17 @@ export default function ViewCounter({
 
       try {
         setIsUpdating(true);
+        const currentAnalysis = await getAnalysis(analysisId);
         const updatedAnalysis = await updateAnalysis(analysisId, undefined, {
           ...metadata,
-          views: (metadata?.views || 0) + 1,
+          views: (currentAnalysis.metadata?.views || metadata?.views || 0) + 1,
         });
-        setViews((v: number) => updatedAnalysis.metadata?.views || v + 1);
+        setViews(
+          (v: number) =>
+            updatedAnalysis.metadata?.views ||
+            currentAnalysis.metadata?.views ||
+            v + 1,
+        );
       } catch (error) {
         console.error("Failed to update views:", error);
       } finally {

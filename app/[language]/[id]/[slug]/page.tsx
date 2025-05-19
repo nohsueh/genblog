@@ -10,6 +10,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   return [];
 }
