@@ -24,9 +24,9 @@ export default function ViewCounter({
         setIsUpdating(true);
         const updatedAnalysis = await updateAnalysis(analysisId, undefined, {
           ...metadata,
-          views: views + 1,
+          views: (metadata?.views || 0) + 1,
         });
-        setViews(updatedAnalysis.metadata?.views || views + 1);
+        setViews((v: number) => updatedAnalysis.metadata?.views || v + 1);
       } catch (error) {
         console.error("Failed to update views:", error);
       } finally {
@@ -37,7 +37,7 @@ export default function ViewCounter({
 
     const timeoutId = setTimeout(updateViews, 1000 * 60 * 5);
     return () => clearTimeout(timeoutId);
-  }, [analysisId, isUpdating, metadata, views]);
+  }, [analysisId, isUpdating, metadata]);
 
   return (
     <div className="flex items-center gap-1 text-sm text-muted-foreground">
