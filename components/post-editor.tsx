@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { updateAnalysis } from "@/lib/actions";
+import { updateAnalysisWithFormData } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import type { Analysis } from "@/types/api";
 import { X } from "lucide-react";
@@ -76,7 +76,7 @@ export function BlogEditor({ post, language, dictionary }: BlogEditorProps) {
       );
       formData.set("metadata", JSON.stringify({ ...post.metadata, group }));
 
-      await updateAnalysis(formData);
+      await updateAnalysisWithFormData(formData);
 
       toast.success(dictionary.admin.edit.success);
 

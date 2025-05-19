@@ -33,7 +33,7 @@ import {
   deleteAnalysis,
   getAnalysis,
   getFilteredAnalyses,
-  updateAnalysis,
+  updateAnalysisWithFormData,
 } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultGroup } from "@/lib/utils";
@@ -87,7 +87,7 @@ export function AdminDashboard({
             }),
           );
 
-          const updatedPost = await updateAnalysis(formData);
+          const updatedPost = await updateAnalysisWithFormData(formData);
 
           setPosts(
             posts.map((post) =>
