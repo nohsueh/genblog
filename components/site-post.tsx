@@ -18,6 +18,7 @@ import { TableOfContents } from "lucide-react";
 import Link from "next/link";
 import ImageWithFallback from "./image-with-fallback";
 import { Share } from "./share";
+import ViewCounter from "./view-counter";
 
 interface SitePostProps {
   analysisId: string;
@@ -98,6 +99,10 @@ export async function SitePost({
                   {dictionary.blog.by} {post.analysis.author}
                 </span>
               )}
+              <ViewCounter
+                analysisId={post.analysisId}
+                initialViews={post.metadata?.views || 0}
+              />
             </div>
 
             {tags.length > 0 && (

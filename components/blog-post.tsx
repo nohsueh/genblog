@@ -12,6 +12,7 @@ import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Link from "next/link";
 import { Share } from "./share";
+import ViewCounter from "./view-counter";
 
 interface BlogPostProps {
   analysisId: string;
@@ -50,6 +51,10 @@ export async function BlogPost({
                   {dictionary.blog.by} {post.analysis.author}
                 </span>
               )}
+              <ViewCounter
+                analysisId={post.analysisId}
+                initialViews={post.metadata?.views || 0}
+              />
             </div>
 
             {tags.length > 0 && (
