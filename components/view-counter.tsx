@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 
 interface ViewCounterProps {
   analysisId: string;
-  initialViews: number;
+  metadata?: Record<string, any>;
 }
 
 export default function ViewCounter({
   analysisId,
-  initialViews,
+  metadata,
 }: ViewCounterProps) {
-  const [views, setViews] = useState(initialViews);
+  const [views, setViews] = useState(metadata?.views || 0);
   const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ export default function ViewCounter({
       try {
         setIsUpdating(true);
         const updatedAnalysis = await updateAnalysis(analysisId, undefined, {
+          ...metadata,
           views: views + 1,
         });
         setViews(updatedAnalysis.metadata?.views || views + 1);
@@ -35,7 +36,7 @@ export default function ViewCounter({
 
     const timeoutId = setTimeout(updateViews, 1000);
     return () => clearTimeout(timeoutId);
-  }, [analysisId]);
+  }, [analysisId, isUpdating, metadata, views]);
 
   return (
     <div className="flex items-center gap-1 text-sm text-muted-foreground">

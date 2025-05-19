@@ -101,7 +101,7 @@ export async function SitePost({
               )}
               <ViewCounter
                 analysisId={post.analysisId}
-                initialViews={post.metadata?.views || 0}
+                metadata={post.metadata}
               />
             </div>
 
