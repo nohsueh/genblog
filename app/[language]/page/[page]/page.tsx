@@ -12,8 +12,6 @@ import {
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
 
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
   return [];
 }

@@ -12,8 +12,6 @@ import {
 } from "@/lib/utils";
 import { Metadata } from "next";
 
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
   return [];
 }

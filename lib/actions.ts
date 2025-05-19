@@ -190,7 +190,7 @@ export async function getAnalysis(analysisId: string): Promise<Analysis> {
     {
       headers,
       next: {
-        revalidate: 3600,
+        revalidate: 2,
       },
     },
   );
@@ -311,7 +311,7 @@ export async function listAnalyses({
   const response = await fetch(url, {
     headers,
     next: {
-      revalidate: 3600,
+      revalidate: 2,
     },
   });
 
@@ -359,7 +359,7 @@ export async function relatedAnalyses({
   const response = await fetch(url, {
     headers,
     next: {
-      revalidate: 3600,
+      revalidate: 2,
     },
   });
 

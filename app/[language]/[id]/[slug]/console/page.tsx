@@ -2,8 +2,6 @@ import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl } from "@/lib/utils";
 import { permanentRedirect } from "next/navigation";
 
-export const revalidate = 3600;
-
 export async function generateStaticParams() {
   return [];
 }
