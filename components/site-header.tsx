@@ -29,7 +29,7 @@ export function SiteHeader({
   const isConsolePage = pathname.split("/")[2] === "console";
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background">
+    <header className="sticky top-0 z-50 flex w-full flex-col items-center justify-center border-b bg-background">
       <div className="container flex h-16 w-full max-w-5xl items-center space-x-2 md:space-x-4">
         {!isSearching && (
           <div className="flex flex-shrink-0 flex-row items-center md:space-x-2 lg:space-x-6">

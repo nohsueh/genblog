@@ -34,10 +34,19 @@ export default function RootLayout({
         )}
         {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
           <Script
-            id="adsense-script"
+            id="google-adsense-script"
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT}`}
             crossOrigin="anonymous"
           />
+        )}
+        {process.env.NEXT_PUBLIC_YANDEX_ADUNIT_ID && (
+          <>
+            <Script id="yandex-ads-init">{`window.yaContextCb=window.yaContextCb||[]`}</Script>
+            <Script
+              src="https://yandex.ru/ads/system/context.js"
+              async
+            ></Script>
+          </>
         )}
       </head>
       {children}
