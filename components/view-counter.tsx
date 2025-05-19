@@ -36,7 +36,7 @@ export default function ViewCounter({
     };
 
     updateViews();
-  });
+  }, [analysisId]);
 
   return (
     <div className="flex items-center gap-1 text-sm text-muted-foreground">
