@@ -48,7 +48,8 @@ export default function ViewCounter({
       }
     };
 
-    updateViews();
+    const timeoutId = setTimeout(updateViews, 5);
+    return () => clearTimeout(timeoutId);
   }, [analysisId]);
 
   return (
