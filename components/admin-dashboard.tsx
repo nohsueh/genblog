@@ -275,7 +275,7 @@ export function AdminDashboard({
                     <div className="flex items-center gap-2">
                       <Switch
                         checked={
-                          post.metadata?.group === group &&
+                          post.metadata?.group === getDefaultGroup() &&
                           post.metadata?.language == language
                         }
                         onCheckedChange={() => debouncedToggleVisibility(post)}
