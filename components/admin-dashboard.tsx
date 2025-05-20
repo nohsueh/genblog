@@ -83,7 +83,10 @@ export function AdminDashboard({
             "metadata",
             JSON.stringify({
               ...post.metadata,
-              group: post.metadata?.group === group ? undefined : group,
+              group:
+                post.metadata?.group === getDefaultGroup()
+                  ? undefined
+                  : getDefaultGroup(),
             }),
           );
 
@@ -99,7 +102,7 @@ export function AdminDashboard({
           console.error("Failed to update post visibility:", error);
         }
       }, 500),
-    [group, posts, dictionary],
+    [posts, dictionary],
   );
 
   useEffect(() => {
