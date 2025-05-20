@@ -54,7 +54,7 @@ export default async function RootLayout(props: RootLayoutProps) {
           </Script>
         )}
         {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-          <Script id="google-adsense-init" strategy="afterInteractive">
+          <Script id="google-adsense-init">
             {`(adsbygoogle = window.adsbygoogle || []).push({});`}
           </Script>
         )}
