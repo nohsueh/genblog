@@ -75,7 +75,7 @@ export async function BlogPost({
               </div>
             )}
 
-            <Share />
+            <Share text={post.jsonContent?.overview} />
           </div>
 
           <div className="prose prose-gray max-w-none dark:prose-invert">

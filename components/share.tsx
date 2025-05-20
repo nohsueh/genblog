@@ -4,7 +4,7 @@ import { getBaseUrl } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function Share() {
+export function Share({ text }: { text?: string }) {
   const pathname = usePathname();
   const currentUrl = `${getBaseUrl()}${pathname}`;
 
@@ -13,7 +13,7 @@ export function Share() {
       <Link
         href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
           currentUrl,
-        )}`}
+        )}${text && `&text=${encodeURIComponent(text)}`}`}
         aria-label="Share on X"
         target="_blank"
         rel="nofollow noopener"
