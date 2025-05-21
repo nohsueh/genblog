@@ -1,6 +1,6 @@
 "use client";
 
-import { getAnalysis, updateAnalysis } from "@/lib/actions";
+import { getAnalysisRealtime, updateAnalysis } from "@/lib/actions";
 import { Eye } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -33,7 +33,7 @@ export default function ViewCounter({
       if (isUpdating) return;
       try {
         setIsUpdating(true);
-        const currentAnalysis = await getAnalysis(analysisId);
+        const currentAnalysis = await getAnalysisRealtime(analysisId);
         const currentViews =
           currentAnalysis.metadata?.views || metadata?.views || 0;
         const updatedAnalysis = await updateAnalysis(analysisId, undefined, {

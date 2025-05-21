@@ -190,8 +190,27 @@ export async function getAnalysis(analysisId: string): Promise<Analysis> {
     {
       headers,
       next: {
-        revalidate: 2,
+        revalidate: 3600,
       },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to get analysis: ${response.headers.get("x-searchlysis-error")}`,
+    );
+  }
+
+  return await response.json();
+}
+
+export async function getAnalysisRealtime(
+  analysisId: string,
+): Promise<Analysis> {
+  const response = await fetch(
+    `${API_URL}/v1/analyses?analysisId=${analysisId}`,
+    {
+      headers,
     },
   );
 
