@@ -42,17 +42,6 @@ export default async function RootLayout(props: RootLayoutProps) {
           </Suspense>
           <Toaster richColors />
         </ThemeProvider>
-        {process.env.NEXT_PUBLIC_YANDEX_ADUNIT_ID && (
-          <Script id="yandex-ads-render">
-            {`window.yaContextCb.push(() => {
-                Ya.Context.AdvManager.render({
-                  "blockId": "${process.env.NEXT_PUBLIC_YANDEX_ADUNIT_ID}",
-                  "type": "fullscreen",
-                  "platform": "touch"
-                })
-            })`}
-          </Script>
-        )}
         {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
           <Script id="google-adsense-init">
             {`(adsbygoogle = window.adsbygoogle || []).push({});`}
