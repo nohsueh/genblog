@@ -189,9 +189,6 @@ export async function getAnalysis(analysisId: string): Promise<Analysis> {
     `${API_URL}/v1/analyses?analysisId=${analysisId}`,
     {
       headers,
-      next: {
-        revalidate: 3600,
-      },
     },
   );
 
@@ -310,9 +307,6 @@ export async function listAnalyses({
 
   const response = await fetch(url, {
     headers,
-    next: {
-      revalidate: 3600,
-    },
   });
 
   if (!response.ok) {
@@ -358,9 +352,6 @@ export async function relatedAnalyses({
 
   const response = await fetch(url, {
     headers,
-    next: {
-      revalidate: 3600,
-    },
   });
 
   if (!response.ok) {
