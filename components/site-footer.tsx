@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Separator } from "./ui/separator";
 
@@ -53,12 +52,11 @@ export function SiteFooter() {
             <Separator className="my-4" />
           </>
         )}
-        <div className="flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
-          <div className="flex flex-col items-center gap-4 md:flex-row">
-            <p className="text-center text-sm text-muted-foreground md:text-left">
-              © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_APP_NAME}
-            </p>
-            <div className="flex flex-row">
+        <div className="flex flex-col items-center gap-4 md:h-16 md:flex-row">
+          <p className="text-center text-sm text-muted-foreground md:text-left">
+            © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_APP_NAME}
+          </p>
+          {/* <div className="flex flex-row">
               <Link
                 href={"https://github.com/nohsueh/genblog"}
                 target="_blank"
@@ -79,8 +77,7 @@ export function SiteFooter() {
                   className="hidden dark:block"
                 />
               </Link>
-            </div>
-          </div>
+            </div> */}
         </div>
       </div>
     </footer>
