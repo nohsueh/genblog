@@ -6,14 +6,14 @@ import { usePathname } from "next/navigation";
 
 export function Share({ text }: { text?: string }) {
   const pathname = usePathname();
-  const currentUrl = `${getBaseUrl()}${pathname}`;
+  const currentUrl = encodeURIComponent(`${getBaseUrl()}${pathname}`);
 
   return (
     <div className="flex items-center gap-3">
       <Link
-        href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(
-          currentUrl,
-        )}${text && `&text=${encodeURIComponent(text)}`}`}
+        href={`https://twitter.com/intent/tweet?url=${currentUrl}${
+          text && `&text=${encodeURIComponent(text)}`
+        }`}
         aria-label="Share on X"
         target="_blank"
         rel="nofollow noopener"
@@ -27,9 +27,7 @@ export function Share({ text }: { text?: string }) {
         </svg>
       </Link>
       <Link
-        href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-          currentUrl,
-        )}`}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
         aria-label="Share on Facebook"
         target="_blank"
         rel="nofollow noopener"
@@ -43,9 +41,7 @@ export function Share({ text }: { text?: string }) {
         </svg>
       </Link>
       <Link
-        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
-          currentUrl,
-        )}`}
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${currentUrl}`}
         aria-label="Share on LinkedIn"
         target="_blank"
         rel="nofollow noopener"

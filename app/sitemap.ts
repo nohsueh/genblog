@@ -38,7 +38,7 @@ export default async function sitemap({
       url: `${getBaseUrl()}/${language}/page/${i + 2}`,
     })),
     ...analyses.map((analysis) => ({
-      url: `${getBaseUrl()}/${language}/${analysis.analysisId}${analysis.jsonContent?.slug ? `/${encodeURIComponent(analysis.jsonContent?.slug)}` : ""}`,
+      url: `${getBaseUrl()}/${language}/${analysis.analysisId}${analysis.jsonContent?.slug && `/${encodeURIComponent(analysis.jsonContent?.slug)}`}`,
     })),
   ];
 }

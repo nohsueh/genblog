@@ -46,9 +46,7 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
             </h2>
           </header>
           <div className="mb-6 flex flex-col items-start justify-center gap-2">
-            <Link
-              href={`${getBaseUrl()}/${language}/tag/${encodeURIComponent(tag)}`}
-            >
+            <Link href={`${getBaseUrl()}/${language}/tag/${tag}`}>
               <Badge variant={"secondary"} className="px-5 py-1">
                 <h1 className="text-3xl font-bold">
                   {decodeURIComponent(tag)}
@@ -98,7 +96,7 @@ export async function generateMetadata({
     `${dictionary.home.title} - ${dictionary.home.description}`;
   const title = `${process.env.NEXT_PUBLIC_APP_NAME} - ${description}`;
   const images = getDefaultImage();
-  const canonical = `${getBaseUrl()}/${language}/tag/${encodeURIComponent(decodedTag)}${Number(page) === 1 ? "" : `/${page}`}`;
+  const canonical = `${getBaseUrl()}/${language}/tag/${tag}${Number(page) === 1 ? "" : `/${page}`}`;
 
   return {
     alternates: {

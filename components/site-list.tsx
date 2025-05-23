@@ -59,7 +59,7 @@ async function SiteListContent({
             <HoverCard key={site.analysisId}>
               <HoverCardTrigger>
                 <Link
-                  href={`${getBaseUrl()}/${language}/${site.analysisId}/${encodeURIComponent(site.jsonContent?.slug || "")}`}
+                  href={`${getBaseUrl()}/${language}/${site.analysisId}${site.jsonContent?.slug && `/${encodeURIComponent(site.jsonContent?.slug)}`}`}
                   key={site.analysisId}
                   className="group"
                 >

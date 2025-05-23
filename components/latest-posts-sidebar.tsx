@@ -66,7 +66,7 @@ async function LatestPostsContent({ language }: { language: Locale }) {
 
     return (
       <Link
-        href={`${getBaseUrl()}/${language}/${post.analysisId}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`}
+        href={`${getBaseUrl()}/${language}/${post.analysisId}${post.jsonContent?.slug && `/${encodeURIComponent(post.jsonContent?.slug)}`}`}
       >
         <Card
           key={post.analysisId}

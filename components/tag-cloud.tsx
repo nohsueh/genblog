@@ -22,7 +22,8 @@ export function TagCloud({
   const tagCloud =
     segments[2] === "tag"
       ? getTagFrequency(analyses).filter(
-          ({ tag }) => tag !== decodeURIComponent(segments[3]),
+          ({ tag }) =>
+            tag.toLowerCase() !== decodeURIComponent(segments[3]).toLowerCase(),
         )
       : getTagFrequency(analyses);
   const isMobile = useIsMobile();
