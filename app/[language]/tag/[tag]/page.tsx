@@ -13,6 +13,7 @@ import {
 } from "@/lib/utils";
 import { Metadata } from "next";
 import { Params } from "next/dist/server/request/params";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const revalidate = 3600;
@@ -46,9 +47,15 @@ export default async function TagPage({ params }: { params: Promise<Props> }) {
             </h2>
           </header>
           <div className="mb-6 flex flex-col items-start justify-center gap-2">
-            <Badge variant={"secondary"} className="px-5 py-1">
-              <h1 className="text-3xl font-bold">{decodeURIComponent(tag)}</h1>
-            </Badge>
+            <Link
+              href={`${getBaseUrl()}/${language}/tag/${encodeURIComponent(tag)}`}
+            >
+              <Badge variant={"secondary"} className="px-5 py-1">
+                <h1 className="text-3xl font-bold">
+                  {decodeURIComponent(tag)}
+                </h1>
+              </Badge>
+            </Link>
           </div>
           {getAppType() === "blog" && (
             <BlogList
