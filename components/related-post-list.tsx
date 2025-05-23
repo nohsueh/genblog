@@ -19,7 +19,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import ImageWithFallback from "./image-with-fallback";
 
-const POSTS_PER_PAGE = 12;
+const POSTS_PER_PAGE = 6;
 
 interface RelatedBlogListProps {
   language: Locale;
