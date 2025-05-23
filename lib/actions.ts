@@ -415,7 +415,7 @@ export async function getFilteredAnalyses({
           ...(language && { language }),
         }
       : undefined;
-  const jsonContent = tags && { tags };
+  const jsonContent = tags && { tags: tags.map((tag) => tag.toLowerCase()) };
 
   return await listAnalyses({
     pageNum,
