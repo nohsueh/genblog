@@ -50,9 +50,9 @@ export async function SitePost({
           className="group mb-6 flex w-full flex-col gap-3 rounded-lg p-4 transition-colors hover:bg-accent/50 md:flex-row md:justify-between"
         >
           <div className="flex flex-col space-y-3">
-            <h1 className="text-ellipsis text-xl font-bold text-primary group-hover:text-primary/80 group-hover:underline">
+            <h2 className="text-ellipsis text-xl font-bold text-primary group-hover:text-primary/80 group-hover:underline">
               {title}
-            </h1>
+            </h2>
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <div className="shrink-0">
                 <ImageWithFallback
