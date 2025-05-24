@@ -24,6 +24,29 @@ interface MarkdownProps {
   onHeadingsExtracted?: (headings: Heading[]) => void;
 }
 
+const rehypeImageWithFallback: Plugin = () => {
+  return (tree: any) => {
+    const visit = (node: any) => {
+      if (node.type === "element" && node.tagName === "img") {
+        node.tagName = "ImageWithFallback";
+        node.properties = {
+          ...node.properties,
+          fallback: "/placeholder.svg",
+          width: 800,
+          height: 400,
+        };
+      }
+
+      if (node.children) {
+        node.children.forEach(visit);
+      }
+    };
+
+    visit(tree);
+    return tree;
+  };
+};
+
 export function markdownToHtml(markdown: string) {
   const headings: Heading[] = [];
 
@@ -72,6 +95,7 @@ export function markdownToHtml(markdown: string) {
     .use(rehypePrism, {
       plugins: ["line-numbers", "toolbar", "copy-to-clipboard"],
     })
+    .use(rehypeImageWithFallback)
     .use(extractHeadings)
     .use(rehypeStringify)
     .processSync(markdown);
