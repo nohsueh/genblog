@@ -2,10 +2,10 @@ import { BlogPost } from "@/components/blog-post";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SitePost } from "@/components/site-post";
-import { getAnalysis, validateImage } from "@/lib/actions";
+import { getAnalysis } from "@/lib/actions";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n-config";
-import { getAppType, getBaseUrl } from "@/lib/utils";
+import { getAppType, getBaseUrl, getDefaultImage } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -79,7 +79,7 @@ export async function generateMetadata({
     post.jsonContent?.description ||
     post.analysis.title;
   const description = post.jsonContent?.overview || "";
-  const images = await validateImage(post.analysis.image || "");
+  const images = post.analysis.image || getDefaultImage();
   const canonical = `${getBaseUrl()}/${language}/${id}${post.jsonContent?.slug && `/${encodeURIComponent(post.jsonContent?.slug)}`}`;
 
   return {

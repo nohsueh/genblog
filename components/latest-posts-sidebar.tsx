@@ -7,7 +7,7 @@ import type { Analysis } from "@/types/api";
 import Link from "next/link";
 import { Suspense } from "react";
 
-const POSTS_PER_PAGE = 12;
+const POSTS_PER_PAGE = 6;
 
 interface LatestPostsSidebarProps {
   language: Locale;
