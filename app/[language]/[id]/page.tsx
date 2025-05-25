@@ -14,9 +14,12 @@ export default async function PostPage({ params }: { params: Promise<Props> }) {
   let post: Analysis;
   try {
     post = await getAnalysis(id);
+    if (!Boolean(post)) {
+      notFound();
+    }
   } catch (error) {
     console.error(`PostPage getAnalysis: ${error}`);
-    return notFound();
+    notFound();
   }
   permanentRedirect(
     `${getBaseUrl()}/${language}/${id}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`,

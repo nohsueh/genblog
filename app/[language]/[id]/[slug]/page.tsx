@@ -70,6 +70,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { language, id } = await params;
   const post = await getAnalysis(id);
+  if (!Boolean(post)) {
+    notFound();
+  }
 
   const applicationName = process.env.NEXT_PUBLIC_APP_NAME;
   const authors = [{ name: post.analysis.author }, { name: applicationName }];
