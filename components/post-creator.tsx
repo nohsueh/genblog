@@ -70,10 +70,14 @@ export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
           },
           title: {
             type: "string",
+            minLength: 40,
+            maxLength: 60,
             description: dictionary.prompt.title,
           },
           overview: {
             type: "string",
+            minLength: 140,
+            maxLength: 160,
             description: dictionary.prompt.overview,
           },
           ...(getAppType() === "directory" && {
@@ -83,6 +87,8 @@ export function BlogCreator({ group, language, dictionary }: BlogCreatorProps) {
             },
             description: {
               type: "string",
+              minLength: 60,
+              maxLength: 80,
               description: dictionary.prompt.description,
             },
           }),
