@@ -80,7 +80,7 @@ export async function generateMetadata({
     post.analysis.title;
   const description = post.jsonContent?.overview || "";
   const images = post.analysis.image || getDefaultImage();
-  const canonical = `${getBaseUrl()}/${language}/${id}${post.jsonContent?.slug && `/${encodeURIComponent(post.jsonContent?.slug)}`}`;
+  const canonical = `${getBaseUrl()}/${language}/${id}${post.jsonContent?.slug ? `/${encodeURIComponent(post.jsonContent?.slug)}` : ""}`;
 
   return {
     alternates: {

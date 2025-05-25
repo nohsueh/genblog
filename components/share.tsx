@@ -12,7 +12,7 @@ export function Share({ text }: { text?: string }) {
     <div className="flex items-center gap-3">
       <Link
         href={`https://twitter.com/intent/tweet?url=${currentUrl}${
-          text && `&text=${encodeURIComponent(text)}`
+          text ? `&text=${encodeURIComponent(text)}` : ""
         }`}
         aria-label="Share on X"
         target="_blank"

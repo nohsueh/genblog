@@ -67,7 +67,7 @@ async function BlogListContent({
             <HoverCard key={blog.analysisId}>
               <HoverCardTrigger>
                 <Link
-                  href={`${getBaseUrl()}/${language}/${blog.analysisId}${blog.jsonContent?.slug && `/${encodeURIComponent(blog.jsonContent?.slug)}`}`}
+                  href={`${getBaseUrl()}/${language}/${blog.analysisId}${blog.jsonContent?.slug ? `/${encodeURIComponent(blog.jsonContent?.slug)}` : ""}`}
                   key={blog.analysisId}
                 >
                   <Card className="flex flex-col overflow-hidden break-all border-2 border-transparent shadow-md transition-colors hover:border-primary/50 hover:shadow-lg dark:bg-accent/50">

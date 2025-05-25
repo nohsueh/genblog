@@ -97,7 +97,7 @@ export async function generateMetadata({
     `${dictionary.home.title} - ${dictionary.home.description}`;
   const title = `${process.env.NEXT_PUBLIC_APP_NAME} - ${description}`;
   const images = getDefaultImage();
-  const canonical = `${getBaseUrl()}/${language}/tag/${encodeURIComponent(decodedTag)}${Number(page) !== 1 && `/${page}`}`;
+  const canonical = `${getBaseUrl()}/${language}/tag/${encodeURIComponent(decodedTag)}${Number(page) !== 1 ? `/${page}` : ""}`;
 
   return {
     alternates: {
