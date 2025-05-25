@@ -11,6 +11,7 @@ import { formatDate, getBaseUrl } from "@/lib/utils";
 import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Share } from "./share";
 import ViewCounter from "./view-counter";
 
@@ -26,6 +27,9 @@ export async function BlogPost({
   dictionary,
 }: BlogPostProps) {
   const post: Analysis = await getAnalysis(analysisId);
+  if (!Boolean(post)) {
+    notFound();
+  }
   const { html, headings } = markdownToHtml(post.jsonContent?.article || "");
   const tags = post.jsonContent?.tags || [];
 

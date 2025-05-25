@@ -2,6 +2,7 @@ import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultFavicon } from "@/lib/utils";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AnalysesPagination } from "./analyses-pagination";
 import ImageWithFallback from "./image-with-fallback";
@@ -35,6 +36,9 @@ async function SiteListContent({
     language,
     tags,
   });
+  if (!Boolean(sites) || sites.length === 0) {
+    notFound();
+  }
 
   const totalCount = sites?.[0]?.totalCount || 0;
 

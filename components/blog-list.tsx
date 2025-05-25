@@ -11,6 +11,7 @@ import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { formatDate, getBaseUrl, getDefaultImage } from "@/lib/utils";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { AnalysesPagination } from "./analyses-pagination";
 import ImageWithFallback from "./image-with-fallback";
@@ -42,6 +43,9 @@ async function BlogListContent({
     language,
     tags,
   });
+  if (!Boolean(blogs) || blogs.length === 0) {
+    notFound();
+  }
 
   const totalCount = blogs?.[0]?.totalCount || 0;
 

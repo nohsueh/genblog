@@ -16,6 +16,7 @@ import {
 import type { Analysis } from "@/types/api";
 import { TableOfContents } from "lucide-react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import ImageWithFallback from "./image-with-fallback";
 import { Share } from "./share";
 import ViewCounter from "./view-counter";
@@ -32,6 +33,9 @@ export async function SitePost({
   dictionary,
 }: SitePostProps) {
   const post: Analysis = await getAnalysis(analysisId);
+  if (!Boolean(post)) {
+    notFound();
+  }
   const { html, headings } = markdownToHtml(post.jsonContent?.article || "");
   const url = post.analysis.url;
   const image = post.analysis.image || getDefaultImage();
