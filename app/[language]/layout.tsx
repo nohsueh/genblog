@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import type React from "react";
 import { Suspense } from "react";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +31,7 @@ export default async function RootLayout(props: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense>{children}</Suspense>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
           <Toaster richColors />
         </ThemeProvider>
         {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
