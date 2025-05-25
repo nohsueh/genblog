@@ -27,7 +27,7 @@ interface RelatedBlogListProps {
   currentId: string;
 }
 
-export async function RelatedBlogList({
+export function RelatedBlogList({
   language,
   dictionary,
   currentId,

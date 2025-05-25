@@ -14,7 +14,7 @@ interface LatestPostsSidebarProps {
   dictionary: any;
 }
 
-export async function LatestPostsSidebar({
+export function LatestPostsSidebar({
   language,
   dictionary,
 }: LatestPostsSidebarProps) {
