@@ -24,27 +24,25 @@ export default async function RootLayout(props: RootLayoutProps) {
   return (
     <html lang={language} suppressHydrationWarning>
       <body className={inter.className}>
-        <Suspense>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster richColors />
-          </ThemeProvider>
-          {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-            <Script id="google-adsense-init">
-              {`(adsbygoogle = window.adsbygoogle || []).push({});`}
-            </Script>
-          )}
-          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
-            <GoogleAnalytics
-              gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
-            />
-          )}
-        </Suspense>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Suspense>{children}</Suspense>
+          <Toaster richColors />
+        </ThemeProvider>
+        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
+          <Script id="google-adsense-init">
+            {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+          </Script>
+        )}
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
+          <GoogleAnalytics
+            gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
+          />
+        )}
       </body>
     </html>
   );
