@@ -1,6 +1,7 @@
 import { getFilteredAnalyses } from "@/lib/actions";
 import type { Locale } from "@/lib/i18n-config";
 import { getBaseUrl, getDefaultFavicon } from "@/lib/utils";
+import Head from "next/head";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
@@ -42,12 +43,14 @@ async function SiteListContent({
 
   const totalCount = sites?.[0]?.totalCount || 0;
 
-  return sites.length === 0 ? (
-    <div className="py-10 text-center">
-      <p className="text-muted-foreground">{dictionary.blog.noPosts}</p>
-    </div>
-  ) : (
+  return (
     <div>
+      {sites.length < PAGE_SIZE / 4 && (
+        <Head>
+          <meta name="robots" content="noindex" />
+        </Head>
+      )}
+
       <div className="mb-8 px-5">
         <TagCloud analyses={sites} language={language} />
       </div>
