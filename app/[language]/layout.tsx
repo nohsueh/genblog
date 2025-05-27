@@ -4,7 +4,6 @@ import { Toaster } from "@/components/ui/sonner";
 import { i18n } from "@/lib/i18n-config";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Inter } from "next/font/google";
-import Script from "next/script";
 import type React from "react";
 import { Suspense } from "react";
 import Loading from "./loading";
@@ -34,11 +33,6 @@ export default async function RootLayout(props: RootLayoutProps) {
           <Suspense fallback={<Loading />}>{children}</Suspense>
           <Toaster richColors />
         </ThemeProvider>
-        {process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ACCOUNT && (
-          <Script id="google-adsense-init">
-            {`(adsbygoogle = window.adsbygoogle || []).push({});`}
-          </Script>
-        )}
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
           <GoogleAnalytics
             gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID}
