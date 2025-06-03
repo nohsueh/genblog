@@ -5,8 +5,6 @@ import { i18n } from "@/lib/i18n-config";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Inter } from "next/font/google";
 import type React from "react";
-import { Suspense } from "react";
-import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,7 +28,7 @@ export default async function RootLayout(props: RootLayoutProps) {
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          {children}
           <Toaster richColors />
         </ThemeProvider>
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_MEASUREMENT_ID && (
