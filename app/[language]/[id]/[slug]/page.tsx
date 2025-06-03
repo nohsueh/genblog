@@ -9,6 +9,7 @@ import { getAppType, getBaseUrl, getDefaultImage } from "@/lib/utils";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import Loading from "./loading";
 
 export const revalidate = 3600;
 
@@ -31,13 +32,7 @@ export default async function PostPage({ params }: { params: Promise<Props> }) {
       <div className="flex min-h-screen flex-col">
         <SiteHeader language={language} dictionary={dictionary} />
         <main className="mx-auto mb-48 max-w-screen-lg flex-1 px-4 py-6">
-          <Suspense
-            fallback={
-              <div className="py-10 text-center">
-                <div className="mx-auto h-8 w-8 animate-spin rounded-full border-b-2 border-primary"></div>
-              </div>
-            }
-          >
+          <Suspense fallback={<Loading />}>
             {getAppType() === "blog" && (
               <BlogPost
                 analysisId={id}

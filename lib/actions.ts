@@ -10,6 +10,7 @@ import type {
 import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { cache } from "react";
 import { encode, getBaseUrl, getDefaultImage } from "./utils";
 
 const API_URL = "https://searchlysis.com/api";
@@ -184,25 +185,28 @@ export async function analyzeLinks(
   return (await response.json()) || [];
 }
 
-export async function getAnalysis(analysisId: string): Promise<Analysis> {
-  const response = await fetch(
-    `${API_URL}/v1/analyses?analysisId=${analysisId}`,
-    {
-      headers,
-      next: {
-        revalidate: 3600,
+export const getAnalysis = cache(
+  async (analysisId: string): Promise<Analysis> => {
+    const response = await fetch(
+      `${API_URL}/v1/analyses?analysisId=${analysisId}`,
+      {
+        headers,
+        next: {
+          revalidate: 3600,
+          tags: [`analysis-${analysisId}`],
+        },
       },
-    },
-  );
-
-  if (!response.ok) {
-    throw new Error(
-      `Failed to get analysis: ${response.headers.get("x-searchlysis-error")}`,
     );
-  }
 
-  return await response.json();
-}
+    if (!response.ok) {
+      const error =
+        response.headers.get("x-searchlysis-error") || "Unknown error";
+      throw new Error(`Failed to get analysis: ${error}`);
+    }
+
+    return response.json();
+  },
+);
 
 export async function getAnalysisRealtime(
   analysisId: string,
@@ -220,7 +224,7 @@ export async function getAnalysisRealtime(
     );
   }
 
-  return await response.json();
+  return response.json();
 }
 
 export async function deleteAnalysis(analysisId: string) {
@@ -260,7 +264,7 @@ export async function updateAnalysis(
     );
   }
 
-  return await response.json();
+  return response.json();
 }
 
 export async function updateAnalysisWithFormData(
@@ -292,7 +296,7 @@ export async function updateAnalysisWithFormData(
     );
   }
 
-  return await response.json();
+  return response.json();
 }
 
 export async function listAnalyses({
