@@ -327,20 +327,25 @@ export async function listAnalyses({
     url += `&metadata=${encodeURIComponent(JSON.stringify(metadata))}`;
   }
 
-  const response = await fetch(url, {
-    headers,
-    next: {
-      revalidate: 3600,
-    },
-  });
+  try {
+    const response = await fetch(url, {
+      headers,
+      next: {
+        revalidate: 3600,
+      },
+    });
 
-  if (!response.ok) {
-    throw new Error(
-      `Failed to list analyses: ${response.headers.get("x-searchlysis-error")}`,
-    );
+    if (!response.ok) {
+      throw new Error(
+        `Failed to list analyses: ${response.headers.get("x-searchlysis-error")}`,
+      );
+    }
+
+    return (await response.json()) || [];
+  } catch (error) {
+    console.error(`${error}`);
+    return [];
   }
-
-  return (await response.json()) || [];
 }
 
 export async function relatedAnalyses({
