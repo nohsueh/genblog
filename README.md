@@ -1,6 +1,6 @@
 # GenBlog
 
-[Español](docs/README-es.md) | [Deutsch](docs/README-de.md) | [日本語](docs/README-ja.md) | [Français](docs/README-fr.md) | [中文](docs/README-zh.md)
+[Español](docs/README-es.md) | [Deutsch](docs/README-de.md) | [日本語](docs/README-ja.md) | [Français](docs/README-fr.md)
 
 ## Project Introduction
 
